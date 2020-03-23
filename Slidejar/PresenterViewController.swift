@@ -66,6 +66,7 @@ class PresenterViewController: NSViewController {
     
     
     func openFile(url: URL) {
+        NSDocumentController.shared.noteNewRecentDocumentURL(url)
         guard let pdfDocument = PDFDocument(url: url) else { return }
         slideArrangement.pdfDocument = pdfDocument
     }

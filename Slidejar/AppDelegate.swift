@@ -33,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
 
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         NSWindow.allowsAutomaticWindowTabbing = false
@@ -43,6 +44,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             setDarkModeDefault(userDefaultsDarkMode, sender: darkDefaultItem)
         }
     }
+    
+    
+    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+        print(filename)
+        (NSApp.windows[0].contentViewController as? PresenterViewController)?.openFile(url: URL(fileURLWithPath: filename))
+        return true
+    }
+    
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
