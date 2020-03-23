@@ -44,6 +44,11 @@ class PresenterViewController: NSViewController {
     }
     
     
+    override func viewWillAppear() {
+        self.view.window?.title = "Slidejar"
+    }
+    
+    
     // MARK: - Menu Actions
     
     @IBAction func previousSlide(_ sender: NSMenuItem) {

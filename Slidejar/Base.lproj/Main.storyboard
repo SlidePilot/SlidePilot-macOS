@@ -585,7 +585,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="View" id="H8h-7b-M4v">
+                            <menuItem title="View" identifier="ViewMenu" id="H8h-7b-M4v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
                                     <items>
@@ -596,8 +596,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="qoe-6g-Ml6"/>
-                                        <menuItem title="Dark Mode Default" id="9cd-7L-rZh">
+                                        <menuItem title="Dark Appearance" identifier="DefaultDarkAppearance" id="9cd-7L-rZh">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="defaultDarkMode:" target="Ady-hI-5gd" id="fJo-qk-ePH"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
