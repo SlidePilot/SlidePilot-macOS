@@ -41,6 +41,13 @@ class PresenterViewController: NSViewController {
         if let showNotesItem = presentationMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "ShowNotes") }) {
             displayNotes(false, sender: showNotesItem)
         }
+        
+        if let notesPositionItem = presentationMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPosition")} ) {
+            if let notesPositionNoneItem = notesPositionItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPositionNone")}) {
+                selectNotesPositionNone(notesPositionNoneItem)
+            }
+        }
+        
     }
     
     
@@ -111,17 +118,24 @@ class PresenterViewController: NSViewController {
         slideArrangement.displayNotes = shouldDisplay
         sender.state = slideArrangement.displayNotes ? .on : .off
         
-        // Enable/Disable notes position submenu
+        // Select notes position right by default
         if let notesPositionItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPosition")} ) {
-            notesPositionItem.isEnabled = slideArrangement.displayNotes
-            
-            // Select notes position right by default
-            if slideArrangement.displayNotes {
+            // Only if notes are displayed right now and current note position is none
+            if slideArrangement.displayNotes, slideArrangement.notesPosition == .none {
                 if let notesPositionRightItem = notesPositionItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPositionRight")}) {
                     selectNotesPositionRight(notesPositionRightItem)
                 }
             }
         }
+    }
+    
+    
+    @IBAction func selectNotesPositionNone(_ sender: NSMenuItem) {
+        // Turn off all menu items in same menu
+        sender.menu?.items.forEach({ $0.state = .off })
+        sender.state = .on
+        
+        slideArrangement.notesPosition = .none
     }
     
     

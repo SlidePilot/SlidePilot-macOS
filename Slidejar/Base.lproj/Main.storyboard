@@ -292,6 +292,13 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" id="Vm6-Hh-mT3">
                                                 <items>
+                                                    <menuItem title="None" identifier="NotesPositionNone" id="Kws-6x-VZZ">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectNotesPositionNone:" target="Ady-hI-5gd" id="7hZ-8n-HCQ"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="qQ8-DW-93l"/>
                                                     <menuItem title="Right" tag="403" identifier="NotesPositionRight" id="f9q-Hv-2g2">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>

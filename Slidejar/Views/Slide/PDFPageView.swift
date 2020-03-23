@@ -14,7 +14,7 @@ class PDFPageView: NSImageView {
     
     
     enum DisplayMode {
-        case full, leftHalf, rightHalf
+        case full, leftHalf, rightHalf, topHalf, bottomHalf
     }
     
     
@@ -93,6 +93,10 @@ class PDFPageView: NSImageView {
             return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width/2, height: pdfPage.bounds(for: .mediaBox).height)
         case .rightHalf:
             return CGRect(x: pdfPage.bounds(for: .mediaBox).width/2, y: 0, width: pdfPage.bounds(for: .mediaBox).width/2, height: pdfPage.bounds(for: .mediaBox).height)
+        case .topHalf:
+            return CGRect(x: 0, y: pdfPage.bounds(for: .mediaBox).height/2, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
+        case .bottomHalf:
+            return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
         }
     }
 }

@@ -39,14 +39,12 @@ class SlideArrangementView: NSView {
     
     
     enum NotesPosition {
-        case right, left, bottom, top
+        case none, right, left, bottom, top
     }
     
     var notesPosition: NotesPosition = .right {
         didSet {
-            if displayNotes {
-                updateView()
-            }
+            updateView()
         }
     }
     
@@ -102,31 +100,32 @@ class SlideArrangementView: NSView {
         case true:
             setupSlidesLayoutWithNotes()
             
-            // Setup notes position
-            switch notesPosition {
-            case .right:
-                notesSlideView?.page?.displayMode = .rightHalf
-                currentSlideView?.page?.displayMode = .leftHalf
-                nextSlideView?.page?.displayMode = .leftHalf
-            case .left:
-                notesSlideView?.page?.displayMode = .leftHalf
-                currentSlideView?.page?.displayMode = .rightHalf
-                nextSlideView?.page?.displayMode = .rightHalf
-            case .bottom:
-                // FIXME: Implement
-                currentSlideView?.page?.displayMode = .full
-                nextSlideView?.page?.displayMode = .full
-            case .top:
-                // FIXME: Implement
-                currentSlideView?.page?.displayMode = .full
-                nextSlideView?.page?.displayMode = .full
-            }
-            
         case false:
             setupSlidesLayoutDefault()
-            
+        }
+        
+        // Setup notes position
+        switch notesPosition {
+        case .none:
+            notesSlideView?.page?.displayMode = .full
             currentSlideView?.page?.displayMode = .full
             nextSlideView?.page?.displayMode = .full
+        case .right:
+            notesSlideView?.page?.displayMode = .rightHalf
+            currentSlideView?.page?.displayMode = .leftHalf
+            nextSlideView?.page?.displayMode = .leftHalf
+        case .left:
+            notesSlideView?.page?.displayMode = .leftHalf
+            currentSlideView?.page?.displayMode = .rightHalf
+            nextSlideView?.page?.displayMode = .rightHalf
+        case .bottom:
+            notesSlideView?.page?.displayMode = .bottomHalf
+            currentSlideView?.page?.displayMode = .topHalf
+            nextSlideView?.page?.displayMode = .topHalf
+        case .top:
+            notesSlideView?.page?.displayMode = .topHalf
+            currentSlideView?.page?.displayMode = .bottomHalf
+            nextSlideView?.page?.displayMode = .bottomHalf
         }
         
         showSlide(at: 0)
