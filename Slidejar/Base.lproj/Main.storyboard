@@ -744,9 +744,12 @@
                                         <rect key="frame" x="0.0" y="0.0" width="500" height="171"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="Slidejar" customModuleProvider="target">
-                                                <rect key="frame" x="189" y="60" width="122" height="51"/>
+                                                <rect key="frame" x="167" y="43" width="166" height="85"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="85" id="vnc-Hp-eJ9"/>
+                                                </constraints>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Label" id="Dvc-Nd-8iL">
-                                                    <font key="font" metaFont="systemLight" size="50"/>
+                                                    <font key="font" metaFont="systemLight" size="70"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -754,7 +757,8 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="TbN-u6-wpl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tLk-sB-UgV" secondAttribute="leading" constant="50" id="2BF-I3-crv"/>
-                                            <constraint firstItem="TbN-u6-wpl" firstAttribute="height" relation="lessThanOrEqual" secondItem="tLk-sB-UgV" secondAttribute="height" multiplier="0.3" id="EdD-Yz-nvX"/>
+                                            <constraint firstItem="TbN-u6-wpl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tLk-sB-UgV" secondAttribute="top" constant="20" id="GfT-bA-ZOc"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="TbN-u6-wpl" secondAttribute="bottom" constant="20" id="Lk0-Xg-eDK"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="TbN-u6-wpl" secondAttribute="trailing" constant="50" id="UtV-Yo-R0t"/>
                                             <constraint firstItem="TbN-u6-wpl" firstAttribute="centerY" secondItem="tLk-sB-UgV" secondAttribute="centerY" id="djW-5K-pbM"/>
                                             <constraint firstItem="TbN-u6-wpl" firstAttribute="centerX" secondItem="tLk-sB-UgV" secondAttribute="centerX" id="uKH-VJ-Jn2"/>
@@ -764,20 +768,24 @@
                                         <rect key="frame" x="500" y="0.0" width="500" height="171"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="Slidejar" customModuleProvider="target">
-                                                <rect key="frame" x="189" y="60" width="122" height="51"/>
+                                                <rect key="frame" x="167" y="43" width="166" height="85"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="85" id="dOp-qt-xnl"/>
+                                                </constraints>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Label" id="KO4-ee-5js">
-                                                    <font key="font" metaFont="systemLight" size="50"/>
+                                                    <font key="font" metaFont="systemLight" size="70"/>
                                                     <color key="textColor" name="ClockColor"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="b2E-Pb-ePI" firstAttribute="height" relation="lessThanOrEqual" secondItem="IVP-vn-KwH" secondAttribute="height" multiplier="0.3" id="LRR-0Z-UMa"/>
                                             <constraint firstItem="b2E-Pb-ePI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IVP-vn-KwH" secondAttribute="leading" constant="50" id="Mbf-B2-NCV"/>
                                             <constraint firstItem="b2E-Pb-ePI" firstAttribute="centerY" secondItem="IVP-vn-KwH" secondAttribute="centerY" id="Mie-lV-U2K"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="b2E-Pb-ePI" secondAttribute="bottom" constant="20" id="NW6-ZH-2oE"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="b2E-Pb-ePI" secondAttribute="trailing" constant="50" id="atN-Td-rvf"/>
                                             <constraint firstItem="b2E-Pb-ePI" firstAttribute="centerX" secondItem="IVP-vn-KwH" secondAttribute="centerX" id="eJ6-5j-YqM"/>
+                                            <constraint firstItem="b2E-Pb-ePI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IVP-vn-KwH" secondAttribute="top" constant="20" id="vuO-g9-Ihy"/>
                                         </constraints>
                                     </customView>
                                 </subviews>
@@ -819,7 +827,7 @@
     </scenes>
     <resources>
         <namedColor name="ClockColor">
-            <color red="0.33333333333333331" green="0.5607843137254902" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.33300000429153442" green="0.56099998950958252" blue="0.74500000476837158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
