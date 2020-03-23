@@ -292,33 +292,28 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" id="Vm6-Hh-mT3">
                                                 <items>
-                                                    <menuItem title="None" identifier="NotesPositionNone" id="Kws-6x-VZZ">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="None" keyEquivalent="0" identifier="NotesPositionNone" id="Kws-6x-VZZ">
                                                         <connections>
                                                             <action selector="selectNotesPositionNone:" target="Ady-hI-5gd" id="7hZ-8n-HCQ"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="qQ8-DW-93l"/>
-                                                    <menuItem title="Right" tag="403" identifier="NotesPositionRight" id="f9q-Hv-2g2">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Right" tag="403" keyEquivalent="1" identifier="NotesPositionRight" id="f9q-Hv-2g2">
                                                         <connections>
                                                             <action selector="selectNotesPositionRight:" target="Ady-hI-5gd" id="fHi-wN-OWr"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Left" tag="404" identifier="NotesPositionLeft" id="bSo-dU-i8i">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Left" tag="404" keyEquivalent="2" identifier="NotesPositionLeft" id="bSo-dU-i8i">
                                                         <connections>
                                                             <action selector="selectNotesPositionLeft:" target="Ady-hI-5gd" id="JCn-OR-xmn"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Bottom" tag="405" identifier="NotesPositionBottom" id="3BI-JZ-e7T">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Bottom" tag="405" keyEquivalent="3" identifier="NotesPositionBottom" id="3BI-JZ-e7T">
                                                         <connections>
                                                             <action selector="selectNotesPositionBottom:" target="Ady-hI-5gd" id="e5h-U3-JO9"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Top" tag="406" identifier="NotesPositionTop" id="Tzc-zb-uAo">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Top" tag="406" keyEquivalent="4" identifier="NotesPositionTop" id="Tzc-zb-uAo">
                                                         <connections>
                                                             <action selector="selectNotesPositionTop:" target="Ady-hI-5gd" id="YQs-qy-cpR"/>
                                                         </connections>
