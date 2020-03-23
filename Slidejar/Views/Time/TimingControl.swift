@@ -93,7 +93,17 @@ class TimingControl: NSTextField {
     }
     
     
-    /***/
+    /** Toggle to start/stop timer. */
+    func startStop() {
+        if isRunning {
+            stop()
+        } else {
+            start()
+        }
+    }
+    
+    
+    /** Starts the stopwatch counting up or the timer counting down, dependent on the chosen `mode`. */
     func start() {
         if !isRunning {
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
@@ -103,7 +113,7 @@ class TimingControl: NSTextField {
     }
     
     
-    /***/
+    /** Stops the stopwatch or timer. */
     func stop() {
         if isRunning {
             timer?.invalidate()
@@ -112,7 +122,11 @@ class TimingControl: NSTextField {
     }
     
     
-    /***/
+    /**
+     Resets the control dependent on the chosen `mode`.
+     * `.stopwatch`: Resets to 0
+     * `.timer`: Resets to last given `timerInterval`
+     */
     func reset() {
         stop()
         

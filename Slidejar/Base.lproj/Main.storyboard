@@ -589,25 +589,6 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
                                     <items>
-                                        <menuItem title="Show Toolbar" keyEquivalent="t" id="snW-S8-Cw5">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="BXY-wc-z0C"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Customize Toolbar…" id="1UK-8n-QPP">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="runToolbarCustomizationPalette:" target="Ady-hI-5gd" id="pQI-g3-MTW"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="hB3-LF-h0Y"/>
-                                        <menuItem title="Show Sidebar" keyEquivalent="s" id="kIP-vf-haE">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="toggleSidebar:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
@@ -656,14 +637,51 @@
                                                 <action selector="previousSlide:" target="Ady-hI-5gd" id="ijM-Of-CjL"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Previous Slide" hidden="YES" keyEquivalent="" id="Ogv-VI-0Jg">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="pup-Ul-KmX"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Next Slide" keyEquivalent="" id="s0G-5Y-hRb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="nextSlide:" target="Ady-hI-5gd" id="sj2-C9-1bJ"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Next Slide" hidden="YES" keyEquivalent="" id="XpD-9W-0P3">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="DhG-49-Jbe"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="lIR-Xf-rG6"/>
-                                        <menuItem title="Start/Stop Timer" keyEquivalent="s" id="bL3-yv-j1V">
+                                        <menuItem title="Mode" id="sQh-A9-Icc">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="yoy-J2-sgx">
+                                                <items>
+                                                    <menuItem title="Stopwatch" id="fd7-Nw-UnK">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Timer" alternate="YES" id="Mhe-VV-WGl">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem title="Start/Stop Time" keyEquivalent="s" id="bL3-yv-j1V">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="startStopTimer:" target="Ady-hI-5gd" id="Dtc-Jr-R7f"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Reset Time" keyEquivalent="r" id="PX1-Gg-U0w">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="WxF-lf-SZG"/>

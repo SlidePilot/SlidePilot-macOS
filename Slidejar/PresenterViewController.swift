@@ -19,8 +19,6 @@ class PresenterViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        timingControl.start()
-        
         guard let path = Bundle.main.path(forResource: "presentation", ofType: "pdf") else { return }
         let url = URL(fileURLWithPath: path)
         guard let pdfDocument = PDFDocument(url: url) else { return }
@@ -37,5 +35,10 @@ class PresenterViewController: NSViewController {
     
     @IBAction func nextSlide(_ sender: Any) {
         slideArrangement.nextSlide()
+    }
+    
+    
+    @IBAction func startStopTimer(_ sender: Any) {
+        timingControl.startStop()
     }
 }
