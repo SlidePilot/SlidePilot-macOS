@@ -7,11 +7,25 @@
 //
 
 import Cocoa
+import PDFKit
 
 class SlideView: NSView {
     
     var label: NSTextField?
     var page: PDFPageView?
+    
+    var pageCount: Int? {
+        return page?.pdfDocument?.pageCount
+    }
+    
+    var pdfDocument: PDFDocument? {
+        set {
+            self.page?.pdfDocument = newValue
+        }
+        get {
+            return self.page?.pdfDocument
+        }
+    }
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
