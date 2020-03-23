@@ -19,14 +19,13 @@ class PresenterViewController: NSViewController {
         NSApp.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "PresentationMenu") })?.submenu
     }
     
+    var fileMenu: NSMenu? {
+        NSApp.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "FileMenu") })?.submenu
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let path = Bundle.main.path(forResource: "presentation-notes", ofType: "pdf") else { return }
-        let url = URL(fileURLWithPath: path)
-        guard let pdfDocument = PDFDocument(url: url) else { return }
-        slideArrangement.pdfDocument = pdfDocument
         
         // Setup default configuration
         
@@ -57,7 +56,41 @@ class PresenterViewController: NSViewController {
     }
     
     
+    override func viewDidAppear() {
+        DispatchQueue.main.async {
+            if let openItem = self.fileMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("Open") }) {
+                self.openDocument(openItem)
+            }
+        }
+    }
+    
+    
+    func openFile(url: URL) {
+        guard let pdfDocument = PDFDocument(url: url) else { return }
+        slideArrangement.pdfDocument = pdfDocument
+    }
+    
+    
     // MARK: - Menu Actions
+    
+    @IBAction func openDocument(_ sender: NSMenuItem) {
+        let dialog = NSOpenPanel();
+
+        dialog.title = NSLocalizedString("Choose File", comment: "Title for open file panel.");
+        dialog.showsResizeIndicator = true
+        dialog.showsHiddenFiles = false
+        dialog.canChooseFiles = true
+        dialog.canChooseDirectories = false
+        dialog.canCreateDirectories = false
+        dialog.allowsMultipleSelection = false
+
+        if (dialog.runModal() == .OK) {
+            if let result = dialog.url {
+                openFile(url: result)
+            }
+        }
+    }
+    
     
     @IBAction func previousSlide(_ sender: NSMenuItem) {
         slideArrangement.previousSlide()

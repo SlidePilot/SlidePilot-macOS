@@ -55,7 +55,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="File" id="dMs-cI-mzQ">
+                            <menuItem title="File" identifier="FileMenu" id="dMs-cI-mzQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
@@ -64,7 +64,7 @@
                                                 <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
+                                        <menuItem title="Open…" keyEquivalent="o" identifier="Open" id="IAo-SY-fd9">
                                             <connections>
                                                 <action selector="openDocument:" target="Ady-hI-5gd" id="bVn-NM-KNZ"/>
                                             </connections>
@@ -379,17 +379,17 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="PresenterViewController" customModule="Slidejar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="855"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1400" height="900"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="bi8-QE-Aey">
-                                <rect key="frame" x="0.0" y="684" width="1000" height="171"/>
+                                <rect key="frame" x="0.0" y="720" width="1400" height="180"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="tLk-sB-UgV">
-                                        <rect key="frame" x="0.0" y="0.0" width="500" height="171"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="700" height="180"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="Slidejar" customModuleProvider="target">
-                                                <rect key="frame" x="167" y="43" width="166" height="85"/>
+                                                <rect key="frame" x="267" y="47" width="166" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="85" id="vnc-Hp-eJ9"/>
                                                 </constraints>
@@ -410,10 +410,10 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="IVP-vn-KwH">
-                                        <rect key="frame" x="500" y="0.0" width="500" height="171"/>
+                                        <rect key="frame" x="700" y="0.0" width="700" height="180"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="Slidejar" customModuleProvider="target">
-                                                <rect key="frame" x="167" y="43" width="166" height="85"/>
+                                                <rect key="frame" x="267" y="47" width="166" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="85" id="dOp-qt-xnl"/>
                                                 </constraints>
@@ -446,7 +446,7 @@
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="KBY-3V-F6W" customClass="SlideArrangementView" customModule="Slidejar" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1000" height="684"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1400" height="720"/>
                             </customView>
                         </subviews>
                         <constraints>
