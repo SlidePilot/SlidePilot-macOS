@@ -711,27 +711,39 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="A3e-R8-0Hj"/>
-                                        <menuItem title="Show Notes" tag="401" keyEquivalent="n" id="fS9-YP-QfR">
+                                        <menuItem title="Show Notes" tag="401" keyEquivalent="n" identifier="ShowNotes" id="fS9-YP-QfR">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showNotes:" target="Ady-hI-5gd" id="fpO-r0-d6H"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Notes Position" tag="402" id="WtB-Ny-SAM" userLabel="Notes Position">
+                                        <menuItem title="Notes Position" tag="402" identifier="NotesPosition" id="WtB-Ny-SAM" userLabel="Notes Position">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" id="Vm6-Hh-mT3">
                                                 <items>
-                                                    <menuItem title="Right" tag="403" id="f9q-Hv-2g2">
+                                                    <menuItem title="Right" tag="403" identifier="NotesPositionRight" id="f9q-Hv-2g2">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectNotesPositionRight:" target="Ady-hI-5gd" id="fHi-wN-OWr"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Left" tag="404" id="bSo-dU-i8i">
+                                                    <menuItem title="Left" tag="404" identifier="NotesPositionLeft" id="bSo-dU-i8i">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectNotesPositionLeft:" target="Ady-hI-5gd" id="JCn-OR-xmn"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Bottom" tag="405" id="3BI-JZ-e7T">
+                                                    <menuItem title="Bottom" tag="405" identifier="NotesPositionBottom" id="3BI-JZ-e7T">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectNotesPositionBottom:" target="Ady-hI-5gd" id="e5h-U3-JO9"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Top" tag="406" id="Tzc-zb-uAo">
+                                                    <menuItem title="Top" tag="406" identifier="NotesPositionTop" id="Tzc-zb-uAo">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectNotesPositionTop:" target="Ady-hI-5gd" id="YQs-qy-cpR"/>
+                                                        </connections>
                                                     </menuItem>
                                                 </items>
                                             </menu>

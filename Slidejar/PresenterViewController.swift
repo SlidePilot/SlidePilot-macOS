@@ -23,16 +23,23 @@ class PresenterViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let path = Bundle.main.path(forResource: "presentation", ofType: "pdf") else { return }
+        guard let path = Bundle.main.path(forResource: "presentation-notes", ofType: "pdf") else { return }
         let url = URL(fileURLWithPath: path)
         guard let pdfDocument = PDFDocument(url: url) else { return }
         slideArrangement.pdfDocument = pdfDocument
+        
+        // Setup default configuration
         
         // Setup timingControl
         if let timeModeItem = presentationMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "TimeMode") }) {
             if let stopwatchModeItem = timeModeItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "ModeStopwatch") }) {
                 selectModeStopwatch(stopwatchModeItem)
             }
+        }
+        
+        // Setup notes
+        if let showNotesItem = presentationMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "ShowNotes") }) {
+            displayNotes(false, sender: showNotesItem)
         }
     }
     
@@ -91,7 +98,60 @@ class PresenterViewController: NSViewController {
     
     
     @IBAction func showNotes(_ sender: NSMenuItem) {
-        slideArrangement.displayNotes.toggle()
+        displayNotes(!slideArrangement.displayNotes, sender: sender)
+    }
+    
+    
+    func displayNotes(_ shouldDisplay: Bool, sender: NSMenuItem) {
+        slideArrangement.displayNotes = shouldDisplay
         sender.state = slideArrangement.displayNotes ? .on : .off
+        
+        // Enable/Disable notes position submenu
+        if let notesPositionItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPosition")} ) {
+            notesPositionItem.isEnabled = slideArrangement.displayNotes
+            
+            // Select notes position right by default
+            if slideArrangement.displayNotes {
+                if let notesPositionRightItem = notesPositionItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPositionRight")}) {
+                    selectNotesPositionRight(notesPositionRightItem)
+                }
+            }
+        }
+    }
+    
+    
+    @IBAction func selectNotesPositionRight(_ sender: NSMenuItem) {
+        // Turn off all menu items in same menu
+        sender.menu?.items.forEach({ $0.state = .off })
+        sender.state = .on
+        
+        slideArrangement.notesPosition = .right
+    }
+    
+    
+    @IBAction func selectNotesPositionLeft(_ sender: NSMenuItem) {
+        // Turn off all menu items in same menu
+        sender.menu?.items.forEach({ $0.state = .off })
+        sender.state = .on
+        
+        slideArrangement.notesPosition = .left
+    }
+    
+    
+    @IBAction func selectNotesPositionBottom(_ sender: NSMenuItem) {
+        // Turn off all menu items in same menu
+        sender.menu?.items.forEach({ $0.state = .off })
+        sender.state = .on
+        
+        slideArrangement.notesPosition = .bottom
+    }
+    
+    
+    @IBAction func selectNotesPositionTop(_ sender: NSMenuItem) {
+        // Turn off all menu items in same menu
+        sender.menu?.items.forEach({ $0.state = .off })
+        sender.state = .on
+        
+        slideArrangement.notesPosition = .top
     }
 }

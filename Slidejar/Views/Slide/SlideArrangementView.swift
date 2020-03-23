@@ -31,9 +31,22 @@ class SlideArrangementView: NSView {
         }
     }
 
-    var displayNotes: Bool = true {
+    var displayNotes: Bool = false {
         didSet {
             updateView()
+        }
+    }
+    
+    
+    enum NotesPosition {
+        case right, left, bottom, top
+    }
+    
+    var notesPosition: NotesPosition = .right {
+        didSet {
+            if displayNotes {
+                updateView()
+            }
         }
     }
     
@@ -83,11 +96,37 @@ class SlideArrangementView: NSView {
         leftContainer!.subviews.forEach({ $0.removeFromSuperview() })
         rightContainer!.subviews.forEach({ $0.removeFromSuperview() })
         
+        // Setup layout with/without notes
         switch displayNotes {
+            
         case true:
             setupSlidesLayoutWithNotes()
+            
+            // Setup notes position
+            switch notesPosition {
+            case .right:
+                notesSlideView?.page?.displayMode = .rightHalf
+                currentSlideView?.page?.displayMode = .leftHalf
+                nextSlideView?.page?.displayMode = .leftHalf
+            case .left:
+                notesSlideView?.page?.displayMode = .leftHalf
+                currentSlideView?.page?.displayMode = .rightHalf
+                nextSlideView?.page?.displayMode = .rightHalf
+            case .bottom:
+                // FIXME: Implement
+                currentSlideView?.page?.displayMode = .full
+                nextSlideView?.page?.displayMode = .full
+            case .top:
+                // FIXME: Implement
+                currentSlideView?.page?.displayMode = .full
+                nextSlideView?.page?.displayMode = .full
+            }
+            
         case false:
             setupSlidesLayoutDefault()
+            
+            currentSlideView?.page?.displayMode = .full
+            nextSlideView?.page?.displayMode = .full
         }
         
         showSlide(at: 0)
