@@ -136,6 +136,7 @@ class TimingControl: NSTextField {
         case .timer:
             counter = timerInterval
         }
+        updateLabel()
     }
     
     

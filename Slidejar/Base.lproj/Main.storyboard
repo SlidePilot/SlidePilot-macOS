@@ -627,17 +627,17 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Presentation" id="w6Q-ep-WBl">
+                            <menuItem title="Presentation" identifier="PresentationMenu" id="w6Q-ep-WBl">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Presentation" id="uzH-JS-q45">
+                                <menu key="submenu" title="Presentation" autoenablesItems="NO" id="uzH-JS-q45">
                                     <items>
-                                        <menuItem title="Previous Slide" keyEquivalent="" id="gcL-Jw-1Oj">
+                                        <menuItem title="Previous Slide" tag="1" keyEquivalent="" id="gcL-Jw-1Oj">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="previousSlide:" target="Ady-hI-5gd" id="ijM-Of-CjL"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Previous Slide" hidden="YES" keyEquivalent="" id="Ogv-VI-0Jg">
+                                        <menuItem title="Previous Slide" tag="2" hidden="YES" keyEquivalent="" id="Ogv-VI-0Jg">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
@@ -646,13 +646,13 @@
                                                 <action selector="previousSlide:" target="Ady-hI-5gd" id="pup-Ul-KmX"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Next Slide" keyEquivalent="" id="s0G-5Y-hRb">
+                                        <menuItem title="Next Slide" tag="3" keyEquivalent="" id="s0G-5Y-hRb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="nextSlide:" target="Ady-hI-5gd" id="sj2-C9-1bJ"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Next Slide" hidden="YES" keyEquivalent="" id="XpD-9W-0P3">
+                                        <menuItem title="Next Slide" tag="4" hidden="YES" keyEquivalent="" id="XpD-9W-0P3">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
@@ -662,48 +662,79 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="lIR-Xf-rG6"/>
-                                        <menuItem title="Mode" id="sQh-A9-Icc">
+                                        <menuItem title="Mode" tag="101" identifier="TimeMode" id="sQh-A9-Icc">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" id="yoy-J2-sgx">
                                                 <items>
-                                                    <menuItem title="Stopwatch" id="fd7-Nw-UnK">
+                                                    <menuItem title="Stopwatch" tag="102" identifier="ModeStopwatch" id="fd7-Nw-UnK">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectModeStopwatch:" target="Ady-hI-5gd" id="JuH-hK-IPS"/>
+                                                        </connections>
                                                     </menuItem>
-                                                    <menuItem title="Timer" alternate="YES" id="Mhe-VV-WGl">
+                                                    <menuItem title="Timer" tag="103" identifier="ModeTimer" id="Mhe-VV-WGl">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectModeTimer:" target="Ady-hI-5gd" id="jtn-Mg-GFC"/>
+                                                        </connections>
                                                     </menuItem>
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Start/Stop Time" keyEquivalent="s" id="bL3-yv-j1V">
+                                        <menuItem title="Set Timer" keyEquivalent="t" identifier="SetTimer" id="GyA-9h-Aoe">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="startStopTimer:" target="Ady-hI-5gd" id="Dtc-Jr-R7f"/>
+                                                <action selector="setTimer:" target="Ady-hI-5gd" id="ADm-bM-5J0"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Reset Time" keyEquivalent="r" id="PX1-Gg-U0w">
+                                        <menuItem title="Start/Stop Time" tag="105" keyEquivalent="s" id="bL3-yv-j1V">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="startStopTime:" target="Ady-hI-5gd" id="Dtc-Jr-R7f"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Reset Time" tag="106" keyEquivalent="r" id="PX1-Gg-U0w">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="resetTime:" target="Ady-hI-5gd" id="yza-tb-hV3"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="WxF-lf-SZG"/>
-                                        <menuItem title="Display Black Screen" keyEquivalent="b" id="Wsl-Lh-Rzy">
+                                        <menuItem title="Display Black Screen" tag="201" keyEquivalent="b" id="Wsl-Lh-Rzy">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
-                                        <menuItem title="Display White Screen" keyEquivalent="w" id="E0b-Yv-pqH">
+                                        <menuItem title="Display White Screen" tag="202" keyEquivalent="w" id="E0b-Yv-pqH">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="SKb-ny-ddI"/>
-                                        <menuItem title="Show Mouse" keyEquivalent="m" id="iHL-eH-XtE">
+                                        <menuItem title="Show Mouse" tag="301" keyEquivalent="m" id="iHL-eH-XtE">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="A3e-R8-0Hj"/>
-                                        <menuItem title="Show Notes" keyEquivalent="n" id="fS9-YP-QfR">
+                                        <menuItem title="Show Notes" tag="401" keyEquivalent="n" id="fS9-YP-QfR">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showNotes:" target="Ady-hI-5gd" id="fpO-r0-d6H"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="Left Algined Notes" id="WtB-Ny-SAM">
+                                        <menuItem title="Notes Position" tag="402" id="WtB-Ny-SAM" userLabel="Notes Position">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Right Aligned Notes" alternate="YES" id="wVr-dg-TNM">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="Vm6-Hh-mT3">
+                                                <items>
+                                                    <menuItem title="Right" tag="403" id="f9q-Hv-2g2">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Left" tag="404" id="bSo-dU-i8i">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Bottom" tag="405" id="3BI-JZ-e7T">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Top" tag="406" id="Tzc-zb-uAo">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
                                         </menuItem>
                                     </items>
                                 </menu>
