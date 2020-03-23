@@ -52,7 +52,8 @@ class PresenterViewController: NSViewController {
     
     
     override func viewWillAppear() {
-        self.view.window?.title = "Slidejar"
+        self.view.window?.title = NSLocalizedString("Presenter Display", comment: "Window name for the presenter view.")
+        self.view.window?.center()
     }
     
     

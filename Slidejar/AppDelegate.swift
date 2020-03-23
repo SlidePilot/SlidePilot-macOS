@@ -11,13 +11,15 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    var darkModeDefault: Bool = false {
+    private let defaultDarkModeKey = "defaultDarkMode"
+    var defaultDarkMode: Bool = false {
         didSet {
-            if darkModeDefault {
+            if defaultDarkMode {
                 NSApp.appearance = NSAppearance(named: .darkAqua)
             } else {
                 NSApp.appearance = nil
             }
+            UserDefaults.standard.set(self.defaultDarkMode, forKey: defaultDarkModeKey)
         }
     }
     
@@ -35,8 +37,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         NSWindow.allowsAutomaticWindowTabbing = false
         
+        // Load preferences from UserDefaults if possible
+        let userDefaultsDarkMode = (UserDefaults.standard.object(forKey: defaultDarkModeKey) as? Bool) ?? false
         if let darkDefaultItem = viewMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "DefaultDarkAppearance")}) {
-            setDarkModeDefault(false, sender: darkDefaultItem)
+            setDarkModeDefault(userDefaultsDarkMode, sender: darkDefaultItem)
         }
     }
 
@@ -46,13 +50,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func defaultDarkMode(_ sender: NSMenuItem) {
-        setDarkModeDefault(!darkModeDefault, sender: sender)
+        setDarkModeDefault(!defaultDarkMode, sender: sender)
     }
     
     
     func setDarkModeDefault(_ isDefault: Bool, sender: NSMenuItem) {
-        darkModeDefault = isDefault
-        sender.state = darkModeDefault ? .on : .off
+        defaultDarkMode = isDefault
+        sender.state = defaultDarkMode ? .on : .off
     }
 
 
