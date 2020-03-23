@@ -24,11 +24,14 @@ class SlideArrangementView: NSView {
     
     var pdfDocument: PDFDocument? {
         didSet {
+            currentSlideView?.pdfDocument = self.pdfDocument
+            nextSlideView?.pdfDocument = self.pdfDocument
+            notesSlideView?.pdfDocument = self.pdfDocument
             updateView()
         }
     }
 
-    var displayNodes: Bool = false {
+    var displayNotes: Bool = true {
         didSet {
             updateView()
         }
@@ -80,14 +83,14 @@ class SlideArrangementView: NSView {
         leftContainer!.subviews.forEach({ $0.removeFromSuperview() })
         rightContainer!.subviews.forEach({ $0.removeFromSuperview() })
         
-        switch displayNodes {
+        switch displayNotes {
         case true:
             setupSlidesLayoutWithNotes()
         case false:
             setupSlidesLayoutDefault()
         }
         
-        setSlide(index: 0)
+        showSlide(at: 0)
         
         // FIXME: DEMO
         guard let path = Bundle.main.path(forResource: "presentation", ofType: "pdf") else { return }
@@ -201,26 +204,54 @@ class SlideArrangementView: NSView {
     }
     
     
+    /** Updates slides and labels */
     private func updateSlides(for index: Int) {
+        guard let currentPageView = currentSlideView?.page else { return }
         
+        let currentSlideString = NSLocalizedString("Current Slide", comment: "Title for current slide") + " \(currentPageView.currentPage+1) / \(currentPageView.pdfDocument?.pageCount ?? 0)"
+        
+        // Set current slide label
+        if displayNotes {
+            currentSlideView?.label?.stringValue = NSLocalizedString("Current Slide", comment: "Title for current slide")
+        } else {
+            currentSlideView?.label?.stringValue = currentSlideString
+        }
+        
+        // Set notes page
+        if let notesPageView = notesSlideView?.page {
+            notesPageView.currentPage = currentPageView.currentPage
+            notesSlideView?.label?.stringValue = currentSlideString
+        }
+        
+        // Set next page
+        if let nextPageView = nextSlideView?.page {
+            if currentPageView.currentPage + 1 < (currentPageView.pdfDocument?.pageCount ?? -1) {
+                nextPageView.currentPage = currentPageView.currentPage + 1
+                nextSlideView?.label?.stringValue = NSLocalizedString("Next Slide", comment: "Title for next slide")
+            } else {
+                // Show blank screen if last slide is currently displayed
+                nextPageView.displayBlank()
+                nextSlideView?.label?.stringValue = NSLocalizedString("Finished Presentation", comment: "Title for when no slide is left.")
+            }
+        }
     }
     
     
-    @IBAction func nextSlide(_ sender: AnyObject) {
+    func nextSlide() {
         guard let page = currentSlideView?.page else { return }
         page.pageForward()
         updateSlides(for: page.currentPage)
     }
     
     
-    @IBAction func previousSlide(_ sender: AnyObject) {
+    func previousSlide() {
         guard let page = currentSlideView?.page else { return }
         page.pageBackward()
         updateSlides(for: page.currentPage)
     }
     
     
-    func setSlide(index: Int) {
+    func showSlide(at index: Int) {
         guard let page = currentSlideView?.page else { return }
         page.currentPage = index
         updateSlides(for: page.currentPage)

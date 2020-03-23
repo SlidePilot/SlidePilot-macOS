@@ -52,6 +52,8 @@ class PDFPageView: NSImageView {
     
     
     private func reload() {
+        self.imageScaling = .scaleAxesIndependently
+        
         // Get current page
         guard pdfDocument != nil else { return }
         guard currentPage >= 0, currentPage < (pdfDocument?.pageCount ?? -1) else { return }
@@ -75,6 +77,11 @@ class PDFPageView: NSImageView {
         // Display image
         self.image = pdfImage
         self.imageScaling = .scaleProportionallyUpOrDown
+    }
+    
+    
+    public func displayBlank() {
+        self.image = NSColor(named: "DefaultColor")!.image(of: (pdfDocument?.page(at: 0)?.bounds(for: .cropBox).size ?? NSSize(width: 1.0, height: 1.0)))
     }
     
     

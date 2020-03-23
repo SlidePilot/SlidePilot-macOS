@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		50208BA12429000300444E73 /* presentation.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 50208BA02429000300444E73 /* presentation.pdf */; };
+		50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50208BA42429028000444E73 /* NSColor+Extension.swift */; };
 		509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B96F62428A3AC0076B8B4 /* AppDelegate.swift */; };
 		509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */; };
 		509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 509B96FA2428A3AE0076B8B4 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		50208BA02429000300444E73 /* presentation.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = presentation.pdf; sourceTree = "<group>"; };
+		50208BA42429028000444E73 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
 		509B96F32428A3AC0076B8B4 /* Slidejar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slidejar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		509B96F62428A3AC0076B8B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				509B97072428A3DD0076B8B4 /* PDFPageView.swift */,
 				509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */,
 				509B972E2428D74E0076B8B4 /* SlideView.swift */,
+				50208BA42429028000444E73 /* NSColor+Extension.swift */,
 			);
 			path = Slide;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 			files = (
 				509B97082428A3DD0076B8B4 /* PDFPageView.swift in Sources */,
 				509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */,
+				50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */,
 				509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */,
 				509B971F2428B6A10076B8B4 /* ClockLabel.swift in Sources */,
 				509B97242428C05B0076B8B4 /* NSTextField+Extension.swift in Sources */,

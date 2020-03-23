@@ -7,33 +7,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0A0DE4ED-5E48-433F-955D-E03339764771"
-            shouldBeEnabled = "No"
+            uuid = "409067A1-E67A-489E-9AC1-8CE9BCE5E5F9"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Slidejar/Views/Label/DynamicLabel.swift"
+            filePath = "Slidejar/Views/Slide/SlideArrangementView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "windowDidResize(_:)"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "updateView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E4B0A2B6-779E-4F94-B2FA-8331B6D5C264"
-            shouldBeEnabled = "No"
+            uuid = "CD67BD50-7E5E-405D-BFB5-247382E42D3D"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Slidejar/PresenterViewController.swift"
+            filePath = "Slidejar/Views/Slide/SlideArrangementView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "PresenterViewController"
-            landmarkType = "21">
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "pdfDocument"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
