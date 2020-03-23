@@ -26,6 +26,7 @@ class SlideView: NSView {
     
     
     func setupView() {
+        // Setup info label for slide
         label = NSTextField(frame: .zero)
         label!.font = NSFont.systemFont(ofSize: 15.0, weight: .regular)
         label!.alignment = .center
@@ -41,6 +42,7 @@ class SlideView: NSView {
                              NSLayoutConstraint(item: label!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0),
                              NSLayoutConstraint(item: label!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20.0)])
         
+        // Setup slide view
         page = PDFPageView(frame: .zero)
         page!.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(page!)

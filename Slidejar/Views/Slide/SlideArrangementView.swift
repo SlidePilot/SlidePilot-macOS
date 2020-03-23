@@ -108,7 +108,7 @@ class SlideArrangementView: NSView {
             NSLayoutConstraint(item: leftContainer!, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: currentSlideView!, attribute: .bottom, multiplier: 1.0, constant: 20.0)])
         
         let currentCenterY = NSLayoutConstraint(item: currentSlideView!, attribute: .centerY, relatedBy: .equal, toItem: leftContainer!, attribute: .centerY, multiplier: 1.0, constant: 0.0)
-        currentCenterY.priority = NSLayoutConstraint.Priority(800.0)
+        currentCenterY.priority = NSLayoutConstraint.Priority(750.0)
         let currentWidth = NSLayoutConstraint(item: currentSlideView!, attribute: .width, relatedBy: .equal, toItem: leftContainer!, attribute: .width, multiplier: 0.9, constant: 0.0)
         currentWidth.priority = NSLayoutConstraint.Priority(260.0)
         leftContainer?.addConstraints([currentWidth, currentCenterY])
@@ -124,7 +124,7 @@ class SlideArrangementView: NSView {
             NSLayoutConstraint(item: rightContainer!, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: nextSlideView!, attribute: .bottom, multiplier: 1.0, constant: 20.0)])
         
         let nextCenterY = NSLayoutConstraint(item: nextSlideView!, attribute: .centerY, relatedBy: .equal, toItem: rightContainer!, attribute: .centerY, multiplier: 1.0, constant: 0.0)
-        nextCenterY.priority = NSLayoutConstraint.Priority(800.0)
+        nextCenterY.priority = NSLayoutConstraint.Priority(750.0)
         let nextWidth = NSLayoutConstraint(item: nextSlideView!, attribute: .width, relatedBy: .equal, toItem: rightContainer!, attribute: .width, multiplier: 0.9, constant: 0.0)
         nextWidth.priority = NSLayoutConstraint.Priority(260.0)
         rightContainer?.addConstraints([nextWidth, nextCenterY])
