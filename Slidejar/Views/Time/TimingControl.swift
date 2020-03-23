@@ -1,0 +1,140 @@
+//
+//  TimingControl.swift
+//  Slidejar
+//
+//  Created by Pascal Braband on 23.03.20.
+//  Copyright © 2020 Pascal Braband. All rights reserved.
+//
+
+import Cocoa
+
+class TimingControl: NSTextField {
+    
+    
+    // MARK: - UI Properties
+    
+    var textColorRunning: NSColor = NSColor.textColor
+    var textColorTimeOver: NSColor = NSColor(named: "OverTimeColor")!
+    
+    
+    
+    
+    // MARK: - Timing Properties
+    
+    enum Mode {
+        case stopwatch, timer
+    }
+    
+    
+    var mode: Mode = .stopwatch {
+        didSet {
+            
+        }
+    }
+    
+    /***/
+    private var counter: TimeInterval = 0.0
+    
+    /***/
+    private var timer: Timer? = nil
+    
+    /***/
+    private(set) var isRunning: Bool = false
+    
+    /***/
+    private var timerInterval: TimeInterval = 0.0
+    
+    
+    
+    
+    // MARK: - Initalizers
+    
+    init(mode: Mode) {
+        super.init(frame: NSRect.zero)
+        
+        self.mode = mode
+        updateLabel()
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+        updateLabel()
+    }
+    
+    
+    
+    
+    // MARK: - UI Manipulation
+    
+    /***/
+    private func updateLabel() {
+        if counter >= 0 {
+            self.textColor = textColorRunning
+        } else {
+            self.textColor = textColorTimeOver
+        }
+        self.stringValue = counter.format()
+    }
+    
+    
+    
+    
+    // MARK: - Timing Controls
+    
+    /***/
+    func setTimer(_ interval: TimeInterval) {
+        if mode == .timer {
+            timerInterval = interval
+            counter = timerInterval
+            updateLabel()
+        }
+    }
+    
+    
+    /***/
+    func start() {
+        if !isRunning {
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+            RunLoop.main.add(timer!, forMode: RunLoop.Mode.common)
+            isRunning = true
+        }
+    }
+    
+    
+    /***/
+    func stop() {
+        if isRunning {
+            timer?.invalidate()
+            isRunning = false
+        }
+    }
+    
+    
+    /***/
+    func reset() {
+        stop()
+        
+        switch mode {
+        case .stopwatch:
+            counter = 0.0
+        case .timer:
+            counter = timerInterval
+        }
+    }
+    
+    
+    /***/
+    @objc private func updateTime() {
+        switch mode {
+        case .stopwatch:
+            counter += 1
+        case .timer:
+            counter -= 1
+        }
+        updateLabel()
+    }
+    
+    
+}
