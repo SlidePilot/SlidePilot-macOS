@@ -90,7 +90,7 @@ class SlideArrangementView: NSView {
         setSlide(index: 0)
         
         // FIXME: DEMO
-        guard let path = Bundle.main.path(forResource: "slidedemo", ofType: "pdf") else { return }
+        guard let path = Bundle.main.path(forResource: "presentation", ofType: "pdf") else { return }
         let url = URL(fileURLWithPath: path)
         guard let pdfDocument = PDFDocument(url: url) else { return }
         currentSlideView?.label?.stringValue = "Aktuelle Folie"

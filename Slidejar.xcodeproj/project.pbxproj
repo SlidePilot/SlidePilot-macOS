@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50208BA12429000300444E73 /* presentation.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 50208BA02429000300444E73 /* presentation.pdf */; };
 		509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B96F62428A3AC0076B8B4 /* AppDelegate.swift */; };
 		509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */; };
 		509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 509B96FA2428A3AE0076B8B4 /* Assets.xcassets */; };
@@ -22,8 +23,7 @@
 		509B97262428C6B50076B8B4 /* DynamicLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B97252428C6B50076B8B4 /* DynamicLabel.swift */; };
 		509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */; };
 		509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B972E2428D74E0076B8B4 /* SlideView.swift */; };
-		509B97312428DB420076B8B4 /* presentation.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 509B97302428DB420076B8B4 /* presentation.pdf */; };
-		509B97332428DCB20076B8B4 /* slidedemo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 509B97322428DCB20076B8B4 /* slidedemo.pdf */; };
+		509B97312428DB420076B8B4 /* presentation-notes.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 509B97302428DB420076B8B4 /* presentation-notes.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		50208BA02429000300444E73 /* presentation.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = presentation.pdf; sourceTree = "<group>"; };
 		509B96F32428A3AC0076B8B4 /* Slidejar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slidejar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		509B96F62428A3AC0076B8B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterViewController.swift; sourceTree = "<group>"; };
@@ -57,8 +58,7 @@
 		509B97252428C6B50076B8B4 /* DynamicLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLabel.swift; sourceTree = "<group>"; };
 		509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideArrangementView.swift; sourceTree = "<group>"; };
 		509B972E2428D74E0076B8B4 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
-		509B97302428DB420076B8B4 /* presentation.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = presentation.pdf; sourceTree = "<group>"; };
-		509B97322428DCB20076B8B4 /* slidedemo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = slidedemo.pdf; sourceTree = "<group>"; };
+		509B97302428DB420076B8B4 /* presentation-notes.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "presentation-notes.pdf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,8 +82,8 @@
 		509B96EA2428A3AC0076B8B4 = {
 			isa = PBXGroup;
 			children = (
-				509B97302428DB420076B8B4 /* presentation.pdf */,
-				509B97322428DCB20076B8B4 /* slidedemo.pdf */,
+				509B97302428DB420076B8B4 /* presentation-notes.pdf */,
+				50208BA02429000300444E73 /* presentation.pdf */,
 				509B96F52428A3AC0076B8B4 /* Slidejar */,
 				509B97152428B16D0076B8B4 /* SlidejarTests */,
 				509B96F42428A3AC0076B8B4 /* Products */,
@@ -244,10 +244,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50208BA12429000300444E73 /* presentation.pdf in Resources */,
 				509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */,
-				509B97312428DB420076B8B4 /* presentation.pdf in Resources */,
+				509B97312428DB420076B8B4 /* presentation-notes.pdf in Resources */,
 				509B96FE2428A3AE0076B8B4 /* Main.storyboard in Resources */,
-				509B97332428DCB20076B8B4 /* slidedemo.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
