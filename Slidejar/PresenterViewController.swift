@@ -7,30 +7,35 @@
 //
 
 import Cocoa
+import PDFKit
 
 class PresenterViewController: NSViewController {
     
     @IBOutlet weak var clockLabel: ClockLabel!
     @IBOutlet weak var timingControl: TimingControl!
+    @IBOutlet weak var slideArrangement: SlideArrangementView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         timingControl.start()
+        
+        guard let path = Bundle.main.path(forResource: "presentation", ofType: "pdf") else { return }
+        let url = URL(fileURLWithPath: path)
+        guard let pdfDocument = PDFDocument(url: url) else { return }
+        slideArrangement.pdfDocument = pdfDocument
     }
     
     
-    override func viewWillAppear() {
-        self.view.window?.delegate = self
+    // MARK: - Menu Actions
+    
+    @IBAction func previousSlide(_ sender: Any) {
+        slideArrangement.previousSlide()
     }
-}
-
-
-
-
-extension PresenterViewController: NSWindowDelegate {
-    func windowDidResize(_ notification: Notification) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "WindowDidResize"), object: nil)
+    
+    
+    @IBAction func nextSlide(_ sender: Any) {
+        slideArrangement.nextSlide()
     }
 }

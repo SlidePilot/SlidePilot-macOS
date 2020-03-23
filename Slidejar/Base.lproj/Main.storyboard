@@ -650,11 +650,17 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Presentation" id="uzH-JS-q45">
                                     <items>
-                                        <menuItem title="Previous Slide" keyEquivalent="" id="gcL-Jw-1Oj">
+                                        <menuItem title="Previous Slide" keyEquivalent="" id="gcL-Jw-1Oj">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="ijM-Of-CjL"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="Next Slide" keyEquivalent="" id="s0G-5Y-hRb">
+                                        <menuItem title="Next Slide" keyEquivalent="" id="s0G-5Y-hRb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="sj2-C9-1bJ"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="lIR-Xf-rG6"/>
                                         <menuItem title="Start/Stop Timer" keyEquivalent="s" id="bL3-yv-j1V">
@@ -817,6 +823,7 @@
                     </view>
                     <connections>
                         <outlet property="clockLabel" destination="b2E-Pb-ePI" id="khv-hd-4dx"/>
+                        <outlet property="slideArrangement" destination="KBY-3V-F6W" id="lZU-Rv-clF"/>
                         <outlet property="timingControl" destination="TbN-u6-wpl" id="Vfw-Pb-bgV"/>
                     </connections>
                 </viewController>
