@@ -293,7 +293,7 @@
                                         </menuItem>
                                         <menuItem title="Notes Position" tag="402" identifier="NotesPosition" id="WtB-Ny-SAM" userLabel="Notes Position">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" id="Vm6-Hh-mT3">
+                                            <menu key="submenu" autoenablesItems="NO" id="Vm6-Hh-mT3">
                                                 <items>
                                                     <menuItem title="None" keyEquivalent="0" identifier="NotesPositionNone" id="Kws-6x-VZZ">
                                                         <connections>

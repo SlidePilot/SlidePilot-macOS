@@ -127,6 +127,11 @@ class PresenterViewController: NSViewController {
             NSApp.sendAction(notesPositionRightAction, to: notesPositionRightItem.target, from: notesPositionRightItem)
         }
         
+        // Enable/Disable selecting notes position none
+        if let notesPositionItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPosition")} ),
+            let notesPositionNoneItem = notesPositionItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPositionNone")}) {
+            notesPositionNoneItem.isEnabled = !slideArrangement.displayNotes
+        }
     }
     
     
