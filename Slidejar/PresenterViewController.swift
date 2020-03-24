@@ -48,17 +48,7 @@ class PresenterViewController: NSViewController {
     
     
     
-    // MARK: - Menu Actions
-    
-    @IBAction func previousSlide(_ sender: NSMenuItem) {
-        slideArrangement.previousSlide()
-    }
-    
-    
-    @IBAction func nextSlide(_ sender: NSMenuItem) {
-        slideArrangement.nextSlide()
-    }
-    
+    // MARK: - Menu Actions    
     
     @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
         // Turn off all menu items in same menu

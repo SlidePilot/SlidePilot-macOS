@@ -169,8 +169,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        print(filename)
         openFile(url: URL(fileURLWithPath: filename))
         return true
+    }
+    
+    
+    
+    // MARK: - Handling Slide Changes
+    
+    @IBAction func previousSlide(_ sender: NSMenuItem) {
+        presenterDisplay?.slideArrangement.previousSlide()
+        presentationView?.pageView.pageBackward()
+    }
+    
+    
+    @IBAction func nextSlide(_ sender: NSMenuItem) {
+        presenterDisplay?.slideArrangement.nextSlide()
+        presentationView?.pageView.pageForward()
     }
 }

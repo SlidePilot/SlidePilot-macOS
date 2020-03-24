@@ -401,19 +401,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="QWe-CS-Oao" customClass="PDFPageView" customModule="Slidejar" customModuleProvider="target">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0gX-s2-K8M" customClass="PDFPageView" customModule="Slidejar" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                            </customView>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="BQ7-Gf-9ME"/>
+                            </imageView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="QWe-CS-Oao" firstAttribute="top" secondItem="fPV-BC-LaP" secondAttribute="top" id="Br4-so-QZ4"/>
-                            <constraint firstItem="QWe-CS-Oao" firstAttribute="leading" secondItem="fPV-BC-LaP" secondAttribute="leading" id="OHp-qr-U5q"/>
-                            <constraint firstAttribute="bottom" secondItem="QWe-CS-Oao" secondAttribute="bottom" id="iw6-H1-fZl"/>
-                            <constraint firstAttribute="trailing" secondItem="QWe-CS-Oao" secondAttribute="trailing" id="sCo-dO-dld"/>
+                            <constraint firstAttribute="trailing" secondItem="0gX-s2-K8M" secondAttribute="trailing" id="J6x-Oc-gZm"/>
+                            <constraint firstAttribute="bottom" secondItem="0gX-s2-K8M" secondAttribute="bottom" id="Lr0-W0-05i"/>
+                            <constraint firstItem="0gX-s2-K8M" firstAttribute="leading" secondItem="fPV-BC-LaP" secondAttribute="leading" id="RPW-kF-9iq"/>
+                            <constraint firstItem="0gX-s2-K8M" firstAttribute="top" secondItem="fPV-BC-LaP" secondAttribute="top" id="pbH-F6-R5z"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="pageView" destination="QWe-CS-Oao" id="K1h-BU-yyC"/>
+                        <outlet property="pageView" destination="0gX-s2-K8M" id="Nne-VL-UA8"/>
                     </connections>
                 </viewController>
                 <customObject id="iSU-dO-f6F" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
