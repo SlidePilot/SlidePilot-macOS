@@ -15,6 +15,49 @@ class PDFPageView: NSImageView {
     
     enum DisplayMode {
         case full, leftHalf, rightHalf, topHalf, bottomHalf
+        
+        static func displayModeForNotes(with position: NotesPosition) -> DisplayMode {
+            return position.displayModeForNotes()
+        }
+        
+        static func displayModeForPresentation(with position: NotesPosition) -> DisplayMode {
+            return position.displayModeForPresentation()
+        }
+    }
+    
+    
+    enum NotesPosition {
+        case none, right, left, bottom, top
+        
+        func displayModeForNotes() -> DisplayMode {
+            switch self {
+            case .none:
+                return .full
+            case .right:
+                return .rightHalf
+            case .left:
+                return .leftHalf
+            case .bottom:
+                return .bottomHalf
+            case .top:
+                return .topHalf
+            }
+        }
+        
+        func displayModeForPresentation() -> DisplayMode {
+            switch self {
+            case .none:
+                return .full
+            case .right:
+                return .leftHalf
+            case .left:
+                return .rightHalf
+            case .bottom:
+                return .topHalf
+            case .top:
+                return .bottomHalf
+            }
+        }
     }
     
     

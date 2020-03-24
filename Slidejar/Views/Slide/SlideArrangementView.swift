@@ -38,11 +38,7 @@ class SlideArrangementView: NSView {
     }
     
     
-    enum NotesPosition {
-        case none, right, left, bottom, top
-    }
-    
-    var notesPosition: NotesPosition = .right {
+    var notesPosition: PDFPageView.NotesPosition = .none {
         didSet {
             updateView()
         }
@@ -89,6 +85,9 @@ class SlideArrangementView: NSView {
     
     
     private func updateView() {
+        // Cache current page
+        let currentPage = currentSlideView?.page?.currentPage
+        
         // Reset containers
         guard leftContainer != nil, rightContainer != nil else { return }
         leftContainer!.subviews.forEach({ $0.removeFromSuperview() })
@@ -105,30 +104,11 @@ class SlideArrangementView: NSView {
         }
         
         // Setup notes position
-        switch notesPosition {
-        case .none:
-            notesSlideView?.page?.displayMode = .full
-            currentSlideView?.page?.displayMode = .full
-            nextSlideView?.page?.displayMode = .full
-        case .right:
-            notesSlideView?.page?.displayMode = .rightHalf
-            currentSlideView?.page?.displayMode = .leftHalf
-            nextSlideView?.page?.displayMode = .leftHalf
-        case .left:
-            notesSlideView?.page?.displayMode = .leftHalf
-            currentSlideView?.page?.displayMode = .rightHalf
-            nextSlideView?.page?.displayMode = .rightHalf
-        case .bottom:
-            notesSlideView?.page?.displayMode = .bottomHalf
-            currentSlideView?.page?.displayMode = .topHalf
-            nextSlideView?.page?.displayMode = .topHalf
-        case .top:
-            notesSlideView?.page?.displayMode = .topHalf
-            currentSlideView?.page?.displayMode = .bottomHalf
-            nextSlideView?.page?.displayMode = .bottomHalf
-        }
+        notesSlideView?.page?.displayMode = notesPosition.displayModeForNotes()
+        currentSlideView?.page?.displayMode = notesPosition.displayModeForPresentation()
+        nextSlideView?.page?.displayMode = notesPosition.displayModeForPresentation()
         
-        showSlide(at: 0)
+        showSlide(at: currentPage ?? 0)
     }
     
     

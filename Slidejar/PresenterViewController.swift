@@ -37,10 +37,11 @@ class PresenterViewController: NSViewController {
             displayNotes(false, sender: showNotesItem)
         }
         
-        if let notesPositionItem = presentationMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPosition")} ) {
-            if let notesPositionNoneItem = notesPositionItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPositionNone")}) {
-                selectNotesPositionNone(notesPositionNoneItem)
-            }
+        // Select notes position none by default
+        if let notesPositionItem = presentationMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPosition")} ),
+            let notesPositionNoneItem = notesPositionItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPositionNone")}),
+            let notesPositionNoneAction = notesPositionNoneItem.action {
+            NSApp.sendAction(notesPositionNoneAction, to: notesPositionNoneItem.target, from: notesPositionNoneItem)
         }
         
     }
@@ -117,60 +118,15 @@ class PresenterViewController: NSViewController {
         slideArrangement.displayNotes = shouldDisplay
         sender.state = slideArrangement.displayNotes ? .on : .off
         
-        // Select notes position right by default
-        if let notesPositionItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPosition")} ) {
-            // Only if notes are displayed right now and current note position is none
-            if slideArrangement.displayNotes, slideArrangement.notesPosition == .none {
-                if let notesPositionRightItem = notesPositionItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPositionRight")}) {
-                    selectNotesPositionRight(notesPositionRightItem)
-                }
-            }
+        // Select notes position right by default when displaying notes
+        // Only if notes are displayed right now and current note position is none
+        if slideArrangement.displayNotes, slideArrangement.notesPosition == .none,
+            let notesPositionItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPosition")} ),
+            let notesPositionRightItem = notesPositionItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPositionRight")}),
+            let notesPositionRightAction = notesPositionRightItem.action {
+            NSApp.sendAction(notesPositionRightAction, to: notesPositionRightItem.target, from: notesPositionRightItem)
         }
-    }
-    
-    
-    @IBAction func selectNotesPositionNone(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
         
-        slideArrangement.notesPosition = .none
-    }
-    
-    
-    @IBAction func selectNotesPositionRight(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        slideArrangement.notesPosition = .right
-    }
-    
-    
-    @IBAction func selectNotesPositionLeft(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        slideArrangement.notesPosition = .left
-    }
-    
-    
-    @IBAction func selectNotesPositionBottom(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        slideArrangement.notesPosition = .bottom
-    }
-    
-    
-    @IBAction func selectNotesPositionTop(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        slideArrangement.notesPosition = .top
     }
     
     

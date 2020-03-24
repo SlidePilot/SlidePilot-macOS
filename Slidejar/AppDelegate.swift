@@ -175,7 +175,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     
-    // MARK: - Handling Slide Changes
+    // MARK: - Handling Slides
     
     @IBAction func previousSlide(_ sender: NSMenuItem) {
         presenterDisplay?.slideArrangement.previousSlide()
@@ -186,5 +186,55 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func nextSlide(_ sender: NSMenuItem) {
         presenterDisplay?.slideArrangement.nextSlide()
         presentationView?.pageView.pageForward()
+    }
+    
+    
+    @IBAction func selectNotesPositionNone(_ sender: NSMenuItem) {
+        // Turn off all menu items in same menu
+        sender.menu?.items.forEach({ $0.state = .off })
+        sender.state = .on
+        
+        presenterDisplay?.slideArrangement.notesPosition = .none
+        presentationView?.pageView.displayMode = .displayModeForPresentation(with: .none)
+    }
+    
+    
+    @IBAction func selectNotesPositionRight(_ sender: NSMenuItem) {
+        // Turn off all menu items in same menu
+        sender.menu?.items.forEach({ $0.state = .off })
+        sender.state = .on
+        
+        presenterDisplay?.slideArrangement.notesPosition = .right
+        presentationView?.pageView.displayMode = .displayModeForPresentation(with: .right)
+    }
+    
+    
+    @IBAction func selectNotesPositionLeft(_ sender: NSMenuItem) {
+        // Turn off all menu items in same menu
+        sender.menu?.items.forEach({ $0.state = .off })
+        sender.state = .on
+        
+        presenterDisplay?.slideArrangement.notesPosition = .left
+        presentationView?.pageView.displayMode = .displayModeForPresentation(with: .left)
+    }
+    
+    
+    @IBAction func selectNotesPositionBottom(_ sender: NSMenuItem) {
+        // Turn off all menu items in same menu
+        sender.menu?.items.forEach({ $0.state = .off })
+        sender.state = .on
+        
+        presenterDisplay?.slideArrangement.notesPosition = .bottom
+        presentationView?.pageView.displayMode = .displayModeForPresentation(with: .bottom)
+    }
+    
+    
+    @IBAction func selectNotesPositionTop(_ sender: NSMenuItem) {
+        // Turn off all menu items in same menu
+        sender.menu?.items.forEach({ $0.state = .off })
+        sender.state = .on
+        
+        presenterDisplay?.slideArrangement.notesPosition = .top
+        presentationView?.pageView.displayMode = .displayModeForPresentation(with: .top)
     }
 }
