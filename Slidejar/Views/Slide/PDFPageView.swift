@@ -123,11 +123,6 @@ class PDFPageView: NSImageView {
     }
     
     
-    public func displayBlank() {
-        self.image = NSColor(named: "DefaultColor")!.image(of: (pdfDocument?.page(at: 0)?.bounds(for: .cropBox).size ?? NSSize(width: 1.0, height: 1.0)))
-    }
-    
-    
     private func getRectFor(mode: DisplayMode, pdfPage: PDFPage) -> CGRect {
         switch mode {
         case .full:
@@ -141,6 +136,59 @@ class PDFPageView: NSImageView {
         case .bottomHalf:
             return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
         }
+    }
+    
+    
+    
+    
+    // MARK: - Alternative Display and Cover
+    
+    public func displayBlank() {
+        self.image = NSColor(named: "DefaultColor")!.image(of: (pdfDocument?.page(at: 0)?.bounds(for: .cropBox).size ?? NSSize(width: 1.0, height: 1.0)))
+    }
+    
+    
+    private var coverView: NSView?
+    
+    private func addCover() {
+        uncover()
+        self.coverView = NSView(frame: .zero)
+        self.coverView?.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(coverView!)
+        self.addConstraints([NSLayoutConstraint(item: coverView!, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0.0),
+        NSLayoutConstraint(item: coverView!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0),
+        NSLayoutConstraint(item: coverView!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0),
+        NSLayoutConstraint(item: coverView!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)])
+    }
+    
+    
+    public var isCoveredWhite: Bool = false
+    
+    /** Covers the view with a white screen */
+    public func coverWhite() {
+        addCover()
+        self.coverView?.wantsLayer = true
+        self.coverView?.layer?.backgroundColor = NSColor.white.cgColor
+        isCoveredWhite = true
+    }
+    
+    
+    public var isCoveredBlack: Bool = false
+    
+    /** Covers the view with a black screen */
+    public func coverBlack() {
+        addCover()
+        self.coverView?.wantsLayer = true
+        self.coverView?.layer?.backgroundColor = NSColor.black.cgColor
+        isCoveredBlack = true
+    }
+    
+    
+    public func uncover() {
+        coverView?.removeFromSuperview()
+        coverView = nil
+        isCoveredWhite = false
+        isCoveredBlack = false
     }
 }
 

@@ -237,4 +237,42 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         presenterDisplay?.slideArrangement.notesPosition = .top
         presentationView?.pageView.displayMode = .displayModeForPresentation(with: .top)
     }
+    
+    
+    @IBAction func displayWhiteScreen(_ sender: NSMenuItem) {
+        // Uncheck other item
+        if let whiteScreenItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "DisplayBlackScreen") }) {
+            whiteScreenItem.state = .off
+        }
+        
+        guard let isCovered = presentationView?.pageView.isCoveredWhite else { return }
+        
+        // Cover or uncover
+        if isCovered {
+            presentationView?.pageView.uncover()
+            sender.state = .off
+        } else {
+            presentationView?.pageView.coverWhite()
+            sender.state = .on
+        }
+    }
+    
+    
+    @IBAction func displayBlackScreen(_ sender: NSMenuItem) {
+        // Uncheck other item
+        if let whiteScreenItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "DisplayWhiteScreen") }) {
+            whiteScreenItem.state = .off
+        }
+        
+        guard let isCovered = presentationView?.pageView.isCoveredBlack else { return }
+        
+        // Cover or uncover
+        if isCovered {
+            presentationView?.pageView.uncover()
+            sender.state = .off
+        } else {
+            presentationView?.pageView.coverBlack()
+            sender.state = .on
+        }
+    }
 }

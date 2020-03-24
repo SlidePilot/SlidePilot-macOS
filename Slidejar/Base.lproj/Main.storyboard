@@ -271,11 +271,17 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="WxF-lf-SZG"/>
-                                        <menuItem title="Display Black Screen" tag="201" keyEquivalent="b" id="Wsl-Lh-Rzy">
+                                        <menuItem title="Display Black Screen" tag="201" keyEquivalent="b" identifier="DisplayBlackScreen" id="Wsl-Lh-Rzy">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="displayBlackScreen:" target="Ady-hI-5gd" id="BKA-af-xoT"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="Display White Screen" tag="202" keyEquivalent="w" id="E0b-Yv-pqH">
+                                        <menuItem title="Display White Screen" tag="202" keyEquivalent="w" identifier="DisplayWhiteScreen" id="E0b-Yv-pqH">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="displayWhiteScreen:" target="Ady-hI-5gd" id="7b4-IZ-DMM"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="SKb-ny-ddI"/>
                                         <menuItem title="Show Mouse" tag="301" keyEquivalent="m" id="iHL-eH-XtE">
