@@ -225,4 +225,24 @@ class PresenterViewController: NSViewController {
         
         slideArrangement.notesPosition = .top
     }
+    
+    
+    @IBAction func showMouse(_ sender: NSMenuItem) {
+        guard let slideView = slideArrangement.currentSlideView else { return }
+        //let r = self.view.addTrackingRect(currentSlideView.bounds, owner: self, userData: nil, assumeInside: false)
+        self.view.addTrackingArea(NSTrackingArea(rect: slideView.frame, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil))
+    }
+    
+    
+    override func mouseMoved(with event: NSEvent) {
+//        NSPoint eyeCenter = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+//        eyeBox = NSMakeRect((eyeCenter.x-10.0), (eyeCenter.y-10.0), 20.0, 20.0);
+//        [self setNeedsDisplayInRect:eyeBox];
+//        [self displayIfNeeded];
+        
+        print("Mouse Loc: \(event.locationInWindow)")
+        guard let currentSlideView = slideArrangement.currentSlideView else { return }
+        let mouseCenter = currentSlideView.convert(event.locationInWindow, to: currentSlideView)
+        print(mouseCenter)
+    }
 }

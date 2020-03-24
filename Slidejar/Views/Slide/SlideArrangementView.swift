@@ -15,9 +15,9 @@ class SlideArrangementView: NSView {
     private var leftContainer: NSView?
     private var rightContainer: NSView?
     
-    private var currentSlideView: SlideView?
-    private var nextSlideView: SlideView?
-    private var notesSlideView: SlideView?
+    var currentSlideView: SlideView?
+    var nextSlideView: SlideView?
+    var notesSlideView: SlideView?
     
     private let padding: CGFloat = 40.0
     private let distributionRatio: CGFloat = 0.6
