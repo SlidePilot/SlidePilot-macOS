@@ -130,7 +130,24 @@ class PresenterViewController: NSViewController {
     
     
     @IBAction func setTimer(_ sender: NSMenuItem) {
-        print("set timer")
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("Enter Timer Interval", comment: "Alert message asking for timer interval.")
+        alert.informativeText = NSLocalizedString("Enter Timer Interval Text", comment: "Alert text asking for timer interval.")
+        alert.alertStyle = NSAlert.Style.informational
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Title for cancel button."))
+        
+        let timePicker = NSDatePicker(frame: NSRect(x: 0.0, y: 0.0, width: 200.0, height: 24.0))
+        timePicker.datePickerStyle = .textFieldAndStepper
+        timePicker.datePickerElements = .hourMinuteSecond
+        timePicker.setTime(timingControl.timerInterval)
+        alert.accessoryView = timePicker
+        
+        if let window = self.view.window {
+            alert.beginSheetModal(for: window) { (response) in
+                self.timingControl.setTimer(timePicker.time)
+            }
+        }
     }
     
     

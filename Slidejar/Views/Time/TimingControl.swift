@@ -28,7 +28,10 @@ class TimingControl: NSTextField {
     
     var mode: Mode = .stopwatch {
         didSet {
-            
+            stop()
+            counter = 0
+            timerInterval = 0
+            updateLabel()
         }
     }
     
@@ -42,7 +45,7 @@ class TimingControl: NSTextField {
     private(set) var isRunning: Bool = false
     
     /***/
-    private var timerInterval: TimeInterval = 0.0
+    private(set) var timerInterval: TimeInterval = 0.0
     
     
     
