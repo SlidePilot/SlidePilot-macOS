@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		50208BA12429000300444E73 /* presentation.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 50208BA02429000300444E73 /* presentation.pdf */; };
 		50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50208BA42429028000444E73 /* NSColor+Extension.swift */; };
 		503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */; };
 		503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDFB242A180000B6F438 /* PresenterWindowController.swift */; };
@@ -28,7 +27,6 @@
 		509B97262428C6B50076B8B4 /* DynamicLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B97252428C6B50076B8B4 /* DynamicLabel.swift */; };
 		509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */; };
 		509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B972E2428D74E0076B8B4 /* SlideView.swift */; };
-		509B97312428DB420076B8B4 /* presentation-notes.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 509B97302428DB420076B8B4 /* presentation-notes.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +40,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		50208BA02429000300444E73 /* presentation.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = presentation.pdf; sourceTree = "<group>"; };
 		50208BA42429028000444E73 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
 		503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDatePicker+Extension.swift"; sourceTree = "<group>"; };
 		503FFDFB242A180000B6F438 /* PresenterWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterWindowController.swift; sourceTree = "<group>"; };
@@ -68,7 +65,6 @@
 		509B97252428C6B50076B8B4 /* DynamicLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLabel.swift; sourceTree = "<group>"; };
 		509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideArrangementView.swift; sourceTree = "<group>"; };
 		509B972E2428D74E0076B8B4 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
-		509B97302428DB420076B8B4 /* presentation-notes.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "presentation-notes.pdf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +88,6 @@
 		509B96EA2428A3AC0076B8B4 = {
 			isa = PBXGroup;
 			children = (
-				509B97302428DB420076B8B4 /* presentation-notes.pdf */,
-				50208BA02429000300444E73 /* presentation.pdf */,
 				509B96F52428A3AC0076B8B4 /* Slidejar */,
 				509B97152428B16D0076B8B4 /* SlidejarTests */,
 				509B96F42428A3AC0076B8B4 /* Products */,
@@ -259,9 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50208BA12429000300444E73 /* presentation.pdf in Resources */,
 				509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */,
-				509B97312428DB420076B8B4 /* presentation-notes.pdf in Resources */,
 				509B96FE2428A3AE0076B8B4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
