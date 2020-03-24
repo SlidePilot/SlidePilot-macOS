@@ -86,10 +86,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         NSApp.activate(ignoringOtherApps: true)
         
+        // Oper Presenter Display
         presenterWindow.window?.makeKeyAndOrderFront(nil)
-        presentationWindow.window?.makeKeyAndOrderFront(nil)
         
-//        presentationWindow.window?.toggleFullScreen(self)
+        // Move window to second screen if possible
+        if NSScreen.screens.count >= 2 {
+            let secondScreen = NSScreen.screens[1]
+            presentationWindow.window?.setFrame(secondScreen.visibleFrame, display: true, animate: true)
+            presentationWindow.window?.level = .normal
+        }
+        
+        // Open Presentation Window in fullscreen
+        presentationWindow.window?.makeKeyAndOrderFront(self)
+        presentationWindow.window?.toggleFullScreen(self)
     }
 
 }
