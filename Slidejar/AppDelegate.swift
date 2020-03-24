@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import PDFKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -44,14 +45,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             setDarkModeDefault(userDefaultsDarkMode, sender: darkDefaultItem)
         }
         
-        setupWindows()
-    }
-    
-    
-    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        print(filename)
-        (NSApp.windows[0].contentViewController as? PresenterViewController)?.openFile(url: URL(fileURLWithPath: filename))
-        return true
+        startup()
     }
     
 
@@ -75,30 +69,108 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Window Management
     
+    var presenterWindowCtrl: PresenterWindowController?
+    var presenterWindow: NSWindow?
+    var presenterDisplay: PresenterViewController?
+    
+    var presentationWindowCtrl: PresentationWindowController?
+    var presentationWindow: NSWindow?
+    var presentationView: PresentationViewController?
+    
+    
+    func startup() {
+        presentOpenFileDialog { (fileUrl) in
+            setupWindows()
+            openFile(url: fileUrl)
+        }
+    }
+    
+    
     func setupWindows() {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         
-        guard let presenterWindow = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresenterWindow")) as? PresenterWindowController else { return }
-        guard let presenterDisplay = presenterWindow.contentViewController as? PresenterViewController else { return }
+        guard let presenterWindowCtrl = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresenterWindow")) as? PresenterWindowController else { return }
+        guard let presenterWindow = presenterWindowCtrl.window else { return }
+        guard let presenterDisplay = presenterWindowCtrl.contentViewController as? PresenterViewController else { return }
         
-        guard let presentationWindow = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresentationWindow")) as? PresentationWindowController else { return }
-        guard let presentationView = presentationWindow.contentViewController as? PresentationViewController else { return }
+        guard let presentationWindowCtrl = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresentationWindow")) as?
+            PresentationWindowController else { return }
+        guard let presentationWindow = presentationWindowCtrl.window else { return }
+        guard let presentationView = presentationWindowCtrl.contentViewController as? PresentationViewController else { return }
         
         NSApp.activate(ignoringOtherApps: true)
         
-        // Oper Presenter Display
-        presenterWindow.window?.makeKeyAndOrderFront(nil)
+        // Open Presenter Display
+        presenterWindow.makeKeyAndOrderFront(nil)
         
         // Move window to second screen if possible
         if NSScreen.screens.count >= 2 {
             let secondScreen = NSScreen.screens[1]
-            presentationWindow.window?.setFrame(secondScreen.visibleFrame, display: true, animate: true)
-            presentationWindow.window?.level = .normal
+            presentationWindow.setFrame(secondScreen.visibleFrame, display: true, animate: true)
+            presentationWindow.level = .normal
         }
         
         // Open Presentation Window in fullscreen
-        presentationWindow.window?.makeKeyAndOrderFront(self)
-        presentationWindow.window?.toggleFullScreen(self)
+        presentationWindow.makeKeyAndOrderFront(self)
+        presentationWindow.toggleFullScreen(self)
+        
+        // Set properties
+        self.presenterWindowCtrl = presenterWindowCtrl
+        self.presenterWindow = presenterWindow
+        self.presenterDisplay = presenterDisplay
+        
+        self.presentationWindowCtrl = presentationWindowCtrl
+        self.presentationWindow = presentationWindow
+        self.presentationView = presentationView
     }
+    
+    
+    
+    
+    // MARK: - Open File
+    
+    @IBAction func openDocument(_ sender: NSMenuItem) {
+        presentOpenFileDialog { (fileUrl) in
+            openFile(url: fileUrl)
+        }
+    }
+    
+    
+    /** Presents the dialog to open a PDF document. */
+    func presentOpenFileDialog(completion: (URL) -> ()) {
+        let dialog = NSOpenPanel();
 
+        dialog.title = NSLocalizedString("Choose File", comment: "Title for open file panel.");
+        dialog.showsResizeIndicator = true
+        dialog.showsHiddenFiles = false
+        dialog.canChooseFiles = true
+        dialog.canChooseDirectories = false
+        dialog.canCreateDirectories = false
+        dialog.allowsMultipleSelection = false
+        dialog.allowedFileTypes = ["pdf"]
+
+        if (dialog.runModal() == .OK) {
+            if let result = dialog.url {
+                completion(result)
+            }
+        }
+    }
+    
+    
+    /** Opens the PDF document at the given `URL` in both presenter and presentation window. */
+    func openFile(url: URL) {
+        NSDocumentController.shared.noteNewRecentDocumentURL(url)
+        guard let pdfDocument = PDFDocument(url: url) else { return }
+        
+        // Open document in both windows
+        presenterDisplay?.slideArrangement.pdfDocument = pdfDocument
+        presentationView?.pageView.pdfDocument = pdfDocument
+    }
+    
+    
+    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+        print(filename)
+        openFile(url: URL(fileURLWithPath: filename))
+        return true
+    }
 }
