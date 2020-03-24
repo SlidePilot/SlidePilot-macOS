@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -349,12 +349,12 @@
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="75" y="-151"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="PresenterWindow" id="B8D-0N-5wS" customClass="PresenterWindowController" customModule="Slidejar" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -370,7 +370,55 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="74" y="197"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="Row-tj-BNh">
+            <objects>
+                <windowController storyboardIdentifier="PresentationWindow" id="VPj-fN-aKM" customClass="PresentationWindowController" customModule="Slidejar" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="zZP-Ud-eGP">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="425" y="461" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+                        <connections>
+                            <outlet property="delegate" destination="VPj-fN-aKM" id="jkr-hU-fVB"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="2ya-4N-qpl" kind="relationship" relationship="window.shadowedContentViewController" id="QWo-Zh-Cgr"/>
+                    </connections>
+                </windowController>
+                <customObject id="6FL-FZ-dek" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1642" y="90"/>
+        </scene>
+        <!--Presentation View Controller-->
+        <scene sceneID="Rhj-S3-zDb">
+            <objects>
+                <viewController id="2ya-4N-qpl" customClass="PresentationViewController" customModule="Slidejar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="fPV-BC-LaP">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="QWe-CS-Oao" customClass="PDFPageView" customModule="Slidejar" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="QWe-CS-Oao" firstAttribute="top" secondItem="fPV-BC-LaP" secondAttribute="top" id="Br4-so-QZ4"/>
+                            <constraint firstItem="QWe-CS-Oao" firstAttribute="leading" secondItem="fPV-BC-LaP" secondAttribute="leading" id="OHp-qr-U5q"/>
+                            <constraint firstAttribute="bottom" secondItem="QWe-CS-Oao" secondAttribute="bottom" id="iw6-H1-fZl"/>
+                            <constraint firstAttribute="trailing" secondItem="QWe-CS-Oao" secondAttribute="trailing" id="sCo-dO-dld"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pageView" destination="QWe-CS-Oao" id="K1h-BU-yyC"/>
+                    </connections>
+                </viewController>
+                <customObject id="iSU-dO-f6F" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1642" y="609"/>
         </scene>
         <!--Presenter View Controller-->
         <scene sceneID="hIz-AP-VOD">

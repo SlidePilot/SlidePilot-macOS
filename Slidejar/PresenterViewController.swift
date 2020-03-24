@@ -50,12 +50,6 @@ class PresenterViewController: NSViewController {
     }
     
     
-    override func viewWillAppear() {
-        self.view.window?.title = NSLocalizedString("Presenter Display", comment: "Window name for the presenter view.")
-        self.view.window?.center()
-    }
-    
-    
     override func viewDidAppear() {
         DispatchQueue.main.async {
             if let openItem = self.fileMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("Open") }) {

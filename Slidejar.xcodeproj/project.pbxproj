@@ -10,6 +10,9 @@
 		50208BA12429000300444E73 /* presentation.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 50208BA02429000300444E73 /* presentation.pdf */; };
 		50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50208BA42429028000444E73 /* NSColor+Extension.swift */; };
 		503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */; };
+		503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDFB242A180000B6F438 /* PresenterWindowController.swift */; };
+		503FFDFF242A193500B6F438 /* PresentationWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDFD242A193500B6F438 /* PresentationWindowController.swift */; };
+		503FFE02242A195300B6F438 /* PresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFE01242A195300B6F438 /* PresentationViewController.swift */; };
 		509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B96F62428A3AC0076B8B4 /* AppDelegate.swift */; };
 		509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */; };
 		509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 509B96FA2428A3AE0076B8B4 /* Assets.xcassets */; };
@@ -42,6 +45,9 @@
 		50208BA02429000300444E73 /* presentation.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = presentation.pdf; sourceTree = "<group>"; };
 		50208BA42429028000444E73 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
 		503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDatePicker+Extension.swift"; sourceTree = "<group>"; };
+		503FFDFB242A180000B6F438 /* PresenterWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterWindowController.swift; sourceTree = "<group>"; };
+		503FFDFD242A193500B6F438 /* PresentationWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationWindowController.swift; sourceTree = "<group>"; };
+		503FFE01242A195300B6F438 /* PresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationViewController.swift; sourceTree = "<group>"; };
 		509B96F32428A3AC0076B8B4 /* Slidejar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slidejar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		509B96F62428A3AC0076B8B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterViewController.swift; sourceTree = "<group>"; };
@@ -107,10 +113,13 @@
 			isa = PBXGroup;
 			children = (
 				509B96F62428A3AC0076B8B4 /* AppDelegate.swift */,
+				503FFDFB242A180000B6F438 /* PresenterWindowController.swift */,
 				509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */,
+				503FFDFD242A193500B6F438 /* PresentationWindowController.swift */,
+				503FFE01242A195300B6F438 /* PresentationViewController.swift */,
+				509B96FC2428A3AE0076B8B4 /* Main.storyboard */,
 				509B97062428A3C40076B8B4 /* Views */,
 				509B96FA2428A3AE0076B8B4 /* Assets.xcassets */,
-				509B96FC2428A3AE0076B8B4 /* Main.storyboard */,
 				509B96FF2428A3AE0076B8B4 /* Info.plist */,
 				509B97002428A3AE0076B8B4 /* Slidejar.entitlements */,
 			);
@@ -275,16 +284,19 @@
 				509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */,
 				50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */,
 				509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */,
+				503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */,
 				509B971F2428B6A10076B8B4 /* ClockLabel.swift in Sources */,
 				509B97242428C05B0076B8B4 /* NSTextField+Extension.swift in Sources */,
 				509B970A2428A6FD0076B8B4 /* TimeView.swift in Sources */,
 				509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */,
+				503FFDFF242A193500B6F438 /* PresentationWindowController.swift in Sources */,
 				509B970C2428AA2F0076B8B4 /* TimingControl.swift in Sources */,
 				509B97262428C6B50076B8B4 /* DynamicLabel.swift in Sources */,
 				503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */,
 				509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */,
 				509B97222428BFF00076B8B4 /* NSFont+Extension.swift in Sources */,
 				509B970E2428B0A90076B8B4 /* TimeInterval+Extension.swift in Sources */,
+				503FFE02242A195300B6F438 /* PresentationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

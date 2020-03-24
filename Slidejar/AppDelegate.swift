@@ -43,6 +43,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let darkDefaultItem = viewMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "DefaultDarkAppearance")}) {
             setDarkModeDefault(userDefaultsDarkMode, sender: darkDefaultItem)
         }
+        
+        setupWindows()
     }
     
     
@@ -68,5 +70,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sender.state = defaultDarkMode ? .on : .off
     }
 
+    
+    
+    
+    // MARK: - Window Management
+    
+    func setupWindows() {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        
+        guard let presenterWindow = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresenterWindow")) as? PresenterWindowController else { return }
+        guard let presenterDisplay = presenterWindow.contentViewController as? PresenterViewController else { return }
+        
+        guard let presentationWindow = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresentationWindow")) as? PresentationWindowController else { return }
+        guard let presentationView = presentationWindow.contentViewController as? PresentationViewController else { return }
+        
+        NSApp.activate(ignoringOtherApps: true)
+        
+        presenterWindow.window?.makeKeyAndOrderFront(nil)
+        presentationWindow.window?.makeKeyAndOrderFront(nil)
+        
+//        presentationWindow.window?.toggleFullScreen(self)
+    }
 
 }
