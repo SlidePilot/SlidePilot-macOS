@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */; };
 		50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50208BA42429028000444E73 /* NSColor+Extension.swift */; };
 		503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */; };
 		503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDFB242A180000B6F438 /* PresenterWindowController.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImageView+Extension.swift"; sourceTree = "<group>"; };
 		50208BA42429028000444E73 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
 		503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDatePicker+Extension.swift"; sourceTree = "<group>"; };
 		503FFDFB242A180000B6F438 /* PresenterWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterWindowController.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				509B972E2428D74E0076B8B4 /* SlideView.swift */,
 				50208BA42429028000444E73 /* NSColor+Extension.swift */,
 				503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */,
+				500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */,
 			);
 			path = Slide;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */,
 				509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */,
 				509B970E2428B0A90076B8B4 /* TimeInterval+Extension.swift in Sources */,
+				500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */,
 				503FFE02242A195300B6F438 /* PresentationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,6 +11,8 @@ import PDFKit
 
 class SlideArrangementView: NSView {
     
+    var delegate: SlideTrackingDelegate?
+    
     private var splitView: NSSplitView?
     private var leftContainer: NSView?
     private var rightContainer: NSView?
@@ -117,6 +119,7 @@ class SlideArrangementView: NSView {
         
         // Left container: Setup current
         currentSlideView = SlideView(frame: .zero)
+        currentSlideView!.delegate = self
         currentSlideView!.pdfDocument = self.pdfDocument
         currentSlideView!.translatesAutoresizingMaskIntoConstraints = false
         leftContainer?.addSubview(currentSlideView!)
@@ -178,6 +181,7 @@ class SlideArrangementView: NSView {
         
         // Right container: Setup current
         currentSlideView = SlideView(frame: .zero)
+        currentSlideView!.delegate = self
         currentSlideView!.pdfDocument = self.pdfDocument
         currentSlideView!.translatesAutoresizingMaskIntoConstraints = false
         rightContainer?.addSubview(currentSlideView!)
@@ -269,4 +273,13 @@ class SlideArrangementView: NSView {
         updateSlides(for: page.currentPage)
     }
     
+}
+
+
+
+extension SlideArrangementView: SlideTrackingDelegate {
+    
+    func mouseMoved(to position: NSPoint, in sender: PDFPageView?) {
+        delegate?.mouseMoved(to: position, in: sender)
+    }
 }

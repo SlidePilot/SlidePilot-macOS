@@ -136,21 +136,35 @@ class PresenterViewController: NSViewController {
     
     
     @IBAction func showMouse(_ sender: NSMenuItem) {
-        guard let slideView = slideArrangement.currentSlideView else { return }
-        //let r = self.view.addTrackingRect(currentSlideView.bounds, owner: self, userData: nil, assumeInside: false)
-        self.view.addTrackingArea(NSTrackingArea(rect: slideView.frame, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil))
+        // FIXME: Implement
+        slideArrangement.delegate = self
     }
+}
+
+
+extension PresenterViewController: SlideTrackingDelegate {
     
-    
-    override func mouseMoved(with event: NSEvent) {
-//        NSPoint eyeCenter = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-//        eyeBox = NSMakeRect((eyeCenter.x-10.0), (eyeCenter.y-10.0), 20.0, 20.0);
-//        [self setNeedsDisplayInRect:eyeBox];
-//        [self displayIfNeeded];
+    func mouseMoved(to position: NSPoint, in sender: PDFPageView?) {
+        guard let page = slideArrangement.currentSlideView?.page else { return }
         
-        print("Mouse Loc: \(event.locationInWindow)")
-        guard let currentSlideView = slideArrangement.currentSlideView else { return }
-        let mouseCenter = currentSlideView.convert(event.locationInWindow, to: currentSlideView)
-        print(mouseCenter)
+        // Calculate position in image view
+        let imageViewOrigin = page.convert(view.frame.origin, to: self.view)
+        let imageFrame = page.imageRect()
+        let imageOrigin = imageFrame.origin
+        
+        let positionInImage = NSPoint(x: position.x - imageViewOrigin.x - imageOrigin.x,
+                                      y: position.y - imageViewOrigin.y - imageOrigin.y)
+        
+        // Calculate relative position by setting width to 100
+        let relativeInImage = NSPoint(x: positionInImage.x / imageFrame.width,
+                                      y: positionInImage.y / imageFrame.height)
+        
+        // Hide Pointer if at edge of view
+        if relativeInImage.x < 0.01 || relativeInImage.x > 0.99 || relativeInImage.y < 0.01 || relativeInImage.y > 0.99 {
+            // Hide Pointer
+        } else {
+            // Show Pointer
+            // Send position
+        }
     }
 }
