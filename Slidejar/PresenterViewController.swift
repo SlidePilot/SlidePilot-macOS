@@ -18,6 +18,8 @@ protocol MousePointerDelegate {
     
     /** `position` is the relative position of the pointer in the displayed image. */
     func pointerMoved(to position: NSPoint)
+    
+    var isPointerShown: Bool { get }
 }
 
 
@@ -151,9 +153,22 @@ class PresenterViewController: NSViewController {
     }
     
     
-    @IBAction func showMouse(_ sender: NSMenuItem) {
-        // FIXME: Implement
+    var isShowCursorActive: Bool = false
+    
+    @IBAction func showCursor(_ sender: NSMenuItem) {
+        // Set delegate to receive mouse events
         slideArrangement.delegate = self
+        
+        guard pointerDelegate != nil else { return }
+        if isShowCursorActive {
+            pointerDelegate!.hidePointer()
+            isShowCursorActive = false
+        } else {
+            pointerDelegate!.showPointer()
+            isShowCursorActive = true
+        }
+        
+        sender.state = isShowCursorActive ? .on : .off
     }
 }
 
@@ -163,6 +178,7 @@ class PresenterViewController: NSViewController {
 extension PresenterViewController: SlideTrackingDelegate {
     
     func mouseMoved(to position: NSPoint, in sender: PDFPageView?) {
+        guard isShowCursorActive else { return }
         guard let page = sender else { return }
         
         // Calculate relative position by setting width to 100
@@ -190,7 +206,7 @@ extension PresenterViewController: SlideTrackingDelegate {
         // Calculate relative position by setting width to 100
         let relativeInImage = NSPoint(x: positionInImage.x / imageFrame.width,
                                       y: positionInImage.y / imageFrame.height)
-        
+        print(relativeInImage)
         return relativeInImage
     }
 }

@@ -12,6 +12,7 @@ class PresentationViewController: NSViewController {
 
     @IBOutlet weak var pageView: PDFPageView!
     var pointer: PointerView?
+    var isPointerShown: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,15 +29,17 @@ extension PresentationViewController: MousePointerDelegate {
     
     func showPointer() {
         if pointer == nil {
-            pointer = PointerView(frame: NSRect(x: 100, y: 100, width: 10.0, height: 10.0), type: .cursor)
+            pointer = PointerView(frame: NSRect(x: self.view.frame.midX, y: self.view.frame.midY, width: 10.0, height: 10.0), type: .cursor)
             self.view.addSubview(pointer!)
         }
+        isPointerShown = true
     }
     
     
     func hidePointer() {
         pointer?.removeFromSuperview()
         pointer = nil
+        isPointerShown = false
     }
     
     
