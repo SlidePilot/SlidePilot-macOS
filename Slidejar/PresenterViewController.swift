@@ -159,6 +159,9 @@ class PresenterViewController: NSViewController {
         // Set delegate to receive mouse events
         slideArrangement.delegate = self
         
+        // Start tracking by setting initial tracking area
+        slideArrangement.currentSlideView?.addTrackingAreaForSlide()
+        
         guard pointerDelegate != nil else { return }
         if isShowCursorActive {
             pointerDelegate!.hidePointer()
@@ -206,7 +209,7 @@ extension PresenterViewController: SlideTrackingDelegate {
         // Calculate relative position by setting width to 100
         let relativeInImage = NSPoint(x: positionInImage.x / imageFrame.width,
                                       y: positionInImage.y / imageFrame.height)
-        print(relativeInImage)
+        
         return relativeInImage
     }
 }
