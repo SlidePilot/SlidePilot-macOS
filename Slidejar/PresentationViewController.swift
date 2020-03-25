@@ -28,7 +28,7 @@ extension PresentationViewController: MousePointerDelegate {
     
     func showPointer() {
         if pointer == nil {
-            pointer = PointerView(frame: NSRect(x: 100, y: 100, width: 10.0, height: 10.0), type: .circle)
+            pointer = PointerView(frame: NSRect(x: 100, y: 100, width: 10.0, height: 10.0), type: .cursor)
             self.view.addSubview(pointer!)
         }
     }
@@ -41,7 +41,7 @@ extension PresentationViewController: MousePointerDelegate {
     
     
     func pointerMoved(to position: NSPoint) {
-        pointer?.frame.origin = calculateAbsolutePosition(for: position, in: pageView)
+        pointer?.setPosition(calculateAbsolutePosition(for: position, in: pageView))
     }
     
     

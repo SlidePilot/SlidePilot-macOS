@@ -13,22 +13,28 @@ class PointerView: NSImageView {
     enum PointerType {
         case circle, cursor
     }
+    
+    let type: PointerType
+    
 
     override init(frame frameRect: NSRect) {
+        self.type = .circle
         super.init(frame: frameRect)
-        setup(type: .circle)
+        setup(type: self.type)
     }
     
     
     required init?(coder: NSCoder) {
+        self.type = .circle
         super.init(coder: coder)
-        setup(type: .circle)
+        setup(type: self.type)
     }
     
     
     init(frame frameRect: NSRect, type: PointerType) {
+        self.type = type
         super.init(frame: frameRect)
-        setup(type: type)
+        setup(type: self.type)
     }
     
     
@@ -46,7 +52,7 @@ class PointerView: NSImageView {
         self.wantsLayer = true
         self.layer?.cornerRadius = min(self.frame.width, self.frame.height) / 2
         self.layer?.backgroundColor = NSColor(calibratedWhite: 0.5, alpha: 0.8).cgColor
-        self.layer?.borderWidth = 5.0
+        self.layer?.borderWidth = 2.5
         self.layer?.borderColor = .white
 
         self.shadow = NSShadow()
@@ -63,4 +69,18 @@ class PointerView: NSImageView {
         self.image = cursorImage
     }
     
+    
+    func setPosition(_ position: NSPoint) {
+        var pointerPosition = position
+        switch self.type {
+        case .circle:
+            pointerPosition.x -= self.bounds.width / 2
+            pointerPosition.y -= self.bounds.height / 2
+        case .cursor:
+            pointerPosition.x -= 4
+            pointerPosition.y = pointerPosition.y - self.bounds.height + 4
+        }
+        
+        self.frame.origin = pointerPosition
+    }
 }
