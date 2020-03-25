@@ -9,7 +9,23 @@
 import Cocoa
 import PDFKit
 
+
+
+
+protocol MousePointerDelegate {
+    func showPointer()
+    func hidePointer()
+    
+    /** `position` is the relative position of the pointer in the displayed image. */
+    func pointerMoved(to position: NSPoint)
+}
+
+
+
+
 class PresenterViewController: NSViewController {
+    
+    var pointerDelegate: MousePointerDelegate?
     
     @IBOutlet weak var clockLabel: ClockLabel!
     @IBOutlet weak var timingControl: TimingControl!
@@ -142,6 +158,8 @@ class PresenterViewController: NSViewController {
 }
 
 
+
+
 extension PresenterViewController: SlideTrackingDelegate {
     
     func mouseMoved(to position: NSPoint, in sender: PDFPageView?) {
@@ -152,10 +170,10 @@ extension PresenterViewController: SlideTrackingDelegate {
         
         // Hide Pointer if at edge of view
         if relativeInImage.x < 0.01 || relativeInImage.x > 0.99 || relativeInImage.y < 0.01 || relativeInImage.y > 0.99 {
-            // Hide Pointer
+            pointerDelegate?.hidePointer()
         } else {
-            // Show Pointer
-            // Send position
+            pointerDelegate?.showPointer()
+            pointerDelegate?.pointerMoved(to: relativeInImage)
         }
     }
     

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */; };
+		500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A49242B8D9900EFE246 /* PointerView.swift */; };
 		50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50208BA42429028000444E73 /* NSColor+Extension.swift */; };
 		503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */; };
 		503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDFB242A180000B6F438 /* PresenterWindowController.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImageView+Extension.swift"; sourceTree = "<group>"; };
+		500A5A49242B8D9900EFE246 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		50208BA42429028000444E73 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
 		503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDatePicker+Extension.swift"; sourceTree = "<group>"; };
 		503FFDFB242A180000B6F438 /* PresenterWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterWindowController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			children = (
 				509B97272428CBA20076B8B4 /* Slide */,
 				509B970F2428B1530076B8B4 /* Time */,
+				500A5A49242B8D9900EFE246 /* PointerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				503FFDFF242A193500B6F438 /* PresentationWindowController.swift in Sources */,
 				509B970C2428AA2F0076B8B4 /* TimingControl.swift in Sources */,
 				503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */,
+				500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */,
 				509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */,
 				509B970E2428B0A90076B8B4 /* TimeInterval+Extension.swift in Sources */,
 				500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */,

@@ -110,6 +110,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             presentationWindow.level = .normal
         }
         
+        // Setup communication between the two windows
+        presenterDisplay.pointerDelegate = presentationView
+        
         // Open Presentation Window in fullscreen
         presentationWindow.makeKeyAndOrderFront(self)
         presentationWindow.toggleFullScreen(self)
