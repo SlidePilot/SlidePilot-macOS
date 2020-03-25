@@ -145,11 +145,25 @@ class PresenterViewController: NSViewController {
 extension PresenterViewController: SlideTrackingDelegate {
     
     func mouseMoved(to position: NSPoint, in sender: PDFPageView?) {
-        guard let page = slideArrangement.currentSlideView?.page else { return }
+        guard let page = sender else { return }
         
+        // Calculate relative position by setting width to 100
+        let relativeInImage = calculateRelativePosition(for: position, in: page)
+        
+        // Hide Pointer if at edge of view
+        if relativeInImage.x < 0.01 || relativeInImage.x > 0.99 || relativeInImage.y < 0.01 || relativeInImage.y > 0.99 {
+            // Hide Pointer
+        } else {
+            // Show Pointer
+            // Send position
+        }
+    }
+    
+    
+    func calculateRelativePosition(for position: NSPoint, in view: NSImageView) -> NSPoint {
         // Calculate position in image view
-        let imageViewOrigin = page.convert(view.frame.origin, to: self.view)
-        let imageFrame = page.imageRect()
+        let imageViewOrigin = view.convert(view.frame.origin, to: self.view)
+        let imageFrame = view.imageRect()
         let imageOrigin = imageFrame.origin
         
         let positionInImage = NSPoint(x: position.x - imageViewOrigin.x - imageOrigin.x,
@@ -159,12 +173,6 @@ extension PresenterViewController: SlideTrackingDelegate {
         let relativeInImage = NSPoint(x: positionInImage.x / imageFrame.width,
                                       y: positionInImage.y / imageFrame.height)
         
-        // Hide Pointer if at edge of view
-        if relativeInImage.x < 0.01 || relativeInImage.x > 0.99 || relativeInImage.y < 0.01 || relativeInImage.y > 0.99 {
-            // Hide Pointer
-        } else {
-            // Show Pointer
-            // Send position
-        }
+        return relativeInImage
     }
 }
