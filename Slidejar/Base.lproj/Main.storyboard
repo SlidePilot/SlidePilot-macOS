@@ -284,10 +284,10 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="SKb-ny-ddI"/>
-                                        <menuItem title="Show Mouse" tag="301" keyEquivalent="m" id="iHL-eH-XtE">
+                                        <menuItem title="Show Cursor" keyEquivalent="c" id="iHL-eH-XtE">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="showMouse:" target="Ady-hI-5gd" id="Fo5-gZ-C8j"/>
+                                                <action selector="showCursor:" target="Ady-hI-5gd" id="Fo5-gZ-C8j"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="A3e-R8-0Hj"/>

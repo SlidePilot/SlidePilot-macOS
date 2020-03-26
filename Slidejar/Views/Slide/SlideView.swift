@@ -89,7 +89,7 @@ class SlideView: NSView {
         }
         
         // Create new tracking area
-        guard let imageRect = page?.imageRect() else { return }
+        guard let imageRect = page?.imageRect().insetBy(dx: -10, dy: -10) else { return }
         trackingArea = NSTrackingArea(rect: imageRect, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         
         // Add tracking area

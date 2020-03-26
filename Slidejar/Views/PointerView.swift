@@ -11,21 +11,21 @@ import Cocoa
 class PointerView: NSImageView {
     
     enum PointerType {
-        case circle, cursor
+        case cursor, dot, circle
     }
     
     let type: PointerType
     
 
     override init(frame frameRect: NSRect) {
-        self.type = .circle
+        self.type = .cursor
         super.init(frame: frameRect)
         setup(type: self.type)
     }
     
     
     required init?(coder: NSCoder) {
-        self.type = .circle
+        self.type = .cursor
         super.init(coder: coder)
         setup(type: self.type)
     }
@@ -40,26 +40,13 @@ class PointerView: NSImageView {
     
     func setup(type: PointerType) {
         switch type {
-        case .circle:
-            setupCircle()
         case .cursor:
             setupCursor()
+        case .dot:
+            setupDot()
+        case .circle:
+            setupCircle()
         }
-    }
-    
-    
-    func setupCircle() {
-        self.wantsLayer = true
-        self.layer?.cornerRadius = min(self.frame.width, self.frame.height) / 2
-        self.layer?.backgroundColor = NSColor(calibratedWhite: 0.5, alpha: 0.8).cgColor
-        self.layer?.borderWidth = 2.5
-        self.layer?.borderColor = .white
-
-        self.shadow = NSShadow()
-        self.layer?.shadowOpacity = 0.8
-        self.layer?.shadowColor = .black
-        self.layer?.shadowOffset = NSMakeSize(0, 0)
-        self.layer?.shadowRadius = 10.0
     }
     
     
@@ -70,15 +57,45 @@ class PointerView: NSImageView {
     }
     
     
+    func setupDot() {
+        self.wantsLayer = true
+        self.layer?.cornerRadius = min(self.frame.width, self.frame.height) / 2
+        self.layer?.backgroundColor = NSColor(calibratedWhite: 0.0, alpha: 0.8).cgColor
+        self.layer?.borderWidth = 3.0
+        self.layer?.borderColor = .white
+
+        self.shadow = NSShadow()
+        self.layer?.shadowOpacity = 0.6
+        self.layer?.shadowColor = .black
+        self.layer?.shadowOffset = NSMakeSize(0, 0)
+        self.layer?.shadowRadius = 5.0
+    }
+    
+    
+    func setupCircle() {
+        self.wantsLayer = true
+        self.layer?.cornerRadius = min(self.frame.width, self.frame.height) / 2
+        self.layer?.backgroundColor = .clear
+        self.layer?.borderWidth = 3
+        self.layer?.borderColor = .white
+
+        self.shadow = NSShadow()
+        self.layer?.shadowOpacity = 0.6
+        self.layer?.shadowColor = .black
+        self.layer?.shadowOffset = NSMakeSize(0, 0)
+        self.layer?.shadowRadius = 5.0
+    }
+    
+    
     func setPosition(_ position: NSPoint) {
         var pointerPosition = position
         switch self.type {
-        case .circle:
-            pointerPosition.x -= self.bounds.width / 2
-            pointerPosition.y -= self.bounds.height / 2
         case .cursor:
             pointerPosition.x -= 4
             pointerPosition.y = pointerPosition.y - self.bounds.height + 4
+        case .dot, .circle:
+            pointerPosition.x -= self.bounds.width / 2
+            pointerPosition.y -= self.bounds.height / 2
         }
         
         self.frame.origin = pointerPosition
