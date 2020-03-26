@@ -26,6 +26,7 @@
 		509B971F2428B6A10076B8B4 /* ClockLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B971E2428B6A10076B8B4 /* ClockLabel.swift */; };
 		509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */; };
 		509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B972E2428D74E0076B8B4 /* SlideView.swift */; };
+		50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		509B971E2428B6A10076B8B4 /* ClockLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockLabel.swift; sourceTree = "<group>"; };
 		509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideArrangementView.swift; sourceTree = "<group>"; };
 		509B972E2428D74E0076B8B4 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
+		50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */,
 				503FFDFD242A193500B6F438 /* PresentationWindowController.swift */,
 				503FFE01242A195300B6F438 /* PresentationViewController.swift */,
+				50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */,
 				509B96FC2428A3AE0076B8B4 /* Main.storyboard */,
 				509B97062428A3C40076B8B4 /* Views */,
 				509B96FA2428A3AE0076B8B4 /* Assets.xcassets */,
@@ -275,6 +278,7 @@
 				500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */,
 				509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */,
 				509B970E2428B0A90076B8B4 /* TimeInterval+Extension.swift in Sources */,
+				50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */,
 				500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */,
 				503FFE02242A195300B6F438 /* PresentationViewController.swift in Sources */,
 			);

@@ -100,9 +100,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         NSApp.activate(ignoringOtherApps: true)
         
-        // Open Presenter Display
-        presenterWindow.makeKeyAndOrderFront(nil)
-        
         // Move window to second screen if possible
         if NSScreen.screens.count >= 2 {
             let secondScreen = NSScreen.screens[1]
@@ -114,8 +111,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         presenterDisplay.pointerDelegate = presentationView
         
         // Open Presentation Window in fullscreen
-        presentationWindow.makeKeyAndOrderFront(self)
+        presentationWindow.orderFront(self)
         presentationWindow.toggleFullScreen(self)
+        
+        // Open Presenter Display
+//        let firstScreen = NSScreen.screens[0]
+//        presenterWindow.setFrame(firstScreen.visibleFrame, display: true, animate: false)
+//        presenterWindow.level = .normal
+        presenterWindow.makeKeyAndOrderFront(nil)
         
         // Set properties
         self.presenterWindowCtrl = presenterWindowCtrl
