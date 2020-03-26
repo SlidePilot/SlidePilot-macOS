@@ -115,9 +115,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         presentationWindow.toggleFullScreen(self)
         
         // Open Presenter Display
-//        let firstScreen = NSScreen.screens[0]
-//        presenterWindow.setFrame(firstScreen.visibleFrame, display: true, animate: false)
-//        presenterWindow.level = .normal
         presenterWindow.makeKeyAndOrderFront(nil)
         
         // Set properties
