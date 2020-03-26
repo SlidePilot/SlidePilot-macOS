@@ -167,7 +167,6 @@ class PresenterViewController: NSViewController {
             pointerDelegate!.hidePointer()
             isShowCursorActive = false
         } else {
-            pointerDelegate!.showPointer()
             isShowCursorActive = true
         }
         
