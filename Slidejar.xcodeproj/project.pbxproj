@@ -26,6 +26,7 @@
 		509B971F2428B6A10076B8B4 /* ClockLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B971E2428B6A10076B8B4 /* ClockLabel.swift */; };
 		509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */; };
 		509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B972E2428D74E0076B8B4 /* SlideView.swift */; };
+		50C77F39242CD32500066752 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50C77F3B242CD32500066752 /* Localizable.strings */; };
 		50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,9 @@
 		509B971E2428B6A10076B8B4 /* ClockLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockLabel.swift; sourceTree = "<group>"; };
 		509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideArrangementView.swift; sourceTree = "<group>"; };
 		509B972E2428D74E0076B8B4 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
+		50C77F2F242CCCC800066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		50C77F3A242CD32500066752 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		50C77F3C242CD32600066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +117,7 @@
 				50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */,
 				503FFE01242A195300B6F438 /* PresentationViewController.swift */,
 				509B96FC2428A3AE0076B8B4 /* Main.storyboard */,
+				50C77F3B242CD32500066752 /* Localizable.strings */,
 				509B97062428A3C40076B8B4 /* Views */,
 				509B96FA2428A3AE0076B8B4 /* Assets.xcassets */,
 				509B96FF2428A3AE0076B8B4 /* Info.plist */,
@@ -228,6 +233,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 509B96EA2428A3AC0076B8B4;
 			productRefGroup = 509B96F42428A3AC0076B8B4 /* Products */;
@@ -246,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */,
+				50C77F39242CD32500066752 /* Localizable.strings in Resources */,
 				509B96FE2428A3AE0076B8B4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,8 +314,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				509B96FD2428A3AE0076B8B4 /* Base */,
+				50C77F2F242CCCC800066752 /* de */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		50C77F3B242CD32500066752 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				50C77F3A242CD32500066752 /* en */,
+				50C77F3C242CD32600066752 /* de */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -318,6 +335,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -378,6 +396,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
