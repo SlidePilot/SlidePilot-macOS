@@ -54,7 +54,7 @@
 		509B96FA2428A3AE0076B8B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		509B96FD2428A3AE0076B8B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		509B96FF2428A3AE0076B8B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		509B97002428A3AE0076B8B4 /* Slidejar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slidejar.entitlements; sourceTree = "<group>"; };
+		509B97002428A3AE0076B8B4 /* SlidePilot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SlidePilot.entitlements; sourceTree = "<group>"; };
 		509B97072428A3DD0076B8B4 /* PDFPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPageView.swift; sourceTree = "<group>"; };
 		509B97092428A6FD0076B8B4 /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		509B970B2428AA2F0076B8B4 /* TimingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingControl.swift; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 				509B97062428A3C40076B8B4 /* Views */,
 				509B96FA2428A3AE0076B8B4 /* Assets.xcassets */,
 				509B96FF2428A3AE0076B8B4 /* Info.plist */,
-				509B97002428A3AE0076B8B4 /* Slidejar.entitlements */,
+				509B97002428A3AE0076B8B4 /* SlidePilot.entitlements */,
 			);
 			path = SlidePilot;
 			sourceTree = "<group>";
