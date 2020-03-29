@@ -15,6 +15,8 @@ class PresenterWindowController: NSWindowController {
         
         self.window?.title = NSLocalizedString("Presenter Display", comment: "Window name for the presenter view.")
         self.window?.center()
+        
+        self.window?.backgroundColor = NSColor(white: 0.1, alpha: 1.0)
     }
 
 }

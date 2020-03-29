@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50026AA22430AC0B0049387E /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50026AA12430AC0B0049387E /* SplitView.swift */; };
 		500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */; };
 		500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A49242B8D9900EFE246 /* PointerView.swift */; };
 		50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50208BA42429028000444E73 /* NSColor+Extension.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		50026AA12430AC0B0049387E /* SplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
 		500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImageView+Extension.swift"; sourceTree = "<group>"; };
 		500A5A49242B8D9900EFE246 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		50208BA42429028000444E73 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				509B97272428CBA20076B8B4 /* Slide */,
 				509B970F2428B1530076B8B4 /* Time */,
 				500A5A49242B8D9900EFE246 /* PointerView.swift */,
+				50026AA12430AC0B0049387E /* SplitView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */,
 				509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */,
 				503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */,
+				50026AA22430AC0B0049387E /* SplitView.swift in Sources */,
 				509B971F2428B6A10076B8B4 /* ClockLabel.swift in Sources */,
 				509B970A2428A6FD0076B8B4 /* TimeView.swift in Sources */,
 				509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */,

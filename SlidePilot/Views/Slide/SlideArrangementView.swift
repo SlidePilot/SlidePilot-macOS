@@ -13,7 +13,7 @@ class SlideArrangementView: NSView {
     
     var delegate: SlideTrackingDelegate?
     
-    private var splitView: NSSplitView?
+    private var splitView: SplitView?
     private var leftContainer: NSView?
     private var rightContainer: NSView?
     
@@ -60,9 +60,10 @@ class SlideArrangementView: NSView {
     
     
     private func setupView() {
-        splitView = NSSplitView(frame: self.frame)
+        splitView = SplitView(frame: self.frame)
         splitView!.dividerStyle = .thin
         splitView!.isVertical = true
+        splitView!.setDividerColor(NSColor(named: "DividerColor")!)
         
         splitView!.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(splitView!)

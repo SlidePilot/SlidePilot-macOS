@@ -140,13 +140,6 @@
                                                 <action selector="toggleFullScreen:" target="Ady-hI-5gd" id="dU3-MA-1Rq"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="qoe-6g-Ml6"/>
-                                        <menuItem title="Dark Appearance" identifier="DefaultDarkAppearance" id="9cd-7L-rZh">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="defaultDarkMode:" target="Ady-hI-5gd" id="fJo-qk-ePH"/>
-                                            </connections>
-                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>

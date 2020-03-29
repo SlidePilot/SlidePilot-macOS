@@ -12,18 +12,6 @@ import PDFKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    private let defaultDarkModeKey = "defaultDarkMode"
-    var defaultDarkMode: Bool = false {
-        didSet {
-            if defaultDarkMode {
-                NSApp.appearance = NSAppearance(named: .darkAqua)
-            } else {
-                NSApp.appearance = nil
-            }
-            UserDefaults.standard.set(self.defaultDarkMode, forKey: defaultDarkModeKey)
-        }
-    }
-    
     var presentationMenu: NSMenu? {
         NSApp.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "PresentationMenu") })?.submenu
     }
@@ -39,29 +27,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         NSWindow.allowsAutomaticWindowTabbing = false
         
-        // Load preferences from UserDefaults if possible
-        let userDefaultsDarkMode = (UserDefaults.standard.object(forKey: defaultDarkModeKey) as? Bool) ?? false
-        if let darkDefaultItem = viewMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "DefaultDarkAppearance")}) {
-            setDarkModeDefault(userDefaultsDarkMode, sender: darkDefaultItem)
-        }
-        
         startup()
     }
     
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
-    }
-    
-    
-    @IBAction func defaultDarkMode(_ sender: NSMenuItem) {
-        setDarkModeDefault(!defaultDarkMode, sender: sender)
-    }
-    
-    
-    func setDarkModeDefault(_ isDefault: Bool, sender: NSMenuItem) {
-        defaultDarkMode = isDefault
-        sender.state = defaultDarkMode ? .on : .off
     }
 
     

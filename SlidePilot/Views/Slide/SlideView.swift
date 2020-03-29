@@ -55,6 +55,7 @@ class SlideView: NSView {
         label!.isSelectable = false
         label!.isBordered = false
         label!.drawsBackground = false
+        label!.textColor = .white
         
         label!.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(label!)
