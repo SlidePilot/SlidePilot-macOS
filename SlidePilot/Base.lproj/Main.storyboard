@@ -328,7 +328,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Slidejar" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SlidePilot" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -337,7 +337,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="PresenterWindow" id="B8D-0N-5wS" customClass="PresenterWindowController" customModule="Slidejar" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="PresenterWindow" id="B8D-0N-5wS" customClass="PresenterWindowController" customModule="SlidePilot" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -358,8 +358,8 @@
         <!--Window Controller-->
         <scene sceneID="Row-tj-BNh">
             <objects>
-                <windowController storyboardIdentifier="PresentationWindow" id="VPj-fN-aKM" customClass="PresentationWindowController" customModule="Slidejar" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="zZP-Ud-eGP" customClass="PresentationWindow" customModule="Slidejar" customModuleProvider="target">
+                <windowController storyboardIdentifier="PresentationWindow" id="VPj-fN-aKM" customClass="PresentationWindowController" customModule="SlidePilot" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="zZP-Ud-eGP" customClass="PresentationWindow" customModule="SlidePilot" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="425" y="461" width="480" height="270"/>
@@ -379,12 +379,12 @@
         <!--Presentation View Controller-->
         <scene sceneID="Rhj-S3-zDb">
             <objects>
-                <viewController id="2ya-4N-qpl" customClass="PresentationViewController" customModule="Slidejar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="2ya-4N-qpl" customClass="PresentationViewController" customModule="SlidePilot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="fPV-BC-LaP">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0gX-s2-K8M" customClass="PDFPageView" customModule="Slidejar" customModuleProvider="target">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0gX-s2-K8M" customClass="PDFPageView" customModule="SlidePilot" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="BQ7-Gf-9ME"/>
                             </imageView>
@@ -407,7 +407,7 @@
         <!--Presenter View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="PresenterViewController" customModule="Slidejar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="PresenterViewController" customModule="SlidePilot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="1400" height="900"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -418,7 +418,7 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="tLk-sB-UgV">
                                         <rect key="frame" x="0.0" y="0.0" width="700" height="180"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="Slidejar" customModuleProvider="target">
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="SlidePilot" customModuleProvider="target">
                                                 <rect key="frame" x="267" y="47" width="166" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="85" id="vnc-Hp-eJ9"/>
@@ -442,7 +442,7 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="IVP-vn-KwH">
                                         <rect key="frame" x="700" y="0.0" width="700" height="180"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="Slidejar" customModuleProvider="target">
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="SlidePilot" customModuleProvider="target">
                                                 <rect key="frame" x="267" y="47" width="166" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="85" id="dOp-qt-xnl"/>
@@ -475,7 +475,7 @@
                                     <constraint firstItem="IVP-vn-KwH" firstAttribute="leading" secondItem="tLk-sB-UgV" secondAttribute="trailing" id="yVR-Zd-hyF"/>
                                 </constraints>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="KBY-3V-F6W" customClass="SlideArrangementView" customModule="Slidejar" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="KBY-3V-F6W" customClass="SlideArrangementView" customModule="SlidePilot" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1400" height="720"/>
                             </customView>
                         </subviews>
@@ -503,7 +503,7 @@
     </scenes>
     <resources>
         <namedColor name="ClockColor">
-            <color red="0.33300000429153442" green="0.56099998950958252" blue="0.74500000476837158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.70599997043609619" green="0.85500001907348633" blue="0.97600001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
