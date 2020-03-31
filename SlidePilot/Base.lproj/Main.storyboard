@@ -477,32 +477,20 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="KBY-3V-F6W" customClass="SlideArrangementView" customModule="SlidePilot" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1400" height="720"/>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="O1O-nx-jTl" customClass="ThumbnailNavigation" customModule="SlidePilot" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="180" height="900"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="mQK-id-Kch"/>
-                                </constraints>
-                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="bi8-QE-Aey" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="AVf-8K-UmF"/>
                             <constraint firstItem="bi8-QE-Aey" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" multiplier="0.2" id="BhJ-4S-oma"/>
                             <constraint firstAttribute="trailing" secondItem="KBY-3V-F6W" secondAttribute="trailing" id="E7w-Dh-wfq"/>
                             <constraint firstAttribute="trailing" secondItem="bi8-QE-Aey" secondAttribute="trailing" id="GaA-bD-Q22"/>
-                            <constraint firstItem="O1O-nx-jTl" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="TGr-M6-KdQ"/>
-                            <constraint firstAttribute="bottom" secondItem="O1O-nx-jTl" secondAttribute="bottom" id="aC4-qg-7sE"/>
                             <constraint firstItem="KBY-3V-F6W" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="arV-JW-CVI"/>
                             <constraint firstAttribute="bottom" secondItem="KBY-3V-F6W" secondAttribute="bottom" id="jHV-44-lO9"/>
                             <constraint firstItem="KBY-3V-F6W" firstAttribute="top" secondItem="bi8-QE-Aey" secondAttribute="bottom" id="oju-SC-Gn8"/>
-                            <constraint firstItem="O1O-nx-jTl" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="ozr-cJ-ltV"/>
                             <constraint firstItem="bi8-QE-Aey" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="wMD-Bq-SMB"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="clockLabel" destination="b2E-Pb-ePI" id="khv-hd-4dx"/>
-                        <outlet property="navigation" destination="O1O-nx-jTl" id="BIs-Yl-SB0"/>
-                        <outlet property="navigationLeft" destination="TGr-M6-KdQ" id="zzY-GC-Yqy"/>
-                        <outlet property="navigationWidth" destination="mQK-id-Kch" id="Lmk-ew-nBZ"/>
                         <outlet property="slideArrangement" destination="KBY-3V-F6W" id="lZU-Rv-clF"/>
                         <outlet property="timingControl" destination="TbN-u6-wpl" id="Vfw-Pb-bgV"/>
                     </connections>

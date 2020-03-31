@@ -124,8 +124,6 @@ class ThumbnailNavigation: NSView {
         
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalScroller = false
-        
-        updateView()
     }
     
     

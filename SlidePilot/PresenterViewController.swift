@@ -33,9 +33,9 @@ class PresenterViewController: NSViewController {
     @IBOutlet weak var timingControl: TimingControl!
     @IBOutlet weak var slideArrangement: SlideArrangementView!
     
-    @IBOutlet weak var navigation: ThumbnailNavigation!
-    @IBOutlet weak var navigationLeft: NSLayoutConstraint!
-    @IBOutlet weak var navigationWidth: NSLayoutConstraint!
+    var navigation: ThumbnailNavigation?
+    var navigationLeft: NSLayoutConstraint?
+    let navigationWidth: CGFloat = 180.0
     
     
     var presentationMenu: NSMenu? {
@@ -66,12 +66,6 @@ class PresenterViewController: NSViewController {
             let notesPositionNoneAction = notesPositionNoneItem.action {
             NSApp.sendAction(notesPositionNoneAction, to: notesPositionNoneItem.target, from: notesPositionNoneItem)
         }
-        
-        
-        // Setup navigation
-        navigation.delegate = slideArrangement
-        slideArrangement.slideDelegate = navigation
-        hideNavigation(animated: false)
     }
     
     
@@ -85,7 +79,7 @@ class PresenterViewController: NSViewController {
     
     // MARK: - Menu Actions
     
-    var isNavigationShown = true
+    var isNavigationShown = false
     
     @IBAction func showNavigator(_ sender: NSMenuItem) {
         if isNavigationShown {
@@ -207,12 +201,36 @@ class PresenterViewController: NSViewController {
     
     // MARK: - Navigation
     
+    func setupNavigation() {
+        guard navigation == nil else { return }
+        navigation = ThumbnailNavigation(frame: .zero)
+        navigation!.translatesAutoresizingMaskIntoConstraints = false
+        
+        navigation!.delegate = slideArrangement
+        slideArrangement.slideDelegate = navigation!
+        
+        self.view.addSubview(navigation!)
+        navigationLeft = NSLayoutConstraint(item: navigation!, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1.0, constant: -navigationWidth)
+        self.view.addConstraints([navigationLeft!,
+                             NSLayoutConstraint(item: navigation!, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1.0, constant: 0.0),
+                             NSLayoutConstraint(item: navigation!, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1.0, constant: 0.0),
+                             NSLayoutConstraint(item: navigation!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: navigationWidth)])
+        
+        // Set inital configuration
+        navigation?.document = slideArrangement.pdfDocument
+        navigation?.displayMode = slideArrangement.notesPosition.displayModeForPresentation()
+    }
+    
+    
     /** Shows the ThumbnailNavigation view. */
     func showNavigation() {
+        setupNavigation()
+        guard navigation != nil, navigationLeft != nil else { return }
+        
         if let currentPage = slideArrangement.currentSlideView?.page?.currentPage {
-            navigation.selectThumbnail(at: currentPage, scrollVisible: false)
+            navigation!.selectThumbnail(at: currentPage, scrollVisible: false)
         }
-        navigationLeft.constant = 0.0
+        navigationLeft!.constant = 0.0
         self.view.updateConstraints()
         
         isNavigationShown = true
@@ -221,16 +239,20 @@ class PresenterViewController: NSViewController {
     
     /** Hides the ThumbnailNavigation view. */
     func hideNavigation(animated: Bool) {
-        navigationLeft.constant = -navigationWidth.constant
+        guard navigation != nil, navigationLeft != nil else { return }
+        navigationLeft!.constant = -navigationWidth
         endEditing()
         
         if animated {
-            NSAnimationContext.runAnimationGroup { (context) in
+            NSAnimationContext.runAnimationGroup({ (context) in
                 context.duration = 0.25
                 context.allowsImplicitAnimation = true
                 context.timingFunction = CAMediaTimingFunction(name: .easeIn)
                 self.view.updateConstraints()
                 self.view.layoutSubtreeIfNeeded()
+            }) {
+                self.navigation?.removeFromSuperview()
+                self.navigation = nil
             }
         } else {
             self.view.updateConstraints()
