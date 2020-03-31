@@ -75,6 +75,12 @@ class PresenterViewController: NSViewController {
     }
     
     
+    override func viewDidAppear() {
+        // Don't have any controls active when view appears
+        endEditing()
+    }
+    
+    
     
     
     // MARK: - Menu Actions
@@ -216,6 +222,7 @@ class PresenterViewController: NSViewController {
     /** Hides the ThumbnailNavigation view. */
     func hideNavigation(animated: Bool) {
         navigationLeft.constant = -navigationWidth.constant
+        endEditing()
         
         if animated {
             NSAnimationContext.runAnimationGroup { (context) in
@@ -235,6 +242,18 @@ class PresenterViewController: NSViewController {
     
     override func cancelOperation(_ sender: Any?) {
         hideNavigation(animated: true)
+    }
+    
+    
+    override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
+        endEditing()
+    }
+    
+    
+    /** Ends editing for all NSControls */
+    func endEditing() {
+        self.view.window?.makeFirstResponder(nil)
     }
 }
 
