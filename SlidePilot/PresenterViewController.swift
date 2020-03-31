@@ -33,6 +33,11 @@ class PresenterViewController: NSViewController {
     @IBOutlet weak var timingControl: TimingControl!
     @IBOutlet weak var slideArrangement: SlideArrangementView!
     
+    @IBOutlet weak var navigation: ThumbnailNavigation!
+    @IBOutlet weak var navigationLeft: NSLayoutConstraint!
+    @IBOutlet weak var navigationWidth: NSLayoutConstraint!
+    
+    
     var presentationMenu: NSMenu? {
         NSApp.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "PresentationMenu") })?.submenu
     }
@@ -62,6 +67,11 @@ class PresenterViewController: NSViewController {
             NSApp.sendAction(notesPositionNoneAction, to: notesPositionNoneItem.target, from: notesPositionNoneItem)
         }
         
+        
+        // Setup navigation
+        navigation.delegate = slideArrangement
+        slideArrangement.slideDelegate = navigation
+        hideNavigation(animated: false)
     }
     
     
@@ -171,6 +181,53 @@ class PresenterViewController: NSViewController {
         }
         
         sender.state = isShowCursorActive ? .on : .off
+    }
+    
+    
+    
+    
+    // MARK: - Navigation
+    
+    var isNavigationShown = true
+    
+    
+    /** Shows the ThumbnailNavigation view. */
+    func showNavigation() {
+        if !isNavigationShown {
+            if let currentPage = slideArrangement.currentSlideView?.page?.currentPage {
+                navigation.selectThumbnail(at: currentPage, scrollVisible: false)
+            }
+            navigationLeft.constant = 0.0
+            self.view.updateConstraints()
+            
+            isNavigationShown = true
+        }
+    }
+    
+    
+    /** Hides the ThumbnailNavigation view. */
+    func hideNavigation(animated: Bool) {
+        if isNavigationShown {
+            navigationLeft.constant = -navigationWidth.constant
+            
+            if animated {
+                NSAnimationContext.runAnimationGroup { (context) in
+                    context.duration = 0.25
+                    context.allowsImplicitAnimation = true
+                    context.timingFunction = CAMediaTimingFunction(name: .easeIn)
+                    self.view.updateConstraints()
+                    self.view.layoutSubtreeIfNeeded()
+                }
+            } else {
+                self.view.updateConstraints()
+            }
+            isNavigationShown = false
+        }
+    }
+    
+    
+    override func cancelOperation(_ sender: Any?) {
+        hideNavigation(animated: true)
     }
 }
 

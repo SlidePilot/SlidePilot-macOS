@@ -9,9 +9,17 @@
 import Cocoa
 import PDFKit
 
+protocol SlideArrangementDelegate: NSObject {
+    func didSelectSlide(at index: Int)
+    func didChangeDocument(_ document: PDFDocument?)
+    func didChangeDisplayMode(_ mode: PDFPageView.DisplayMode)
+}
+
+
 class SlideArrangementView: NSView {
     
     var delegate: SlideTrackingDelegate?
+    unowned var slideDelegate: SlideArrangementDelegate?
     
     private var splitView: SplitView?
     private var leftContainer: NSView?
@@ -29,7 +37,8 @@ class SlideArrangementView: NSView {
             currentSlideView?.pdfDocument = self.pdfDocument
             nextSlideView?.pdfDocument = self.pdfDocument
             notesSlideView?.pdfDocument = self.pdfDocument
-            showSlide(at: 0)
+            slideDelegate?.didChangeDocument(self.pdfDocument)
+            showSlide(at: 0, notifyDelegate: true)
         }
     }
 
@@ -43,6 +52,7 @@ class SlideArrangementView: NSView {
     var notesPosition: PDFPageView.NotesPosition = .none {
         didSet {
             updateView()
+            slideDelegate?.didChangeDisplayMode(self.notesPosition.displayModeForPresentation())
         }
     }
     
@@ -58,6 +68,9 @@ class SlideArrangementView: NSView {
         setupView()
     }
     
+    
+    
+    // MARK: - UI Setup/Update
     
     private func setupView() {
         splitView = SplitView(frame: self.frame)
@@ -111,7 +124,7 @@ class SlideArrangementView: NSView {
         currentSlideView?.page?.displayMode = notesPosition.displayModeForPresentation()
         nextSlideView?.page?.displayMode = notesPosition.displayModeForPresentation()
         
-        showSlide(at: currentPage ?? 0)
+        showSlide(at: currentPage ?? 0, notifyDelegate: true)
     }
     
     
@@ -221,6 +234,10 @@ class SlideArrangementView: NSView {
     }
     
     
+    
+    
+    // MARK: - UI Slides
+    
     /** Updates slides and labels */
     private func updateSlides(for index: Int) {
         guard let currentPageView = currentSlideView?.page, currentSlideView?.pdfDocument != nil else { return }
@@ -256,22 +273,26 @@ class SlideArrangementView: NSView {
     
     func nextSlide() {
         guard let page = currentSlideView?.page else { return }
-        page.pageForward()
+        showSlide(at: page.currentPage + 1, notifyDelegate: true)
         updateSlides(for: page.currentPage)
     }
     
     
     func previousSlide() {
         guard let page = currentSlideView?.page else { return }
-        page.pageBackward()
-        updateSlides(for: page.currentPage)
+        showSlide(at: page.currentPage - 1, notifyDelegate: true)
     }
     
     
-    func showSlide(at index: Int) {
+    func showSlide(at index: Int, notifyDelegate: Bool) {
+        guard 0 <= index, index < (pdfDocument?.pageCount ?? -1)  else { return }
         guard let page = currentSlideView?.page else { return }
         page.currentPage = index
         updateSlides(for: page.currentPage)
+        
+        if notifyDelegate {
+            slideDelegate?.didSelectSlide(at: index)
+        }
     }
     
 }
@@ -282,5 +303,15 @@ extension SlideArrangementView: SlideTrackingDelegate {
     
     func mouseMoved(to position: NSPoint, in sender: PDFPageView?) {
         delegate?.mouseMoved(to: position, in: sender)
+    }
+}
+
+
+
+
+extension SlideArrangementView: ThumbnailNavigationDelegate {
+    
+    func didSelectThumbnail(at index: Int) {
+        showSlide(at: index, notifyDelegate: false)
     }
 }
