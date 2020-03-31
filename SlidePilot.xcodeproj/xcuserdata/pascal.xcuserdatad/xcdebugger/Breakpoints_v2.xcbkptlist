@@ -14,8 +14,8 @@
             filePath = "SlidePilot/Views/Thumbnail/ThumbnailNavigation.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "didSelect(thumbnail:)"
             landmarkType = "7">
          </BreakpointContent>
