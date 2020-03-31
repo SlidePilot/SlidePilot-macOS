@@ -77,7 +77,20 @@ class PresenterViewController: NSViewController {
     
     
     
-    // MARK: - Menu Actions    
+    // MARK: - Menu Actions
+    
+    var isNavigationShown = true
+    
+    @IBAction func showNavigator(_ sender: NSMenuItem) {
+        if isNavigationShown {
+            hideNavigation(animated: true)
+        } else {
+            showNavigation()
+        }
+        
+        sender.state = isNavigationShown ? .on : .off
+    }
+    
     
     @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
         // Turn off all menu items in same menu
@@ -188,41 +201,35 @@ class PresenterViewController: NSViewController {
     
     // MARK: - Navigation
     
-    var isNavigationShown = true
-    
-    
     /** Shows the ThumbnailNavigation view. */
     func showNavigation() {
-        if !isNavigationShown {
-            if let currentPage = slideArrangement.currentSlideView?.page?.currentPage {
-                navigation.selectThumbnail(at: currentPage, scrollVisible: false)
-            }
-            navigationLeft.constant = 0.0
-            self.view.updateConstraints()
-            
-            isNavigationShown = true
+        if let currentPage = slideArrangement.currentSlideView?.page?.currentPage {
+            navigation.selectThumbnail(at: currentPage, scrollVisible: false)
         }
+        navigationLeft.constant = 0.0
+        self.view.updateConstraints()
+        
+        isNavigationShown = true
     }
     
     
     /** Hides the ThumbnailNavigation view. */
     func hideNavigation(animated: Bool) {
-        if isNavigationShown {
-            navigationLeft.constant = -navigationWidth.constant
-            
-            if animated {
-                NSAnimationContext.runAnimationGroup { (context) in
-                    context.duration = 0.25
-                    context.allowsImplicitAnimation = true
-                    context.timingFunction = CAMediaTimingFunction(name: .easeIn)
-                    self.view.updateConstraints()
-                    self.view.layoutSubtreeIfNeeded()
-                }
-            } else {
+        navigationLeft.constant = -navigationWidth.constant
+        
+        if animated {
+            NSAnimationContext.runAnimationGroup { (context) in
+                context.duration = 0.25
+                context.allowsImplicitAnimation = true
+                context.timingFunction = CAMediaTimingFunction(name: .easeIn)
                 self.view.updateConstraints()
+                self.view.layoutSubtreeIfNeeded()
             }
-            isNavigationShown = false
+        } else {
+            self.view.updateConstraints()
         }
+        
+        isNavigationShown = false
     }
     
     

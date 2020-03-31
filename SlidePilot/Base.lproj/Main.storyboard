@@ -202,6 +202,12 @@
                                                 <action selector="nextSlide:" target="Ady-hI-5gd" id="DhG-49-Jbe"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Show Navigator" keyEquivalent="n" id="zx2-Yz-Rxn">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showNavigator:" target="Ady-hI-5gd" id="wx2-dD-z2m"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="lIR-Xf-rG6"/>
                                         <menuItem title="Mode" tag="101" identifier="TimeMode" id="sQh-A9-Icc">
                                             <modifierMask key="keyEquivalentModifierMask"/>
