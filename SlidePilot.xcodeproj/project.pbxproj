@@ -104,6 +104,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		50440BB02433574D000C0C9E /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				500A5A49242B8D9900EFE246 /* PointerView.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
 		509B96EA2428A3AC0076B8B4 = {
 			isa = PBXGroup;
 			children = (
@@ -147,8 +155,7 @@
 			children = (
 				509B97272428CBA20076B8B4 /* Slide */,
 				509B970F2428B1530076B8B4 /* Time */,
-				500A5A49242B8D9900EFE246 /* PointerView.swift */,
-				50026AA12430AC0B0049387E /* SplitView.swift */,
+				50440BB02433574D000C0C9E /* Presentation */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -182,6 +189,7 @@
 				50208BA42429028000444E73 /* NSColor+Extension.swift */,
 				503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */,
 				500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */,
+				50026AA12430AC0B0049387E /* SplitView.swift */,
 			);
 			path = Slide;
 			sourceTree = "<group>";
