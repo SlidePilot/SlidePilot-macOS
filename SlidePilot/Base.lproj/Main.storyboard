@@ -178,7 +178,7 @@
                                                 <action selector="previousSlide:" target="Ady-hI-5gd" id="ijM-Of-CjL"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Previous Slide" tag="2" hidden="YES" keyEquivalent="" id="Ogv-VI-0Jg">
+                                        <menuItem title="Previous Slide" tag="2" hidden="YES" keyEquivalent="" id="Ogv-VI-0Jg">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
@@ -193,7 +193,7 @@
                                                 <action selector="nextSlide:" target="Ady-hI-5gd" id="sj2-C9-1bJ"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Next Slide" tag="4" hidden="YES" keyEquivalent="" id="XpD-9W-0P3">
+                                        <menuItem title="Next Slide" tag="4" hidden="YES" keyEquivalent="" id="XpD-9W-0P3">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
