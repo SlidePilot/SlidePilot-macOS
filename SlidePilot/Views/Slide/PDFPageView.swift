@@ -144,7 +144,7 @@ class PDFPageView: NSImageView {
     // MARK: - Alternative Display and Cover
     
     public func displayBlank() {
-        self.image = NSColor(named: "DefaultColor")!.image(of: (pdfDocument?.page(at: 0)?.bounds(for: .cropBox).size ?? NSSize(width: 1.0, height: 1.0)))
+        self.image = NSColor.black.image(of: (pdfDocument?.page(at: 0)?.bounds(for: .cropBox).size ?? NSSize(width: 1.0, height: 1.0)))
     }
     
     
