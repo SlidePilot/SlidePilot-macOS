@@ -202,7 +202,7 @@
                                                 <action selector="nextSlide:" target="Ady-hI-5gd" id="DhG-49-Jbe"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Show Navigator" keyEquivalent="n" id="zx2-Yz-Rxn">
+                                        <menuItem title="Show Navigator" keyEquivalent="o" id="zx2-Yz-Rxn">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showNavigator:" target="Ady-hI-5gd" id="wx2-dD-z2m"/>
