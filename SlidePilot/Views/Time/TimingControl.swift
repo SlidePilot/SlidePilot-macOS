@@ -14,7 +14,7 @@ class TimingControl: NSTextField {
     // MARK: - UI Properties
     
     var textColorRunning: NSColor = NSColor.white
-    var textColorTimeOver: NSColor = NSColor(named: "OverTimeColor")!
+    var textColorTimeOver: NSColor = OvertimeColor
     
     
     

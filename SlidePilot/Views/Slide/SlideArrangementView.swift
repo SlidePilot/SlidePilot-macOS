@@ -63,7 +63,7 @@ class SlideArrangementView: NSView {
         splitView = SplitView(frame: self.frame)
         splitView!.dividerStyle = .thin
         splitView!.isVertical = true
-        splitView!.setDividerColor(NSColor(named: "DividerColor")!)
+        splitView!.setDividerColor(DividerColor)
         
         splitView!.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(splitView!)

@@ -24,7 +24,9 @@ extension NSDatePicker {
     
     /** Sets the `dateValue` of the picker to midnight. */
     func setZeroTime() {
-        self.dateValue = ISO8601DateFormatter().date(from: "2020-01-01T00:00:00Z")!
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        self.dateValue = formatter.date(from: "2020-01-01T00:00:00+0000")!
         self.timeZone = TimeZone(secondsFromGMT: 0)
     }
     

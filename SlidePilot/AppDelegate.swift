@@ -24,8 +24,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
-        NSWindow.allowsAutomaticWindowTabbing = false
+        if #available(OSX 10.12, *) {
+            NSWindow.allowsAutomaticWindowTabbing = false
+        }
         
         startup()
     }
