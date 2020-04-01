@@ -27,6 +27,9 @@
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Check for Updates…" id="VVU-xh-TkN">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="checkForUpdates:" target="UY0-Ac-aeS" id="Ja7-yS-pQR"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
                                         <menuItem title="Hide SlidePilot" keyEquivalent="h" id="Olw-nP-bQN">
@@ -324,6 +327,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SlidePilot" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="UY0-Ac-aeS" customClass="SUUpdater"/>
             </objects>
             <point key="canvasLocation" x="75" y="-151"/>
         </scene>

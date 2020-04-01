@@ -13,6 +13,8 @@
 		500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */; };
 		500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A49242B8D9900EFE246 /* PointerView.swift */; };
 		50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50208BA42429028000444E73 /* NSColor+Extension.swift */; };
+		503834552434721600E73E43 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503834542434721600E73E43 /* Sparkle.framework */; };
+		503834572434723A00E73E43 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 503834542434721600E73E43 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */; };
 		503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDFB242A180000B6F438 /* PresenterWindowController.swift */; };
 		503FFDFF242A193500B6F438 /* PresentationWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDFD242A193500B6F438 /* PresentationWindowController.swift */; };
@@ -43,6 +45,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		503834562434722B00E73E43 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				503834572434723A00E73E43 /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		50026AA12430AC0B0049387E /* SplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
 		50026ACF2430EED80049387E /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -50,6 +65,7 @@
 		500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImageView+Extension.swift"; sourceTree = "<group>"; };
 		500A5A49242B8D9900EFE246 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		50208BA42429028000444E73 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
+		503834542434721600E73E43 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDatePicker+Extension.swift"; sourceTree = "<group>"; };
 		503FFDFB242A180000B6F438 /* PresenterWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterWindowController.swift; sourceTree = "<group>"; };
 		503FFDFD242A193500B6F438 /* PresentationWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationWindowController.swift; sourceTree = "<group>"; };
@@ -82,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				503834552434721600E73E43 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +150,7 @@
 		509B96F52428A3AC0076B8B4 /* SlidePilot */ = {
 			isa = PBXGroup;
 			children = (
+				503834542434721600E73E43 /* Sparkle.framework */,
 				509B96F62428A3AC0076B8B4 /* AppDelegate.swift */,
 				503FFDFB242A180000B6F438 /* PresenterWindowController.swift */,
 				509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */,
@@ -204,6 +222,7 @@
 				509B96EF2428A3AC0076B8B4 /* Sources */,
 				509B96F02428A3AC0076B8B4 /* Frameworks */,
 				509B96F12428A3AC0076B8B4 /* Resources */,
+				503834562434722B00E73E43 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -479,17 +498,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SlidePilot/SlidePilot.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.0.0.0;
 				DEVELOPMENT_TEAM = NL97TS4Q9A;
 				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SlidePilot",
+				);
 				INFOPLIST_FILE = SlidePilot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pascalbraband.SlidePilot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -501,17 +527,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SlidePilot/SlidePilot.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.0.0.0;
 				DEVELOPMENT_TEAM = NL97TS4Q9A;
 				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SlidePilot",
+				);
 				INFOPLIST_FILE = SlidePilot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pascalbraband.SlidePilot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
