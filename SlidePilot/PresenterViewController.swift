@@ -61,7 +61,25 @@ class PresenterViewController: NSViewController {
             let notesPositionNoneAction = notesPositionNoneItem.action {
             NSApp.sendAction(notesPositionNoneAction, to: notesPositionNoneItem.target, from: notesPositionNoneItem)
         }
-        
+    }
+    
+    
+    override func viewDidAppear() {
+        // Only show donation alert after thrid app start
+        if AppStartTracker.count >= 3 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                let alert = NSAlert()
+                alert.messageText = NSLocalizedString("Donation Alert Text", comment: "Title for the donation alert.")
+                alert.informativeText = NSLocalizedString("Donation Alert Message", comment: "Message for the donation alert.")
+                alert.alertStyle = NSAlert.Style.informational
+                alert.addButton(withTitle: NSLocalizedString("Donate Button", comment: "Title for the donate button in the donation alert."))
+                alert.addButton(withTitle: NSLocalizedString("Donate Cancel Button", comment: "Title for the cancel button in the donation alert."))
+                let res = alert.runModal()
+                if res == .alertFirstButtonReturn {
+                    NSWorkspace.shared.open(URL(string: "https://pascalbraband.de")!)
+                }
+            }
+        }
     }
     
     

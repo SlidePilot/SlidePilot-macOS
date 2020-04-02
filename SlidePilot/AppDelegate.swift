@@ -28,6 +28,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSWindow.allowsAutomaticWindowTabbing = false
         }
         
+        // Count app starts
+        AppStartTracker.startup()
+        
         startup()
     }
     
