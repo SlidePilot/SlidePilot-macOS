@@ -65,9 +65,14 @@ class PresenterViewController: NSViewController {
     
     
     override func viewDidAppear() {
-        // Only show donation alert after thrid app start
-        if AppStartTracker.count >= 3 {
+        let alreadyDisplayedKey = "AlreadyDisplayedDonationAlert"
+        let alreadyDisplayedDonation = UserDefaults.standard.bool(forKey: alreadyDisplayedKey)
+        
+        // Only show donation alert after thrid app start and if not already displayed
+        if AppStartTracker.count >= 3, !alreadyDisplayedDonation {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                UserDefaults.standard.set(true, forKey: alreadyDisplayedKey)
+                
                 let alert = NSAlert()
                 alert.messageText = NSLocalizedString("Donation Alert Text", comment: "Title for the donation alert.")
                 alert.informativeText = NSLocalizedString("Donation Alert Message", comment: "Message for the donation alert.")
