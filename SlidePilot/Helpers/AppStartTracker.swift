@@ -11,7 +11,7 @@ import Cocoa
 class AppStartTracker {
 
     private static let appStartCountKey = "AppStartCount"
-    private static let countLimit = 4
+    private static let countLimit = 6
     public static private(set) var count = 0
     
     public static func startup() {

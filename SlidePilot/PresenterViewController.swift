@@ -69,7 +69,7 @@ class PresenterViewController: NSViewController {
         let alreadyDisplayedDonation = UserDefaults.standard.bool(forKey: alreadyDisplayedKey)
         
         // Only show donation alert after thrid app start and if not already displayed
-        if AppStartTracker.count >= 3, !alreadyDisplayedDonation {
+        if AppStartTracker.count >= 5, !alreadyDisplayedDonation {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                 UserDefaults.standard.set(true, forKey: alreadyDisplayedKey)
                 
