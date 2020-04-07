@@ -14,40 +14,32 @@ protocol ThumbnailNavigationDelegate: NSObject {
     func didSelectThumbnail(at index: Int)
 }
 
-
 class ThumbnailNavigation: NSView {
     
-    unowned var delegate: ThumbnailNavigationDelegate?
-    
-    // Views
+    weak var delegate: ThumbnailNavigationDelegate?
+
     var searchContainer: NSView!
     var searchField: NSTextField!
     
-    var thumbnails: [ThumbnailView] = [ThumbnailView]()
     var scrollView: NSScrollView!
-    var documentView: NSView!
-    
-
-    // Document and PDF
-    var document: PDFDocument? {
-        didSet {
-            updateView()
-        }
-    }
-    
-    private(set) var currentSelection: Int = 0
-    
-    var displayMode: PDFPageView.DisplayMode = .full {
-        didSet {
-            updateView()
-        }
-    }
-    
+    var tableView: NSTableView!
     
     // Colors
     let mainBackgroundColor = NSColor(white: 0.12, alpha: 1.0)
     let searchBackgroundColor = NSColor.black
-        
+    
+    // Content
+    var document: PDFDocument? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    var displayMode: PDFPageView.DisplayMode = .full {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     
     override init(frame frameRect: NSRect) {
@@ -62,10 +54,7 @@ class ThumbnailNavigation: NSView {
     }
     
     
-    
-    // MARK: - UI Setup
-    
-    private func setup() {
+    func setup() {
         self.wantsLayer = true
         self.layer?.backgroundColor = mainBackgroundColor.cgColor
         
@@ -105,93 +94,37 @@ class ThumbnailNavigation: NSView {
             NSLayoutConstraint(item: searchField!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 50.0)])
         
         // Scroll View
-        scrollView = NSScrollView(frame: .zero)
+        scrollView = NSScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.drawsBackground = false
+        scrollView.hasVerticalScroller = true
+        scrollView.hasHorizontalScroller = false
         self.addSubview(scrollView)
         self.addConstraints([NSLayoutConstraint(item: scrollView!, attribute: .top, relatedBy: .equal, toItem: searchContainer, attribute: .bottom, multiplier: 1.0, constant: 0.0),
                              NSLayoutConstraint(item: scrollView!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0),
                              NSLayoutConstraint(item: scrollView!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0),
                              NSLayoutConstraint(item: scrollView!, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0.0)])
         
-        // Scroll View's Document View
-        documentView = FlippedView(frame: .zero)
-        documentView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.documentView = documentView
-        scrollView.contentView.addConstraints([NSLayoutConstraint(item: documentView!, attribute: .top, relatedBy: .equal, toItem: scrollView.contentView, attribute: .top, multiplier: 1.0, constant: 19.0),
-                                               NSLayoutConstraint(item: documentView!, attribute: .right, relatedBy: .equal, toItem: scrollView.contentView, attribute: .right, multiplier: 1.0, constant: -15.0),
-                                               NSLayoutConstraint(item: documentView!, attribute: .left, relatedBy: .equal, toItem: scrollView.contentView, attribute: .left, multiplier: 1.0, constant: 0.0)])
+        // Table View
+        tableView = NSTableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.headerView = nil
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = .clear
+        scrollView.documentView = tableView
+        tableView.usesAutomaticRowHeights = true
+        tableView.intercellSpacing = NSSize(width: 0.0, height: 20.0)
+        tableView.selectionHighlightStyle = .none
+        tableView.rowHeight = 50.0
         
-        scrollView.hasVerticalScroller = true
-        scrollView.hasHorizontalScroller = false
-    }
-    
-    
-    override func viewWillDraw() {
-        self.thumbnails.forEach({ $0.updateBorder() })
-    }
-    
-    
-    
-    
-    // MARK: - UI Update
-    
-    private func clearScrollView() {
-        thumbnails.forEach({ $0.removeFromSuperview() })
-        thumbnails = [ThumbnailView]()
-    }
-    
-    
-    private func updateView() {
-        clearScrollView()
+        let col = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "col"))
+        col.minWidth = 100
+        tableView.addTableColumn(col)
         
-        guard document != nil else { return }
-        var previousThumbnail: ThumbnailView? = nil
-
-        // Loop through all pages
-        for i in 0...document!.pageCount-1 {
-
-            // Add thumbnail view to document view of scroll view
-            let thumbnail = ThumbnailView(frame: .zero)
-            
-            // Setup thumbnail view
-            thumbnail.document = document
-            thumbnail.page.displayMode = self.displayMode
-            thumbnail.page.currentPage = i
-            thumbnail.label.stringValue = "\(i+1)"
-            thumbnail.delegate = self
-            
-            // Setup layout
-            thumbnail.translatesAutoresizingMaskIntoConstraints = false
-            documentView.addSubview(thumbnail)
-            documentView.addConstraints([
-                NSLayoutConstraint(item: thumbnail, attribute: .left, relatedBy: .equal, toItem: documentView!, attribute: .left, multiplier: 1.0, constant: 5.0),
-                NSLayoutConstraint(item: thumbnail, attribute: .right, relatedBy: .equal, toItem: documentView!, attribute: .right, multiplier: 1.0, constant: 0.0)])
-
-            // Adjust thumbnail height to fit the images height if possible
-            if let pageFrame = thumbnail.document?.page(at: thumbnail.page.currentPage)?.bounds(for: .cropBox) {
-                // ratioFix is just try and error value
-                let ratioFix: CGFloat = 60.0
-                let aspectRatio = pageFrame.height / (pageFrame.width + ratioFix)
-                documentView.addConstraint(NSLayoutConstraint(item: thumbnail, attribute: .height, relatedBy: .equal, toItem: thumbnail, attribute: .width, multiplier: aspectRatio, constant: 0))
-            } else {
-                documentView.addConstraint(NSLayoutConstraint(item: thumbnail, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100))
-            }
-            
-            
-            // Add top constraint
-            if previousThumbnail == nil {
-                documentView.addConstraint(NSLayoutConstraint(item: thumbnail, attribute: .top, relatedBy: .equal, toItem: documentView!, attribute: .top, multiplier: 1.0, constant: 20.0))
-            } else {
-                documentView.addConstraint(NSLayoutConstraint(item: thumbnail, attribute: .top, relatedBy: .equal, toItem: previousThumbnail!, attribute: .bottom, multiplier: 1.0, constant: 30.0))
-            }
-            previousThumbnail = thumbnail
-            thumbnails.append(thumbnail)
-        }
-
-        // Set last constraint
-        guard previousThumbnail != nil else { return }
-        documentView.addConstraint(NSLayoutConstraint(item: previousThumbnail!, attribute: .bottom, relatedBy: .equal, toItem: documentView, attribute: .bottom, multiplier: 1.0, constant: -15.0))
+        self.addConstraints([NSLayoutConstraint(item: tableView!, attribute: .top, relatedBy: .equal, toItem: scrollView!, attribute: .bottom, multiplier: 1.0, constant: 0.0),
+        NSLayoutConstraint(item: tableView!, attribute: .right, relatedBy: .equal, toItem: scrollView!, attribute: .right, multiplier: 1.0, constant: 0.0),
+        NSLayoutConstraint(item: tableView!, attribute: .left, relatedBy: .equal, toItem: scrollView!, attribute: .left, multiplier: 1.0, constant: 0.0)])
     }
     
     
@@ -199,6 +132,7 @@ class ThumbnailNavigation: NSView {
     
     // MARK: - Thumbnail UI Manipulation
     
+    private(set) var currentSelection: Int = -1
     
     /**
      Selects the thumbnail at the given index.
@@ -208,17 +142,30 @@ class ThumbnailNavigation: NSView {
         - scrollVisible: If set to true, the scroll view will scroll to make the thumbnail visible.
      */
     public func selectThumbnail(at index: Int, scrollVisible: Bool) {
-        // Get thumbnail for index
-        let safeIndex = min(index, thumbnails.count-1)
-        guard thumbnails.indices.contains(safeIndex) else { return }
-        let thumbnail = thumbnails[safeIndex]
+        // Get thumbnail for index (prevent selecting too high index and prevent selecting when there are no pages at all)
+        let pageCount = document?.pageCount ?? 0
+        guard pageCount > 0 else { return }
+        // Lower bound 0, upper bound pageCount
+        let safeIndex = max(min(index, pageCount-1), 0)
         
-        // Removed highlight and selection from other thumbnails
+        // Remove highlight from thumbnail
         cleanHighlight()
-        thumbnails.forEach({ $0.deselectPrimary() })
         
-        // Select the new thumbnail
-        thumbnail.selectPrimary()
+        // Save previous selection index
+        let previousSelection = currentSelection
+        
+        // Update previous (remove selection) and current (add selection) thumbnail cells
+        currentSelection = safeIndex
+        if previousSelection >= 0,
+            let previousCell = tableView.view(atColumn: 0, row: previousSelection, makeIfNecessary: true),
+            let previousThumbnail = previousCell.subviews[0] as? ThumbnailView {
+            previousThumbnail.deselectPrimary()
+        }
+        
+        if let currentCell = tableView.view(atColumn: 0, row: currentSelection, makeIfNecessary: true),
+            let currentThumbnail = currentCell.subviews[0] as? ThumbnailView {
+            currentThumbnail.selectPrimary()
+        }
         
         // Update the searchField (use the unsafe index)
         // (It might happen, that the user enters a too high index, then his text will be replaced immideately, not nice)
@@ -226,11 +173,8 @@ class ThumbnailNavigation: NSView {
         
         // Scroll to top of thumbnail if flag is set
         if scrollVisible {
-            scrollView.contentView.scroll(to: NSPoint(x: 0, y: thumbnail.frame.minY))
+            tableView.scrollRowToVisible(safeIndex)
         }
-        
-        // Update the indicator of the currently selected thumbnail
-        currentSelection = safeIndex
     }
     
     
@@ -244,55 +188,127 @@ class ThumbnailNavigation: NSView {
         - scrollVisible: If set to true, the scroll view will scroll to make the thumbnail visible.
     */
     private func highlightThumbnail(at index: Int, scrollVisible: Bool) {
-        // Get thumbnail for index
-        let safeIndex = min(index, thumbnails.count-1)
-        guard thumbnails.indices.contains(safeIndex) else { return }
-        let thumbnail = thumbnails[safeIndex]
+        // Get thumbnail for index (prevent selecting too high index and prevent selecting when there are no pages at all)
+        let pageCount = document?.pageCount ?? 0
+        guard pageCount > 0 else { return }
+        // Lower bound 0, upper bound pageCount
+        let safeIndex = max(min(index, pageCount-1), 0)
         
-        // Removed highlight from other thumbnails
-        cleanHighlight()
+        // Save previous highlight index
+        let previousHighlight = currentHighlight
         
-        // Highlight the new thumbnail
-        thumbnail.selectSecondary()
-        
-        // Scroll to top of thumbnail if flag is set
-        if scrollVisible {
-            scrollView.contentView.scroll(to: NSPoint(x: 0, y: thumbnail.frame.minY))
+        // Update previous (remove highlight) and current (add highlight) thumbnail cells
+        currentHighlight = safeIndex
+        if let previous = previousHighlight,
+            let previousCell = tableView.view(atColumn: 0, row: previous, makeIfNecessary: true),
+            let previousThumbnail = previousCell.subviews[0] as? ThumbnailView {
+            // If highlight was on current selection, then select again
+            if previous == currentSelection {
+                previousThumbnail.selectPrimary()
+            } else {
+                previousThumbnail.deselectSecondary()
+            }
+        }
+        if let current = currentHighlight,
+            let currentCell = tableView.view(atColumn: 0, row: current, makeIfNecessary: true),
+            let currentThumbnail = currentCell.subviews[0] as? ThumbnailView {
+            DispatchQueue.main.async {
+                currentThumbnail.selectSecondary()
+            }
         }
         
-        // Update the indicator of the currently highlighted thumbnail
-        currentHighlight = safeIndex
+        // Scroll to top of thumbnail if flag is set
+        if scrollVisible && currentHighlight != nil {
+            tableView.scrollRowToVisible(currentHighlight!)
+        }
     }
     
     
+    /**
+     Removes highlight from `currentHighlight`.
+     */
     private func cleanHighlight() {
-        thumbnails.forEach({ $0.deselectSecondary() })
-        currentHighlight = nil
+        if let current = currentHighlight,
+            let currentCell = tableView.view(atColumn: 0, row: current, makeIfNecessary: true),
+            let currentThumbnail = currentCell.subviews[0] as? ThumbnailView {
+            DispatchQueue.main.async {
+                currentThumbnail.deselectSecondary()
+            }
+        }
     }
-}
-
-
-
-
-extension ThumbnailNavigation: ThumbnailViewDelegate {
     
-    func didSelect(thumbnail: ThumbnailView) {
-        guard let index = thumbnails.firstIndex(of: thumbnail) else { return }
-        selectThumbnail(at: index, scrollVisible: false)
-        delegate?.didSelectThumbnail(at: index)
-    }
+    
 }
 
+
+
+
+extension ThumbnailNavigation: NSTableViewDelegate {
+    
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let thumbnail = ThumbnailView(frame: .zero)
+        thumbnail.translatesAutoresizingMaskIntoConstraints = false
+        thumbnail.document = document
+        thumbnail.page.displayMode = .leftHalf
+        thumbnail.page.currentPage = row
+        thumbnail.label.stringValue = "\(row+1)"
+        
+        let cell = NSTableCellView()
+        cell.translatesAutoresizingMaskIntoConstraints = false
+        cell.addSubview(thumbnail)
+        cell.addConstraints([NSLayoutConstraint(item: thumbnail, attribute: .left, relatedBy: .equal, toItem: cell, attribute: .left, multiplier: 1.0, constant: 0.0),
+                             NSLayoutConstraint(item: thumbnail, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: 0.0),
+                             NSLayoutConstraint(item: thumbnail, attribute: .right, relatedBy: .equal, toItem: cell, attribute: .right, multiplier: 1.0, constant: -20.0),
+                             NSLayoutConstraint(item: thumbnail, attribute: .bottom, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+        
+        // Adjust thumbnail height to fit the images height if possible
+        if let pageFrame = thumbnail.document?.page(at: thumbnail.page.currentPage)?.bounds(for: .cropBox) {
+            // ratioFix is just try and error value
+            let ratioFix: CGFloat = 60.0
+            let aspectRatio = pageFrame.height / (pageFrame.width + ratioFix)
+            cell.addConstraint(NSLayoutConstraint(item: thumbnail, attribute: .height, relatedBy: .equal, toItem: thumbnail, attribute: .width, multiplier: aspectRatio, constant: 0))
+        } else {
+            cell.addConstraint(NSLayoutConstraint(item: thumbnail, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100))
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        return 120.0
+    }
+    
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        guard let tableView = notification.object as? NSTableView else { return }
+        selectThumbnail(at: tableView.selectedRow, scrollVisible: false)
+        delegate?.didSelectThumbnail(at: tableView.selectedRow)
+    }
+    
+}
+
+
+
+
+extension ThumbnailNavigation: NSTableViewDataSource {
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return document?.pageCount ?? 0
+    }
+}
 
 
 
 extension ThumbnailNavigation: NSTextFieldDelegate {
     
-    func controlTextDidEndEditing(_ obj: Notification) {
-        // Select currently highlighted thumbnail
-        guard let index = currentHighlight else { return }
-        selectThumbnail(at: index, scrollVisible: true)
-        delegate?.didSelectThumbnail(at: index)
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        if (commandSelector == #selector(NSResponder.insertNewline(_:))) {
+            // Select currently highlighted thumbnail on ENTER
+            guard let index = currentHighlight else { return false }
+            selectThumbnail(at: index, scrollVisible: true)
+            delegate?.didSelectThumbnail(at: index)
+            return true
+        }
+        return false
     }
     
     func controlTextDidChange(_ obj: Notification) {
@@ -302,13 +318,16 @@ extension ThumbnailNavigation: NSTextFieldDelegate {
             if let index = Int(textField.stringValue) {
                 highlightThumbnail(at: index-1, scrollVisible: true)
             }
-            // Otherwise search for the string one the pages
+            // Otherwise clean highlight
             else {
-               // TODO: Asynchronously find text in PDF using beginFindString
+                cleanHighlight()
             }
+            // TODO: If not a number, search for text on pages
+            // Asynchronously find text in PDF using beginFindString
         }
     }
 }
+
 
 
 
@@ -327,14 +346,5 @@ extension ThumbnailNavigation: SlideArrangementDelegate {
     
     func didChangeDisplayMode(_ mode: PDFPageView.DisplayMode) {
         self.displayMode = mode
-    }
-}
-
-
-
-
-class FlippedView: ClipfreeView {
-    override var isFlipped: Bool {
-        return true
     }
 }

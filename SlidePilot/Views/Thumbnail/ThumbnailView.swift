@@ -10,14 +10,7 @@ import Cocoa
 import PDFKit
 
 
-protocol ThumbnailViewDelegate {
-    func didSelect(thumbnail: ThumbnailView)
-}
-
-
 class ThumbnailView: ClipfreeView {
-    
-    var delegate: ThumbnailViewDelegate?
 
     var document: PDFDocument? {
         set {
@@ -58,6 +51,9 @@ class ThumbnailView: ClipfreeView {
         
         label.addConstraint(NSLayoutConstraint(item: label!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20.0))
         
+        page.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .horizontal)
+        page.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .vertical)
+        
         self.addSubview(page)
         self.addSubview(label)
         self.addConstraints([
@@ -68,17 +64,8 @@ class ThumbnailView: ClipfreeView {
             NSLayoutConstraint(item: page!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: page!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
         
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateBorder), name: NSView.frameDidChangeNotification, object: self)
-    }
-    
-    
-    override func mouseDown(with event: NSEvent) {
-        delegate?.didSelect(thumbnail: self)
-    }
-    
-    
-    override func viewWillDraw() {
-        updateBorder()
     }
     
     
@@ -97,8 +84,9 @@ class ThumbnailView: ClipfreeView {
             borderView = nil
         }
         
+        self.layoutSubtreeIfNeeded()
         let pageBounds = page.imageRect()
-        let pageFrame = NSRect(x: page.frame.minX, y: page.frame.minY, width: pageBounds.width, height: pageBounds.height)
+        let pageFrame = NSRect(x: page.frame.minX, y: page.frame.minY, width: pageBounds.width, height: pageBounds.height+0.5)
         borderView = NSView(frame: pageFrame.insetBy(dx: -borderWidth, dy: min(0, -borderWidth+2)))
         borderView?.wantsLayer = true
         borderView?.layer?.borderWidth = borderWidth
@@ -149,6 +137,4 @@ class ThumbnailView: ClipfreeView {
             selectedSecondary = false
         }
     }
-    
 }
-
