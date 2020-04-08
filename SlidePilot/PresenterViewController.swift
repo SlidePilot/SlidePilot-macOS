@@ -234,6 +234,7 @@ class PresenterViewController: NSViewController {
         }
         navigationLeft!.constant = 0.0
         self.view.updateConstraints()
+        navigation?.searchField.becomeFirstResponder()
         
         isNavigationShown = true
     }
