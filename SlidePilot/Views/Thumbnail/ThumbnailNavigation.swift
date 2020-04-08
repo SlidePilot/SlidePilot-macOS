@@ -194,21 +194,10 @@ class ThumbnailNavigation: NSView {
         // Lower bound 0, upper bound pageCount
         let safeIndex = max(min(index, pageCount-1), 0)
         
-        // Save previous highlight index
-        let previousHighlight = currentHighlight
-        
         // Update previous (remove highlight) and current (add highlight) thumbnail cells
+        cleanHighlight(restoreSelection: true)
+        
         currentHighlight = safeIndex
-        if let previous = previousHighlight,
-            let previousCell = tableView.view(atColumn: 0, row: previous, makeIfNecessary: true),
-            let previousThumbnail = previousCell.subviews[0] as? ThumbnailView {
-            // If highlight was on current selection, then select again
-            if previous == currentSelection {
-                previousThumbnail.selectPrimary()
-            } else {
-                previousThumbnail.deselectSecondary()
-            }
-        }
         if let current = currentHighlight,
             let currentCell = tableView.view(atColumn: 0, row: current, makeIfNecessary: true),
             let currentThumbnail = currentCell.subviews[0] as? ThumbnailView {
@@ -226,15 +215,27 @@ class ThumbnailNavigation: NSView {
     
     /**
      Removes highlight from `currentHighlight`.
+     
+     - parameters:
+        - restoreSelection: Selects thumbnail as primary, if it was primary before
      */
-    private func cleanHighlight() {
+    private func cleanHighlight(restoreSelection: Bool = false) {
         if let current = currentHighlight,
+            // Deselect secondary from current highlight
             let currentCell = tableView.view(atColumn: 0, row: current, makeIfNecessary: true),
             let currentThumbnail = currentCell.subviews[0] as? ThumbnailView {
             DispatchQueue.main.async {
-                currentThumbnail.deselectSecondary()
+                // If highlight was on current selection, then select again
+                if restoreSelection, current == self.currentSelection {
+                    currentThumbnail.selectPrimary()
+                }
+                // Just remove highlight otherwise
+                else {
+                    currentThumbnail.deselectSecondary()
+                }
             }
         }
+        currentHighlight = nil
     }
     
     
@@ -320,7 +321,7 @@ extension ThumbnailNavigation: NSTextFieldDelegate {
             }
             // Otherwise clean highlight
             else {
-                cleanHighlight()
+                cleanHighlight(restoreSelection: true)
             }
             // TODO: If not a number, search for text on pages
             // Asynchronously find text in PDF using beginFindString
