@@ -19,7 +19,7 @@ protocol SlideArrangementDelegate: NSObject {
 class SlideArrangementView: NSView {
     
     var delegate: SlideTrackingDelegate?
-    unowned var slideDelegate: SlideArrangementDelegate?
+    weak var slideDelegate: SlideArrangementDelegate?
     
     private var splitView: SplitView?
     private var leftContainer: NSView?
