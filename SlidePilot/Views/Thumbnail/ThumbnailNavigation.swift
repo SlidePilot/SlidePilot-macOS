@@ -347,5 +347,6 @@ extension ThumbnailNavigation: SlideArrangementDelegate {
     
     func didChangeDisplayMode(_ mode: PDFPageView.DisplayMode) {
         self.displayMode = mode
+        selectThumbnail(at: currentSelection, scrollVisible: false)
     }
 }
