@@ -49,7 +49,7 @@ class ThumbnailView: ClipfreeView {
         label!.drawsBackground = false
         label!.textColor = .white
         
-        label.addConstraint(NSLayoutConstraint(item: label!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20.0))
+        label.addConstraint(NSLayoutConstraint(item: label!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25.0))
         
         page.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .horizontal)
         page.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .vertical)
@@ -86,8 +86,8 @@ class ThumbnailView: ClipfreeView {
         
         self.layoutSubtreeIfNeeded()
         let imageFrame = page.imageRect()
-        let pageFrame = NSRect(x: page.frame.minX + imageFrame.minX, y: page.frame.minY + imageFrame.minY, width: imageFrame.width, height: imageFrame.height+0.5)
-        borderView = NSView(frame: pageFrame.insetBy(dx: -borderWidth, dy: min(0, -borderWidth+2)))
+        let pageFrame = NSRect(x: page.frame.minX + imageFrame.minX, y: page.frame.minY + imageFrame.minY, width: imageFrame.width, height: imageFrame.height-1)
+        borderView = NSView(frame: pageFrame.insetBy(dx: -borderWidth, dy: min(0, -borderWidth)))
         borderView?.wantsLayer = true
         borderView?.layer?.borderWidth = borderWidth
         borderView?.layer?.borderColor = borderColor.cgColor
