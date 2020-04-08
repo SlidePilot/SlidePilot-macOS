@@ -249,7 +249,7 @@ extension ThumbnailNavigation: NSTableViewDelegate {
         let thumbnail = ThumbnailView(frame: .zero)
         thumbnail.translatesAutoresizingMaskIntoConstraints = false
         thumbnail.document = document
-        thumbnail.page.displayMode = .leftHalf
+        thumbnail.page.displayMode = displayMode
         thumbnail.page.currentPage = row
         thumbnail.label.stringValue = "\(row+1)"
         
