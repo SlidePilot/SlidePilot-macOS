@@ -85,8 +85,8 @@ class ThumbnailView: ClipfreeView {
         }
         
         self.layoutSubtreeIfNeeded()
-        let pageBounds = page.imageRect()
-        let pageFrame = NSRect(x: page.frame.minX, y: page.frame.minY, width: pageBounds.width, height: pageBounds.height+0.5)
+        let imageFrame = page.imageRect()
+        let pageFrame = NSRect(x: page.frame.minX + imageFrame.minX, y: page.frame.minY + imageFrame.minY, width: imageFrame.width, height: imageFrame.height+0.5)
         borderView = NSView(frame: pageFrame.insetBy(dx: -borderWidth, dy: min(0, -borderWidth+2)))
         borderView?.wantsLayer = true
         borderView?.layer?.borderWidth = borderWidth
