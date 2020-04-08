@@ -228,7 +228,9 @@ class PresenterViewController: NSViewController {
         guard navigation != nil, navigationLeft != nil else { return }
         
         if let currentPage = slideArrangement.currentSlideView?.page?.currentPage {
-            navigation!.selectThumbnail(at: currentPage, scrollVisible: false)
+            DispatchQueue.main.async {
+                self.navigation?.selectThumbnail(at: currentPage, scrollVisible: true)
+            }
         }
         navigationLeft!.constant = 0.0
         self.view.updateConstraints()

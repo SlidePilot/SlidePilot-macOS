@@ -159,12 +159,16 @@ class ThumbnailNavigation: NSView {
         if previousSelection >= 0,
             let previousCell = tableView.view(atColumn: 0, row: previousSelection, makeIfNecessary: true),
             let previousThumbnail = previousCell.subviews[0] as? ThumbnailView {
-            previousThumbnail.deselectPrimary()
+            DispatchQueue.main.async {
+                previousThumbnail.deselectPrimary()
+            }
         }
         
         if let currentCell = tableView.view(atColumn: 0, row: currentSelection, makeIfNecessary: true),
             let currentThumbnail = currentCell.subviews[0] as? ThumbnailView {
-            currentThumbnail.selectPrimary()
+            DispatchQueue.main.async {
+                currentThumbnail.selectPrimary()
+            }
         }
         
         // Update the searchField (use the unsafe index)
@@ -347,6 +351,6 @@ extension ThumbnailNavigation: SlideArrangementDelegate {
     
     func didChangeDisplayMode(_ mode: PDFPageView.DisplayMode) {
         self.displayMode = mode
-        selectThumbnail(at: currentSelection, scrollVisible: false)
+        selectThumbnail(at: currentSelection, scrollVisible: true)
     }
 }
