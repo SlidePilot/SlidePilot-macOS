@@ -141,6 +141,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let pdfDocument = PDFDocument(url: url) else { return }
         
         // Open document in both windows
+        presenterDisplay?.hideNavigation(animated: false)
         presenterDisplay?.slideArrangement.pdfDocument = pdfDocument
         presentationView?.pageView.setDocument(pdfDocument)
     }
