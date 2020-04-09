@@ -33,6 +33,11 @@ class PresenterViewController: NSViewController {
     @IBOutlet weak var timingControl: TimingControl!
     @IBOutlet weak var slideArrangement: SlideArrangementView!
     
+    var navigation: ThumbnailNavigation?
+    var navigationLeft: NSLayoutConstraint?
+    let navigationWidth: CGFloat = 180.0
+    
+    
     var presentationMenu: NSMenu? {
         NSApp.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "PresentationMenu") })?.submenu
     }
@@ -65,6 +70,9 @@ class PresenterViewController: NSViewController {
     
     
     override func viewDidAppear() {
+        // Don't have any controls active when view appears
+        endEditing()
+        
         let alreadyDisplayedKey = "AlreadyDisplayedDonationAlert"
         let alreadyDisplayedDonation = UserDefaults.standard.bool(forKey: alreadyDisplayedKey)
         
@@ -90,7 +98,20 @@ class PresenterViewController: NSViewController {
     
     
     
-    // MARK: - Menu Actions    
+    // MARK: - Menu Actions
+    
+    var isNavigationShown = false
+    
+    @IBAction func showNavigator(_ sender: NSMenuItem) {
+        if isNavigationShown {
+            hideNavigation(animated: true)
+        } else {
+            showNavigation()
+        }
+        
+        sender.state = isNavigationShown ? .on : .off
+    }
+    
     
     @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
         // Turn off all menu items in same menu
@@ -194,6 +215,91 @@ class PresenterViewController: NSViewController {
         }
         
         sender.state = isShowCursorActive ? .on : .off
+    }
+    
+    
+    
+    
+    // MARK: - Navigation
+    
+    func setupNavigation() {
+        guard navigation == nil else { return }
+        navigation = ThumbnailNavigation(frame: .zero)
+        navigation!.translatesAutoresizingMaskIntoConstraints = false
+        
+        navigation!.delegate = slideArrangement
+        slideArrangement.slideDelegate = navigation!
+        
+        self.view.addSubview(navigation!)
+        navigationLeft = NSLayoutConstraint(item: navigation!, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1.0, constant: -navigationWidth)
+        self.view.addConstraints([navigationLeft!,
+                             NSLayoutConstraint(item: navigation!, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1.0, constant: 0.0),
+                             NSLayoutConstraint(item: navigation!, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1.0, constant: 0.0),
+                             NSLayoutConstraint(item: navigation!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: navigationWidth)])
+        
+        // Set inital configuration
+        navigation?.document = slideArrangement.pdfDocument
+        navigation?.displayMode = slideArrangement.notesPosition.displayModeForPresentation()
+    }
+    
+    
+    /** Shows the ThumbnailNavigation view. */
+    func showNavigation() {
+        setupNavigation()
+        guard navigation != nil, navigationLeft != nil else { return }
+        
+        if let currentPage = slideArrangement.currentSlideView?.page?.currentPage {
+            DispatchQueue.main.async {
+                self.navigation?.selectThumbnail(at: currentPage, scrollVisible: true)
+            }
+        }
+        navigationLeft!.constant = 0.0
+        self.view.updateConstraints()
+        navigation?.searchField.becomeFirstResponder()
+        
+        isNavigationShown = true
+    }
+    
+    
+    /** Hides the ThumbnailNavigation view. */
+    func hideNavigation(animated: Bool) {
+        guard navigation != nil, navigationLeft != nil else { return }
+        navigationLeft!.constant = -navigationWidth
+        endEditing()
+        
+        if animated {
+            NSAnimationContext.runAnimationGroup({ (context) in
+                context.duration = 0.25
+                context.allowsImplicitAnimation = true
+                context.timingFunction = CAMediaTimingFunction(name: .easeIn)
+                self.view.updateConstraints()
+                self.view.layoutSubtreeIfNeeded()
+            }) {
+                self.navigation?.removeFromSuperview()
+                self.navigation = nil
+            }
+        } else {
+            self.view.updateConstraints()
+        }
+        
+        isNavigationShown = false
+    }
+    
+    
+    override func cancelOperation(_ sender: Any?) {
+        hideNavigation(animated: true)
+    }
+    
+    
+    override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
+        endEditing()
+    }
+    
+    
+    /** Ends editing for all NSControls */
+    func endEditing() {
+        self.view.window?.makeFirstResponder(nil)
     }
 }
 

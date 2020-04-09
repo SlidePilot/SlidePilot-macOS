@@ -190,3 +190,6 @@
 
 /* Class = "NSWindow"; title = "Window"; ObjectID = "zZP-Ud-eGP"; */
 "zZP-Ud-eGP.title" = "Fenster";
+
+/* Class = "NSMenuItem"; title = "Show Navigator"; ObjectID = "zx2-Yz-Rxn"; */
+"zx2-Yz-Rxn.title" = "Navigator anzeigen";

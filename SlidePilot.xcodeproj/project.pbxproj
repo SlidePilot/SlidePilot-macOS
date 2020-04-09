@@ -22,6 +22,10 @@
 		503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDFB242A180000B6F438 /* PresenterWindowController.swift */; };
 		503FFDFF242A193500B6F438 /* PresentationWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDFD242A193500B6F438 /* PresentationWindowController.swift */; };
 		503FFE02242A195300B6F438 /* PresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFE01242A195300B6F438 /* PresentationViewController.swift */; };
+		50440BB3243357AA000C0C9E /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50440BB2243357AA000C0C9E /* ThumbnailView.swift */; };
+		50440BB5243357C1000C0C9E /* Clipfree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50440BB4243357C1000C0C9E /* Clipfree.swift */; };
+		50440BB7243357F5000C0C9E /* ThumbnailNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50440BB6243357F5000C0C9E /* ThumbnailNavigation.swift */; };
+		50440BB924339CEA000C0C9E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 50440BB824339CEA000C0C9E /* README.md */; };
 		509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B96F62428A3AC0076B8B4 /* AppDelegate.swift */; };
 		509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */; };
 		509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 509B96FA2428A3AE0076B8B4 /* Assets.xcassets */; };
@@ -76,6 +80,10 @@
 		503FFDFB242A180000B6F438 /* PresenterWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterWindowController.swift; sourceTree = "<group>"; };
 		503FFDFD242A193500B6F438 /* PresentationWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationWindowController.swift; sourceTree = "<group>"; };
 		503FFE01242A195300B6F438 /* PresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationViewController.swift; sourceTree = "<group>"; };
+		50440BB2243357AA000C0C9E /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
+		50440BB4243357C1000C0C9E /* Clipfree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clipfree.swift; sourceTree = "<group>"; };
+		50440BB6243357F5000C0C9E /* ThumbnailNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailNavigation.swift; sourceTree = "<group>"; };
+		50440BB824339CEA000C0C9E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		509B96F32428A3AC0076B8B4 /* SlidePilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlidePilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		509B96F62428A3AC0076B8B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +154,15 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
+		50440BB124335787000C0C9E /* Thumbnail */ = {
+			isa = PBXGroup;
+			children = (
+				50440BB6243357F5000C0C9E /* ThumbnailNavigation.swift */,
+				50440BB2243357AA000C0C9E /* ThumbnailView.swift */,
+			);
+			path = Thumbnail;
+			sourceTree = "<group>";
+		};
 		509B96EA2428A3AC0076B8B4 = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +187,7 @@
 			children = (
 				503834542434721600E73E43 /* Sparkle.framework */,
 				509B96F62428A3AC0076B8B4 /* AppDelegate.swift */,
+				50440BB824339CEA000C0C9E /* README.md */,
 				503FFDFB242A180000B6F438 /* PresenterWindowController.swift */,
 				509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */,
 				503FFDFD242A193500B6F438 /* PresentationWindowController.swift */,
@@ -190,8 +208,10 @@
 			isa = PBXGroup;
 			children = (
 				509B97272428CBA20076B8B4 /* Slide */,
+				50440BB124335787000C0C9E /* Thumbnail */,
 				509B970F2428B1530076B8B4 /* Time */,
 				50440BB02433574D000C0C9E /* Presentation */,
+				50440BB4243357C1000C0C9E /* Clipfree.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -315,6 +335,7 @@
 			files = (
 				509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */,
 				50C77F39242CD32500066752 /* Localizable.strings in Resources */,
+				50440BB924339CEA000C0C9E /* README.md in Resources */,
 				509B96FE2428A3AE0076B8B4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,17 +361,20 @@
 				509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */,
 				503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */,
 				50026AA22430AC0B0049387E /* SplitView.swift in Sources */,
+				50440BB5243357C1000C0C9E /* Clipfree.swift in Sources */,
 				509B971F2428B6A10076B8B4 /* ClockLabel.swift in Sources */,
 				509B970A2428A6FD0076B8B4 /* TimeView.swift in Sources */,
 				509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */,
 				5038345C24349F4B00E73E43 /* Colors.swift in Sources */,
 				503FFDFF242A193500B6F438 /* PresentationWindowController.swift in Sources */,
 				509B970C2428AA2F0076B8B4 /* TimingControl.swift in Sources */,
+				50440BB3243357AA000C0C9E /* ThumbnailView.swift in Sources */,
 				503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */,
 				500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */,
 				509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */,
 				509B970E2428B0A90076B8B4 /* TimeInterval+Extension.swift in Sources */,
 				50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */,
+				50440BB7243357F5000C0C9E /* ThumbnailNavigation.swift in Sources */,
 				50026AD22430F02F0049387E /* PDFPage+Extension.swift in Sources */,
 				500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */,
 				503FFE02242A195300B6F438 /* PresentationViewController.swift in Sources */,
