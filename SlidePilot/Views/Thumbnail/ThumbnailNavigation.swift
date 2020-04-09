@@ -253,9 +253,7 @@ extension ThumbnailNavigation: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let thumbnail = ThumbnailView(frame: .zero)
         thumbnail.translatesAutoresizingMaskIntoConstraints = false
-        thumbnail.document = document
-        thumbnail.page.displayMode = displayMode
-        thumbnail.page.currentPage = row
+        thumbnail.page.setDocument(document, mode: displayMode, at: row)
         thumbnail.label.stringValue = "\(row+1)"
         
         let cell = NSTableCellView()
@@ -267,7 +265,7 @@ extension ThumbnailNavigation: NSTableViewDelegate {
                              NSLayoutConstraint(item: thumbnail, attribute: .bottom, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
         
         // Adjust thumbnail height to fit the images height if possible
-        if let pageFrame = thumbnail.document?.page(at: thumbnail.page.currentPage)?.bounds(for: .cropBox) {
+        if let pageFrame = thumbnail.page.pdfDocument?.page(at: thumbnail.page.currentPage)?.bounds(for: .cropBox) {
             // ratioFix is just try and error value
             let ratioFix: CGFloat = 60.0
             let aspectRatio = pageFrame.height / (pageFrame.width + ratioFix)
