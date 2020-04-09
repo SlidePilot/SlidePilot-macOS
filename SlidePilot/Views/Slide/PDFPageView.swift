@@ -61,24 +61,28 @@ class PDFPageView: NSImageView {
     }
     
     
-    public var pdfDocument: PDFDocument? {
-        didSet {
-            currentPage = 0
-        }
+    private(set) var pdfDocument: PDFDocument?
+    private(set) var displayMode: DisplayMode = .full
+    private(set) var currentPage: Int = 0
+    
+    
+    public func setDocument(_ document: PDFDocument?, mode displayMode: DisplayMode = .full, at currentPage: Int = 0) {
+        self.pdfDocument = document
+        self.displayMode = displayMode
+        self.currentPage = currentPage
+        reload()
     }
     
     
-    public var displayMode: DisplayMode = .full {
-        didSet {
-            reload()
-        }
+    public func setDisplayMode(_ displayMode: DisplayMode) {
+        self.displayMode = displayMode
+        reload()
     }
     
     
-    public var currentPage: Int = 0 {
-        didSet {
-            reload()
-        }
+    public func setCurrentPage(_ currentPage: Int) {
+        self.currentPage = currentPage
+        reload()
     }
     
     

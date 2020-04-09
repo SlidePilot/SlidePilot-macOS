@@ -27,7 +27,7 @@ class SlideView: NSView {
     
     var pdfDocument: PDFDocument? {
         set {
-            self.page?.pdfDocument = newValue
+            self.page?.setDocument(newValue)
         }
         get {
             return self.page?.pdfDocument

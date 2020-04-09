@@ -142,7 +142,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Open document in both windows
         presenterDisplay?.slideArrangement.pdfDocument = pdfDocument
-        presentationView?.pageView.pdfDocument = pdfDocument
+        presentationView?.pageView.setDocument(pdfDocument)
     }
     
     
@@ -173,7 +173,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sender.state = .on
         
         presenterDisplay?.slideArrangement.notesPosition = .none
-        presentationView?.pageView.displayMode = .displayModeForPresentation(with: .none)
+        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .none))
     }
     
     
@@ -183,7 +183,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sender.state = .on
         
         presenterDisplay?.slideArrangement.notesPosition = .right
-        presentationView?.pageView.displayMode = .displayModeForPresentation(with: .right)
+        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .right))
     }
     
     
@@ -193,7 +193,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sender.state = .on
         
         presenterDisplay?.slideArrangement.notesPosition = .left
-        presentationView?.pageView.displayMode = .displayModeForPresentation(with: .left)
+        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .left))
     }
     
     
@@ -203,7 +203,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sender.state = .on
         
         presenterDisplay?.slideArrangement.notesPosition = .bottom
-        presentationView?.pageView.displayMode = .displayModeForPresentation(with: .bottom)
+        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .bottom))
     }
     
     
@@ -213,7 +213,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sender.state = .on
         
         presenterDisplay?.slideArrangement.notesPosition = .top
-        presentationView?.pageView.displayMode = .displayModeForPresentation(with: .top)
+        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .top))
     }
     
     

@@ -120,9 +120,10 @@ class SlideArrangementView: NSView {
         }
         
         // Setup notes position
-        notesSlideView?.page?.displayMode = notesPosition.displayModeForNotes()
-        currentSlideView?.page?.displayMode = notesPosition.displayModeForPresentation()
-        nextSlideView?.page?.displayMode = notesPosition.displayModeForPresentation()
+        notesSlideView?.page?.setDisplayMode(notesPosition.displayModeForNotes())
+        currentSlideView?.page?.setDisplayMode(notesPosition.displayModeForPresentation())
+        nextSlideView?.page?.setDisplayMode(notesPosition.displayModeForPresentation())
+        
         
         showSlide(at: currentPage ?? 0, notifyDelegate: true)
     }
@@ -253,14 +254,14 @@ class SlideArrangementView: NSView {
         
         // Set notes page
         if let notesPageView = notesSlideView?.page {
-            notesPageView.currentPage = currentPageView.currentPage
+            notesPageView.setCurrentPage(currentPageView.currentPage)
             notesSlideView?.label?.stringValue = currentSlideString
         }
         
         // Set next page
         if let nextPageView = nextSlideView?.page {
             if currentPageView.currentPage + 1 < (currentPageView.pdfDocument?.pageCount ?? -1) {
-                nextPageView.currentPage = currentPageView.currentPage + 1
+                nextPageView.setCurrentPage(currentPageView.currentPage + 1)
                 nextSlideView?.label?.stringValue = NSLocalizedString("Next Slide", comment: "Title for next slide")
             } else {
                 // Show blank screen if last slide is currently displayed
@@ -287,7 +288,7 @@ class SlideArrangementView: NSView {
     func showSlide(at index: Int, notifyDelegate: Bool) {
         guard 0 <= index, index < (pdfDocument?.pageCount ?? -1)  else { return }
         guard let page = currentSlideView?.page else { return }
-        page.currentPage = index
+        page.setCurrentPage(index)
         updateSlides(for: page.currentPage)
         
         if notifyDelegate {

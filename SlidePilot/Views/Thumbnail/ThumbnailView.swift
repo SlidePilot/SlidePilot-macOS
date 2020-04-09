@@ -11,14 +11,6 @@ import PDFKit
 
 
 class ThumbnailView: ClipfreeView {
-
-    var document: PDFDocument? {
-        set {
-            page.pdfDocument = newValue
-        } get {
-            return page.pdfDocument
-        }
-    }
     
     var page: PDFPageView!
     var label: NSTextField!
