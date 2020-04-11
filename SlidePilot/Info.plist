@@ -33,7 +33,7 @@
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://pascalbraband.de/SlidePilot/updates/versions.xml</string>
+	<string>https://slidepilotapp.com/updates/versions.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>JbvU/sAZ/FzniEFzzSH/a99Nom6WhRX2TGwQbRvhyMM=</string>
 </dict>

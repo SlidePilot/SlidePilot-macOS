@@ -89,7 +89,7 @@ class PresenterViewController: NSViewController {
                 alert.addButton(withTitle: NSLocalizedString("Donate Cancel Button", comment: "Title for the cancel button in the donation alert."))
                 let res = alert.runModal()
                 if res == .alertFirstButtonReturn {
-                    NSWorkspace.shared.open(URL(string: "https://pascalbraband.de")!)
+                    NSWorkspace.shared.open(URL(string: "https://slidepilotapp.com/donate.html")!)
                 }
             }
         }
