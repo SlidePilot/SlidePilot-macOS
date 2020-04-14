@@ -112,7 +112,17 @@ class PDFPageView: NSImageView {
         
         // Create NSImage from page
         guard let pageData = page.dataRepresentation else { return }
-        guard let pdfImage = NSImage(data: pageData) else { return }
+        
+        guard let pdfRep = NSPDFImageRep(data: pageData) else { return }
+        let pdfImage = NSImage(size: pdfRep.size, flipped: false, drawingHandler: { (rect) -> Bool in
+            guard let ctx = NSGraphicsContext.current?.cgContext else { return false }
+            NSColor.white.set()
+            ctx.fill(rect.insetBy(dx: 0.5, dy: 0.5))
+
+            pdfRep.draw(in: rect)
+
+            return true
+        })
         
         // Display image
         self.image = pdfImage
