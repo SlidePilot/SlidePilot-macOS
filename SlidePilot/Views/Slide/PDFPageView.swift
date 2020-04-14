@@ -106,13 +106,6 @@ class PDFPageView: NSImageView {
         guard currentPage >= 0, currentPage < (pdfDocument?.pageCount ?? -1) else { return }
         guard let page = pdfDocument?.page(at: currentPage) else { return }
         
-//        let border = PDFAnnotation(bounds: page.bounds(for: .cropBox), forType: .square, withProperties: nil)
-//        border.border = PDFBorder()
-//        border.border?.style = .solid
-//        border.border?.lineWidth = 0.5
-//        border.color = NSColor.textColor
-//        page.addAnnotation(border)
-        
         // Crop page if needed
         let pageRect = getRectFor(mode: self.displayMode, pdfPage: page)
         page.setBounds(pageRect, for: .cropBox)
