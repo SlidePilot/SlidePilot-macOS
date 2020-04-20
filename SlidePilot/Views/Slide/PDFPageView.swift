@@ -101,6 +101,30 @@ class PDFPageView: NSImageView {
     
     
     private func reload() {
+        var finishedReloading = false
+
+        // After a given maximum reload time, a loading indicator should appear
+        let maxReloadTime = 0.08
+        DispatchQueue.global().asyncAfter(deadline: .now() + maxReloadTime) {
+            if !finishedReloading {
+                DispatchQueue.main.async {
+                    print("start")
+                    self.startLoadingIndicator()
+                }
+            }
+        }
+
+        // Reload page
+        DispatchQueue.main.async {
+            self.reloadBase()
+            finishedReloading = true
+            print("stop")
+            self.stopLoadingIndicator()
+        }
+    }
+    
+    
+    private func reloadBase() {
         self.imageScaling = .scaleAxesIndependently
         
         // Get current page
@@ -198,6 +222,42 @@ class PDFPageView: NSImageView {
         coverView = nil
         isCoveredWhite = false
         isCoveredBlack = false
+    }
+    
+    
+    
+    
+    // MARK: - Loading Indicator
+    
+    var spinner: NSProgressIndicator?
+    
+    private func startLoadingIndicator() {
+        if spinner != nil {
+            stopLoadingIndicator()
+        }
+        
+        spinner = NSProgressIndicator(frame: .zero)
+        spinner?.translatesAutoresizingMaskIntoConstraints = false
+        spinner?.style = .spinning
+        spinner?.startAnimation(self)
+    
+        if let filter = CIFilter(name: "CIColorControls") {
+            filter.setDefaults()
+            filter.setValue(CGFloat(1.0), forKey: "inputBrightness")
+            spinner?.contentFilters = [filter]
+        }
+        
+        self.addSubview(spinner!)
+        self.addConstraints([NSLayoutConstraint(item: spinner!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+        NSLayoutConstraint(item: spinner!, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0),
+        NSLayoutConstraint(item: spinner!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20.0),
+        NSLayoutConstraint(item: spinner!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20.0)])
+    }
+    
+    
+    private func stopLoadingIndicator() {
+        spinner?.removeFromSuperview()
+        spinner = nil
     }
 }
 
