@@ -119,7 +119,7 @@ class PDFPageView: NSImageView {
         let pdfImage = NSImage(size: pdfRep.size, flipped: false, drawingHandler: { (rect) -> Bool in
             guard let ctx = NSGraphicsContext.current?.cgContext else { return false }
             NSColor.white.set()
-            ctx.fill(rect.insetBy(dx: 0.5, dy: 0.5))
+            ctx.fill(rect)
 
             pdfRep.draw(in: rect)
 
