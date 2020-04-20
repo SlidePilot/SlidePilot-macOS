@@ -89,12 +89,14 @@ class PDFPageView: NSImageView {
     public func pageForward() {
         guard currentPage + 1 < (pdfDocument?.pageCount ?? -1) else { return }
         currentPage = currentPage + 1
+        reload()
     }
     
     
     public func pageBackward() {
         guard currentPage - 1 >= 0 else { return }
         currentPage = currentPage - 1
+        reload()
     }
     
     
