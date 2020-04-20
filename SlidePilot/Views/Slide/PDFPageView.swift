@@ -90,12 +90,14 @@ class PDFPageView: NSImageView {
     public func pageForward() {
         guard currentPage + 1 < (pdfDocument?.pageCount ?? -1) else { return }
         currentPage = currentPage + 1
+        reload()
     }
     
     
     public func pageBackward() {
         guard currentPage - 1 >= 0 else { return }
         currentPage = currentPage - 1
+        reload()
     }
     
     
@@ -115,7 +117,17 @@ class PDFPageView: NSImageView {
 //        guard let pageData = page.dataRepresentation else { return }
         RenderCache.shared.getPage(at: currentPage, for: pdfDocument!, priority: .fast, completion: { (data) in
             guard let pageData = data else { return }
-            guard let pdfImage = NSImage(data: pageData) else { return }
+            
+            guard let pdfRep = NSPDFImageRep(data: pageData) else { return }
+            let pdfImage = NSImage(size: pdfRep.size, flipped: false, drawingHandler: { (rect) -> Bool in
+                guard let ctx = NSGraphicsContext.current?.cgContext else { return false }
+                NSColor.white.set()
+                ctx.fill(rect)
+
+                pdfRep.draw(in: rect)
+
+                return true
+            })
             
             // Display image
             DispatchQueue.main.async {
