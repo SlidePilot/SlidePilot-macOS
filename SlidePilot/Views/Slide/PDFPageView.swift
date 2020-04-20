@@ -102,8 +102,6 @@ class PDFPageView: NSImageView {
     
     
     private func reload() {
-        self.imageScaling = .scaleAxesIndependently
-        
         // Get current page
         guard pdfDocument != nil else { return }
         guard currentPage >= 0, currentPage < (pdfDocument?.pageCount ?? -1) else { return }
@@ -114,7 +112,6 @@ class PDFPageView: NSImageView {
         page.setBounds(pageRect, for: .cropBox)
         
         // Create NSImage from page
-//        guard let pageData = page.dataRepresentation else { return }
         RenderCache.shared.getPage(at: currentPage, for: pdfDocument!, priority: .fast, completion: { (data) in
             guard let pageData = data else { return }
             
@@ -131,8 +128,8 @@ class PDFPageView: NSImageView {
             
             // Display image
             DispatchQueue.main.async {
-                self.image = pdfImage
                 self.imageScaling = .scaleProportionallyUpOrDown
+                self.image = pdfImage
             }
         })
         
