@@ -105,14 +105,9 @@ class PDFPageView: NSImageView {
         // Get current page
         guard pdfDocument != nil else { return }
         guard currentPage >= 0, currentPage < (pdfDocument?.pageCount ?? -1) else { return }
-        guard let page = pdfDocument?.page(at: currentPage) else { return }
-        
-        // Crop page if needed
-        let pageRect = getRectFor(mode: self.displayMode, pdfPage: page)
-//        page.setBounds(pageRect, for: .cropBox)
         
         // Create NSImage from page
-        RenderCache.shared.getPage(at: currentPage, for: pdfDocument!, priority: .fast, completion: { (pdfImage) in
+        RenderCache.shared.getPage(at: currentPage, for: pdfDocument!, mode: self.displayMode, priority: .fast, completion: { (pdfImage) in
             // Display image
             DispatchQueue.main.async {
                 self.imageScaling = .scaleProportionallyUpOrDown
