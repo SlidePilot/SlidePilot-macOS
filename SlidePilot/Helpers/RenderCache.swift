@@ -45,7 +45,7 @@ class RenderCache {
     }
     
     /** Stores pre-rendered pages. Assigns page index to page data. */
-    private var cache: NSCache = NSCache<NSNumber, NSData>()
+    private var cache: NSCache = NSCache<NSNumber, NSImage>()
     
     
     init(cacheLimit: Int = 200) {
@@ -56,7 +56,7 @@ class RenderCache {
     /**
      Returns the given page for any PDF document.
      */
-    public func getPage(at index: Int, for document: PDFDocument, priority: Priority, completion: @escaping (Data?) -> ()) {
+    public func getPage(at index: Int, for document: PDFDocument, priority: Priority, completion: @escaping (NSImage?) -> ()) {
         // FIXME: Page bounding rect as parameter and as key for cache
         if document != self.document {
             self.document = document
@@ -69,7 +69,7 @@ class RenderCache {
      Returns the given page of the PDF document, which is saved under `document`.
      Either from cache or renders the page.
     */
-    private func getPage(at index: Int, priority: Priority, completion: @escaping (Data?) -> ()) {
+    private func getPage(at index: Int, priority: Priority, completion: @escaping (NSImage?) -> ()) {
         // Check if page at index exist
         guard let page = document?.page(at: index) else { completion(nil); return }
         
@@ -79,13 +79,14 @@ class RenderCache {
             if let cachedPage = self.cache.object(forKey: index as NSNumber) {
                 print("Cache")
                 // Return cached page
-                completion(cachedPage as Data?)
+                completion(cachedPage)
             } else {
                 print("Render")
                 // Render page
                 guard let renderedPage = page.dataRepresentation else { completion(nil); return }
-                self.cache.setObject(renderedPage as NSData, forKey: index as NSNumber)
-                completion(renderedPage)
+                guard let pdfImage = createImage(from: renderedPage) else { return }
+                self.cache.setObject(pdfImage, forKey: index as NSNumber)
+                completion(pdfImage)
             }
         }
     }
@@ -108,7 +109,8 @@ class RenderCache {
                 // Render each page (in bounds) in background and save them to cache
                 DispatchQueue.global(qos: .background).async {
                     guard let renderedPage = doc.page(at: i)?.dataRepresentation else { return }
-                    self.cache.setObject(renderedPage as NSData, forKey: i as NSNumber)
+                    guard let pdfImage = self.createImage(from: renderedPage) else { return }
+                    self.cache.setObject(pdfImage, forKey: i as NSNumber)
                 }
             }
         }
@@ -120,5 +122,22 @@ class RenderCache {
      */
     private func clearCache() {
         cache.removeAllObjects()
+    }
+    
+    
+    /**
+     Draws image from PDF data
+     */
+    private func createImage(from data: Data) -> NSImage? {
+        guard let imageRep = NSPDFImageRep(data: data) else { return nil }
+        return NSImage(size: imageRep.size, flipped: false, drawingHandler: { (rect) -> Bool in
+            guard let ctx = NSGraphicsContext.current?.cgContext else { return false }
+            NSColor.white.set()
+            ctx.fill(rect)
+
+            imageRep.draw(in: rect)
+
+            return true
+        })
     }
 }

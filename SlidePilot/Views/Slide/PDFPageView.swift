@@ -109,23 +109,10 @@ class PDFPageView: NSImageView {
         
         // Crop page if needed
         let pageRect = getRectFor(mode: self.displayMode, pdfPage: page)
-        page.setBounds(pageRect, for: .cropBox)
+//        page.setBounds(pageRect, for: .cropBox)
         
         // Create NSImage from page
-        RenderCache.shared.getPage(at: currentPage, for: pdfDocument!, priority: .fast, completion: { (data) in
-            guard let pageData = data else { return }
-            
-            guard let pdfRep = NSPDFImageRep(data: pageData) else { return }
-            let pdfImage = NSImage(size: pdfRep.size, flipped: false, drawingHandler: { (rect) -> Bool in
-                guard let ctx = NSGraphicsContext.current?.cgContext else { return false }
-                NSColor.white.set()
-                ctx.fill(rect)
-
-                pdfRep.draw(in: rect)
-
-                return true
-            })
-            
+        RenderCache.shared.getPage(at: currentPage, for: pdfDocument!, priority: .fast, completion: { (pdfImage) in
             // Display image
             DispatchQueue.main.async {
                 self.imageScaling = .scaleProportionallyUpOrDown
