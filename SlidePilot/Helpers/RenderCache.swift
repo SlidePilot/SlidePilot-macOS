@@ -77,11 +77,11 @@ class RenderCache {
     /**
      Returns the given page for any PDF document.
      */
-    public func getPage(at index: Int, for document: PDFDocument, mode: PDFPageView.DisplayMode, priority: Priority, completion: @escaping (NSImage?) -> ()) {
+    public func getPage(at index: Int, for document: PDFDocument, mode: PDFPageView.DisplayMode, priority: Priority) -> NSImage? {
         if document != self.document {
             self.document = document
         }
-        getPage(at: index, mode: mode, priority: priority, completion: completion)
+        return getPage(at: index, mode: mode, priority: priority)
     }
     
     
@@ -89,28 +89,26 @@ class RenderCache {
      Returns the given page of the PDF document, which is saved under `document`.
      Either from cache or renders the page.
     */
-    private func getPage(at index: Int, mode: PDFPageView.DisplayMode, priority: Priority, completion: @escaping (NSImage?) -> ()) {
+    private func getPage(at index: Int, mode: PDFPageView.DisplayMode, priority: Priority) -> NSImage? {
         // Check if page at index exist
-        guard let page = document?.page(at: index) else { completion(nil); return }
+        guard let page = document?.page(at: index) else { return nil }
         
         // Set crop box
         let pageRect = getBoundsFor(mode: mode, pdfPage: page)
         page.setBounds(pageRect, for: .cropBox)
         
         // Render page async, save in cache and return rendered page
-        DispatchQueue.global(qos: priority.toQoSClass()).sync {
-            // Check if page is cached
-            if let cachedPage = self.cache.object(forKey: CacheKey(pageNumber: index, displayMode: mode)) {
-                print("Cache")
-                // Return cached page
-                completion(cachedPage)
-            } else {
-                print("Render")
-                // Render page
-                guard let pdfImage = createImage(from: page, mode: mode) else { return }
-                self.cache.setObject(pdfImage, forKey: CacheKey(pageNumber: index, displayMode: mode))
-                completion(pdfImage)
-            }
+        // Check if page is cached
+        if let cachedPage = self.cache.object(forKey: CacheKey(pageNumber: index, displayMode: mode)) {
+            print("Cache")
+            // Return cached page
+            return cachedPage
+        } else {
+            print("Render")
+            // Render page
+            guard let pdfImage = createImage(from: page, mode: mode) else { return nil }
+            self.cache.setObject(pdfImage, forKey: CacheKey(pageNumber: index, displayMode: mode))
+            return pdfImage
         }
     }
     

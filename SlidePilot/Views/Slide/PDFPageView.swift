@@ -107,14 +107,11 @@ class PDFPageView: NSImageView {
         guard currentPage >= 0, currentPage < (pdfDocument?.pageCount ?? -1) else { return }
         
         // Create NSImage from page
-        RenderCache.shared.getPage(at: currentPage, for: pdfDocument!, mode: self.displayMode, priority: .fast, completion: { (pdfImage) in
-            // Display image
-            DispatchQueue.main.async {
-                self.imageScaling = .scaleProportionallyUpOrDown
-                self.image = pdfImage
-            }
-        })
+        guard let pdfImage = RenderCache.shared.getPage(at: currentPage, for: pdfDocument!, mode: self.displayMode, priority: .fast) else { return }
         
+        // Display image
+        self.imageScaling = .scaleProportionallyUpOrDown
+        self.image = pdfImage
     }
     
     
