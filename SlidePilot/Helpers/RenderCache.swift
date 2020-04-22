@@ -93,6 +93,10 @@ class RenderCache {
         // Check if page at index exist
         guard let page = document?.page(at: index) else { completion(nil); return }
         
+        // Set crop box
+        let pageRect = getBoundsFor(mode: mode, pdfPage: page)
+        page.setBounds(pageRect, for: .cropBox)
+        
         // Render page async, save in cache and return rendered page
         DispatchQueue.global(qos: priority.toQoSClass()).sync {
             // Check if page is cached
