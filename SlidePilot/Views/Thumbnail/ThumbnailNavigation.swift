@@ -125,6 +125,9 @@ class ThumbnailNavigation: NSView {
         self.addConstraints([NSLayoutConstraint(item: tableView!, attribute: .top, relatedBy: .equal, toItem: scrollView!, attribute: .bottom, multiplier: 1.0, constant: 0.0),
         NSLayoutConstraint(item: tableView!, attribute: .right, relatedBy: .equal, toItem: scrollView!, attribute: .right, multiplier: 1.0, constant: 0.0),
         NSLayoutConstraint(item: tableView!, attribute: .left, relatedBy: .equal, toItem: scrollView!, attribute: .left, multiplier: 1.0, constant: 0.0)])
+        
+        // Subscribe to page changes
+        PageController.subscribe(target: self, action: #selector(pageDidChange(notification:)))
     }
     
     
@@ -243,6 +246,15 @@ class ThumbnailNavigation: NSView {
     }
     
     
+    
+    
+    // MARK: - Page Control
+    
+    @objc private func pageDidChange(notification: Notification) {
+        guard let index = PageController.getPageIndex(notification) else { return }
+        selectThumbnail(at: index, scrollVisible: false)
+    }
+    
 }
 
 
@@ -284,8 +296,7 @@ extension ThumbnailNavigation: NSTableViewDelegate {
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard let tableView = notification.object as? NSTableView else { return }
-        selectThumbnail(at: tableView.selectedRow, scrollVisible: false)
-        delegate?.didSelectThumbnail(at: tableView.selectedRow)
+        PageController.selectPage(at: tableView.selectedRow, sender: self)
     }
     
 }
@@ -307,8 +318,7 @@ extension ThumbnailNavigation: NSTextFieldDelegate {
         if (commandSelector == #selector(NSResponder.insertNewline(_:))) {
             // Select currently highlighted thumbnail on ENTER
             guard let index = currentHighlight else { return false }
-            selectThumbnail(at: index, scrollVisible: true)
-            delegate?.didSelectThumbnail(at: index)
+            PageController.selectPage(at: index, sender: self)
             return true
         }
         return false
@@ -336,11 +346,6 @@ extension ThumbnailNavigation: NSTextFieldDelegate {
 
 
 extension ThumbnailNavigation: SlideArrangementDelegate {
-    
-    func didSelectSlide(at index: Int) {
-        selectThumbnail(at: index, scrollVisible: true)
-    }
-    
     
     func didChangeDocument(_ document: PDFDocument?) {
         self.document = document

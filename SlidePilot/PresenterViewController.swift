@@ -227,7 +227,6 @@ class PresenterViewController: NSViewController {
         navigation = ThumbnailNavigation(frame: .zero)
         navigation!.translatesAutoresizingMaskIntoConstraints = false
         
-        navigation!.delegate = slideArrangement
         slideArrangement.slideDelegate = navigation!
         
         self.view.addSubview(navigation!)
@@ -248,10 +247,8 @@ class PresenterViewController: NSViewController {
         setupNavigation()
         guard navigation != nil, navigationLeft != nil else { return }
         
-        if let currentPage = slideArrangement.currentSlideView?.page?.currentPage {
-            DispatchQueue.main.async {
-                self.navigation?.selectThumbnail(at: currentPage, scrollVisible: true)
-            }
+        DispatchQueue.main.async {
+            self.navigation?.selectThumbnail(at: PageController.currentPage, scrollVisible: true)
         }
         navigationLeft!.constant = 0.0
         self.view.updateConstraints()

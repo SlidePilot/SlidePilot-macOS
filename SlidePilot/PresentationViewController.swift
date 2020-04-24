@@ -19,6 +19,19 @@ class PresentationViewController: NSViewController {
         
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = NSColor.black.cgColor
+        
+        // Subscribe to page changes
+        PageController.subscribe(target: self, action: #selector(pageDidChange(notification:)))
+    }
+    
+    
+    
+    
+    // MARK: - Page Control
+    
+    @objc private func pageDidChange(notification: Notification) {
+        guard let index = PageController.getPageIndex(notification) else { return }
+        pageView.setCurrentPage(index)
     }
 }
 

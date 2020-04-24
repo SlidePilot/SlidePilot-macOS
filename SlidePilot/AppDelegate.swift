@@ -140,6 +140,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
         guard let pdfDocument = PDFDocument(url: url) else { return }
         
+        // Reset page
+        PageController.selectPage(at: 0, sender: self)
+        PageController.setDocument(pdfDocument)
+        
         // Open document in both windows
         presenterDisplay?.hideNavigation(animated: false)
         presenterDisplay?.slideArrangement.pdfDocument = pdfDocument
@@ -157,14 +161,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Handling Slides
     
     @IBAction func previousSlide(_ sender: NSMenuItem) {
-        presenterDisplay?.slideArrangement.previousSlide()
-        presentationView?.pageView.pageBackward()
+        PageController.previousPage(sender: self)
     }
     
     
     @IBAction func nextSlide(_ sender: NSMenuItem) {
-        presenterDisplay?.slideArrangement.nextSlide()
-        presentationView?.pageView.pageForward()
+        PageController.nextPage(sender: self)
     }
     
     
