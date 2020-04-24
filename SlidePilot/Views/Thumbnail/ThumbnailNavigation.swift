@@ -120,7 +120,7 @@ class ThumbnailNavigation: NSView {
         NSLayoutConstraint(item: tableView!, attribute: .left, relatedBy: .equal, toItem: scrollView!, attribute: .left, multiplier: 1.0, constant: 0.0)])
         
         // Subscribe to page changes
-        PageController.subscribe(target: self, action: #selector(pageDidChange(notification:)))
+        PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))
         
         // Subscribe to document changes
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
@@ -246,9 +246,8 @@ class ThumbnailNavigation: NSView {
     
     // MARK: - Control Handlers
     
-    @objc private func pageDidChange(notification: Notification) {
-        guard let index = PageController.getPageIndex(notification) else { return }
-        selectThumbnail(at: index, scrollVisible: false)
+    @objc private func pageDidChange(_ notification: Notification) {
+        selectThumbnail(at: PageController.currentPage, scrollVisible: false)
     }
     
     

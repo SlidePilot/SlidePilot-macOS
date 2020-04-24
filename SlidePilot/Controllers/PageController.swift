@@ -13,8 +13,6 @@ class PageController {
     
     public private(set) static var currentPage = 0
     
-    public static let pageKey = "pageKey"
-    
     
     /** Sends a notification, that the next page was selected. */
     public static func nextPage(sender: Any?) {
@@ -32,20 +30,13 @@ class PageController {
     public static func selectPage(at index: Int, sender: Any?) {
         if isValidIndex(index) {
             currentPage = index
-            NotificationCenter.default.post(name: .didSelectPage, object: sender, userInfo: [pageKey: index])
+            NotificationCenter.default.post(name: .didSelectPage, object: sender)
         }
     }
     
     
     private static func isValidIndex(_ index: Int) -> Bool {
         return index >= 0 && index < DocumentController.pageCount
-    }
-    
-    
-    /** Returns the page index from a `.didChangePage` Notification. */
-    public static func getPageIndex(_ notification: Notification) -> Int? {
-        guard let userInfo = notification.userInfo as? [String: Int] else { return nil }
-        return userInfo[pageKey]
     }
     
     
