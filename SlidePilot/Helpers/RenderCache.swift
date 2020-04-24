@@ -56,6 +56,10 @@ class RenderCache {
         }
     }
     
+    
+    /** When a page is request, +- preRenderRange pages will be submitted as a prerender task. */
+    private let preRenderRangeDelta: Int = 50
+    
     public var document: PDFDocument? {
         didSet {
             // Only render again when value truly changed
@@ -97,15 +101,18 @@ class RenderCache {
         let pageRect = getBoundsFor(mode: mode, pdfPage: page)
         page.setBounds(pageRect, for: .cropBox)
         
-        // Render page async, save in cache and return rendered page
+        // Start pre rendering in a range +-50 pages from the requested pages
+        let preRenderRange = index-preRenderRangeDelta...index+preRenderRangeDelta
+        startRenderTask(pages: preRenderRange, displayMode: mode)
+        
         // Check if page is cached
         if let cachedPage = self.cache.object(forKey: CacheKey(pageNumber: index, displayMode: mode)) {
-            print("Cache")
+            print("Cache \(index)")
             // Return cached page
             return cachedPage
         } else {
-            print("Render")
-            // Render page
+            print("Render \(index)")
+            // Render page instantly, save in cache and return rendered page
             guard let pdfImage = createImage(from: page, mode: mode) else { return nil }
             self.cache.setObject(pdfImage, forKey: CacheKey(pageNumber: index, displayMode: mode))
             return pdfImage
@@ -117,24 +124,79 @@ class RenderCache {
      Prerenders the PDF document and saves it in the cache. This operation will override the old cache.
      */
     private func startPreRender() {
-        // Only render if document not nil
-        guard let doc = document else { return }
+        guard let document = document else { return }
         
         // Start new prerender, clear cache first
         clearCache()
         
         DispatchQueue.global().async {
-            // FIXME: Don't start at 0 everytime. Shift range to currently viewed pages
-            for i in 0...min(doc.pageCount, self.cache.countLimit) {
+            self.render(pages: 0...min(document.pageCount, self.cache.countLimit), displayMode: .full)
+        }
+    }
+    
+    
+    var renderTask: DispatchWorkItem?
+    /**
+     Starts a render task. Renders a given number of pages for a given display mode.
+     
+     If this method is called again, while another render task is still running, the old one will be cancelled.
+     
+     - parameters:
+        - pages: A `ClosedRange<Int>` which specifies which pages should be rendered.
+        - displayMode: The `PDFPageView.DisplayMode` in which the page should be rendered.
+     */
+    private func startRenderTask(pages: ClosedRange<Int>, displayMode mode: PDFPageView.DisplayMode) {
+        // Cancel any previous render task
+        renderTask?.cancel()
+        
+        // Create a new render task with the new range
+        renderTask = DispatchWorkItem(block: {
+            self.render(pages: pages, displayMode: mode)
+        })
+        
+        // Execute the new task
+        DispatchQueue.global(qos: .background).async(execute: renderTask!)
+    }
+    
+    
+    /**
+     Renders a number of pages and saves them to cache.
+     
+     - parameters:
+        - pages: A `ClosedRange<Int>` which specifies which pages should be rendered.
+        - displayMode: The `PDFPageView.DisplayMode` in which the page should be rendered.
+     */
+    private func render(pages renderRange: ClosedRange<Int>, displayMode mode: PDFPageView.DisplayMode) {
+        guard let document = document else { return }
+        // Cut renderRange to document pages range
+        let safeRange = max(0, renderRange.lowerBound)...min(document.pageCount, renderRange.upperBound)
+        
+        // Iterate through every page in the given prerender range
+        for index in safeRange {
+            
+            // Render each page in prerender range in background and save them to cache
+            DispatchQueue.global(qos: .background).async {
                 
-                // Render each page (in bounds) in background and save them to cache
-                DispatchQueue.global(qos: .background).async {
-                    guard let page = doc.page(at: i) else { return }
-                    guard let pdfImage = self.createImage(from: page, mode: .full) else { return }
-                    self.cache.setObject(pdfImage, forKey: CacheKey(pageNumber: i, displayMode: .full))
+                // Only render if not already cached
+                if !self.isCached(page: index, displayMode: .full) {
+                    print("Render \(index)")
+                    // Prerender page
+                    guard let page = self.document?.page(at: index) else { return }
+                    guard let pdfImage = self.createImage(from: page, mode: mode) else { return }
+                    
+                    // Save to cache
+                    self.cache.setObject(pdfImage, forKey: CacheKey(pageNumber: index, displayMode: .full))
                 }
             }
         }
+    }
+    
+    
+    /**
+     Checks if a given page for a given display mode is cached.
+     */
+    private func isCached(page index: Int, displayMode mode: PDFPageView.DisplayMode) -> Bool {
+        return self.cache.object(forKey: CacheKey(pageNumber: index, displayMode: mode)) != nil
     }
     
     
