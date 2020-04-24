@@ -28,13 +28,6 @@ class ThumbnailNavigation: NSView {
     let mainBackgroundColor = NSColor(white: 0.12, alpha: 1.0)
     let searchBackgroundColor = NSColor.black
     
-    // Content
-    var document: PDFDocument? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
     var displayMode: PDFPageView.DisplayMode = .full {
         didSet {
             tableView.reloadData()
@@ -128,6 +121,9 @@ class ThumbnailNavigation: NSView {
         
         // Subscribe to page changes
         PageController.subscribe(target: self, action: #selector(pageDidChange(notification:)))
+        
+        // Subscribe to document changes
+        DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
     }
     
     
@@ -146,7 +142,7 @@ class ThumbnailNavigation: NSView {
      */
     public func selectThumbnail(at index: Int, scrollVisible: Bool) {
         // Get thumbnail for index (prevent selecting too high index and prevent selecting when there are no pages at all)
-        let pageCount = document?.pageCount ?? 0
+        let pageCount = DocumentController.pageCount
         guard pageCount > 0 else { return }
         // Lower bound 0, upper bound pageCount
         let safeIndex = max(min(index, pageCount-1), 0)
@@ -196,7 +192,7 @@ class ThumbnailNavigation: NSView {
     */
     private func highlightThumbnail(at index: Int, scrollVisible: Bool) {
         // Get thumbnail for index (prevent selecting too high index and prevent selecting when there are no pages at all)
-        let pageCount = document?.pageCount ?? 0
+        let pageCount = DocumentController.pageCount
         guard pageCount > 0 else { return }
         // Lower bound 0, upper bound pageCount
         let safeIndex = max(min(index, pageCount-1), 0)
@@ -248,11 +244,16 @@ class ThumbnailNavigation: NSView {
     
     
     
-    // MARK: - Page Control
+    // MARK: - Control Handlers
     
     @objc private func pageDidChange(notification: Notification) {
         guard let index = PageController.getPageIndex(notification) else { return }
         selectThumbnail(at: index, scrollVisible: false)
+    }
+    
+    
+    @objc func documentDidChange(_ notification: Notification) {
+        tableView.reloadData()
     }
     
 }
@@ -265,7 +266,7 @@ extension ThumbnailNavigation: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let thumbnail = ThumbnailView(frame: .zero)
         thumbnail.translatesAutoresizingMaskIntoConstraints = false
-        thumbnail.page.setDocument(document, mode: displayMode, at: row)
+        thumbnail.page.setDocument(DocumentController.document, mode: displayMode, at: row)
         thumbnail.label.stringValue = "\(row+1)"
         
         let cell = NSTableCellView()
@@ -306,7 +307,7 @@ extension ThumbnailNavigation: NSTableViewDelegate {
 
 extension ThumbnailNavigation: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return document?.pageCount ?? 0
+        return DocumentController.pageCount
     }
 }
 
@@ -345,12 +346,7 @@ extension ThumbnailNavigation: NSTextFieldDelegate {
 
 
 
-extension ThumbnailNavigation: SlideArrangementDelegate {
-    
-    func didChangeDocument(_ document: PDFDocument?) {
-        self.document = document
-    }
-    
+extension ThumbnailNavigation: SlideArrangementDelegate {    
     
     func didChangeDisplayMode(_ mode: PDFPageView.DisplayMode) {
         self.displayMode = mode

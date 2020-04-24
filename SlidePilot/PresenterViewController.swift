@@ -66,6 +66,9 @@ class PresenterViewController: NSViewController {
             let notesPositionNoneAction = notesPositionNoneItem.action {
             NSApp.sendAction(notesPositionNoneAction, to: notesPositionNoneItem.target, from: notesPositionNoneItem)
         }
+        
+        // Subscribe to document changes
+        DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
     }
     
     
@@ -93,6 +96,15 @@ class PresenterViewController: NSViewController {
                 }
             }
         }
+    }
+    
+    
+    
+    
+    // MARK: - Control Handlers
+    
+    @objc func documentDidChange(_ notification: Notification) {
+        hideNavigation(animated: false)
     }
     
     
@@ -237,7 +249,6 @@ class PresenterViewController: NSViewController {
                              NSLayoutConstraint(item: navigation!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: navigationWidth)])
         
         // Set inital configuration
-        navigation?.document = slideArrangement.pdfDocument
         navigation?.displayMode = slideArrangement.notesPosition.displayModeForPresentation()
     }
     

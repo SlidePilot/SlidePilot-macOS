@@ -142,12 +142,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Reset page
         PageController.selectPage(at: 0, sender: self)
-        PageController.setDocument(pdfDocument)
         
-        // Open document in both windows
-        presenterDisplay?.hideNavigation(animated: false)
-        presenterDisplay?.slideArrangement.pdfDocument = pdfDocument
-        presentationView?.pageView.setDocument(pdfDocument)
+        // Open document
+        DocumentController.setDocument(pdfDocument, sender: self)
     }
     
     

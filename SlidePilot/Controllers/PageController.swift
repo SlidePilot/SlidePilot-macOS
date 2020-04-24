@@ -12,14 +12,8 @@ import PDFKit
 class PageController {
     
     public private(set) static var currentPage = 0
-    private static var document: PDFDocument?
+    
     public static let pageKey = "pageKey"
-    
-    
-    public static func setDocument(_ document: PDFDocument) {
-        self.document = document
-        selectPage(at: 0, sender: nil)
-    }
     
     
     /** Sends a notification, that the next page was selected. */
@@ -44,8 +38,7 @@ class PageController {
     
     
     private static func isValidIndex(_ index: Int) -> Bool {
-        guard let document = document else { return false }
-        return index >= 0 && index < document.pageCount
+        return index >= 0 && index < DocumentController.pageCount
     }
     
     

@@ -22,16 +22,24 @@ class PresentationViewController: NSViewController {
         
         // Subscribe to page changes
         PageController.subscribe(target: self, action: #selector(pageDidChange(notification:)))
+        
+        // Subscribe to document changes
+        DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
     }
     
     
     
     
-    // MARK: - Page Control
+    // MARK: - Control Handlers
     
     @objc private func pageDidChange(notification: Notification) {
         guard let index = PageController.getPageIndex(notification) else { return }
         pageView.setCurrentPage(index)
+    }
+    
+    
+    @objc func documentDidChange(_ notification: Notification) {
+        pageView.setDocument(DocumentController.document)
     }
 }
 

@@ -10,7 +10,6 @@ import Cocoa
 import PDFKit
 
 protocol SlideArrangementDelegate: NSObject {
-    func didChangeDocument(_ document: PDFDocument?)
     func didChangeDisplayMode(_ mode: PDFPageView.DisplayMode)
 }
 
@@ -30,16 +29,6 @@ class SlideArrangementView: NSView {
     
     private let padding: CGFloat = 40.0
     private let distributionRatio: CGFloat = 0.6
-    
-    var pdfDocument: PDFDocument? {
-        didSet {
-            notesPosition = .none
-            currentSlideView?.page.setDocument(self.pdfDocument, mode: notesPosition.displayModeForPresentation())
-            nextSlideView?.page.setDocument(self.pdfDocument, mode: notesPosition.displayModeForPresentation())
-            notesSlideView?.page.setDocument(self.pdfDocument, mode: notesPosition.displayModeForNotes())
-            slideDelegate?.didChangeDocument(self.pdfDocument)
-        }
-    }
 
     var displayNotes: Bool = false {
         didSet {
@@ -99,6 +88,9 @@ class SlideArrangementView: NSView {
         
         // Subscribe to page changes
         PageController.subscribe(target: self, action: #selector(pageDidChange(notification:)))
+        
+        // Subscribe to document changes
+        DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
     }
     
     
@@ -134,7 +126,7 @@ class SlideArrangementView: NSView {
         // Left container: Setup current
         currentSlideView = SlideView(frame: .zero)
         currentSlideView!.delegate = self
-        currentSlideView!.page.setDocument(self.pdfDocument)
+        currentSlideView!.page.setDocument(DocumentController.document)
         currentSlideView!.translatesAutoresizingMaskIntoConstraints = false
         leftContainer?.addSubview(currentSlideView!)
         leftContainer?.addConstraints([
@@ -152,7 +144,7 @@ class SlideArrangementView: NSView {
         
         // Right container: Setup next
         nextSlideView = SlideView(frame: .zero)
-        nextSlideView!.page.setDocument(self.pdfDocument)
+        nextSlideView!.page.setDocument(DocumentController.document)
         nextSlideView!.translatesAutoresizingMaskIntoConstraints = false
         rightContainer?.addSubview(nextSlideView!)
         rightContainer?.addConstraints([
@@ -177,7 +169,7 @@ class SlideArrangementView: NSView {
         
         // Left container: Setup notes
         notesSlideView = SlideView(frame: .zero)
-        notesSlideView!.page.setDocument(self.pdfDocument)
+        notesSlideView!.page.setDocument(DocumentController.document)
         notesSlideView!.translatesAutoresizingMaskIntoConstraints = false
         leftContainer?.addSubview(notesSlideView!)
         leftContainer?.addConstraints([
@@ -196,7 +188,7 @@ class SlideArrangementView: NSView {
         // Right container: Setup current
         currentSlideView = SlideView(frame: .zero)
         currentSlideView!.delegate = self
-        currentSlideView!.page.setDocument(self.pdfDocument)
+        currentSlideView!.page.setDocument(DocumentController.document)
         currentSlideView!.translatesAutoresizingMaskIntoConstraints = false
         rightContainer?.addSubview(currentSlideView!)
         rightContainer?.addConstraints([
@@ -214,7 +206,7 @@ class SlideArrangementView: NSView {
         
         // Right container: Setup next
         nextSlideView = SlideView(frame: .zero)
-        nextSlideView!.page.setDocument(self.pdfDocument)
+        nextSlideView!.page.setDocument(DocumentController.document)
         nextSlideView!.translatesAutoresizingMaskIntoConstraints = false
         rightContainer?.addSubview(nextSlideView!)
         rightContainer?.addConstraints([
@@ -240,9 +232,7 @@ class SlideArrangementView: NSView {
     
     /** Updates slides and labels */
     private func updateSlides(for index: Int) {
-        guard let currentPageView = currentSlideView?.page, currentSlideView?.page.pdfDocument != nil else { return }
-        
-        let currentSlideString = NSLocalizedString("Current Slide", comment: "Title for current slide") + " \(index+1) / \(currentPageView.pdfDocument?.pageCount ?? 0)"
+        let currentSlideString = NSLocalizedString("Current Slide", comment: "Title for current slide") + " \(index+1) / \(DocumentController.pageCount)"
         
         // Set current slide label
         if displayNotes {
@@ -259,7 +249,7 @@ class SlideArrangementView: NSView {
         
         // Set next page
         if let nextPageView = nextSlideView?.page {
-            if index + 1 < (currentPageView.pdfDocument?.pageCount ?? -1) {
+            if index + 1 < DocumentController.pageCount {
                 nextPageView.setCurrentPage(index + 1)
                 nextSlideView?.label?.stringValue = NSLocalizedString("Next Slide", comment: "Title for next slide")
             } else {
@@ -272,7 +262,7 @@ class SlideArrangementView: NSView {
     
     
     func showSlide(at index: Int) {
-        guard 0 <= index, index < (pdfDocument?.pageCount ?? -1)  else { return }
+        guard 0 <= index, index < DocumentController.pageCount  else { return }
         guard let page = currentSlideView?.page else { return }
         page.setCurrentPage(index)
         updateSlides(for: page.currentPage)
@@ -281,11 +271,19 @@ class SlideArrangementView: NSView {
     
     
     
-    // MARK: - Page Control
+    // MARK: - Control Handlers
     
     @objc private func pageDidChange(notification: Notification) {
         guard let index = PageController.getPageIndex(notification) else { return }
         showSlide(at: index)
+    }
+    
+    
+    @objc func documentDidChange(_ notification: Notification) {
+        notesPosition = .none
+        currentSlideView?.page.setDocument(DocumentController.document, mode: notesPosition.displayModeForPresentation())
+        nextSlideView?.page.setDocument(DocumentController.document, mode: notesPosition.displayModeForPresentation())
+        notesSlideView?.page.setDocument(DocumentController.document, mode: notesPosition.displayModeForNotes())
     }
     
 }
