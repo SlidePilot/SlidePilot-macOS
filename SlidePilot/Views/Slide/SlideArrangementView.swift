@@ -34,9 +34,10 @@ class SlideArrangementView: NSView {
     
     var pdfDocument: PDFDocument? {
         didSet {
-            currentSlideView?.page.setDocument(self.pdfDocument)
-            nextSlideView?.page.setDocument(self.pdfDocument)
-            notesSlideView?.page.setDocument(self.pdfDocument)
+            notesPosition = .none
+            currentSlideView?.page.setDocument(self.pdfDocument, mode: notesPosition.displayModeForPresentation())
+            nextSlideView?.page.setDocument(self.pdfDocument, mode: notesPosition.displayModeForPresentation())
+            notesSlideView?.page.setDocument(self.pdfDocument, mode: notesPosition.displayModeForNotes())
             slideDelegate?.didChangeDocument(self.pdfDocument)
             showSlide(at: 0, notifyDelegate: true)
         }
