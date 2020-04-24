@@ -70,6 +70,7 @@ class PDFPageView: NSImageView {
         self.pdfDocument = document
         self.displayMode = displayMode
         self.currentPage = currentPage
+        RenderCache.shared.document = document
         reload()
     }
     
@@ -101,34 +102,16 @@ class PDFPageView: NSImageView {
     
     
     private func reload() {
-        self.imageScaling = .scaleAxesIndependently
-        
         // Get current page
         guard pdfDocument != nil else { return }
         guard currentPage >= 0, currentPage < (pdfDocument?.pageCount ?? -1) else { return }
-        guard let page = pdfDocument?.page(at: currentPage) else { return }
-        
-        // Crop page if needed
-        let pageRect = getRectFor(mode: self.displayMode, pdfPage: page)
-        page.setBounds(pageRect, for: .cropBox)
         
         // Create NSImage from page
-        guard let pageData = page.dataRepresentation else { return }
-        
-        guard let pdfRep = NSPDFImageRep(data: pageData) else { return }
-        let pdfImage = NSImage(size: pdfRep.size, flipped: false, drawingHandler: { (rect) -> Bool in
-            guard let ctx = NSGraphicsContext.current?.cgContext else { return false }
-            NSColor.white.set()
-            ctx.fill(rect)
-
-            pdfRep.draw(in: rect)
-
-            return true
-        })
+        guard let pdfImage = RenderCache.shared.getPage(at: currentPage, for: pdfDocument!, mode: self.displayMode, priority: .fast) else { return }
         
         // Display image
-        self.image = pdfImage
         self.imageScaling = .scaleProportionallyUpOrDown
+        self.image = pdfImage
     }
     
     
