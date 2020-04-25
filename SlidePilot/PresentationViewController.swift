@@ -25,6 +25,9 @@ class PresentationViewController: NSViewController {
         
         // Subscribe to document changes
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        
+        // Subscribe to display changes
+        DisplayController.subscribe(target: self, action: #selector(displayDidChange(_:)))
     }
     
     
@@ -39,6 +42,11 @@ class PresentationViewController: NSViewController {
     
     @objc func documentDidChange(_ notification: Notification) {
         pageView.setDocument(DocumentController.document)
+    }
+    
+    
+    @objc func displayDidChange(_ notification: Notification) {
+        pageView.setDisplayMode(DisplayController.notesPosition.displayModeForPresentation())
     }
 }
 

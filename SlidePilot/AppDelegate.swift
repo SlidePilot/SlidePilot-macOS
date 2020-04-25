@@ -12,15 +12,14 @@ import PDFKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    var presentationMenu: NSMenu? {
-        NSApp.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "PresentationMenu") })?.submenu
-    }
+    // MARK: - Menu Outlets
+    @IBOutlet weak var notesPositionMenu: NSMenu!
+    @IBOutlet weak var notesPositionNoneItem: NSMenuItem!
+    @IBOutlet weak var notesPositionRightItem: NSMenuItem!
+    @IBOutlet weak var notesPositionLeftItem: NSMenuItem!
+    @IBOutlet weak var notesPositionBottomItem: NSMenuItem!
+    @IBOutlet weak var notesPositionTopItem: NSMenuItem!
     
-    var viewMenu: NSMenu? {
-        NSApp.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "ViewMenu") })?.submenu
-    }
-
-
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -30,6 +29,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Count app starts
         AppStartTracker.startup()
+        
+        // Subscribe to display changes
+        DisplayController.subscribe(target: self, action: #selector(displayDidChange(_:)))
         
         startup()
     }
@@ -143,6 +145,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Reset page
         PageController.selectPage(at: 0, sender: self)
         
+        // Reset display options
+        DisplayController.setNotesPosition(.none, sender: self)
+        
         // Open document
         DocumentController.setDocument(pdfDocument, sender: self)
     }
@@ -168,52 +173,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func selectNotesPositionNone(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        presenterDisplay?.slideArrangement.notesPosition = .none
-        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .none))
+        // Publish changed notes position
+        DisplayController.setNotesPosition(.none, sender: self)
     }
     
     
     @IBAction func selectNotesPositionRight(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        presenterDisplay?.slideArrangement.notesPosition = .right
-        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .right))
+        // Publish changed notes position
+        DisplayController.setNotesPosition(.right, sender: self)
     }
     
     
     @IBAction func selectNotesPositionLeft(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        presenterDisplay?.slideArrangement.notesPosition = .left
-        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .left))
+        // Publish changed notes position
+        DisplayController.setNotesPosition(.left, sender: self)
     }
     
     
     @IBAction func selectNotesPositionBottom(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        presenterDisplay?.slideArrangement.notesPosition = .bottom
-        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .bottom))
+        // Publish changed notes position
+        DisplayController.setNotesPosition(.bottom, sender: self)
     }
     
     
     @IBAction func selectNotesPositionTop(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        presenterDisplay?.slideArrangement.notesPosition = .top
-        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .top))
+        // Publish changed notes position
+        DisplayController.setNotesPosition(.top, sender: self)
     }
     
     
@@ -251,6 +236,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             presentationView?.pageView.coverBlack()
             sender.state = .on
+        }
+    }
+    
+    
+    
+    
+    // MARK : - Control Handlers
+    
+    @objc func displayDidChange(_ notification: Notification) {
+        // Turn off all items in notes position menu
+        notesPositionMenu.items.forEach({ $0.state = .off })
+        
+        // Set correct menu item identifier for notes position
+        switch DisplayController.notesPosition {
+        case .none:
+            notesPositionNoneItem.state = .on
+        case .right:
+            notesPositionRightItem.state = .on
+        case .left:
+            notesPositionLeftItem.state = .on
+        case .bottom:
+            notesPositionBottomItem.state = .on
+        case .top:
+            notesPositionTopItem.state = .on
         }
     }
 }

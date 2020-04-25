@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -330,7 +331,16 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SlidePilot" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SlidePilot" customModuleProvider="target">
+                    <connections>
+                        <outlet property="notesPositionBottomItem" destination="3BI-JZ-e7T" id="pKx-fs-G7H"/>
+                        <outlet property="notesPositionLeftItem" destination="bSo-dU-i8i" id="DjP-tk-Ahe"/>
+                        <outlet property="notesPositionMenu" destination="Vm6-Hh-mT3" id="cll-ph-YG3"/>
+                        <outlet property="notesPositionNoneItem" destination="Kws-6x-VZZ" id="Jqy-jR-rNk"/>
+                        <outlet property="notesPositionRightItem" destination="f9q-Hv-2g2" id="bSh-UA-wpQ"/>
+                        <outlet property="notesPositionTopItem" destination="Tzc-zb-uAo" id="qQM-zP-BpH"/>
+                    </connections>
+                </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="UY0-Ac-aeS" customClass="SUUpdater"/>

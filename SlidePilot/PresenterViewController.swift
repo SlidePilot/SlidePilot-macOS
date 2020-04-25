@@ -60,13 +60,6 @@ class PresenterViewController: NSViewController {
             displayNotes(false, sender: showNotesItem)
         }
         
-        // Select notes position none by default
-        if let notesPositionItem = presentationMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPosition")} ),
-            let notesPositionNoneItem = notesPositionItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPositionNone")}),
-            let notesPositionNoneAction = notesPositionNoneItem.action {
-            NSApp.sendAction(notesPositionNoneAction, to: notesPositionNoneItem.target, from: notesPositionNoneItem)
-        }
-        
         // Subscribe to document changes
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
     }
@@ -194,11 +187,8 @@ class PresenterViewController: NSViewController {
         
         // Select notes position right by default when displaying notes
         // Only if notes are displayed right now and current note position is none
-        if slideArrangement.displayNotes, slideArrangement.notesPosition == .none,
-            let notesPositionItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPosition")} ),
-            let notesPositionRightItem = notesPositionItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPositionRight")}),
-            let notesPositionRightAction = notesPositionRightItem.action {
-            NSApp.sendAction(notesPositionRightAction, to: notesPositionRightItem.target, from: notesPositionRightItem)
+        if slideArrangement.displayNotes, DisplayController.notesPosition == .none {
+            DisplayController.setNotesPosition(.right, sender: self)
         }
         
         // Enable/Disable selecting notes position none
@@ -239,17 +229,12 @@ class PresenterViewController: NSViewController {
         navigation = ThumbnailNavigation(frame: .zero)
         navigation!.translatesAutoresizingMaskIntoConstraints = false
         
-        slideArrangement.slideDelegate = navigation!
-        
         self.view.addSubview(navigation!)
         navigationLeft = NSLayoutConstraint(item: navigation!, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1.0, constant: -navigationWidth)
         self.view.addConstraints([navigationLeft!,
                              NSLayoutConstraint(item: navigation!, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1.0, constant: 0.0),
                              NSLayoutConstraint(item: navigation!, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1.0, constant: 0.0),
                              NSLayoutConstraint(item: navigation!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: navigationWidth)])
-        
-        // Set inital configuration
-        navigation?.displayMode = slideArrangement.notesPosition.displayModeForPresentation()
     }
     
     

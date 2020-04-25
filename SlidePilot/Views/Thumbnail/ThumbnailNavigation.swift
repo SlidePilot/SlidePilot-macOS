@@ -28,12 +28,6 @@ class ThumbnailNavigation: NSView {
     let mainBackgroundColor = NSColor(white: 0.12, alpha: 1.0)
     let searchBackgroundColor = NSColor.black
     
-    var displayMode: PDFPageView.DisplayMode = .full {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -124,6 +118,9 @@ class ThumbnailNavigation: NSView {
         
         // Subscribe to document changes
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        
+        // Subscribe to display changes
+        DisplayController.subscribe(target: self, action: #selector(displayDidChange(_:)))
     }
     
     
@@ -253,6 +250,13 @@ class ThumbnailNavigation: NSView {
     
     @objc func documentDidChange(_ notification: Notification) {
         tableView.reloadData()
+        selectThumbnail(at: currentSelection, scrollVisible: true)
+    }
+    
+    
+    @objc func displayDidChange(_ notification: Notification) {
+        tableView.reloadData()
+        selectThumbnail(at: currentSelection, scrollVisible: true)
     }
     
 }
@@ -265,7 +269,7 @@ extension ThumbnailNavigation: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let thumbnail = ThumbnailView(frame: .zero)
         thumbnail.translatesAutoresizingMaskIntoConstraints = false
-        thumbnail.page.setDocument(DocumentController.document, mode: displayMode, at: row)
+        thumbnail.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation(), at: row)
         thumbnail.label.stringValue = "\(row+1)"
         
         let cell = NSTableCellView()
@@ -338,17 +342,5 @@ extension ThumbnailNavigation: NSTextFieldDelegate {
             // TODO: If not a number, search for text on pages
             // Asynchronously find text in PDF using beginFindString
         }
-    }
-}
-
-
-
-
-
-extension ThumbnailNavigation: SlideArrangementDelegate {    
-    
-    func didChangeDisplayMode(_ mode: PDFPageView.DisplayMode) {
-        self.displayMode = mode
-        selectThumbnail(at: currentSelection, scrollVisible: true)
     }
 }

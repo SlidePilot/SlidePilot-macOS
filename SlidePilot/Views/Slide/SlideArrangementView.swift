@@ -9,15 +9,10 @@
 import Cocoa
 import PDFKit
 
-protocol SlideArrangementDelegate: NSObject {
-    func didChangeDisplayMode(_ mode: PDFPageView.DisplayMode)
-}
-
 
 class SlideArrangementView: NSView {
     
     var delegate: SlideTrackingDelegate?
-    weak var slideDelegate: SlideArrangementDelegate?
     
     private var splitView: SplitView?
     private var leftContainer: NSView?
@@ -33,14 +28,6 @@ class SlideArrangementView: NSView {
     var displayNotes: Bool = false {
         didSet {
             updateView()
-        }
-    }
-    
-    
-    var notesPosition: PDFPageView.NotesPosition = .none {
-        didSet {
-            updateView()
-            slideDelegate?.didChangeDisplayMode(self.notesPosition.displayModeForPresentation())
         }
     }
     
@@ -91,6 +78,9 @@ class SlideArrangementView: NSView {
         
         // Subscribe to document changes
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        
+        // Subscribe to display changes
+        DisplayController.subscribe(target: self, action: #selector(displayDidChange(_:)))
     }
     
     
@@ -111,9 +101,9 @@ class SlideArrangementView: NSView {
         }
         
         // Setup notes position
-        notesSlideView?.page?.setDisplayMode(notesPosition.displayModeForNotes())
-        currentSlideView?.page?.setDisplayMode(notesPosition.displayModeForPresentation())
-        nextSlideView?.page?.setDisplayMode(notesPosition.displayModeForPresentation())
+        notesSlideView?.page?.setDisplayMode(DisplayController.notesPosition.displayModeForNotes())
+        currentSlideView?.page?.setDisplayMode(DisplayController.notesPosition.displayModeForPresentation())
+        nextSlideView?.page?.setDisplayMode(DisplayController.notesPosition.displayModeForPresentation())
         
         showSlide(at: PageController.currentPage)
     }
@@ -278,10 +268,14 @@ class SlideArrangementView: NSView {
     
     
     @objc func documentDidChange(_ notification: Notification) {
-        notesPosition = .none
-        currentSlideView?.page.setDocument(DocumentController.document, mode: notesPosition.displayModeForPresentation())
-        nextSlideView?.page.setDocument(DocumentController.document, mode: notesPosition.displayModeForPresentation())
-        notesSlideView?.page.setDocument(DocumentController.document, mode: notesPosition.displayModeForNotes())
+        currentSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
+        nextSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
+        notesSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForNotes())
+    }
+    
+    
+    @objc func displayDidChange(_ notification: Notification) {
+        updateView()
     }
     
 }
