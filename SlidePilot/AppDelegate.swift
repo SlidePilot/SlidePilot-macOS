@@ -12,15 +12,16 @@ import PDFKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    var presentationMenu: NSMenu? {
-        NSApp.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "PresentationMenu") })?.submenu
-    }
+    // MARK: - Menu Outlets
+    @IBOutlet weak var showNotesItem: NSMenuItem!
     
-    var viewMenu: NSMenu? {
-        NSApp.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "ViewMenu") })?.submenu
-    }
-
-
+    @IBOutlet weak var notesPositionMenu: NSMenu!
+    @IBOutlet weak var notesPositionNoneItem: NSMenuItem!
+    @IBOutlet weak var notesPositionRightItem: NSMenuItem!
+    @IBOutlet weak var notesPositionLeftItem: NSMenuItem!
+    @IBOutlet weak var notesPositionBottomItem: NSMenuItem!
+    @IBOutlet weak var notesPositionTopItem: NSMenuItem!
+    
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -30,6 +31,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Count app starts
         AppStartTracker.startup()
+        
+        // Subscribe to display changes
+        DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
+        DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChange(_:)))
         
         startup()
     }
@@ -140,10 +145,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
         guard let pdfDocument = PDFDocument(url: url) else { return }
         
-        // Open document in both windows
-        presenterDisplay?.hideNavigation(animated: false)
-        presenterDisplay?.slideArrangement.pdfDocument = pdfDocument
-        presentationView?.pageView.setDocument(pdfDocument)
+        // Reset page
+        PageController.selectPage(at: 0, sender: self)
+        
+        // Reset display options
+        DisplayController.setNotesPosition(.none, sender: self)
+        DisplayController.setDisplayNotes(false, sender: self)
+        
+        // Open document
+        DocumentController.setDocument(pdfDocument, sender: self)
     }
     
     
@@ -157,64 +167,42 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Handling Slides
     
     @IBAction func previousSlide(_ sender: NSMenuItem) {
-        presenterDisplay?.slideArrangement.previousSlide()
-        presentationView?.pageView.pageBackward()
+        PageController.previousPage(sender: self)
     }
     
     
     @IBAction func nextSlide(_ sender: NSMenuItem) {
-        presenterDisplay?.slideArrangement.nextSlide()
-        presentationView?.pageView.pageForward()
+        PageController.nextPage(sender: self)
     }
     
     
     @IBAction func selectNotesPositionNone(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        presenterDisplay?.slideArrangement.notesPosition = .none
-        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .none))
+        // Publish changed notes position
+        DisplayController.setNotesPosition(.none, sender: self)
     }
     
     
     @IBAction func selectNotesPositionRight(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        presenterDisplay?.slideArrangement.notesPosition = .right
-        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .right))
+        // Publish changed notes position
+        DisplayController.setNotesPosition(.right, sender: self)
     }
     
     
     @IBAction func selectNotesPositionLeft(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        presenterDisplay?.slideArrangement.notesPosition = .left
-        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .left))
+        // Publish changed notes position
+        DisplayController.setNotesPosition(.left, sender: self)
     }
     
     
     @IBAction func selectNotesPositionBottom(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        presenterDisplay?.slideArrangement.notesPosition = .bottom
-        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .bottom))
+        // Publish changed notes position
+        DisplayController.setNotesPosition(.bottom, sender: self)
     }
     
     
     @IBAction func selectNotesPositionTop(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        
-        presenterDisplay?.slideArrangement.notesPosition = .top
-        presentationView?.pageView.setDisplayMode(.displayModeForPresentation(with: .top))
+        // Publish changed notes position
+        DisplayController.setNotesPosition(.top, sender: self)
     }
     
     
@@ -253,5 +241,51 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             presentationView?.pageView.coverBlack()
             sender.state = .on
         }
+    }
+    
+    
+    @IBAction func showNotes(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayNotes(sender: sender)
+    }
+    
+    
+    
+    
+    // MARK: - Control Handlers
+    
+    @objc func notesPositionDidChange(_ notification: Notification) {
+        // Turn off all items in notes position menu
+        notesPositionMenu.items.forEach({ $0.state = .off })
+        
+        // Set correct menu item identifier for notes position
+        switch DisplayController.notesPosition {
+        case .none:
+            notesPositionNoneItem.state = .on
+        case .right:
+            notesPositionRightItem.state = .on
+        case .left:
+            notesPositionLeftItem.state = .on
+        case .bottom:
+            notesPositionBottomItem.state = .on
+        case .top:
+            notesPositionTopItem.state = .on
+        }
+    }
+    
+    
+    @objc func displayNotesDidChange(_ notification: Notification) {
+        // Set correct state for display notes menu item
+        showNotesItem.state = DisplayController.displayNotes ? .on : .off
+        
+        
+        // Select notes position right by default when displaying notes
+        // Only if notes are displayed currently and current note position is none
+        if DisplayController.displayNotes, DisplayController.notesPosition == .none {
+            DisplayController.setNotesPosition(.right, sender: self)
+        }
+        
+        // Enable selecting notes position none when notes ARE NOT displayed
+        // Disable selecting notes position none when notes ARE displayed
+        notesPositionNoneItem.isEnabled = !DisplayController.displayNotes
     }
 }

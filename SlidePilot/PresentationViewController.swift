@@ -19,6 +19,34 @@ class PresentationViewController: NSViewController {
         
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = NSColor.black.cgColor
+        
+        // Subscribe to page changes
+        PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))
+        
+        // Subscribe to document changes
+        DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        
+        // Subscribe to display changes
+        DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
+    }
+    
+    
+    
+    
+    // MARK: - Control Handlers
+    
+    @objc private func pageDidChange(_ notification: Notification) {
+        pageView.setCurrentPage(PageController.currentPage)
+    }
+    
+    
+    @objc func documentDidChange(_ notification: Notification) {
+        pageView.setDocument(DocumentController.document)
+    }
+    
+    
+    @objc func notesPositionDidChange(_ notification: Notification) {
+        pageView.setDisplayMode(DisplayController.notesPosition.displayModeForPresentation())
     }
 }
 

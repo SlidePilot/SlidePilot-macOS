@@ -9,17 +9,10 @@
 import Cocoa
 import PDFKit
 
-protocol SlideArrangementDelegate: NSObject {
-    func didSelectSlide(at index: Int)
-    func didChangeDocument(_ document: PDFDocument?)
-    func didChangeDisplayMode(_ mode: PDFPageView.DisplayMode)
-}
-
 
 class SlideArrangementView: NSView {
     
     var delegate: SlideTrackingDelegate?
-    weak var slideDelegate: SlideArrangementDelegate?
     
     private var splitView: SplitView?
     private var leftContainer: NSView?
@@ -31,31 +24,6 @@ class SlideArrangementView: NSView {
     
     private let padding: CGFloat = 40.0
     private let distributionRatio: CGFloat = 0.6
-    
-    var pdfDocument: PDFDocument? {
-        didSet {
-            notesPosition = .none
-            currentSlideView?.page.setDocument(self.pdfDocument, mode: notesPosition.displayModeForPresentation())
-            nextSlideView?.page.setDocument(self.pdfDocument, mode: notesPosition.displayModeForPresentation())
-            notesSlideView?.page.setDocument(self.pdfDocument, mode: notesPosition.displayModeForNotes())
-            slideDelegate?.didChangeDocument(self.pdfDocument)
-            showSlide(at: 0, notifyDelegate: true)
-        }
-    }
-
-    var displayNotes: Bool = false {
-        didSet {
-            updateView()
-        }
-    }
-    
-    
-    var notesPosition: PDFPageView.NotesPosition = .none {
-        didSet {
-            updateView()
-            slideDelegate?.didChangeDisplayMode(self.notesPosition.displayModeForPresentation())
-        }
-    }
     
     
     override init(frame frameRect: NSRect) {
@@ -98,20 +66,27 @@ class SlideArrangementView: NSView {
         
         splitView!.adjustSubviews()
         updateView()
+        
+        // Subscribe to page changes
+        PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))
+        
+        // Subscribe to document changes
+        DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        
+        // Subscribe to display changes
+        DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
+        DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChange(_:)))
     }
     
     
     private func updateView() {
-        // Cache current page
-        let currentPage = currentSlideView?.page?.currentPage
-        
         // Reset containers
         guard leftContainer != nil, rightContainer != nil else { return }
         leftContainer!.subviews.forEach({ $0.removeFromSuperview() })
         rightContainer!.subviews.forEach({ $0.removeFromSuperview() })
         
         // Setup layout with/without notes
-        switch displayNotes {
+        switch DisplayController.displayNotes {
             
         case true:
             setupSlidesLayoutWithNotes()
@@ -121,12 +96,11 @@ class SlideArrangementView: NSView {
         }
         
         // Setup notes position
-        notesSlideView?.page?.setDisplayMode(notesPosition.displayModeForNotes())
-        currentSlideView?.page?.setDisplayMode(notesPosition.displayModeForPresentation())
-        nextSlideView?.page?.setDisplayMode(notesPosition.displayModeForPresentation())
+        notesSlideView?.page?.setDisplayMode(DisplayController.notesPosition.displayModeForNotes())
+        currentSlideView?.page?.setDisplayMode(DisplayController.notesPosition.displayModeForPresentation())
+        nextSlideView?.page?.setDisplayMode(DisplayController.notesPosition.displayModeForPresentation())
         
-        
-        showSlide(at: currentPage ?? 0, notifyDelegate: true)
+        showSlide(at: PageController.currentPage)
     }
     
     
@@ -136,7 +110,7 @@ class SlideArrangementView: NSView {
         // Left container: Setup current
         currentSlideView = SlideView(frame: .zero)
         currentSlideView!.delegate = self
-        currentSlideView!.page.setDocument(self.pdfDocument)
+        currentSlideView!.page.setDocument(DocumentController.document)
         currentSlideView!.translatesAutoresizingMaskIntoConstraints = false
         leftContainer?.addSubview(currentSlideView!)
         leftContainer?.addConstraints([
@@ -154,7 +128,7 @@ class SlideArrangementView: NSView {
         
         // Right container: Setup next
         nextSlideView = SlideView(frame: .zero)
-        nextSlideView!.page.setDocument(self.pdfDocument)
+        nextSlideView!.page.setDocument(DocumentController.document)
         nextSlideView!.translatesAutoresizingMaskIntoConstraints = false
         rightContainer?.addSubview(nextSlideView!)
         rightContainer?.addConstraints([
@@ -179,7 +153,7 @@ class SlideArrangementView: NSView {
         
         // Left container: Setup notes
         notesSlideView = SlideView(frame: .zero)
-        notesSlideView!.page.setDocument(self.pdfDocument)
+        notesSlideView!.page.setDocument(DocumentController.document)
         notesSlideView!.translatesAutoresizingMaskIntoConstraints = false
         leftContainer?.addSubview(notesSlideView!)
         leftContainer?.addConstraints([
@@ -198,7 +172,7 @@ class SlideArrangementView: NSView {
         // Right container: Setup current
         currentSlideView = SlideView(frame: .zero)
         currentSlideView!.delegate = self
-        currentSlideView!.page.setDocument(self.pdfDocument)
+        currentSlideView!.page.setDocument(DocumentController.document)
         currentSlideView!.translatesAutoresizingMaskIntoConstraints = false
         rightContainer?.addSubview(currentSlideView!)
         rightContainer?.addConstraints([
@@ -216,7 +190,7 @@ class SlideArrangementView: NSView {
         
         // Right container: Setup next
         nextSlideView = SlideView(frame: .zero)
-        nextSlideView!.page.setDocument(self.pdfDocument)
+        nextSlideView!.page.setDocument(DocumentController.document)
         nextSlideView!.translatesAutoresizingMaskIntoConstraints = false
         rightContainer?.addSubview(nextSlideView!)
         rightContainer?.addConstraints([
@@ -242,12 +216,10 @@ class SlideArrangementView: NSView {
     
     /** Updates slides and labels */
     private func updateSlides(for index: Int) {
-        guard let currentPageView = currentSlideView?.page, currentSlideView?.page.pdfDocument != nil else { return }
-        
-        let currentSlideString = NSLocalizedString("Current Slide", comment: "Title for current slide") + " \(currentPageView.currentPage+1) / \(currentPageView.pdfDocument?.pageCount ?? 0)"
+        let currentSlideString = NSLocalizedString("Current Slide", comment: "Title for current slide") + " \(index+1) / \(DocumentController.pageCount)"
         
         // Set current slide label
-        if displayNotes {
+        if DisplayController.displayNotes {
             currentSlideView?.label?.stringValue = NSLocalizedString("Current Slide", comment: "Title for current slide")
         } else {
             currentSlideView?.label?.stringValue = currentSlideString
@@ -255,14 +227,14 @@ class SlideArrangementView: NSView {
         
         // Set notes page
         if let notesPageView = notesSlideView?.page {
-            notesPageView.setCurrentPage(currentPageView.currentPage)
+            notesPageView.setCurrentPage(index)
             notesSlideView?.label?.stringValue = currentSlideString
         }
         
         // Set next page
         if let nextPageView = nextSlideView?.page {
-            if currentPageView.currentPage + 1 < (currentPageView.pdfDocument?.pageCount ?? -1) {
-                nextPageView.setCurrentPage(currentPageView.currentPage + 1)
+            if index + 1 < DocumentController.pageCount {
+                nextPageView.setCurrentPage(index + 1)
                 nextSlideView?.label?.stringValue = NSLocalizedString("Next Slide", comment: "Title for next slide")
             } else {
                 // Show blank screen if last slide is currently displayed
@@ -273,28 +245,37 @@ class SlideArrangementView: NSView {
     }
     
     
-    func nextSlide() {
-        guard let page = currentSlideView?.page else { return }
-        showSlide(at: page.currentPage + 1, notifyDelegate: true)
-        updateSlides(for: page.currentPage)
-    }
-    
-    
-    func previousSlide() {
-        guard let page = currentSlideView?.page else { return }
-        showSlide(at: page.currentPage - 1, notifyDelegate: true)
-    }
-    
-    
-    func showSlide(at index: Int, notifyDelegate: Bool) {
-        guard 0 <= index, index < (pdfDocument?.pageCount ?? -1)  else { return }
+    func showSlide(at index: Int) {
+        guard 0 <= index, index < DocumentController.pageCount  else { return }
         guard let page = currentSlideView?.page else { return }
         page.setCurrentPage(index)
         updateSlides(for: page.currentPage)
-        
-        if notifyDelegate {
-            slideDelegate?.didSelectSlide(at: index)
-        }
+    }
+    
+    
+    
+    
+    // MARK: - Control Handlers
+    
+    @objc private func pageDidChange(_ notification: Notification) {
+        showSlide(at: PageController.currentPage)
+    }
+    
+    
+    @objc func documentDidChange(_ notification: Notification) {
+        currentSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
+        nextSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
+        notesSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForNotes())
+    }
+    
+    
+    @objc func notesPositionDidChange(_ notification: Notification) {
+        updateView()
+    }
+    
+    
+    @objc func displayNotesDidChange(_ notification: Notification) {
+        updateView()
     }
     
 }
@@ -305,15 +286,5 @@ extension SlideArrangementView: SlideTrackingDelegate {
     
     func mouseMoved(to position: NSPoint, in sender: PDFPageView?) {
         delegate?.mouseMoved(to: position, in: sender)
-    }
-}
-
-
-
-
-extension SlideArrangementView: ThumbnailNavigationDelegate {
-    
-    func didSelectThumbnail(at index: Int) {
-        showSlide(at: index, notifyDelegate: false)
     }
 }
