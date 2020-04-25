@@ -102,8 +102,10 @@ class RenderCache {
         page.setBounds(pageRect, for: .cropBox)
         
         // Start pre rendering in a range +-50 pages from the requested pages
-        let preRenderRange = index-preRenderRangeDelta...index+preRenderRangeDelta
-        startRenderTask(pages: preRenderRange, displayMode: mode)
+        if priority == .fast {
+            let preRenderRange = index-preRenderRangeDelta...index+preRenderRangeDelta
+            startRenderTask(pages: preRenderRange, displayMode: mode)
+        }
         
         // Check if page is cached
         if let cachedPage = self.cache.object(forKey: CacheKey(pageNumber: index, displayMode: mode)) {
@@ -128,7 +130,7 @@ class RenderCache {
         clearCache()
         
         DispatchQueue.global().async {
-            self.render(pages: 0...min(document.pageCount, self.cache.countLimit), displayMode: .full)
+            self.render(pages: 0...min(document.pageCount-1, self.cache.countLimit), displayMode: .full)
         }
     }
     
@@ -167,7 +169,7 @@ class RenderCache {
     private func render(pages renderRange: ClosedRange<Int>, displayMode mode: PDFPageView.DisplayMode) {
         guard let document = document else { return }
         // Cut renderRange to document pages range
-        let safeRange = max(0, renderRange.lowerBound)...min(document.pageCount, renderRange.upperBound)
+        let safeRange = max(0, renderRange.lowerBound)...min(document.pageCount-1, renderRange.upperBound)
         
         // Iterate through every page in the given prerender range
         for index in safeRange {
@@ -176,13 +178,13 @@ class RenderCache {
             DispatchQueue.global(qos: .background).async {
                 
                 // Only render if not already cached
-                if !self.isCached(page: index, displayMode: .full) {
+                if !self.isCached(page: index, displayMode: mode) {
                     // Prerender page
                     guard let page = self.document?.page(at: index) else { return }
                     guard let pdfImage = self.createImage(from: page, mode: mode) else { return }
                     
                     // Save to cache
-                    self.cache.setObject(pdfImage, forKey: CacheKey(pageNumber: index, displayMode: .full))
+                    self.cache.setObject(pdfImage, forKey: CacheKey(pageNumber: index, displayMode: mode))
                 }
             }
         }
