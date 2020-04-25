@@ -12,7 +12,7 @@ import PDFKit
 
 class SlideArrangementView: NSView {
     
-    var delegate: SlideTrackingDelegate?
+    var trackingDelegate: SlideTrackingDelegate?
     
     private var splitView: SplitView?
     private var leftContainer: NSView?
@@ -285,6 +285,6 @@ class SlideArrangementView: NSView {
 extension SlideArrangementView: SlideTrackingDelegate {
     
     func mouseMoved(to position: NSPoint, in sender: PDFPageView?) {
-        delegate?.mouseMoved(to: position, in: sender)
+        trackingDelegate?.mouseMoved(to: position, in: sender)
     }
 }

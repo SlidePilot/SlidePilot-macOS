@@ -175,7 +175,7 @@ class PresenterViewController: NSViewController {
     
     @IBAction func showCursor(_ sender: NSMenuItem) {
         // Set delegate to receive mouse events
-        slideArrangement.delegate = self
+        slideArrangement.trackingDelegate = self
         
         // Start tracking by setting initial tracking area
         slideArrangement.currentSlideView?.addTrackingAreaForSlide()
