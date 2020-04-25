@@ -244,7 +244,7 @@ class ThumbnailNavigation: NSView {
     // MARK: - Control Handlers
     
     @objc private func pageDidChange(_ notification: Notification) {
-        selectThumbnail(at: PageController.currentPage, scrollVisible: false)
+        selectThumbnail(at: PageController.currentPage, scrollVisible: true)
     }
     
     
