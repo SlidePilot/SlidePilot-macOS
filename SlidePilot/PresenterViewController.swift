@@ -55,11 +55,6 @@ class PresenterViewController: NSViewController {
             }
         }
         
-        // Setup notes
-        if let showNotesItem = presentationMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "ShowNotes") }) {
-            displayNotes(false, sender: showNotesItem)
-        }
-        
         // Subscribe to document changes
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
     }
@@ -173,29 +168,6 @@ class PresenterViewController: NSViewController {
     
     @IBAction func resetTime(_ sender: NSMenuItem) {
         timingControl.reset()
-    }
-    
-    
-    @IBAction func showNotes(_ sender: NSMenuItem) {
-        displayNotes(!slideArrangement.displayNotes, sender: sender)
-    }
-    
-    
-    func displayNotes(_ shouldDisplay: Bool, sender: NSMenuItem) {
-        slideArrangement.displayNotes = shouldDisplay
-        sender.state = slideArrangement.displayNotes ? .on : .off
-        
-        // Select notes position right by default when displaying notes
-        // Only if notes are displayed right now and current note position is none
-        if slideArrangement.displayNotes, DisplayController.notesPosition == .none {
-            DisplayController.setNotesPosition(.right, sender: self)
-        }
-        
-        // Enable/Disable selecting notes position none
-        if let notesPositionItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPosition")} ),
-            let notesPositionNoneItem = notesPositionItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("NotesPositionNone")}) {
-            notesPositionNoneItem.isEnabled = !slideArrangement.displayNotes
-        }
     }
     
     

@@ -13,6 +13,8 @@ import PDFKit
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Menu Outlets
+    @IBOutlet weak var showNotesItem: NSMenuItem!
+    
     @IBOutlet weak var notesPositionMenu: NSMenu!
     @IBOutlet weak var notesPositionNoneItem: NSMenuItem!
     @IBOutlet weak var notesPositionRightItem: NSMenuItem!
@@ -31,7 +33,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AppStartTracker.startup()
         
         // Subscribe to display changes
-        DisplayController.subscribe(target: self, action: #selector(displayDidChange(_:)))
+        DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
+        DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChange(_:)))
         
         startup()
     }
@@ -147,6 +150,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Reset display options
         DisplayController.setNotesPosition(.none, sender: self)
+        DisplayController.setDisplayNotes(false, sender: self)
         
         // Open document
         DocumentController.setDocument(pdfDocument, sender: self)
@@ -240,11 +244,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func showNotes(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayNotes(sender: sender)
+    }
     
     
-    // MARK : - Control Handlers
     
-    @objc func displayDidChange(_ notification: Notification) {
+    
+    // MARK: - Control Handlers
+    
+    @objc func notesPositionDidChange(_ notification: Notification) {
         // Turn off all items in notes position menu
         notesPositionMenu.items.forEach({ $0.state = .off })
         
@@ -261,5 +270,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         case .top:
             notesPositionTopItem.state = .on
         }
+    }
+    
+    
+    @objc func displayNotesDidChange(_ notification: Notification) {
+        // Set correct state for display notes menu item
+        showNotesItem.state = DisplayController.displayNotes ? .on : .off
+        
+        
+        // Select notes position right by default when displaying notes
+        // Only if notes are displayed currently and current note position is none
+        if DisplayController.displayNotes, DisplayController.notesPosition == .none {
+            DisplayController.setNotesPosition(.right, sender: self)
+        }
+        
+        // Enable selecting notes position none when notes ARE NOT displayed
+        // Disable selecting notes position none when notes ARE displayed
+        notesPositionNoneItem.isEnabled = !DisplayController.displayNotes
     }
 }

@@ -27,7 +27,7 @@ class PresentationViewController: NSViewController {
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
         
         // Subscribe to display changes
-        DisplayController.subscribe(target: self, action: #selector(displayDidChange(_:)))
+        DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
     }
     
     
@@ -45,7 +45,7 @@ class PresentationViewController: NSViewController {
     }
     
     
-    @objc func displayDidChange(_ notification: Notification) {
+    @objc func notesPositionDidChange(_ notification: Notification) {
         pageView.setDisplayMode(DisplayController.notesPosition.displayModeForPresentation())
     }
 }

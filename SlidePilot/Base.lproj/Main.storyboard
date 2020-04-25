@@ -274,7 +274,7 @@
                                         <menuItem title="Show Notes" tag="401" keyEquivalent="n" identifier="ShowNotes" id="fS9-YP-QfR">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="showNotes:" target="Ady-hI-5gd" id="fpO-r0-d6H"/>
+                                                <action selector="showNotes:" target="Ady-hI-5gd" id="v6k-IP-Uza"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Notes Position" tag="402" identifier="NotesPosition" id="WtB-Ny-SAM" userLabel="Notes Position">
@@ -339,6 +339,7 @@
                         <outlet property="notesPositionNoneItem" destination="Kws-6x-VZZ" id="Jqy-jR-rNk"/>
                         <outlet property="notesPositionRightItem" destination="f9q-Hv-2g2" id="bSh-UA-wpQ"/>
                         <outlet property="notesPositionTopItem" destination="Tzc-zb-uAo" id="qQM-zP-BpH"/>
+                        <outlet property="showNotesItem" destination="fS9-YP-QfR" id="eB2-IZ-Yjq"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>

@@ -24,12 +24,6 @@ class SlideArrangementView: NSView {
     
     private let padding: CGFloat = 40.0
     private let distributionRatio: CGFloat = 0.6
-
-    var displayNotes: Bool = false {
-        didSet {
-            updateView()
-        }
-    }
     
     
     override init(frame frameRect: NSRect) {
@@ -80,7 +74,8 @@ class SlideArrangementView: NSView {
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
         
         // Subscribe to display changes
-        DisplayController.subscribe(target: self, action: #selector(displayDidChange(_:)))
+        DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
+        DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChange(_:)))
     }
     
     
@@ -91,7 +86,7 @@ class SlideArrangementView: NSView {
         rightContainer!.subviews.forEach({ $0.removeFromSuperview() })
         
         // Setup layout with/without notes
-        switch displayNotes {
+        switch DisplayController.displayNotes {
             
         case true:
             setupSlidesLayoutWithNotes()
@@ -224,7 +219,7 @@ class SlideArrangementView: NSView {
         let currentSlideString = NSLocalizedString("Current Slide", comment: "Title for current slide") + " \(index+1) / \(DocumentController.pageCount)"
         
         // Set current slide label
-        if displayNotes {
+        if DisplayController.displayNotes {
             currentSlideView?.label?.stringValue = NSLocalizedString("Current Slide", comment: "Title for current slide")
         } else {
             currentSlideView?.label?.stringValue = currentSlideString
@@ -274,7 +269,12 @@ class SlideArrangementView: NSView {
     }
     
     
-    @objc func displayDidChange(_ notification: Notification) {
+    @objc func notesPositionDidChange(_ notification: Notification) {
+        updateView()
+    }
+    
+    
+    @objc func displayNotesDidChange(_ notification: Notification) {
         updateView()
     }
     

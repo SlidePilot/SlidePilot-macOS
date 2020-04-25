@@ -120,7 +120,7 @@ class ThumbnailNavigation: NSView {
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
         
         // Subscribe to display changes
-        DisplayController.subscribe(target: self, action: #selector(displayDidChange(_:)))
+        DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange))
     }
     
     
@@ -254,7 +254,7 @@ class ThumbnailNavigation: NSView {
     }
     
     
-    @objc func displayDidChange(_ notification: Notification) {
+    @objc func notesPositionDidChange(_ notification: Notification) {
         tableView.reloadData()
         selectThumbnail(at: currentSelection, scrollVisible: true)
     }
