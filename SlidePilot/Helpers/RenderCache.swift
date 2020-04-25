@@ -107,11 +107,9 @@ class RenderCache {
         
         // Check if page is cached
         if let cachedPage = self.cache.object(forKey: CacheKey(pageNumber: index, displayMode: mode)) {
-            print("Cache \(index)")
             // Return cached page
             return cachedPage
         } else {
-            print("Render \(index)")
             // Render page instantly, save in cache and return rendered page
             guard let pdfImage = createImage(from: page, mode: mode) else { return nil }
             self.cache.setObject(pdfImage, forKey: CacheKey(pageNumber: index, displayMode: mode))
@@ -179,7 +177,6 @@ class RenderCache {
                 
                 // Only render if not already cached
                 if !self.isCached(page: index, displayMode: .full) {
-                    print("Render \(index)")
                     // Prerender page
                     guard let page = self.document?.page(at: index) else { return }
                     guard let pdfImage = self.createImage(from: page, mode: mode) else { return }
