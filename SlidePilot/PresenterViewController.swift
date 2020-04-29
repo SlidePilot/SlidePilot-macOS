@@ -271,7 +271,7 @@ extension PresenterViewController: SlideTrackingDelegate {
         let relativeInImage = calculateRelativePosition(for: position, in: page)
         
         // Hide Pointer if at edge of view
-        if relativeInImage.x < 0.01 || relativeInImage.x > 0.99 || relativeInImage.y < 0.01 || relativeInImage.y > 0.99 {
+        if relativeInImage.x < 0.0 || relativeInImage.x > 1.0 || relativeInImage.y < 0.0 || relativeInImage.y > 1.0 {
             pointerDelegate?.hidePointer()
         } else {
             pointerDelegate?.showPointer()
