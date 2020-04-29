@@ -61,6 +61,8 @@ class DisplayController {
     public private(set) static var isNavigatorDisplayed: Bool = false
     public private(set) static var isPointerDisplayed: Bool = false
     
+    public private(set) static var pointerAppearance: PointerView.PointerType = .cursor
+    
     
     
     
@@ -180,6 +182,13 @@ class DisplayController {
     }
     
     
+    /** Sends a notification, that the pointer appearance property was changed. */
+    public static func setPointerAppearance(_ type: PointerView.PointerType, sender: Any) {
+        pointerAppearance = type
+        NotificationCenter.default.post(name: .didChangePointerAppearance, object: sender)
+    }
+    
+    
     
     // MARK: - Subscribe
     
@@ -219,6 +228,12 @@ class DisplayController {
     }
     
     
+    /** Subscribes a target to all `.didChangePointerAppearance` notifications sent by `DisplayController`. */
+    public static func subscribePointerAppearance(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangePointerAppearance, object: nil)
+    }
+    
+    
     
     
     // MARK: - Unsubscribe
@@ -231,6 +246,7 @@ class DisplayController {
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayWhiteCurtain, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayNavigator, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayPointer, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangePointerAppearance, object: nil)
     }
 }
 
@@ -244,4 +260,5 @@ extension Notification.Name {
     static let didChangeDisplayWhiteCurtain = Notification.Name("didChangeDisplayWhiteCurtain")
     static let didChangeDisplayNavigator = Notification.Name("didChangeDisplayNavigator")
     static let didChangeDisplayPointer = Notification.Name("didChangeDisplayPointer")
+    static let didChangePointerAppearance = Notification.Name("didChangePointerAppearance")
 }

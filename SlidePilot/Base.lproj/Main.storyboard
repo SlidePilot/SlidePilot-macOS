@@ -270,6 +270,43 @@
                                                 <action selector="showPointer:" target="Ady-hI-5gd" id="p1W-9V-QV8"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Cursor Appearance" id="HNs-Tl-r53">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="Fg3-Dc-rDB">
+                                                <items>
+                                                    <menuItem title="Cursor" id="Auy-Z6-pIV">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectPointerAppearanceCursor:" target="Voe-Tx-rLC" id="L30-4o-wCD"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Dot" id="akh-gx-hr7">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectPointerAppearanceDot:" target="Voe-Tx-rLC" id="yAb-B4-aPy"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Circle" id="KeP-a7-ltS">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectPointerAppearanceCircle:" target="Voe-Tx-rLC" id="wSW-XY-aJk"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Target" id="YH8-Ja-Yo4">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectPointerAppearanceTarget:" target="Voe-Tx-rLC" id="env-0T-faO"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Target Color" id="UYT-sb-cqr">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectPointerAppearanceTargetColor:" target="Voe-Tx-rLC" id="JUi-fX-son"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="A3e-R8-0Hj"/>
                                         <menuItem title="Show Notes" tag="401" keyEquivalent="n" identifier="ShowNotes" id="fS9-YP-QfR">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -341,6 +378,12 @@
                         <outlet property="notesPositionNoneItem" destination="Kws-6x-VZZ" id="Jqy-jR-rNk"/>
                         <outlet property="notesPositionRightItem" destination="f9q-Hv-2g2" id="bSh-UA-wpQ"/>
                         <outlet property="notesPositionTopItem" destination="Tzc-zb-uAo" id="qQM-zP-BpH"/>
+                        <outlet property="pointerAppearanceCircleItem" destination="KeP-a7-ltS" id="Uw9-xu-cuL"/>
+                        <outlet property="pointerAppearanceCursorItem" destination="Auy-Z6-pIV" id="YXR-VY-B6z"/>
+                        <outlet property="pointerAppearanceDotItem" destination="akh-gx-hr7" id="W68-MN-b4s"/>
+                        <outlet property="pointerAppearanceMenu" destination="Fg3-Dc-rDB" id="Lc7-rB-8Fb"/>
+                        <outlet property="pointerAppearanceTargetColorItem" destination="UYT-sb-cqr" id="I6y-rg-13D"/>
+                        <outlet property="pointerAppearanceTargetItem" destination="YH8-Ja-Yo4" id="MIO-hN-XUi"/>
                         <outlet property="showNavigatorItem" destination="zx2-Yz-Rxn" id="h3m-To-UaI"/>
                         <outlet property="showNotesItem" destination="fS9-YP-QfR" id="eB2-IZ-Yjq"/>
                         <outlet property="showPointerItem" destination="iHL-eH-XtE" id="h7j-l5-bM6"/>

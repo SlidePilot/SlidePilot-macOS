@@ -19,6 +19,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var showPointerItem: NSMenuItem!
     @IBOutlet weak var showNotesItem: NSMenuItem!
     
+    @IBOutlet weak var pointerAppearanceMenu: NSMenu!
+    @IBOutlet weak var pointerAppearanceCursorItem: NSMenuItem!
+    @IBOutlet weak var pointerAppearanceDotItem: NSMenuItem!
+    @IBOutlet weak var pointerAppearanceCircleItem: NSMenuItem!
+    @IBOutlet weak var pointerAppearanceTargetItem: NSMenuItem!
+    @IBOutlet weak var pointerAppearanceTargetColorItem: NSMenuItem!
+    
     @IBOutlet weak var notesPositionMenu: NSMenu!
     @IBOutlet weak var notesPositionNoneItem: NSMenuItem!
     @IBOutlet weak var notesPositionRightItem: NSMenuItem!
@@ -43,6 +50,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
+        DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
+        
+        // Set default display options
+        DisplayController.setPointerAppearance(.cursor, sender: self)
         
         startup()
     }
@@ -239,6 +250,31 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func selectPointerAppearanceCursor(_ sender: NSMenuItem) {
+        DisplayController.setPointerAppearance(.cursor, sender: sender)
+    }
+    
+    
+    @IBAction func selectPointerAppearanceDot(_ sender: NSMenuItem) {
+        DisplayController.setPointerAppearance(.dot, sender: sender)
+    }
+    
+    
+    @IBAction func selectPointerAppearanceCircle(_ sender: NSMenuItem) {
+        DisplayController.setPointerAppearance(.circle, sender: sender)
+    }
+    
+    
+    @IBAction func selectPointerAppearanceTarget(_ sender: NSMenuItem) {
+        DisplayController.setPointerAppearance(.target, sender: sender)
+    }
+    
+    
+    @IBAction func selectPointerAppearanceTargetColor(_ sender: NSMenuItem) {
+        DisplayController.setPointerAppearance(.targetColor, sender: sender)
+    }
+    
+    
     
     
     // MARK: - Control Handlers
@@ -301,5 +337,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func displayPointerDidChange(_ notification: Notification) {
         // Set correct state for menu item
         showPointerItem.state = DisplayController.isPointerDisplayed ? .on : .off
+    }
+    
+    
+    @objc func pointerAppearanceDidChange(_ notification: Notification) {
+        // Turn off all items in notes position menu
+        pointerAppearanceMenu.items.forEach({ $0.state = .off })
+        
+        // Set correct menu item identifier for notes position
+        switch DisplayController.pointerAppearance {
+        case .cursor:
+            pointerAppearanceCursorItem.state = .on
+        case .dot:
+            pointerAppearanceDotItem.state = .on
+        case .circle:
+            pointerAppearanceCircleItem.state = .on
+        case .target:
+            pointerAppearanceTargetItem.state = .on
+        case .targetColor:
+            pointerAppearanceTargetColorItem.state = .on
+        }
     }
 }
