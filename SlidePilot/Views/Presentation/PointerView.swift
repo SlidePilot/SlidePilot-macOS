@@ -87,8 +87,7 @@ class PointerView: NSImageView {
             
         self.wantsLayer = true
         self.layer?.cornerRadius = min(self.frame.width, self.frame.height) / 2
-//        self.layer?.backgroundColor = NSColor(calibratedWhite: 0.0, alpha: 0.8).cgColor
-        self.layer?.backgroundColor = NSColor(red: 36.0/255.0, green: 60.0/255.0, blue: 133.0/255.0, alpha: 1.0).cgColor
+        self.layer?.backgroundColor = .black
         self.layer?.borderWidth = 2.0
         self.layer?.borderColor = .white
 
