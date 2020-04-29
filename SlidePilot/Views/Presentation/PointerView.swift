@@ -77,13 +77,13 @@ class PointerView: NSImageView {
     
     private func setupCursor() {
         let cursorImage = NSCursor.arrow.image
-        self.frame = NSRect(x: self.frame.minX, y: self.frame.minY, width: cursorImage.size.width, height: cursorImage.size.height)
+        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: cursorImage.size.width, height: cursorImage.size.height)
         self.image = cursorImage
     }
     
     
     private func setupDot() {
-        self.frame = NSRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
+        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 10.0, height: 10.0)
             
         self.wantsLayer = true
         self.layer?.cornerRadius = min(self.frame.width, self.frame.height) / 2
@@ -101,7 +101,7 @@ class PointerView: NSImageView {
     
     
     private func setupCircle() {
-        self.frame = NSRect(x: 0.0, y: 0.0, width: 20.0, height: 20.0)
+        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 20.0, height: 20.0)
         
         self.wantsLayer = true
         self.layer?.cornerRadius = min(self.frame.width, self.frame.height) / 2
@@ -118,13 +118,13 @@ class PointerView: NSImageView {
     
     
     private func setupTarget() {
-        self.frame = NSRect(x: 0.0, y: 0.0, width: 44.0, height: 44.0)
+        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 44.0, height: 44.0)
         self.image = NSImage(named: "TargetPointer")!
     }
     
     
     private func setupTargetColor() {
-        self.frame = NSRect(x: 0.0, y: 0.0, width: 44.0, height: 44.0)
+        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 44.0, height: 44.0)
         self.image = NSImage(named: "TargetPointerColor")!
     }
     

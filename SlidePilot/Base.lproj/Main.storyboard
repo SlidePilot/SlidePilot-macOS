@@ -378,6 +378,12 @@
                         <outlet property="notesPositionNoneItem" destination="Kws-6x-VZZ" id="Jqy-jR-rNk"/>
                         <outlet property="notesPositionRightItem" destination="f9q-Hv-2g2" id="bSh-UA-wpQ"/>
                         <outlet property="notesPositionTopItem" destination="Tzc-zb-uAo" id="qQM-zP-BpH"/>
+                        <outlet property="pointerAppearanceCircleItem" destination="KeP-a7-ltS" id="Uw9-xu-cuL"/>
+                        <outlet property="pointerAppearanceCursorItem" destination="Auy-Z6-pIV" id="YXR-VY-B6z"/>
+                        <outlet property="pointerAppearanceDotItem" destination="akh-gx-hr7" id="W68-MN-b4s"/>
+                        <outlet property="pointerAppearanceMenu" destination="Fg3-Dc-rDB" id="Lc7-rB-8Fb"/>
+                        <outlet property="pointerAppearanceTargetColorItem" destination="UYT-sb-cqr" id="I6y-rg-13D"/>
+                        <outlet property="pointerAppearanceTargetItem" destination="YH8-Ja-Yo4" id="MIO-hN-XUi"/>
                         <outlet property="showNavigatorItem" destination="zx2-Yz-Rxn" id="h3m-To-UaI"/>
                         <outlet property="showNotesItem" destination="fS9-YP-QfR" id="eB2-IZ-Yjq"/>
                         <outlet property="showPointerItem" destination="iHL-eH-XtE" id="h7j-l5-bM6"/>
