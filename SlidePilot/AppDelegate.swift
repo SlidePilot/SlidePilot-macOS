@@ -289,7 +289,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Turn off all items in notes position menu
         notesPositionMenu.items.forEach({ $0.state = .off })
         
-        // Set correct menu item identifier for notes position
+        // Select correct menu item for notes position
         switch DisplayController.notesPosition {
         case .none:
             notesPositionNoneItem.state = .on
@@ -350,7 +350,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Turn off all items in notes position menu
         pointerAppearanceMenu.items.forEach({ $0.state = .off })
         
-        // Set correct menu item identifier for notes position
+        // Select correct menu item for notes position
         switch DisplayController.pointerAppearance {
         case .cursor:
             pointerAppearanceCursorItem.state = .on

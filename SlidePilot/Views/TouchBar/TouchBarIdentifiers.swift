@@ -14,9 +14,14 @@ extension NSTouchBarItem.Identifier {
     static let whiteCurtainItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.whiteCurtain")
     static let notesItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.notes")
     static let navigatorItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.navigator")
-    static let cursorGroup = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.cursorGroup")
-    static let cursorItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.cursorItem")
-    static let cursorAppearancePopover = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.cursorAppearancePopover")
+    static let pointerItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerItem")
+    static let pointerAppearancePopover = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearancePopover")
+    
+    static let pointerAppearanceCursorItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearancePopover")
+    static let pointerAppearanceDotItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearanceDot")
+    static let pointerAppearanceCircleItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearanceCircle")
+    static let pointerAppearanceTargetItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearanceTarget")
+    static let pointerAppearanceTargetColorItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearanceTargetColor")
 }
 
 @available(OSX 10.12.2, *)

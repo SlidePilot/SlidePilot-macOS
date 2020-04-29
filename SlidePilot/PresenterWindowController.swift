@@ -18,14 +18,4 @@ class PresenterWindowController: NSWindowController {
         
         self.window?.backgroundColor = NSColor(white: 0.07, alpha: 1.0)
     }
-    
-    
-    @available(OSX 10.12.2, *)
-    override func makeTouchBar() -> NSTouchBar? {
-        guard let viewController = contentViewController as? PresenterViewController else {
-            return nil
-        }
-        return viewController.makeTouchBar()
-    }
-
 }
