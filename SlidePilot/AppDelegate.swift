@@ -239,6 +239,31 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func selectPointerAppearanceCursor(_ sender: NSMenuItem) {
+        print("app cursor")
+    }
+    
+    
+    @IBAction func selectPointerAppearanceDot(_ sender: NSMenuItem) {
+        print("app dot")
+    }
+    
+    
+    @IBAction func selectPointerAppearanceCircle(_ sender: NSMenuItem) {
+        print("app circle")
+    }
+    
+    
+    @IBAction func selectPointerAppearanceTarget(_ sender: NSMenuItem) {
+        print("app target")
+    }
+    
+    
+    @IBAction func selectPointerAppearanceTargetColor(_ sender: NSMenuItem) {
+        print("app target color")
+    }
+    
+    
     
     
     // MARK: - Control Handlers
