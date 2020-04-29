@@ -209,7 +209,7 @@
                                         <menuItem title="Show Navigator" keyEquivalent="o" id="zx2-Yz-Rxn">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="showNavigator:" target="Ady-hI-5gd" id="wx2-dD-z2m"/>
+                                                <action selector="showNavigator:" target="Ady-hI-5gd" id="fbU-Ll-dU4"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="lIR-Xf-rG6"/>
@@ -254,20 +254,20 @@
                                         <menuItem title="Display Black Screen" tag="201" keyEquivalent="b" identifier="DisplayBlackScreen" id="Wsl-Lh-Rzy">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="displayBlackScreen:" target="Ady-hI-5gd" id="BKA-af-xoT"/>
+                                                <action selector="displayBlackCurtain:" target="Ady-hI-5gd" id="BgD-xe-xba"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Display White Screen" tag="202" keyEquivalent="w" identifier="DisplayWhiteScreen" id="E0b-Yv-pqH">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="displayWhiteScreen:" target="Ady-hI-5gd" id="7b4-IZ-DMM"/>
+                                                <action selector="displayWhiteCurtain:" target="Ady-hI-5gd" id="3Wm-Pt-dzj"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="SKb-ny-ddI"/>
                                         <menuItem title="Show Cursor" keyEquivalent="c" id="iHL-eH-XtE">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="showCursor:" target="Ady-hI-5gd" id="Fo5-gZ-C8j"/>
+                                                <action selector="showPointer:" target="Ady-hI-5gd" id="p1W-9V-QV8"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="A3e-R8-0Hj"/>
@@ -333,13 +333,17 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SlidePilot" customModuleProvider="target">
                     <connections>
+                        <outlet property="displayBlackCurtainItem" destination="Wsl-Lh-Rzy" id="7mA-Hq-uva"/>
+                        <outlet property="displayWhiteCurtainItem" destination="E0b-Yv-pqH" id="SEd-Ly-9Bk"/>
                         <outlet property="notesPositionBottomItem" destination="3BI-JZ-e7T" id="pKx-fs-G7H"/>
                         <outlet property="notesPositionLeftItem" destination="bSo-dU-i8i" id="DjP-tk-Ahe"/>
                         <outlet property="notesPositionMenu" destination="Vm6-Hh-mT3" id="cll-ph-YG3"/>
                         <outlet property="notesPositionNoneItem" destination="Kws-6x-VZZ" id="Jqy-jR-rNk"/>
                         <outlet property="notesPositionRightItem" destination="f9q-Hv-2g2" id="bSh-UA-wpQ"/>
                         <outlet property="notesPositionTopItem" destination="Tzc-zb-uAo" id="qQM-zP-BpH"/>
+                        <outlet property="showNavigatorItem" destination="zx2-Yz-Rxn" id="h3m-To-UaI"/>
                         <outlet property="showNotesItem" destination="fS9-YP-QfR" id="eB2-IZ-Yjq"/>
+                        <outlet property="showPointerItem" destination="iHL-eH-XtE" id="h7j-l5-bM6"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>

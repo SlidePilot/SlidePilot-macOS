@@ -13,6 +13,10 @@ import PDFKit
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Menu Outlets
+    @IBOutlet weak var showNavigatorItem: NSMenuItem!
+    @IBOutlet weak var displayBlackCurtainItem: NSMenuItem!
+    @IBOutlet weak var displayWhiteCurtainItem: NSMenuItem!
+    @IBOutlet weak var showPointerItem: NSMenuItem!
     @IBOutlet weak var showNotesItem: NSMenuItem!
     
     @IBOutlet weak var notesPositionMenu: NSMenu!
@@ -35,6 +39,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
         DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChange(_:)))
+        DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
+        DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
+        DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
+        DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
         
         startup()
     }
@@ -206,46 +214,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
-    @IBAction func displayWhiteScreen(_ sender: NSMenuItem) {
-        // Uncheck other item
-        if let whiteScreenItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "DisplayBlackScreen") }) {
-            whiteScreenItem.state = .off
-        }
-        
-        guard let isCovered = presentationView?.pageView.isCoveredWhite else { return }
-        
-        // Cover or uncover
-        if isCovered {
-            presentationView?.pageView.uncover()
-            sender.state = .off
-        } else {
-            presentationView?.pageView.coverWhite()
-            sender.state = .on
-        }
-    }
-    
-    
-    @IBAction func displayBlackScreen(_ sender: NSMenuItem) {
-        // Uncheck other item
-        if let whiteScreenItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "DisplayWhiteScreen") }) {
-            whiteScreenItem.state = .off
-        }
-        
-        guard let isCovered = presentationView?.pageView.isCoveredBlack else { return }
-        
-        // Cover or uncover
-        if isCovered {
-            presentationView?.pageView.uncover()
-            sender.state = .off
-        } else {
-            presentationView?.pageView.coverBlack()
-            sender.state = .on
-        }
-    }
-    
-    
     @IBAction func showNotes(_ sender: NSMenuItem) {
         DisplayController.switchDisplayNotes(sender: sender)
+    }
+    
+    
+    @IBAction func displayBlackCurtain(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayBlackCurtain(sender: sender)
+    }
+    
+    
+    @IBAction func displayWhiteCurtain(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayWhiteCurtain(sender: sender)
+    }
+    
+    
+    @IBAction func showNavigator(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayNavigator(sender: sender)
+    }
+    
+    
+    @IBAction func showPointer(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayPointer(sender: sender)
     }
     
     
@@ -287,5 +277,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Enable selecting notes position none when notes ARE NOT displayed
         // Disable selecting notes position none when notes ARE displayed
         notesPositionNoneItem.isEnabled = !DisplayController.areNotesDisplayed
+    }
+    
+    
+    @objc func displayBlackCurtainDidChange(_ notification: Notification) {
+        // Set correct state for menu item
+        displayBlackCurtainItem.state = DisplayController.isBlackCurtainDisplayed ? .on : .off
+    }
+    
+    
+    @objc func displayWhiteCurtainDidChange(_ notification: Notification) {
+        // Set correct state for menu item
+        displayWhiteCurtainItem.state = DisplayController.isWhiteCurtainDisplayed ? .on : .off
+    }
+    
+    
+    @objc func displayNavigatorDidChange(_ notification: Notification) {
+        // Set correct state for menu item
+        showNavigatorItem.state = DisplayController.isNavigatorDisplayed ? .on : .off
+    }
+    
+    
+    @objc func displayPointerDidChange(_ notification: Notification) {
+        // Set correct state for menu item
+        showPointerItem.state = DisplayController.isPointerDisplayed ? .on : .off
     }
 }

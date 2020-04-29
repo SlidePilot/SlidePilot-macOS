@@ -28,6 +28,8 @@ class PresentationViewController: NSViewController {
         
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
+        DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
+        DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
     }
     
     
@@ -47,6 +49,26 @@ class PresentationViewController: NSViewController {
     
     @objc func notesPositionDidChange(_ notification: Notification) {
         pageView.setDisplayMode(DisplayController.notesPosition.displayModeForPresentation())
+    }
+    
+    
+    @objc func displayBlackCurtainDidChange(_ notification: Notification) {
+        // Un-/Cover screen with black curtain, depending on isWhiteCurtainDisplay
+        if DisplayController.isBlackCurtainDisplayed {
+            pageView.coverBlack()
+        } else {
+            pageView.uncover()
+        }
+    }
+    
+    
+    @objc func displayWhiteCurtainDidChange(_ notification: Notification) {
+        // Un-/Cover screen with white curtain, depending on isWhiteCurtainDisplay
+        if DisplayController.isWhiteCurtainDisplayed {
+            pageView.coverWhite()
+        } else {
+            pageView.uncover()
+        }
     }
 }
 

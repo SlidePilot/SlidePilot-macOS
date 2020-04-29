@@ -135,6 +135,26 @@ class DisplayController {
     }
     
     
+    /** Changes display black curtain to the opposite and sends notification, that this property changed. */
+    public static func switchDisplayBlackCurtain(sender: Any) {
+        if isBlackCurtainDisplayed {
+            setDisplayCurtain(.none, sender: sender)
+        } else {
+            setDisplayCurtain(.black, sender: sender)
+        }
+    }
+    
+    
+    /** Changes display white curtain to the opposite and sends notification, that this property changed. */
+    public static func switchDisplayWhiteCurtain(sender: Any) {
+        if isWhiteCurtainDisplayed {
+            setDisplayCurtain(.none, sender: sender)
+        } else {
+            setDisplayCurtain(.white, sender: sender)
+        }
+    }
+    
+    
     /** Sends a notification, that the display navigator property was changed. */
     public static func setDisplayNavigator(_ shouldDisplay: Bool, sender: Any) {
         isNavigatorDisplayed = shouldDisplay
@@ -142,10 +162,21 @@ class DisplayController {
     }
     
     
+    /** Changes display navigator to the opposite and sends notification, that this property changed. */
+    public static func switchDisplayNavigator(sender: Any) {
+        setDisplayNavigator(!isNavigatorDisplayed, sender: sender)
+    }
+    
+    
     /** Sends a notification, that the display pointer property was changed. */
     public static func setDisplayPointer(_ shouldDisplay: Bool, sender: Any) {
         isPointerDisplayed = shouldDisplay
         NotificationCenter.default.post(name: .didChangeDisplayPointer, object: sender)
+    }
+    
+    /** Changes display pointer to the opposite and sends notification, that this property changed. */
+    public static func switchDisplayPointer(sender: Any) {
+        setDisplayPointer(!isPointerDisplayed, sender: sender)
     }
     
     
