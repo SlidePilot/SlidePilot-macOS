@@ -25,8 +25,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        // Disable Tabs
         if #available(OSX 10.12, *) {
             NSWindow.allowsAutomaticWindowTabbing = false
+        }
+        
+        // Enable TouchBar
+        if #available(OSX 10.12.2, *) {
+            NSApplication.shared.isAutomaticCustomizeTouchBarMenuItemEnabled = true
         }
         
         // Count app starts
