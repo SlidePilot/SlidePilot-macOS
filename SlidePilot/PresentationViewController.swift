@@ -28,6 +28,9 @@ class PresentationViewController: NSViewController {
         
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
+        DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
+        DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
+        DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
     }
     
     
@@ -48,6 +51,42 @@ class PresentationViewController: NSViewController {
     @objc func notesPositionDidChange(_ notification: Notification) {
         pageView.setDisplayMode(DisplayController.notesPosition.displayModeForPresentation())
     }
+    
+    
+    @objc func displayBlackCurtainDidChange(_ notification: Notification) {
+        // Un-/Cover screen with black curtain, depending on isWhiteCurtainDisplay
+        if DisplayController.isBlackCurtainDisplayed {
+            pageView.coverBlack()
+        } else {
+            pageView.uncover()
+        }
+    }
+    
+    
+    @objc func displayWhiteCurtainDidChange(_ notification: Notification) {
+        // Un-/Cover screen with white curtain, depending on isWhiteCurtainDisplay
+        if DisplayController.isWhiteCurtainDisplayed {
+            pageView.coverWhite()
+        } else {
+            pageView.uncover()
+        }
+    }
+    
+    
+    @objc func pointerAppearanceDidChange(_ notification: Notification) {
+        switch DisplayController.pointerAppearance {
+        case .cursor:
+            pointer?.type = .cursor
+        case .dot:
+            pointer?.type = .dot
+        case .circle:
+            pointer?.type = .circle
+        case .target:
+            pointer?.type = .target
+        case .targetColor:
+            pointer?.type = .targetColor
+        }
+    }
 }
 
 
@@ -57,7 +96,7 @@ extension PresentationViewController: MousePointerDelegate {
     
     func showPointer() {
         if pointer == nil {
-            pointer = PointerView(frame: NSRect(x: self.view.frame.midX, y: self.view.frame.midY, width: 10.0, height: 10.0), type: .cursor)
+            pointer = PointerView(origin: NSPoint(x: self.view.frame.midX, y: self.view.frame.midY), type: DisplayController.pointerAppearance)
             self.view.addSubview(pointer!)
         }
         isPointerShown = true
