@@ -275,17 +275,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func displayNotesDidChange(_ notification: Notification) {
         // Set correct state for display notes menu item
-        showNotesItem.state = DisplayController.displayNotes ? .on : .off
+        showNotesItem.state = DisplayController.areNotesDisplayed ? .on : .off
         
         
         // Select notes position right by default when displaying notes
         // Only if notes are displayed currently and current note position is none
-        if DisplayController.displayNotes, DisplayController.notesPosition == .none {
+        if DisplayController.areNotesDisplayed, DisplayController.notesPosition == .none {
             DisplayController.setNotesPosition(.right, sender: self)
         }
         
         // Enable selecting notes position none when notes ARE NOT displayed
         // Disable selecting notes position none when notes ARE displayed
-        notesPositionNoneItem.isEnabled = !DisplayController.displayNotes
+        notesPositionNoneItem.isEnabled = !DisplayController.areNotesDisplayed
     }
 }

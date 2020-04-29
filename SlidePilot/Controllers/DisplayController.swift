@@ -45,7 +45,7 @@ class DisplayController {
     }
     
     public private(set) static var notesPosition: NotesPosition = .none
-    public private(set) static var displayNotes: Bool = false
+    public private(set) static var areNotesDisplayed: Bool = false
     
     
     /** Sends a notification, that the notes position was changed. */
@@ -57,13 +57,13 @@ class DisplayController {
     
     /** Changes display notes to the opposite and sends notification, that this property changed. */
     public static func switchDisplayNotes(sender: Any) {
-        setDisplayNotes(!displayNotes, sender: sender)
+        setDisplayNotes(!areNotesDisplayed, sender: sender)
     }
     
     
     /** Sends a notification, that the display notes property was changed. */
     public static func setDisplayNotes(_ shouldDisplay: Bool, sender: Any) {
-        displayNotes = shouldDisplay
+        areNotesDisplayed = shouldDisplay
         NotificationCenter.default.post(name: .didChangeDisplayNotes, object: sender)
     }
     
