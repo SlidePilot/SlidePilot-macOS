@@ -79,7 +79,7 @@ extension PresentationViewController: MousePointerDelegate {
     
     func showPointer() {
         if pointer == nil {
-            pointer = PointerView(frame: NSRect(x: self.view.frame.midX, y: self.view.frame.midY, width: 10.0, height: 10.0), type: .cursor)
+            pointer = PointerView(origin: NSPoint(x: self.view.frame.midX, y: self.view.frame.midY), type: .cursor)
             self.view.addSubview(pointer!)
         }
         isPointerShown = true
