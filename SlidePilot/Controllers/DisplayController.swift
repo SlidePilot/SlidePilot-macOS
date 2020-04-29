@@ -44,9 +44,27 @@ class DisplayController {
         }
     }
     
-    public private(set) static var notesPosition: NotesPosition = .none
-    public private(set) static var areNotesDisplayed: Bool = false
     
+    enum CurtainDisplayMode {
+        case black, white, none
+    }
+    
+    
+    
+    
+    // MARK: - Variables (Getters)
+    public private(set) static var notesPosition: NotesPosition = .none
+    
+    public private(set) static var areNotesDisplayed: Bool = false
+    public private(set) static var isBlackCurtainDisplayed: Bool = false
+    public private(set) static var isWhiteCurtainDisplayed: Bool = false
+    public private(set) static var isNavigatorDisplayed: Bool = false
+    public private(set) static var isPointerDisplayed: Bool = false
+    
+    
+    
+    
+    // MARK: - Setters
     
     /** Sends a notification, that the notes position was changed. */
     public static func setNotesPosition(_ position: NotesPosition, sender: Any) {
@@ -68,6 +86,72 @@ class DisplayController {
     }
     
     
+    /** Sends a notification, that the display black curtain property was changed. */
+    private static func setDisplayBlackCurtain(_ shouldDisplay: Bool, sender: Any) {
+        isBlackCurtainDisplayed = shouldDisplay
+        NotificationCenter.default.post(name: .didChangeDisplayBlackCurtain, object: sender)
+    }
+    
+    
+    /** Sends a notification, that the display white curtain property was changed. */
+    private static func setDisplayWhiteCurtain(_ shouldDisplay: Bool, sender: Any) {
+        isWhiteCurtainDisplayed = shouldDisplay
+        NotificationCenter.default.post(name: .didChangeDisplayWhiteCurtain, object: sender)
+    }
+    
+    
+    /**
+     Sends a notification, that the display black/white curtain property was changed.
+     
+     * Switch on **black** curtain: Switches on **black** and switch off **white** if displayed.
+     * Switch on **white** curtain: Switches on **white** and switch off **black** if displayed.
+     * Switch to **none** curtain: Switches off both **white** and **black** if displayed.
+    */
+    public static func setDisplayCurtain(_ displayMode: CurtainDisplayMode, sender: Any) {
+        switch displayMode {
+        case .black:
+            // Turn off white curtain if displayed
+            if isWhiteCurtainDisplayed {
+                setDisplayWhiteCurtain(false, sender: sender)
+            }
+            setDisplayBlackCurtain(true, sender: sender)
+            
+        case .white:
+            // Turn off black curtain if display
+            if isBlackCurtainDisplayed {
+                setDisplayBlackCurtain(false, sender: sender)
+            }
+            setDisplayWhiteCurtain(true, sender: sender)
+        
+        case .none:
+            // Turn off either curtain
+            if isBlackCurtainDisplayed {
+                setDisplayBlackCurtain(false, sender: sender)
+            }
+            if isWhiteCurtainDisplayed {
+                setDisplayWhiteCurtain(false, sender: sender)
+            }
+        }
+    }
+    
+    
+    /** Sends a notification, that the display navigator property was changed. */
+    public static func setDisplayNavigator(_ shouldDisplay: Bool, sender: Any) {
+        isNavigatorDisplayed = shouldDisplay
+        NotificationCenter.default.post(name: .didChangeDisplayNavigator, object: sender)
+    }
+    
+    
+    /** Sends a notification, that the display pointer property was changed. */
+    public static func setDisplayPointer(_ shouldDisplay: Bool, sender: Any) {
+        isPointerDisplayed = shouldDisplay
+        NotificationCenter.default.post(name: .didChangeDisplayPointer, object: sender)
+    }
+    
+    
+    
+    // MARK: - Subscribe
+    
     /** Subscribes a target to all `.didChangeNotesPosition` notifications sent by `DisplayController`. */
     public static func subscribeNotesPosition(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .didChangeNotesPosition, object: nil)
@@ -80,9 +164,42 @@ class DisplayController {
     }
     
     
+    /** Subscribes a target to all `.didChangeDisplayBlackCurtain` notifications sent by `DisplayController`. */
+    public static func subscribeDisplayBlackCurtain(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeDisplayBlackCurtain, object: nil)
+    }
+    
+    
+    /** Subscribes a target to all `.didChangeDisplayWhiteCurtain` notifications sent by `DisplayController`. */
+    public static func subscribeDisplayWhiteCurtain(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeDisplayWhiteCurtain, object: nil)
+    }
+    
+    
+    /** Subscribes a target to all `.didChangeDisplayNavigator` notifications sent by `DisplayController`. */
+    public static func subscribeDisplayNavigator(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeDisplayNavigator, object: nil)
+    }
+    
+    
+    /** Subscribes a target to all `.didChangeDisplayPointer` notifications sent by `DisplayController`. */
+    public static func subscribeDisplayPointer(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeDisplayPointer, object: nil)
+    }
+    
+    
+    
+    
+    // MARK: - Unsubscribe
+    
     /** Unsubscribes a target from all notifications sent by `DisplayController`. */
     public static func unsubscribe(target: Any) {
         NotificationCenter.default.removeObserver(target, name: .didChangeNotesPosition, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeDisplayNotes, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeDisplayBlackCurtain, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeDisplayWhiteCurtain, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeDisplayNavigator, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeDisplayPointer, object: nil)
     }
 }
 
@@ -92,4 +209,8 @@ class DisplayController {
 extension Notification.Name {
     static let didChangeNotesPosition = Notification.Name("didChangeNotesPosition")
     static let didChangeDisplayNotes = Notification.Name("didChangeDisplayNotes")
+    static let didChangeDisplayBlackCurtain = Notification.Name("didChangeDisplayBlackCurtain")
+    static let didChangeDisplayWhiteCurtain = Notification.Name("didChangeDisplayWhiteCurtain")
+    static let didChangeDisplayNavigator = Notification.Name("didChangeDisplayNavigator")
+    static let didChangeDisplayPointer = Notification.Name("didChangeDisplayPointer")
 }
