@@ -86,7 +86,7 @@ class SlideArrangementView: NSView {
         rightContainer!.subviews.forEach({ $0.removeFromSuperview() })
         
         // Setup layout with/without notes
-        switch DisplayController.displayNotes {
+        switch DisplayController.areNotesDisplayed {
             
         case true:
             setupSlidesLayoutWithNotes()
@@ -219,7 +219,7 @@ class SlideArrangementView: NSView {
         let currentSlideString = NSLocalizedString("Current Slide", comment: "Title for current slide") + " \(index+1) / \(DocumentController.pageCount)"
         
         // Set current slide label
-        if DisplayController.displayNotes {
+        if DisplayController.areNotesDisplayed {
             currentSlideView?.label?.stringValue = NSLocalizedString("Current Slide", comment: "Title for current slide")
         } else {
             currentSlideView?.label?.stringValue = currentSlideString

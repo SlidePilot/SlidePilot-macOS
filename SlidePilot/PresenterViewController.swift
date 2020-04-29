@@ -57,6 +57,10 @@ class PresenterViewController: NSViewController {
         
         // Subscribe to document changes
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        
+        // Subscribe to display changes
+        DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
+        DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
     }
     
     
@@ -96,22 +100,33 @@ class PresenterViewController: NSViewController {
     }
     
     
-    
-    
-    // MARK: - Menu Actions
-    
-    var isNavigationShown = false
-    
-    @IBAction func showNavigator(_ sender: NSMenuItem) {
-        if isNavigationShown {
-            hideNavigation(animated: true)
-        } else {
+    @objc func displayNavigatorDidChange(_ notification: Notification) {
+        if DisplayController.isNavigatorDisplayed {
             showNavigation()
+        } else {
+            hideNavigation(animated: true)
         }
-        
-        sender.state = isNavigationShown ? .on : .off
     }
     
+    
+    @objc func displayPointerDidChange(_ notification: Notification) {
+        // Set delegate to receive mouse events
+        slideArrangement.trackingDelegate = self
+        
+        // Start tracking by setting initial tracking area
+        slideArrangement.currentSlideView?.addTrackingAreaForSlide()
+        
+        guard pointerDelegate != nil else { return }
+        // Hide pointer immediately if pointer should not display
+        if !DisplayController.isPointerDisplayed {
+            pointerDelegate!.hidePointer()
+        }
+    }
+    
+    
+    
+    
+    // MARK: - Menu Actions    
     
     @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
         // Turn off all menu items in same menu
@@ -171,27 +186,6 @@ class PresenterViewController: NSViewController {
     }
     
     
-    var isShowCursorActive: Bool = false
-    
-    @IBAction func showCursor(_ sender: NSMenuItem) {
-        // Set delegate to receive mouse events
-        slideArrangement.trackingDelegate = self
-        
-        // Start tracking by setting initial tracking area
-        slideArrangement.currentSlideView?.addTrackingAreaForSlide()
-        
-        guard pointerDelegate != nil else { return }
-        if isShowCursorActive {
-            pointerDelegate!.hidePointer()
-            isShowCursorActive = false
-        } else {
-            isShowCursorActive = true
-        }
-        
-        sender.state = isShowCursorActive ? .on : .off
-    }
-    
-    
     
     
     // MARK: - Navigation
@@ -221,8 +215,6 @@ class PresenterViewController: NSViewController {
         navigationLeft!.constant = 0.0
         self.view.updateConstraints()
         navigation?.searchField.becomeFirstResponder()
-        
-        isNavigationShown = true
     }
     
     
@@ -246,13 +238,11 @@ class PresenterViewController: NSViewController {
         } else {
             self.view.updateConstraints()
         }
-        
-        isNavigationShown = false
     }
     
     
     override func cancelOperation(_ sender: Any?) {
-        hideNavigation(animated: true)
+        DisplayController.setDisplayNavigator(false, sender: self)
     }
     
     
@@ -274,7 +264,7 @@ class PresenterViewController: NSViewController {
 extension PresenterViewController: SlideTrackingDelegate {
     
     func mouseMoved(to position: NSPoint, in sender: PDFPageView?) {
-        guard isShowCursorActive else { return }
+        guard DisplayController.isPointerDisplayed else { return }
         guard let page = sender else { return }
         
         // Calculate relative position by setting width to 100
