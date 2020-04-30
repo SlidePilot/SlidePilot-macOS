@@ -98,6 +98,7 @@ class PresenterViewController: NSViewController {
     
     @objc func documentDidChange(_ notification: Notification) {
         hideNavigation(animated: false)
+        DisplayController.setDisplayNavigator(false, sender: self)
     }
     
     
