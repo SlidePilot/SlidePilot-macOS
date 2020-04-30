@@ -16,10 +16,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
         let touchBar = NSTouchBar()
         touchBar.delegate = self
         
-        
-        touchBar.customizationIdentifier = .presentationBar
         touchBar.defaultItemIdentifiers = [.blackCurtainItem, .whiteCurtainItem, .notesItem, .navigatorItem, .fixedSpaceLarge, .pointerItem, .pointerAppearancePopover]
-        touchBar.customizationAllowedItemIdentifiers = [.blackCurtainItem, .whiteCurtainItem, .notesItem, .navigatorItem, .fixedSpaceLarge, .pointerItem, .pointerAppearancePopover]
         
         // Subscribe to display changes
         DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChangeTouchBar(_:)))
@@ -43,6 +40,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
                 target: self,
                 action: #selector(touchBarBlackCurtainPressed))
             item.view = button
+            item.customizationLabel = NSLocalizedString("BlackCurtainTBLabel", comment: "The customization label for black curtain Touch Bar item.")
             return item
             
         case .whiteCurtainItem:
@@ -53,6 +51,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
                 target: self,
                 action: #selector(touchBarWhiteCurtainPressed(_:)))
             item.view = button
+            item.customizationLabel = NSLocalizedString("WhiteCurtainTBLabel", comment: "The customization label for white curtain Touch Bar item.")
             return item
             
         case .notesItem:
@@ -63,6 +62,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
                 target: self,
                 action: #selector(touchBarNotesPressed(_:)))
             item.view = button
+            item.customizationLabel = NSLocalizedString("NotesTBLabel", comment: "The customization label for notes Touch Bar item.")
             return item
             
         case .navigatorItem:
@@ -73,6 +73,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
                 target: self,
                 action: #selector(touchBarNavigatorPressed(_:)))
             item.view = button
+            item.customizationLabel = NSLocalizedString("NavigatorTBLabel", comment: "The customization label for navigator Touch Bar item.")
             return item
             
             
@@ -85,6 +86,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
                 target: self,
                 action: #selector(touchBarCursorPressed(_:)))
             item.view = button
+            item.customizationLabel = NSLocalizedString("PointerTBLabel", comment: "The customization label for pointer Touch Bar item.")
             return item
             
         case .pointerAppearancePopover:
@@ -95,6 +97,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
             let appearanceTouchBar = PointerAppearanceTouchBar()
             appearancePopover.pressAndHoldTouchBar = appearanceTouchBar
             appearancePopover.popoverTouchBar = appearanceTouchBar
+            appearancePopover.customizationLabel = NSLocalizedString("PointerAppearanceTBLabel", comment: "The customization label for pointer appearance Touch Bar item.")
             
             return appearancePopover
             
