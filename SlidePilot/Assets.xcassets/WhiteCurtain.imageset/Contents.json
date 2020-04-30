@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "WhiteCurtain.png",
+      "filename" : "BlackCurtain.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "WhiteCurtain@2x.png",
+      "filename" : "BlackCurtain@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
