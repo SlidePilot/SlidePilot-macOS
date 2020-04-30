@@ -68,6 +68,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
+    
+    
+    @IBAction func openHelpWebsite(_ sender: Any) {
+        if #available(OSX 10.15, *) {
+            let openConfig = NSWorkspace.OpenConfiguration()
+            openConfig.addsToRecentItems = true
+            NSWorkspace.shared.open(URL(string: "http://slidepilot.gitbook.io")!, configuration: openConfig, completionHandler: nil)
+        } else {
+            NSWorkspace.shared.open(URL(string: "http://slidepilot.gitbook.io")!)
+        }
+    }
 
     
     

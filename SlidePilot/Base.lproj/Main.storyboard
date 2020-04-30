@@ -356,7 +356,7 @@
                                     <items>
                                         <menuItem title="SlidePilot Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
+                                                <action selector="openHelpWebsite:" target="Ady-hI-5gd" id="WG8-f5-oev"/>
                                             </connections>
                                         </menuItem>
                                     </items>
