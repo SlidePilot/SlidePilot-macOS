@@ -40,6 +40,9 @@
 		509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */; };
 		509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B972E2428D74E0076B8B4 /* SlideView.swift */; };
 		50C77F39242CD32500066752 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50C77F3B242CD32500066752 /* Localizable.strings */; };
+		50DD8B292458819600E83784 /* PresenterWindowController+TouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B282458819600E83784 /* PresenterWindowController+TouchBar.swift */; };
+		50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B2A245881C700E83784 /* TouchBarIdentifiers.swift */; };
+		50DD8B2D2458DCED00E83784 /* PointerAppearanceTouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B2C2458DCED00E83784 /* PointerAppearanceTouchBar.swift */; };
 		50EF741224538F690028DB06 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741124538F690028DB06 /* DocumentController.swift */; };
 		50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741324539A3E0028DB06 /* DisplayController.swift */; };
 		50FA6B98245356F000EDEFC6 /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA6B97245356F000EDEFC6 /* PageController.swift */; };
@@ -109,6 +112,9 @@
 		50C77F2F242CCCC800066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		50C77F3A242CD32500066752 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		50C77F3C242CD32600066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		50DD8B282458819600E83784 /* PresenterWindowController+TouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PresenterWindowController+TouchBar.swift"; sourceTree = "<group>"; };
+		50DD8B2A245881C700E83784 /* TouchBarIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBarIdentifiers.swift; sourceTree = "<group>"; };
+		50DD8B2C2458DCED00E83784 /* PointerAppearanceTouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerAppearanceTouchBar.swift; sourceTree = "<group>"; };
 		50EF741124538F690028DB06 /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		50EF741324539A3E0028DB06 /* DisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
 		50FA6B97245356F000EDEFC6 /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
@@ -217,6 +223,7 @@
 		509B97062428A3C40076B8B4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				50DD8B2724587FC600E83784 /* TouchBar */,
 				509B97272428CBA20076B8B4 /* Slide */,
 				50440BB124335787000C0C9E /* Thumbnail */,
 				509B970F2428B1530076B8B4 /* Time */,
@@ -258,6 +265,16 @@
 				50026AA12430AC0B0049387E /* SplitView.swift */,
 			);
 			path = Slide;
+			sourceTree = "<group>";
+		};
+		50DD8B2724587FC600E83784 /* TouchBar */ = {
+			isa = PBXGroup;
+			children = (
+				50DD8B282458819600E83784 /* PresenterWindowController+TouchBar.swift */,
+				50DD8B2A245881C700E83784 /* TouchBarIdentifiers.swift */,
+				50DD8B2C2458DCED00E83784 /* PointerAppearanceTouchBar.swift */,
+			);
+			path = TouchBar;
 			sourceTree = "<group>";
 		};
 		50FA6B992453606600EDEFC6 /* Controllers */ = {
@@ -380,6 +397,7 @@
 				50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */,
 				50026AD02430EED80049387E /* String+Extension.swift in Sources */,
 				509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */,
+				50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */,
 				503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */,
 				50026AA22430AC0B0049387E /* SplitView.swift in Sources */,
 				50440BB5243357C1000C0C9E /* Clipfree.swift in Sources */,
@@ -387,6 +405,7 @@
 				505243B72445AF650050AB98 /* RenderCache.swift in Sources */,
 				509B970A2428A6FD0076B8B4 /* TimeView.swift in Sources */,
 				50FA6B98245356F000EDEFC6 /* PageController.swift in Sources */,
+				50DD8B292458819600E83784 /* PresenterWindowController+TouchBar.swift in Sources */,
 				509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */,
 				5038345C24349F4B00E73E43 /* Colors.swift in Sources */,
 				503FFDFF242A193500B6F438 /* PresentationWindowController.swift in Sources */,
@@ -403,6 +422,7 @@
 				500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */,
 				503FFE02242A195300B6F438 /* PresentationViewController.swift in Sources */,
 				5036BD8A2435F8CD0007AF6F /* AppStartTracker.swift in Sources */,
+				50DD8B2D2458DCED00E83784 /* PointerAppearanceTouchBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
