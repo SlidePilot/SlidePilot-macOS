@@ -35,7 +35,8 @@ class PresenterViewController: NSViewController {
     
     var navigation: ThumbnailNavigation?
     var navigationLeft: NSLayoutConstraint?
-    let navigationWidth: CGFloat = 180.0
+    static let navigationWidth: CGFloat = 180.0
+    let navigationWidth: CGFloat = PresenterViewController.navigationWidth
     
     
     var presentationMenu: NSMenu? {
