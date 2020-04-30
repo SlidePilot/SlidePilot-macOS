@@ -181,15 +181,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
         guard let pdfDocument = PDFDocument(url: url) else { return }
         
+        // Open document
+        DocumentController.setDocument(pdfDocument, sender: self)
+        
         // Reset page
         PageController.selectPage(at: 0, sender: self)
         
         // Reset display options
         DisplayController.setNotesPosition(.none, sender: self)
         DisplayController.setDisplayNotes(false, sender: self)
-        
-        // Open document
-        DocumentController.setDocument(pdfDocument, sender: self)
     }
     
     
