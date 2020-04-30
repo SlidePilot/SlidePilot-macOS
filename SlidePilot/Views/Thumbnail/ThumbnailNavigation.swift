@@ -320,6 +320,26 @@ extension ThumbnailNavigation: NSTableViewDelegate {
         PageController.selectPage(at: tableView.selectedRow, sender: self)
     }
     
+    
+    func tableView(_ tableView: NSTableView, shouldTypeSelectFor event: NSEvent, withCurrentSearch searchString: String?) -> Bool {
+        false
+    }
+    
+    
+    override func keyDown(with event: NSEvent) {
+        // When a key is pressed, select the searchField
+        searchField.becomeFirstResponder()
+        
+        // Get the typed key and insert it in the searchField
+        guard let input = event.characters else { return }
+        searchField.stringValue = input
+        
+        // Deselect searchField text and locate the cursor at the correct position
+        searchField.currentEditor()?.selectedRange = NSRange(location: input.count, length: 0)
+        
+        // Notify, that the searchField input has changed
+        searchStringEntered(input)
+    }
 }
 
 
@@ -340,24 +360,34 @@ extension ThumbnailNavigation: NSTextFieldDelegate {
             // Select currently highlighted thumbnail on ENTER
             guard let index = currentHighlight else { return false }
             PageController.selectPage(at: index, sender: self)
+            
+            // Select the text in the searchField, so user can continue changing input quickly
+            textView.selectAll(nil)
+            
             return true
         }
         return false
     }
     
+    
     func controlTextDidChange(_ obj: Notification) {
         guard let textField = obj.object as? NSTextField else { return }
         if textField == searchField {
-            // If numbers were entered, find page with this number
-            if let index = Int(textField.stringValue) {
-                highlightThumbnail(at: index-1, scrollVisible: true)
-            }
-            // Otherwise clean highlight
-            else {
-                cleanHighlight(restoreSelection: true)
-            }
-            // TODO: If not a number, search for text on pages
-            // Asynchronously find text in PDF using beginFindString
+            searchStringEntered(textField.stringValue)
         }
+    }
+    
+    
+    func searchStringEntered(_ searchString: String) {
+        // If numbers were entered, find page with this number
+        if let index = Int(searchString) {
+            highlightThumbnail(at: index-1, scrollVisible: true)
+        }
+        // Otherwise clean highlight
+        else {
+            cleanHighlight(restoreSelection: true)
+        }
+        // TODO: If not a number, search for text on pages
+        // Asynchronously find text in PDF using beginFindString
     }
 }
