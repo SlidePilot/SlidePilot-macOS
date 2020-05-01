@@ -235,27 +235,32 @@
                                             <menu key="submenu" autoenablesItems="NO" id="Vm6-Hh-mT3">
                                                 <items>
                                                     <menuItem title="None" keyEquivalent="0" identifier="NotesPositionNone" id="Kws-6x-VZZ">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="selectNotesPositionNone:" target="Ady-hI-5gd" id="7hZ-8n-HCQ"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="qQ8-DW-93l"/>
                                                     <menuItem title="Right" tag="403" keyEquivalent="1" identifier="NotesPositionRight" id="f9q-Hv-2g2">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="selectNotesPositionRight:" target="Ady-hI-5gd" id="fHi-wN-OWr"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Left" tag="404" keyEquivalent="2" identifier="NotesPositionLeft" id="bSo-dU-i8i">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="selectNotesPositionLeft:" target="Ady-hI-5gd" id="JCn-OR-xmn"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Bottom" tag="405" keyEquivalent="3" identifier="NotesPositionBottom" id="3BI-JZ-e7T">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="selectNotesPositionBottom:" target="Ady-hI-5gd" id="e5h-U3-JO9"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Top" tag="406" keyEquivalent="4" identifier="NotesPositionTop" id="Tzc-zb-uAo">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="selectNotesPositionTop:" target="Ady-hI-5gd" id="YQs-qy-cpR"/>
                                                         </connections>
@@ -324,32 +329,27 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" id="Fg3-Dc-rDB">
                                                 <items>
-                                                    <menuItem title="Cursor" id="Auy-Z6-pIV">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Cursor" keyEquivalent="1" id="Auy-Z6-pIV">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceCursor:" target="Voe-Tx-rLC" id="L30-4o-wCD"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Dot" id="akh-gx-hr7">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Dot" keyEquivalent="2" id="akh-gx-hr7">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceDot:" target="Voe-Tx-rLC" id="yAb-B4-aPy"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Circle" id="KeP-a7-ltS">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Circle" keyEquivalent="3" id="KeP-a7-ltS">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceCircle:" target="Voe-Tx-rLC" id="wSW-XY-aJk"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Target" id="YH8-Ja-Yo4">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Target" keyEquivalent="4" id="YH8-Ja-Yo4">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceTarget:" target="Voe-Tx-rLC" id="env-0T-faO"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Target Color" id="UYT-sb-cqr">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Target Color" keyEquivalent="5" id="UYT-sb-cqr">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceTargetColor:" target="Voe-Tx-rLC" id="JUi-fX-son"/>
                                                         </connections>
