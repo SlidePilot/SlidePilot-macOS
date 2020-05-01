@@ -33,7 +33,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var notesPositionBottomItem: NSMenuItem!
     @IBOutlet weak var notesPositionTopItem: NSMenuItem!
     
-
+    @IBOutlet weak var timeModeMenu: NSMenu!
+    @IBOutlet weak var stopwatchModeItem: NSMenuItem!
+    @IBOutlet weak var timerModeItem: NSMenuItem!
+    @IBOutlet weak var setTimerItem: NSMenuItem!
+    
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Disable Tabs
