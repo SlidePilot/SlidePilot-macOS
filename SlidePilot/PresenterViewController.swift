@@ -39,22 +39,13 @@ class PresenterViewController: NSViewController {
     let navigationWidth: CGFloat = PresenterViewController.navigationWidth
     
     
-    var presentationMenu: NSMenu? {
-        NSApp.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "PresentationMenu") })?.submenu
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Setup default configuration
         
         // Setup timingControl
-        if let timeModeItem = presentationMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "TimeMode") }) {
-            if let stopwatchModeItem = timeModeItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "ModeStopwatch") }) {
-                selectModeStopwatch(stopwatchModeItem)
-            }
-        }
+        selectModeStopwatch()
         
         // Subscribe to document changes
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
@@ -131,28 +122,42 @@ class PresenterViewController: NSViewController {
     // MARK: - Menu Actions    
     
     @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
+        selectModeStopwatch()
+    }
+    
+    
+    func selectModeStopwatch() {
+        guard let stopwatchModeItem = (NSApp.delegate as? AppDelegate)?.stopwatchModeItem else { return }
+        guard let setTimerItem = (NSApp.delegate as? AppDelegate)?.setTimerItem else { return }
+        guard let modeMenu = (NSApp.delegate as? AppDelegate)?.timeModeMenu else { return }
+        
+        // Turn off all items in mode menu and select stopwatch
+        modeMenu.items.forEach({ $0.state = .off })
+        stopwatchModeItem.state = .on
         timingControl.mode = .stopwatch
         
         // Disable "Set Timer" menu item
-        if let setTimerMenuItem = sender.menu?.supermenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("SetTimer")} ) {
-            setTimerMenuItem.isEnabled = false
-        }
+        setTimerItem.isEnabled = false
     }
     
     
     @IBAction func selectModeTimer(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
+        selectModeTimer()
+    }
+    
+    
+    func selectModeTimer() {
+        guard let timerModeItem = (NSApp.delegate as? AppDelegate)?.timerModeItem else { return }
+        guard let setTimerItem = (NSApp.delegate as? AppDelegate)?.setTimerItem else { return }
+        guard let modeMenu = (NSApp.delegate as? AppDelegate)?.timeModeMenu else { return }
+        
+        // Turn off all items in mode menu and select stopwatch
+        modeMenu.items.forEach({ $0.state = .off })
+        timerModeItem.state = .on
         timingControl.mode = .timer
         
         // Enable "Set Timer" menu item
-        if let setTimerMenuItem = sender.menu?.supermenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("SetTimer")} ) {
-            setTimerMenuItem.isEnabled = true
-        }
+        setTimerItem.isEnabled = true
     }
     
     

@@ -23,6 +23,9 @@
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "Main Menu";
 
+/* Class = "NSMenuItem"; title = "Preview Next Slide"; ObjectID = "Atm-A9-uUk"; */
+"Atm-A9-uUk.title" = "Aperçu de la diapositive suivante";
+
 /* Class = "NSMenuItem"; title = "Cursor"; ObjectID = "Auy-Z6-pIV"; */
 "Auy-Z6-pIV.title" = "Curseur";
 
@@ -77,6 +80,9 @@
 /* Class = "NSMenuItem"; title = "Timer"; ObjectID = "Mhe-VV-WGl"; */
 "Mhe-VV-WGl.title" = "Minuteur";
 
+/* Class = "NSMenu"; title = "Moderator"; ObjectID = "O4y-2K-zDw"; */
+"O4y-2K-zDw.title" = "Modérateur";
+
 /* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
 "OY7-WF-poV.title" = "Placer dans le dock";
 
@@ -123,7 +129,7 @@
 "WtB-Ny-SAM.title" = "Position des notes";
 
 /* Class = "NSMenuItem"; title = "Next Slide"; ObjectID = "XpD-9W-0P3"; */
-"XpD-9W-0P3.title" = "Prochaine diapositive";
+"XpD-9W-0P3.title" = "Diapositive suivante";
 
 /* Class = "NSMenuItem"; title = "Target"; ObjectID = "YH8-Ja-Yo4"; */
 "YH8-Ja-Yo4.title" = "Cible";
@@ -174,7 +180,7 @@
 "pa3-QI-u2k.title" = "Supprimer";
 
 /* Class = "NSMenuItem"; title = "Next Slide"; ObjectID = "s0G-5Y-hRb"; */
-"s0G-5Y-hRb.title" = "Prochaine diapositive";
+"s0G-5Y-hRb.title" = "Diapositive suivante";
 
 /* Class = "NSMenuItem"; title = "Mode"; ObjectID = "sQh-A9-Icc"; */
 "sQh-A9-Icc.title" = "Mode";
@@ -196,6 +202,9 @@
 
 /* Class = "NSMenuItem"; title = "Presentation"; ObjectID = "w6Q-ep-WBl"; */
 "w6Q-ep-WBl.title" = "Exposé";
+
+/* Class = "NSMenuItem"; title = "Moderator"; ObjectID = "w7l-df-asi"; */
+"w7l-df-asi.title" = "Modérateur";
 
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
 "wpr-3q-Mcd.title" = "Aide";
