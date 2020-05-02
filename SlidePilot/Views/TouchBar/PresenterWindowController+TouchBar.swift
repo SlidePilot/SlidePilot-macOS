@@ -16,13 +16,14 @@ extension PresenterWindowController: NSTouchBarDelegate {
         let touchBar = NSTouchBar()
         touchBar.delegate = self
         
-        touchBar.defaultItemIdentifiers = [.blackCurtainItem, .whiteCurtainItem, .notesItem, .navigatorItem, .fixedSpaceLarge, .pointerItem, .pointerAppearancePopover]
+        touchBar.defaultItemIdentifiers = [.blackCurtainItem, .whiteCurtainItem, .notesItem, .navigatorItem, .previewNextSlideItem, .fixedSpaceLarge, .pointerItem, .pointerAppearancePopover]
         
         // Subscribe to display changes
         DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChangeTouchBar(_:)))
         DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChangeTouchBar(_:)))
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChangeTouchBar(_:)))
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChangeTouchBar(_:)))
+        DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChangeTouchBar(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChangeTouchBar(_:)))
         
         return touchBar
@@ -39,6 +40,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
                 trackingMode: .selectAny,
                 target: self,
                 action: #selector(touchBarBlackCurtainPressed))
+            setSelected(button: button, DisplayController.isBlackCurtainDisplayed)
             item.view = button
             item.customizationLabel = NSLocalizedString("BlackCurtainTBLabel", comment: "The customization label for black curtain Touch Bar item.")
             return item
@@ -50,6 +52,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
                 trackingMode: .selectAny,
                 target: self,
                 action: #selector(touchBarWhiteCurtainPressed(_:)))
+            setSelected(button: button, DisplayController.isWhiteCurtainDisplayed)
             item.view = button
             item.customizationLabel = NSLocalizedString("WhiteCurtainTBLabel", comment: "The customization label for white curtain Touch Bar item.")
             return item
@@ -61,6 +64,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
                 trackingMode: .selectAny,
                 target: self,
                 action: #selector(touchBarNotesPressed(_:)))
+            setSelected(button: button, DisplayController.areNotesDisplayed)
             item.view = button
             item.customizationLabel = NSLocalizedString("NotesTBLabel", comment: "The customization label for notes Touch Bar item.")
             return item
@@ -72,10 +76,22 @@ extension PresenterWindowController: NSTouchBarDelegate {
                 trackingMode: .selectAny,
                 target: self,
                 action: #selector(touchBarNavigatorPressed(_:)))
+            setSelected(button: button, DisplayController.isNavigatorDisplayed)
             item.view = button
             item.customizationLabel = NSLocalizedString("NavigatorTBLabel", comment: "The customization label for navigator Touch Bar item.")
             return item
             
+        case .previewNextSlideItem:
+        let item = NSCustomTouchBarItem(identifier: identifier)
+        let button = NSSegmentedControl(
+            images: [NSImage(named: "NextSlide")!],
+            trackingMode: .selectAny,
+            target: self,
+            action: #selector(touchBarPreviewNextSlidePressed(_:)))
+        setSelected(button: button, DisplayController.isNextSlidePreviewDisplayed)
+        item.view = button
+        item.customizationLabel = NSLocalizedString("PreviewNextSlideTBLabel", comment: "The customization label for preview next slide Touch Bar item.")
+        return item
             
         case .pointerItem:
             // Setup show/hide cursor button
@@ -85,6 +101,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
                 trackingMode: .selectAny,
                 target: self,
                 action: #selector(touchBarCursorPressed(_:)))
+            setSelected(button: button, DisplayController.isPointerDisplayed)
             item.view = button
             item.customizationLabel = NSLocalizedString("PointerTBLabel", comment: "The customization label for pointer Touch Bar item.")
             return item
@@ -124,6 +141,11 @@ extension PresenterWindowController: NSTouchBarDelegate {
     
     @objc func touchBarNavigatorPressed(_ sender: NSSegmentedControl) {
         DisplayController.switchDisplayNavigator(sender: sender)
+    }
+    
+    
+    @objc func touchBarPreviewNextSlidePressed(_ sender: NSSegmentedControl) {
+        DisplayController.switchDisplayNextSlidePreview(sender: sender)
     }
     
     
@@ -173,6 +195,15 @@ extension PresenterWindowController: NSTouchBarDelegate {
         guard let navigatorButton = navigatorItem.view as? NSSegmentedControl else { return }
         
         setSelected(button: navigatorButton, DisplayController.isNavigatorDisplayed)
+    }
+    
+    
+    @objc func displayNextSlidePreviewDidChangeTouchBar(_ notification: Notification) {
+        // Set correct state for touch bar button
+        guard let previewNextSlideItem = self.touchBar?.item(forIdentifier: .previewNextSlideItem) else { return }
+        guard let previewNextSlideButton = previewNextSlideItem.view as? NSSegmentedControl else { return }
+        
+        setSelected(button: previewNextSlideButton, DisplayController.isNextSlidePreviewDisplayed)
     }
     
     

@@ -60,6 +60,7 @@ class DisplayController {
     public private(set) static var isWhiteCurtainDisplayed: Bool = false
     public private(set) static var isNavigatorDisplayed: Bool = false
     public private(set) static var isPointerDisplayed: Bool = false
+    public private(set) static var isNextSlidePreviewDisplayed: Bool = false
     
     public private(set) static var pointerAppearance: PointerView.PointerType = .cursor
     
@@ -170,6 +171,19 @@ class DisplayController {
     }
     
     
+    /** Sends a notification, that the preview next slide property was changed. */
+    public static func setDisplayNextSlidePreview(_ shouldDisplay: Bool, sender: Any) {
+        isNextSlidePreviewDisplayed = shouldDisplay
+        NotificationCenter.default.post(name: .didChangeDisplayNextSlidePreview, object: sender)
+    }
+    
+    
+    /** Changes preview next slide to the opposite and sends notification, that this property changed. */
+    public static func switchDisplayNextSlidePreview(sender: Any) {
+        setDisplayNextSlidePreview(!isNextSlidePreviewDisplayed, sender: sender)
+    }
+    
+    
     /** Sends a notification, that the display pointer property was changed. */
     public static func setDisplayPointer(_ shouldDisplay: Bool, sender: Any) {
         isPointerDisplayed = shouldDisplay
@@ -222,6 +236,12 @@ class DisplayController {
     }
     
     
+    /** Subscribes a target to all `.didChangeDisplayNextSlidePreview` notifications sent by `DisplayController`. */
+    public static func subscribePreviewNextSlide(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeDisplayNextSlidePreview, object: nil)
+    }
+    
+    
     /** Subscribes a target to all `.didChangeDisplayPointer` notifications sent by `DisplayController`. */
     public static func subscribeDisplayPointer(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .didChangeDisplayPointer, object: nil)
@@ -247,6 +267,7 @@ class DisplayController {
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayNavigator, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayPointer, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangePointerAppearance, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeDisplayNextSlidePreview, object: nil)
     }
 }
 
@@ -259,6 +280,7 @@ extension Notification.Name {
     static let didChangeDisplayBlackCurtain = Notification.Name("didChangeDisplayBlackCurtain")
     static let didChangeDisplayWhiteCurtain = Notification.Name("didChangeDisplayWhiteCurtain")
     static let didChangeDisplayNavigator = Notification.Name("didChangeDisplayNavigator")
+    static let didChangeDisplayNextSlidePreview = Notification.Name("didChangeDisplayNextSlidePreview")
     static let didChangeDisplayPointer = Notification.Name("didChangeDisplayPointer")
     static let didChangePointerAppearance = Notification.Name("didChangePointerAppearance")
 }

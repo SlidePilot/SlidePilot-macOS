@@ -184,6 +184,9 @@
                                         </menuItem>
                                         <menuItem title="Preview Next Slide" keyEquivalent="p" id="Atm-A9-uUk">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="previewNextSlide:" target="Voe-Tx-rLC" id="vGH-su-rW4"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="lIR-Xf-rG6"/>
                                         <menuItem title="Mode" tag="101" identifier="TimeMode" id="sQh-A9-Icc">
@@ -394,6 +397,7 @@
                         <outlet property="pointerAppearanceMenu" destination="Fg3-Dc-rDB" id="Lc7-rB-8Fb"/>
                         <outlet property="pointerAppearanceTargetColorItem" destination="UYT-sb-cqr" id="I6y-rg-13D"/>
                         <outlet property="pointerAppearanceTargetItem" destination="YH8-Ja-Yo4" id="MIO-hN-XUi"/>
+                        <outlet property="previewNextSlideItem" destination="Atm-A9-uUk" id="nUt-4P-7zY"/>
                         <outlet property="setTimerItem" destination="GyA-9h-Aoe" id="4aw-Cy-cL1"/>
                         <outlet property="showNavigatorItem" destination="zx2-Yz-Rxn" id="h3m-To-UaI"/>
                         <outlet property="showNotesItem" destination="fS9-YP-QfR" id="eB2-IZ-Yjq"/>
