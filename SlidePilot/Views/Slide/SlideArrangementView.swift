@@ -53,6 +53,8 @@ class SlideArrangementView: NSView {
         DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChange(_:)))
         DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
         
+        setupSplitView()
+        
         // Setup View
         updateView()
     }

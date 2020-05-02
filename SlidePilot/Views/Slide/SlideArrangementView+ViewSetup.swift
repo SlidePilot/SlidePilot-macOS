@@ -30,14 +30,20 @@ extension SlideArrangementView {
     
     
     private func clearView() {
-        self.subviews.forEach({ $0.removeFromSuperview() })
-        splitView = nil
-        leftContainer = nil
-        rightContainer = nil
+        // Remove all subviews, but keep split view
+        self.subviews.forEach({
+            if $0 != splitView {
+                $0.removeFromSuperview()
+            }
+        })
+        
+        // Remove all subviews from split view containers
+        leftContainer!.subviews.forEach({ $0.removeFromSuperview() })
+        rightContainer!.subviews.forEach({ $0.removeFromSuperview() })
     }
     
     
-    private func setupSplitView() {
+    func setupSplitView() {
         splitView = SplitView(frame: self.frame)
         splitView!.dividerStyle = .thin
         splitView!.isVertical = true
@@ -65,6 +71,8 @@ extension SlideArrangementView {
     
     
     private func setupSlidesLayoutCurrent() {
+        splitView?.isHidden = true
+        
         currentSlideView = SlideView(frame: .zero)
         currentSlideView!.delegate = self
         currentSlideView!.page.setDocument(DocumentController.document)
@@ -80,9 +88,8 @@ extension SlideArrangementView {
     
     
     private func setupSlidesLayoutCurrentNext() {
-        if leftContainer == nil || rightContainer == nil {
-            setupSplitView()
-        }
+        guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
+        splitView?.isHidden = false
         
         // Left container: Setup current
         currentSlideView = SlideView(frame: .zero)
@@ -126,9 +133,8 @@ extension SlideArrangementView {
     
     
     private func setupSlidesLayoutCurrentNotes() {
-        if leftContainer == nil || rightContainer == nil {
-            setupSplitView()
-        }
+        guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
+        splitView?.isHidden = false
         
         // Left container: Setup notes
         notesSlideView = SlideView(frame: .zero)
@@ -172,9 +178,8 @@ extension SlideArrangementView {
     
     
     private func setupSlidesLayoutCurrentNextNotes() {
-        if leftContainer == nil || rightContainer == nil {
-            setupSplitView()
-        }
+        guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
+        splitView?.isHidden = false
         
         // Left container: Setup notes
         notesSlideView = SlideView(frame: .zero)
