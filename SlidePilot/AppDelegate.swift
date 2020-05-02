@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Menu Outlets
     @IBOutlet weak var showNavigatorItem: NSMenuItem!
+    @IBOutlet weak var previewNextSlideItem: NSMenuItem!
     @IBOutlet weak var displayBlackCurtainItem: NSMenuItem!
     @IBOutlet weak var displayWhiteCurtainItem: NSMenuItem!
     @IBOutlet weak var showPointerItem: NSMenuItem!
@@ -59,6 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
+        DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
         DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
         
@@ -192,6 +194,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         PageController.selectPage(at: 0, sender: self)
         
         // Reset display options
+        DisplayController.setDisplayNextSlidePreview(true, sender: self)
         DisplayController.setNotesPosition(.none, sender: self)
         DisplayController.setDisplayNotes(false, sender: self)
     }
@@ -263,6 +266,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func showNavigator(_ sender: NSMenuItem) {
         DisplayController.switchDisplayNavigator(sender: sender)
+    }
+    
+    @IBAction func previewNextSlide(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayNextSlidePreview(sender: sender)
     }
     
     
@@ -352,6 +359,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func displayNavigatorDidChange(_ notification: Notification) {
         // Set correct state for menu item
         showNavigatorItem.state = DisplayController.isNavigatorDisplayed ? .on : .off
+    }
+    
+    
+    @objc func displayNextSlidePreviewDidChange(_ notifcation: Notification) {
+        // Set correct state for menu item
+        previewNextSlideItem.state = DisplayController.isNextSlidePreviewDisplayed ? .on : .off
     }
     
     

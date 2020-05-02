@@ -184,6 +184,9 @@
                                         </menuItem>
                                         <menuItem title="Preview Next Slide" keyEquivalent="p" id="Atm-A9-uUk">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="previewNextSlide:" target="Voe-Tx-rLC" id="vGH-su-rW4"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="lIR-Xf-rG6"/>
                                         <menuItem title="Mode" tag="101" identifier="TimeMode" id="sQh-A9-Icc">
@@ -394,6 +397,7 @@
                         <outlet property="pointerAppearanceMenu" destination="Fg3-Dc-rDB" id="Lc7-rB-8Fb"/>
                         <outlet property="pointerAppearanceTargetColorItem" destination="UYT-sb-cqr" id="I6y-rg-13D"/>
                         <outlet property="pointerAppearanceTargetItem" destination="YH8-Ja-Yo4" id="MIO-hN-XUi"/>
+                        <outlet property="previewNextSlideItem" destination="Atm-A9-uUk" id="nUt-4P-7zY"/>
                         <outlet property="setTimerItem" destination="GyA-9h-Aoe" id="4aw-Cy-cL1"/>
                         <outlet property="showNavigatorItem" destination="zx2-Yz-Rxn" id="h3m-To-UaI"/>
                         <outlet property="showNotesItem" destination="fS9-YP-QfR" id="eB2-IZ-Yjq"/>
@@ -493,7 +497,7 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="tLk-sB-UgV">
                                         <rect key="frame" x="0.0" y="0.0" width="700" height="180"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="SlidePilot" customModuleProvider="target">
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="SlidePilot" customModuleProvider="target">
                                                 <rect key="frame" x="267" y="47" width="166" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="85" id="vnc-Hp-eJ9"/>
@@ -517,7 +521,7 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="IVP-vn-KwH">
                                         <rect key="frame" x="700" y="0.0" width="700" height="180"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="SlidePilot" customModuleProvider="target">
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="SlidePilot" customModuleProvider="target">
                                                 <rect key="frame" x="267" y="47" width="166" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="85" id="dOp-qt-xnl"/>
