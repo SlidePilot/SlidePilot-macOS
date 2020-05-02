@@ -333,7 +333,7 @@
                                                 <action selector="displayBlackCurtain:" target="Ady-hI-5gd" id="BgD-xe-xba"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Display Black Screen" tag="201" hidden="YES" keyEquivalent="." identifier="DisplayBlackScreen" id="nx9-eN-d1w">
+                                        <menuItem title="Display Black Screen" tag="201" hidden="YES" keyEquivalent="." id="nx9-eN-d1w">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
