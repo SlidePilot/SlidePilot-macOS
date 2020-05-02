@@ -497,7 +497,7 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="tLk-sB-UgV">
                                         <rect key="frame" x="0.0" y="0.0" width="700" height="180"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="SlidePilot" customModuleProvider="target">
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="SlidePilot" customModuleProvider="target">
                                                 <rect key="frame" x="267" y="47" width="166" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="85" id="vnc-Hp-eJ9"/>
@@ -521,7 +521,7 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="IVP-vn-KwH">
                                         <rect key="frame" x="700" y="0.0" width="700" height="180"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="SlidePilot" customModuleProvider="target">
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="SlidePilot" customModuleProvider="target">
                                                 <rect key="frame" x="267" y="47" width="166" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="85" id="dOp-qt-xnl"/>
