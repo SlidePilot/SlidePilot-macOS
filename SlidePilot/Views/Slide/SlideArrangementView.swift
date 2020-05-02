@@ -54,7 +54,7 @@ class SlideArrangementView: NSView {
         DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
         
         // Setup View
-        setupLayout(displayNext: DisplayController.isNextSlidePreviewDisplayed, displayNotes: DisplayController.areNotesDisplayed)
+        updateView()
     }
     
     
