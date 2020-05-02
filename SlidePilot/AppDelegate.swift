@@ -159,15 +159,45 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let presentationWindowController = NSApp.windows[1].windowController as? PresentationWindowController,
             let presentationWindow = presentationWindowController.window,
             let presentationScreen = presentationWindow.screen else { return }
-
-        presentationWindow.toggleFullScreen(self)
-
-        // Move presentation window to presenter screen
-        presentationWindow.setFrame(presenterScreen.visibleFrame, display: true, animate: false)
-        presentationWindow.toggleFullScreen(self)
         
-        // Move presenter window to presentation screen
-        presenterWindow.setFrame(presentationScreen.visibleFrame, display: true, animate: false)
+        
+        for (window, screen) in zip([presentationWindow, presenterWindow], [presenterScreen, presentationScreen]) {
+            // Check if window was in fullscreen mode
+            let windowFullScreen = window.styleMask.contains(.fullScreen)
+            
+            if windowFullScreen {
+                window.toggleFullScreen(self)
+            }
+            
+            let windowFrame = window.frame
+            let screenFrame = screen.visibleFrame
+            
+            var windowNewFrame: NSRect = screenFrame
+            
+            // If window was not fullscreen, keep window size and center it on new screen
+            if !windowFullScreen {
+                // Center window and with old window size if it fits on new screen, otherwise screen size
+                let windowNewSize = NSSize(
+                    width: min(windowFrame.width, screenFrame.width),
+                    height: min(windowFrame.width, screenFrame.height))
+                windowNewFrame = NSRect(
+                    x: screenFrame.minX + (screenFrame.width - windowNewSize.width) / 2,
+                    y: screenFrame.minY + (screenFrame.height - windowNewSize.height) / 2,
+                    width: windowNewSize.width,
+                    height: windowNewSize.height)
+            }
+            
+            window.setFrame(windowNewFrame, display: true, animate: false)
+            window.orderFront(self)
+            
+            if windowFullScreen {
+                window.toggleFullScreen(self)
+            }
+        }
+        
+        presenterWindow.makeKeyAndOrderFront(nil)
+        
+        // FIXME: Is it necessary to toggle to make small and toggle again to make big?
     }
     
     
