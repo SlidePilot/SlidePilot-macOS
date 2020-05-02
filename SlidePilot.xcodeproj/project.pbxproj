@@ -13,6 +13,7 @@
 		500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */; };
 		500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A49242B8D9900EFE246 /* PointerView.swift */; };
 		50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50208BA42429028000444E73 /* NSColor+Extension.swift */; };
+		5028D31D245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */; };
 		5036BD8A2435F8CD0007AF6F /* AppStartTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5036BD892435F8CD0007AF6F /* AppStartTracker.swift */; };
 		503834552434721600E73E43 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503834542434721600E73E43 /* Sparkle.framework */; };
 		503834572434723A00E73E43 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 503834542434721600E73E43 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -79,6 +80,7 @@
 		500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImageView+Extension.swift"; sourceTree = "<group>"; };
 		500A5A49242B8D9900EFE246 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		50208BA42429028000444E73 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
+		5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SlideArrangementView+ViewSetup.swift"; sourceTree = "<group>"; };
 		5036BD892435F8CD0007AF6F /* AppStartTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStartTracker.swift; sourceTree = "<group>"; };
 		503834542434721600E73E43 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		5038345924349E8F00E73E43 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
@@ -260,6 +262,7 @@
 			children = (
 				509B97072428A3DD0076B8B4 /* PDFPageView.swift */,
 				509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */,
+				5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */,
 				509B972E2428D74E0076B8B4 /* SlideView.swift */,
 				50208BA42429028000444E73 /* NSColor+Extension.swift */,
 				503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */,
@@ -394,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5028D31D245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift in Sources */,
 				509B97082428A3DD0076B8B4 /* PDFPageView.swift in Sources */,
 				509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */,
 				50EF741224538F690028DB06 /* DocumentController.swift in Sources */,
