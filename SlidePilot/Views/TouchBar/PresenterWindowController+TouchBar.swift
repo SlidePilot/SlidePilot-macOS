@@ -94,13 +94,13 @@ extension PresenterWindowController: NSTouchBarDelegate {
         return item
             
         case .pointerItem:
-            // Setup show/hide cursor button
+            // Setup show/hide pointer button
             let item = NSCustomTouchBarItem(identifier: .pointerItem)
             let button = NSSegmentedControl(
                 images: [NSImage(named: "Cursor")!],
                 trackingMode: .selectAny,
                 target: self,
-                action: #selector(touchBarCursorPressed(_:)))
+                action: #selector(touchBarPointerPressed(_:)))
             setSelected(button: button, DisplayController.isPointerDisplayed)
             item.view = button
             item.customizationLabel = NSLocalizedString("PointerTBLabel", comment: "The customization label for pointer Touch Bar item.")
@@ -149,13 +149,8 @@ extension PresenterWindowController: NSTouchBarDelegate {
     }
     
     
-    @objc func touchBarCursorPressed(_ sender: NSSegmentedControl) {
+    @objc func touchBarPointerPressed(_ sender: NSSegmentedControl) {
         DisplayController.switchDisplayPointer(sender: sender)
-    }
-    
-    
-    @objc func touchBarCursorAppearancePressed(_ sender: NSButton) {
-        print("cursor appearance")
     }
     
     
