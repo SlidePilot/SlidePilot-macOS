@@ -150,6 +150,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func switchWindowScreens(_ sender: Any) {
+        guard NSScreen.screens.count >= 2 else { return }
+        
+        guard let presenterWindowController = NSApp.windows[0].windowController as? PresenterWindowController,
+            let presenterWindow = presenterWindowController.window,
+            let presenterScreen = presenterWindow.screen else { return }
+        guard let presentationWindowController = NSApp.windows[1].windowController as? PresentationWindowController,
+            let presentationWindow = presentationWindowController.window,
+            let presentationScreen = presentationWindow.screen else { return }
+
+        presentationWindow.toggleFullScreen(self)
+
+        // Move presentation window to presenter screen
+        presentationWindow.setFrame(presenterScreen.visibleFrame, display: true, animate: false)
+        presentationWindow.toggleFullScreen(self)
+        
+        // Move presenter window to presentation screen
+        presenterWindow.setFrame(presentationScreen.visibleFrame, display: true, animate: false)
+    }
+    
+    
     
     
     // MARK: - Open File
