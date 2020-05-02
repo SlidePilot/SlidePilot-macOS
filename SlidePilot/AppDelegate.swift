@@ -179,7 +179,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 // Center window and with old window size if it fits on new screen, otherwise screen size
                 let windowNewSize = NSSize(
                     width: min(windowFrame.width, screenFrame.width),
-                    height: min(windowFrame.width, screenFrame.height))
+                    height: min(windowFrame.height, screenFrame.height))
                 windowNewFrame = NSRect(
                     x: screenFrame.minX + (screenFrame.width - windowNewSize.width) / 2,
                     y: screenFrame.minY + (screenFrame.height - windowNewSize.height) / 2,
