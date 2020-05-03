@@ -39,6 +39,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var timerModeItem: NSMenuItem!
     @IBOutlet weak var setTimerItem: NSMenuItem!
     
+    
+    // MARK: - Identifiers
+    private let presenterWindowIdentifier = NSUserInterfaceItemIdentifier("PresenterWindowID")
+    private let presentationWindowIdentifier = NSUserInterfaceItemIdentifier("PresentationWindowID")
+    
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Disable Tabs
@@ -73,6 +78,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
     }
     
     
@@ -119,6 +129,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             PresentationWindowController else { return }
         guard let presentationWindow = presentationWindowCtrl.window else { return }
         guard let presentationView = presentationWindowCtrl.contentViewController as? PresentationViewController else { return }
+        
+        // Set window identifiers
+        presenterWindow.identifier = presenterWindowIdentifier
+        presentationWindow.identifier = presentationWindowIdentifier
         
         NSApp.activate(ignoringOtherApps: true)
         
