@@ -35,10 +35,10 @@ class UserNotice: NSView {
         }
     }
     
-    /** Defines the width of the notice */
-    var width: CGFloat = 200.0 {
+    /** Defines the maximum width of the notice */
+    var maxWidth: CGFloat = 200.0 {
         didSet {
-            widthConstraint?.constant = self.width
+            widthConstraint?.constant = self.maxWidth
         }
     }
     
@@ -118,7 +118,7 @@ class UserNotice: NSView {
         self.addSubview(imageView!)
         
         // Add constraints
-        widthConstraint = NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: width)
+        widthConstraint = NSLayoutConstraint(item: self, attribute: .width, relatedBy: .lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: maxWidth)
         self.addConstraints([
             widthConstraint!,
             NSLayoutConstraint(item: imageView!, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0),
