@@ -44,6 +44,10 @@ class UserNotice: NSView {
         }
     }
     
+    // Animation key names
+    let showAnimationKey = "show-animation"
+    let hideAnimationKey = "hide-animation"
+    
     // UI Elements
     var messageLabel: NSTextField?
     var imageView: NSImageView?
@@ -139,6 +143,16 @@ class UserNotice: NSView {
         - duration: If a duration time interval is given, the notice will hide itself automatically after the duration. Otherwise the notice will be displayed permanently, until it is manually hidden with `hide()`.
      */
     func show(in parentView: NSView, duration: TimeInterval? = nil) {
+        // If hide animation is currently running:
+        // Remove hide animation and remove from superview
+        if isHideAnimationRunning() {
+            self.layer?.removeAnimation(forKey: hideAnimationKey)
+            self.removeFromSuperview()
+        }
+        
+        // Only continue presenting, if not already shown
+        guard !isShown else { return }
+        
         // In superview drop from top with bounce animation
         parentView.addSubview(self)
         self.layoutSubtreeIfNeeded()
@@ -159,7 +173,7 @@ class UserNotice: NSView {
         
         animation.duration = 0.6
         animation.isAdditive = true
-        self.layer?.add(animation, forKey: "bounce-in")
+        self.layer?.add(animation, forKey: showAnimationKey)
         
         // Auto-hide when duration is given
         if let duration = duration {
@@ -172,6 +186,8 @@ class UserNotice: NSView {
     
     /** Hides the notice. */
     func hide() {
+        self.layer?.removeAnimation(forKey: showAnimationKey)
+        
         // Save previous value of top constraint for animation start value
         let topConstraintConstantBeforeAnimation = topConstraint?.constant ?? 0
         
@@ -183,7 +199,10 @@ class UserNotice: NSView {
         CATransaction.begin()
         // Remove view on animation completion
         CATransaction.setCompletionBlock {
-            self.removeFromSuperview()
+            // Only remove if show animation is not running
+            if !self.isShowAnimationRunning() {
+                self.removeFromSuperview()
+            }
         }
         
         // Create bouncing out animation
@@ -193,9 +212,18 @@ class UserNotice: NSView {
         animation.isAdditive = true
         animation.fromValue = (topConstraint?.constant ?? 0) - topConstraintConstantBeforeAnimation
         animation.toValue = 0.0
-        self.layer?.add(animation, forKey: "bounce-out")
+        self.layer?.add(animation, forKey: hideAnimationKey)
         
         CATransaction.commit()
     }
     
+    
+    func isShowAnimationRunning() -> Bool {
+        return self.layer?.animation(forKey: showAnimationKey) != nil
+    }
+    
+    
+    func isHideAnimationRunning() -> Bool {
+        return self.layer?.animation(forKey: hideAnimationKey) != nil
+    }
 }

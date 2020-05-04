@@ -134,15 +134,12 @@ class PresenterViewController: NSViewController {
     var hiddenScreenNotice: UserNotice?
     
     func showHiddenScreenNotice() {
-        // Only show notice if not already shown
-        if !(hiddenScreenNotice?.isShown ?? false) {
-            // Create notice if necessary
-            if hiddenScreenNotice == nil {
-                hiddenScreenNotice = UserNotice(style: .warning, message: NSLocalizedString("Hidden Screen Warning", comment: "Message for the warning notice, that the screen is hidden."))
-                hiddenScreenNotice?.maxWidth = 250.0
-            }
-            hiddenScreenNotice?.show(in: self.view)
+        // Create notice if necessary
+        if hiddenScreenNotice == nil {
+            hiddenScreenNotice = UserNotice(style: .warning, message: NSLocalizedString("Hidden Screen Warning", comment: "Message for the warning notice, that the screen is hidden."))
+            hiddenScreenNotice?.maxWidth = 250.0
         }
+        hiddenScreenNotice?.show(in: self.view)
     }
     
     
