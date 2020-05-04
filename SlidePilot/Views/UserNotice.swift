@@ -19,7 +19,9 @@ class UserNotice: NSView {
     }
     
     /** Indicates if the notice is currently displayed */
-    var isShown = false
+    var isShown: Bool {
+        return self.superview != nil
+    }
     
     /** Stores the notice style*/
     var style: Style = .warning {
