@@ -53,6 +53,7 @@ class PresenterViewController: NSViewController {
         // Subscribe to display changes
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
+        DisplayController.subscribeDisplayCurtain(target: self, action: #selector(displayCurtainDidChange(_:)))
     }
     
     
@@ -114,6 +115,41 @@ class PresenterViewController: NSViewController {
         if !DisplayController.isPointerDisplayed {
             pointerDelegate!.hidePointer()
         }
+    }
+    
+    
+    @objc func displayCurtainDidChange(_ notification: Notification) {
+        if DisplayController.isCurtainDisplayed {
+            showHiddenScreenNotice()
+        } else {
+            hideHiddenScreenNotice()
+        }
+    }
+    
+    
+    
+    
+    // MARK: - UI
+    
+    var hiddenScreenNotice: UserNotice?
+    var isHiddenScreenNoticeShown: Bool {
+        return hiddenScreenNotice?.superview != nil
+    }
+    
+    func showHiddenScreenNotice() {
+        // Only show notice if not already shown
+        if !isHiddenScreenNoticeShown {
+            // Create notice if necessary
+            if hiddenScreenNotice == nil {
+                hiddenScreenNotice = UserNotice(style: .warning, message: NSLocalizedString("Screen is hidden", comment: "Message for the warning notice, that the screen is hidden."))
+            }
+            hiddenScreenNotice?.show(in: self.view)
+        }
+    }
+    
+    
+    func hideHiddenScreenNotice() {
+        hiddenScreenNotice?.hide()
     }
     
     
