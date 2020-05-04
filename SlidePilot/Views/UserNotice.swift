@@ -36,7 +36,7 @@ class UserNotice: NSView {
     }
     
     /** Defines the width of the notice */
-    var width: CGFloat = 200.0
+    var width: CGFloat = 240.0
     
     // UI Elements
     var messageLabel: NSTextField?
@@ -106,7 +106,7 @@ class UserNotice: NSView {
         
         // Add constraints
         self.addConstraints([
-            NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 200.0),
+            NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: width),
             NSLayoutConstraint(item: imageView!, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: imageView!, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 20.0),
             NSLayoutConstraint(item: imageView!, attribute: .right, relatedBy: .equal, toItem: messageLabel, attribute: .left, multiplier: 1.0, constant: -15.0),
