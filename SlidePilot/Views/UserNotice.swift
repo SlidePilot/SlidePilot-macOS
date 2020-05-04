@@ -95,7 +95,7 @@ class UserNotice: NSView {
         // Setup view
         self.wantsLayer = true
         self.layer?.backgroundColor = NSColor(red: 100.0/255.0, green: 100.0/255.0, blue: 100.0/255.0, alpha: 1.0).cgColor
-        self.layer?.cornerRadius = 10.0
+        self.layer?.cornerRadius = 20.0
         self.translatesAutoresizingMaskIntoConstraints = false
         
         // Setup Label
