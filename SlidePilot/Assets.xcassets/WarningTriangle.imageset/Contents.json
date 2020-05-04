@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Warning Triangle.png",
+      "filename" : "WarningTriangle.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Warning Triangle@2x.png",
+      "filename" : "WarningTriangle@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Warning Triangle@3x.png",
+      "filename" : "WarningTriangle@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -98,8 +98,8 @@ class UserNotice: NSView {
         imageView!.image = NSImage(named: style.rawValue)
         
         imageView!.addConstraints([
-            NSLayoutConstraint(item: imageView!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 15.0),
-            NSLayoutConstraint(item: imageView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 15.0)])
+            NSLayoutConstraint(item: imageView!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20.0),
+            NSLayoutConstraint(item: imageView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20.0)])
         
         self.addSubview(messageLabel!)
         self.addSubview(imageView!)
@@ -129,25 +129,24 @@ class UserNotice: NSView {
         // In superview drop from top with bounce animation
         parentView.addSubview(self)
         self.layoutSubtreeIfNeeded()
-        topConstraint = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: parentView, attribute: .top, multiplier: 1.0, constant: -(self.frame.height+10.0))
+        topConstraint = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: parentView, attribute: .top, multiplier: 1.0, constant: 30.0)
         let centerConstraint = NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: parentView, attribute: .centerX, multiplier: 1.0, constant: 0.0)
         parentView.addConstraints([topConstraint!, centerConstraint])
         
-        // Layout hidden notice before animating
+        // Layout view before animating
         parentView.updateConstraints()
         parentView.layoutSubtreeIfNeeded()
         
-        // Animate notice falling down
-        topConstraint!.constant = 30.0
+        // Create bouncing animation
+        let animation = CAKeyframeAnimation.animation(
+            with: "position.y",
+            from: Double(self.frame.height + topConstraint!.constant + 10.0),
+            to: 0.0,
+            timingFuntion: CAKeyframeAnimation.elasticOutTimingFuction)
         
-        NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = 0.25
-            context.allowsImplicitAnimation = true
-            context.timingFunction = CAMediaTimingFunction(name: .easeIn)
-            parentView.updateConstraints()
-            parentView.layoutSubtreeIfNeeded()
-        }, completionHandler: nil)
-        
+        animation.duration = 0.6
+        animation.isAdditive = true
+        self.layer?.add(animation, forKey: "bounce-in")
         
         // Auto-hide when duration is given
         if let duration = duration {
@@ -160,16 +159,30 @@ class UserNotice: NSView {
     
     /** Hides the notice. */
     func hide() {
-        topConstraint?.constant = -(self.frame.height+10.0)
-        NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = 0.25
-            context.allowsImplicitAnimation = true
-            context.timingFunction = CAMediaTimingFunction(name: .easeIn)
-            self.superview?.updateConstraints()
-            self.superview?.layoutSubtreeIfNeeded()
-        }) {
+        // Save previous value of top constraint for animation start value
+        let topConstraintConstantBeforeAnimation = topConstraint?.constant ?? 0
+        
+        // Reset top constraint to make view hidden
+        self.topConstraint?.constant = -(self.frame.height + 10.0)
+        self.superview?.updateConstraints()
+        self.superview?.layoutSubtreeIfNeeded()
+        
+        CATransaction.begin()
+        // Remove view on animation completion
+        CATransaction.setCompletionBlock {
             self.removeFromSuperview()
         }
+        
+        // Create bouncing out animation
+        let animation = CABasicAnimation(keyPath: "position.y")
+        animation.timingFunction = CAMediaTimingFunction(controlPoints: 0.7, -0.65, 0.95, 0.75)
+        animation.duration = 0.3
+        animation.isAdditive = true
+        animation.fromValue = (topConstraint?.constant ?? 0) - topConstraintConstantBeforeAnimation
+        animation.toValue = 0.0
+        self.layer?.add(animation, forKey: "bounce-out")
+        
+        CATransaction.commit()
     }
     
 }

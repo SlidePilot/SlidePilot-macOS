@@ -29,6 +29,7 @@
 		50440BB924339CEA000C0C9E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 50440BB824339CEA000C0C9E /* README.md */; };
 		505243B72445AF650050AB98 /* RenderCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505243B62445AF650050AB98 /* RenderCache.swift */; };
 		508BBD622460591800F81FFF /* UserNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BBD612460591800F81FFF /* UserNotice.swift */; };
+		508BBD642460966800F81FFF /* CAKeyframeAnimation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BBD632460966800F81FFF /* CAKeyframeAnimation+Extension.swift */; };
 		509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B96F62428A3AC0076B8B4 /* AppDelegate.swift */; };
 		509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */; };
 		509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 509B96FA2428A3AE0076B8B4 /* Assets.xcassets */; };
@@ -98,6 +99,7 @@
 		504450A1245ADFB900330984 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		505243B62445AF650050AB98 /* RenderCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderCache.swift; sourceTree = "<group>"; };
 		508BBD612460591800F81FFF /* UserNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotice.swift; sourceTree = "<group>"; };
+		508BBD632460966800F81FFF /* CAKeyframeAnimation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAKeyframeAnimation+Extension.swift"; sourceTree = "<group>"; };
 		509B96F32428A3AC0076B8B4 /* SlidePilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlidePilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		509B96F62428A3AC0076B8B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				5038345B24349F4B00E73E43 /* Colors.swift */,
 				5036BD892435F8CD0007AF6F /* AppStartTracker.swift */,
 				505243B62445AF650050AB98 /* RenderCache.swift */,
+				508BBD632460966800F81FFF /* CAKeyframeAnimation+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */,
 				5038345C24349F4B00E73E43 /* Colors.swift in Sources */,
 				503FFDFF242A193500B6F438 /* PresentationWindowController.swift in Sources */,
+				508BBD642460966800F81FFF /* CAKeyframeAnimation+Extension.swift in Sources */,
 				509B970C2428AA2F0076B8B4 /* TimingControl.swift in Sources */,
 				50440BB3243357AA000C0C9E /* ThumbnailView.swift in Sources */,
 				503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */,
