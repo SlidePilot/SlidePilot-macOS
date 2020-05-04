@@ -36,11 +36,24 @@ class UserNotice: NSView {
     }
     
     /** Defines the width of the notice */
-    var width: CGFloat = 240.0
+    var width: CGFloat = 200.0 {
+        didSet {
+            widthConstraint?.constant = self.width
+        }
+    }
     
     // UI Elements
     var messageLabel: NSTextField?
     var imageView: NSImageView?
+    
+    
+    // Constraints
+    
+    /** The top constraint for the notice, which will be animated. */
+    var topConstraint: NSLayoutConstraint?
+    
+    /** The width constraint of the notice */
+    var widthConstraint: NSLayoutConstraint?
 
     
     override init(frame frameRect: NSRect) {
@@ -105,8 +118,9 @@ class UserNotice: NSView {
         self.addSubview(imageView!)
         
         // Add constraints
+        widthConstraint = NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: width)
         self.addConstraints([
-            NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: width),
+            widthConstraint!,
             NSLayoutConstraint(item: imageView!, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: imageView!, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 20.0),
             NSLayoutConstraint(item: imageView!, attribute: .right, relatedBy: .equal, toItem: messageLabel, attribute: .left, multiplier: 1.0, constant: -15.0),
@@ -115,9 +129,6 @@ class UserNotice: NSView {
             NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: messageLabel, attribute: .bottom, multiplier: 1.0, constant: 12.0)])
     }
     
-    
-    /** The top constraint for the notice, which will be animated. */
-    var topConstraint: NSLayoutConstraint?
     
     /**
      Shows the configured notice.
