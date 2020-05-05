@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "TargetPointer.png",
+      "filename" : "TargetPointerColor.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "TargetPointerColor@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "TargetPointerColor@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

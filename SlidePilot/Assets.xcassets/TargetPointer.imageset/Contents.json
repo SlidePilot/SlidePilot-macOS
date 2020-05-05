@@ -6,10 +6,12 @@
       "scale" : "1x"
     },
     {
+      "filename" : "TargetPointer@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "TargetPointer@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
