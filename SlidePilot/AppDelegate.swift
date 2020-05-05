@@ -12,6 +12,11 @@ import PDFKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    // MARK: - Properties
+    /** Indicates, whether the timer should be started on slide change. */
+    var shouldStartTimerOnSlideChange = true
+    
+    
     // MARK: - Menu Outlets
     @IBOutlet weak var showNavigatorItem: NSMenuItem!
     @IBOutlet weak var previewNextSlideItem: NSMenuItem!
@@ -71,6 +76,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Set default display options
         DisplayController.setPointerAppearance(.cursor, sender: self)
+        
+        // Subscribe to time changes
+        TimeController.subscribeTimeMode(target: self, action: #selector(timeModeDidChange(_:)))
+        
+        // Set default time options
+        TimeController.setTimeMode(mode: .stopwatch, sender: self)
         
         startup()
     }
@@ -211,6 +222,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.setDisplayNextSlidePreview(true, sender: self)
         DisplayController.setNotesPosition(.none, sender: self)
         DisplayController.setDisplayNotes(false, sender: self)
+        
+        // Reset stopwatch/timer
+        TimeController.resetTime(sender: self)
+        
+        // Reset property, that timer should start when chaning slide
+        shouldStartTimerOnSlideChange = true
     }
     
     
@@ -221,7 +238,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     
-    // MARK: - Handling Slides
+    // MARK: - Menu Item Actions
     
     @IBAction func previousSlide(_ sender: NSMenuItem) {
         PageController.previousPage(sender: self)
@@ -230,6 +247,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func nextSlide(_ sender: NSMenuItem) {
         PageController.nextPage(sender: self)
+        
+        // If this is the first next slide call for this document, start time automatically
+        if shouldStartTimerOnSlideChange {
+            shouldStartTimerOnSlideChange = false
+            TimeController.setIsRunning(true, sender: self)
+        }
     }
     
     
@@ -314,6 +337,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func selectPointerAppearanceTargetColor(_ sender: NSMenuItem) {
         DisplayController.setPointerAppearance(.targetColor, sender: sender)
+    }
+    
+    @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
+        TimeController.setTimeMode(mode: .stopwatch, sender: self)
+    }
+    
+    
+    @IBAction func selectModeTimer(_ sender: NSMenuItem) {
+        TimeController.setTimeMode(mode: .timer, sender: self)
+    }
+    
+    
+    @IBAction func setTimer(_ sender: NSMenuItem) {
+        TimeController.requestSetTimerInterval(sender: self)
+    }
+    
+    
+    @IBAction func startStopTime(_ sender: NSMenuItem) {
+        TimeController.switchIsRunning(sender: self)
+        
+        // Don't start time automatically anymore
+        shouldStartTimerOnSlideChange = false
+    }
+    
+    
+    @IBAction func resetTime(_ sender: NSMenuItem) {
+        TimeController.resetTime(sender: self)
     }
     
     
@@ -405,5 +455,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         case .targetColor:
             pointerAppearanceTargetColorItem.state = .on
         }
+    }
+    
+    
+    @objc func timeModeDidChange(_ notification: Notification) {
+        // Turn off all items in mode menu
+        timeModeMenu.items.forEach({ $0.state = .off })
+        
+        // Select correct menu item for notes position
+        // Enable/Disable "Set Timer" menu item
+        switch TimeController.timeMode {
+        case .stopwatch:
+            stopwatchModeItem.state = .on
+            setTimerItem.isEnabled = false
+        case .timer:
+            timerModeItem.state = .on
+            setTimerItem.isEnabled = true
+        }
+        
+        TimeController.resetTime(sender: self)
     }
 }
