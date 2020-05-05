@@ -379,6 +379,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         switch DisplayController.notesPosition {
         case .none:
             notesPositionNoneItem.state = .on
+            if DisplayController.areNotesDisplayed {
+                DisplayController.setDisplayNotes(false, sender: self)
+            }
         case .right:
             notesPositionRightItem.state = .on
         case .left:
@@ -401,10 +404,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if DisplayController.areNotesDisplayed, DisplayController.notesPosition == .none {
             DisplayController.setNotesPosition(.right, sender: self)
         }
-        
-        // Enable selecting notes position none when notes ARE NOT displayed
-        // Disable selecting notes position none when notes ARE displayed
-        notesPositionNoneItem.isEnabled = !DisplayController.areNotesDisplayed
     }
     
     
