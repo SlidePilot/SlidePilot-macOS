@@ -45,6 +45,12 @@ class TimeController {
     }
     
     
+    /** Sends a notification, that the timer interval was set. */
+    public static func requestSetTimerInterval(sender: Any) {
+        NotificationCenter.default.post(name: .requestChangeTimerInterval, object: sender)
+    }
+    
+    
     /** Subscribes a target to all `.didChangeTimeMode` notifications sent by `TimeController`. */
     public static func subscribeTimeMode(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .didChangeTimeMode, object: nil)
@@ -63,11 +69,18 @@ class TimeController {
     }
     
     
+    /** Subscribes a target to all `.requestChangeTimerInterval` notifications sent by `TimeController`. */
+    public static func subscribeRequestTimerInterval(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .requestChangeTimerInterval, object: nil)
+    }
+    
+    
     /** Unsubscribes a target from all notifications sent by `TimeController`. */
     public static func unsubscribe(target: Any) {
         NotificationCenter.default.removeObserver(target, name: .didChangeTimeMode, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeTimeIsRunning, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didResetTime, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .requestChangeTimerInterval, object: nil)
     }
 }
 
@@ -78,4 +91,5 @@ extension Notification.Name {
     static let didChangeTimeMode = Notification.Name("didChangeTimeMode")
     static let didChangeTimeIsRunning = Notification.Name("didChangeStartStopTime")
     static let didResetTime = Notification.Name("didResetTime")
+    static let requestChangeTimerInterval = Notification.Name("requestChangeTimerInterval")
 }

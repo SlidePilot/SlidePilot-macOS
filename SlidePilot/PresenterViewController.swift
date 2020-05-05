@@ -56,6 +56,7 @@ class PresenterViewController: NSViewController {
         TimeController.subscribeIsRunning(target: self, action: #selector(timeIsRunningDidChange(_:)))
         TimeController.subscribeTimeMode(target: self, action: #selector(timeModeDidChange(_:)))
         TimeController.subscribeReset(target: self, action: #selector(timeDidReset(_:)))
+        TimeController.subscribeRequestTimerInterval(target: self, action: #selector(didRequestSetTimerInterval(_:)))
     }
     
     
@@ -151,6 +152,14 @@ class PresenterViewController: NSViewController {
     }
     
     
+    @objc func didRequestSetTimerInterval(_ notification: Notification) {
+        // Open the set timer popover
+        openSetTimerDialog(completion: {
+            TimeController.setIsRunning(false, sender: self)
+        })
+    }
+    
+    
     
     
     // MARK: - UI
@@ -172,21 +181,7 @@ class PresenterViewController: NSViewController {
     }
     
     
-    
-    
-    // MARK: - Menu Actions    
-    
-    @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
-        TimeController.setTimeMode(mode: .stopwatch, sender: self)
-    }
-    
-    
-    @IBAction func selectModeTimer(_ sender: NSMenuItem) {
-        TimeController.setTimeMode(mode: .timer, sender: self)
-    }
-    
-    
-    @IBAction func setTimer(_ sender: NSMenuItem) {
+    func openSetTimerDialog(completion: @escaping()->()) {
         let alert = NSAlert()
         alert.messageText = NSLocalizedString("Enter Timer Interval", comment: "Alert message asking for timer interval.")
         alert.informativeText = NSLocalizedString("Enter Timer Interval Text", comment: "Alert text asking for timer interval.")
@@ -203,8 +198,28 @@ class PresenterViewController: NSViewController {
         if let window = self.view.window {
             alert.beginSheetModal(for: window) { (response) in
                 self.timingControl.setTimer(timePicker.time)
+                completion()
             }
         }
+    }
+    
+    
+    
+    
+    // MARK: - Menu Actions    
+    
+    @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
+        TimeController.setTimeMode(mode: .stopwatch, sender: self)
+    }
+    
+    
+    @IBAction func selectModeTimer(_ sender: NSMenuItem) {
+        TimeController.setTimeMode(mode: .timer, sender: self)
+    }
+    
+    
+    @IBAction func setTimer(_ sender: NSMenuItem) {
+        TimeController.requestSetTimerInterval(sender: self)
     }
     
     

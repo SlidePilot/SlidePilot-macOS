@@ -230,7 +230,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     
-    // MARK: - Handling Slides
+    // MARK: - Menu Item Actions
     
     @IBAction func previousSlide(_ sender: NSMenuItem) {
         PageController.previousPage(sender: self)
