@@ -15,16 +15,12 @@ extension SlideArrangementView {
         clearView()
         if displayNext == false, displayNotes == false {
             setupSlidesLayoutCurrent()
-            print("current")
         } else if displayNext == true, displayNotes == false {
             setupSlidesLayoutCurrentNext()
-            print("current next")
         } else if displayNext == true, displayNotes == true {
             setupSlidesLayoutCurrentNextNotes()
-            print("current next notes")
         } else if displayNext == false, displayNotes == true {
             setupSlidesLayoutCurrentNotes()
-            print("current notes")
         }
     }
     
