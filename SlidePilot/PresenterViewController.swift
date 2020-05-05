@@ -44,15 +44,19 @@ class PresenterViewController: NSViewController {
         
         // Setup default configuration
         
-        // Setup timingControl
-        selectModeStopwatch()
-        
         // Subscribe to document changes
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
+        DisplayController.subscribeDisplayCurtain(target: self, action: #selector(displayCurtainDidChange(_:)))
+        
+        // Subscribe to time changes
+        TimeController.subscribeIsRunning(target: self, action: #selector(timeIsRunningDidChange(_:)))
+        TimeController.subscribeTimeMode(target: self, action: #selector(timeModeDidChange(_:)))
+        TimeController.subscribeReset(target: self, action: #selector(timeDidReset(_:)))
+        TimeController.subscribeRequestTimerInterval(target: self, action: #selector(didRequestSetTimerInterval(_:)))
     }
     
     
@@ -117,51 +121,67 @@ class PresenterViewController: NSViewController {
     }
     
     
-    
-    
-    // MARK: - Menu Actions    
-    
-    @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
-        selectModeStopwatch()
+    @objc func displayCurtainDidChange(_ notification: Notification) {
+        if DisplayController.isCurtainDisplayed {
+            showHiddenScreenNotice()
+        } else {
+            hideHiddenScreenNotice()
+        }
     }
     
     
-    func selectModeStopwatch() {
-        guard let stopwatchModeItem = (NSApp.delegate as? AppDelegate)?.stopwatchModeItem else { return }
-        guard let setTimerItem = (NSApp.delegate as? AppDelegate)?.setTimerItem else { return }
-        guard let modeMenu = (NSApp.delegate as? AppDelegate)?.timeModeMenu else { return }
-        
-        // Turn off all items in mode menu and select stopwatch
-        modeMenu.items.forEach({ $0.state = .off })
-        stopwatchModeItem.state = .on
-        timingControl.mode = .stopwatch
-        
-        // Disable "Set Timer" menu item
-        setTimerItem.isEnabled = false
+    @objc func timeIsRunningDidChange(_ notification: Notification) {
+        // Start/Stop timingControl depending on isRunning from TimeController
+        if TimeController.isRunning {
+            timingControl.start()
+        } else {
+            timingControl.stop()
+        }
     }
     
     
-    @IBAction func selectModeTimer(_ sender: NSMenuItem) {
-        selectModeTimer()
+    @objc func timeModeDidChange(_ notification: Notification) {
+        // Set correct mode for timingControl
+        timingControl.mode = TimeController.timeMode
     }
     
     
-    func selectModeTimer() {
-        guard let timerModeItem = (NSApp.delegate as? AppDelegate)?.timerModeItem else { return }
-        guard let setTimerItem = (NSApp.delegate as? AppDelegate)?.setTimerItem else { return }
-        guard let modeMenu = (NSApp.delegate as? AppDelegate)?.timeModeMenu else { return }
-        
-        // Turn off all items in mode menu and select stopwatch
-        modeMenu.items.forEach({ $0.state = .off })
-        timerModeItem.state = .on
-        timingControl.mode = .timer
-        
-        // Enable "Set Timer" menu item
-        setTimerItem.isEnabled = true
+    @objc func timeDidReset(_ notification: Notification) {
+        // Reset time on timingControl
+        timingControl.reset()
     }
     
     
-    @IBAction func setTimer(_ sender: NSMenuItem) {
+    @objc func didRequestSetTimerInterval(_ notification: Notification) {
+        // Open the set timer popover
+        openSetTimerDialog(completion: {
+            TimeController.setIsRunning(false, sender: self)
+        })
+    }
+    
+    
+    
+    
+    // MARK: - UI
+    
+    var hiddenScreenNotice: UserNotice?
+    
+    func showHiddenScreenNotice() {
+        // Create notice if necessary
+        if hiddenScreenNotice == nil {
+            hiddenScreenNotice = UserNotice(style: .warning, message: NSLocalizedString("Hidden Screen Warning", comment: "Message for the warning notice, that the screen is hidden."))
+            hiddenScreenNotice?.maxWidth = 250.0
+        }
+        hiddenScreenNotice?.show(in: self.view)
+    }
+    
+    
+    func hideHiddenScreenNotice() {
+        hiddenScreenNotice?.hide()
+    }
+    
+    
+    func openSetTimerDialog(completion: @escaping()->()) {
         let alert = NSAlert()
         alert.messageText = NSLocalizedString("Enter Timer Interval", comment: "Alert message asking for timer interval.")
         alert.informativeText = NSLocalizedString("Enter Timer Interval Text", comment: "Alert text asking for timer interval.")
@@ -178,18 +198,9 @@ class PresenterViewController: NSViewController {
         if let window = self.view.window {
             alert.beginSheetModal(for: window) { (response) in
                 self.timingControl.setTimer(timePicker.time)
+                completion()
             }
         }
-    }
-    
-    
-    @IBAction func startStopTime(_ sender: NSMenuItem) {
-        timingControl.startStop()
-    }
-    
-    
-    @IBAction func resetTime(_ sender: NSMenuItem) {
-        timingControl.reset()
     }
     
     

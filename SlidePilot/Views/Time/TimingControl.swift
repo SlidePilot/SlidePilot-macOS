@@ -21,12 +21,7 @@ class TimingControl: NSTextField {
     
     // MARK: - Timing Properties
     
-    enum Mode {
-        case stopwatch, timer
-    }
-    
-    
-    var mode: Mode = .stopwatch {
+    var mode: TimeController.TimeMode = .stopwatch {
         didSet {
             stop()
             counter = 0
@@ -52,7 +47,7 @@ class TimingControl: NSTextField {
     
     // MARK: - Initalizers
     
-    init(mode: Mode) {
+    init(mode: TimeController.TimeMode) {
         super.init(frame: NSRect.zero)
         
         self.mode = mode
