@@ -44,9 +44,6 @@ class PresenterViewController: NSViewController {
         
         // Setup default configuration
         
-        // Setup timingControl
-        selectModeStopwatch()
-        
         // Subscribe to document changes
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
         
@@ -54,6 +51,11 @@ class PresenterViewController: NSViewController {
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
         DisplayController.subscribeDisplayCurtain(target: self, action: #selector(displayCurtainDidChange(_:)))
+        
+        // Subscribe to time changes
+        TimeController.subscribeIsRunning(target: self, action: #selector(timeIsRunningDidChange(_:)))
+        TimeController.subscribeTimeMode(target: self, action: #selector(timeModeDidChange(_:)))
+        TimeController.subscribeReset(target: self, action: #selector(timeDidReset(_:)))
     }
     
     
@@ -127,6 +129,28 @@ class PresenterViewController: NSViewController {
     }
     
     
+    @objc func timeIsRunningDidChange(_ notification: Notification) {
+        // Start/Stop timingControl depending on isRunning from TimeController
+        if TimeController.isRunning {
+            timingControl.start()
+        } else {
+            timingControl.stop()
+        }
+    }
+    
+    
+    @objc func timeModeDidChange(_ notification: Notification) {
+        // Set correct mode for timingControl
+        timingControl.mode = TimeController.timeMode
+    }
+    
+    
+    @objc func timeDidReset(_ notification: Notification) {
+        // Reset time on timingControl
+        timingControl.reset()
+    }
+    
+    
     
     
     // MARK: - UI
@@ -153,42 +177,12 @@ class PresenterViewController: NSViewController {
     // MARK: - Menu Actions    
     
     @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
-        selectModeStopwatch()
-    }
-    
-    
-    func selectModeStopwatch() {
-        guard let stopwatchModeItem = (NSApp.delegate as? AppDelegate)?.stopwatchModeItem else { return }
-        guard let setTimerItem = (NSApp.delegate as? AppDelegate)?.setTimerItem else { return }
-        guard let modeMenu = (NSApp.delegate as? AppDelegate)?.timeModeMenu else { return }
-        
-        // Turn off all items in mode menu and select stopwatch
-        modeMenu.items.forEach({ $0.state = .off })
-        stopwatchModeItem.state = .on
-        timingControl.mode = .stopwatch
-        
-        // Disable "Set Timer" menu item
-        setTimerItem.isEnabled = false
+        TimeController.setTimeMode(mode: .stopwatch, sender: self)
     }
     
     
     @IBAction func selectModeTimer(_ sender: NSMenuItem) {
-        selectModeTimer()
-    }
-    
-    
-    func selectModeTimer() {
-        guard let timerModeItem = (NSApp.delegate as? AppDelegate)?.timerModeItem else { return }
-        guard let setTimerItem = (NSApp.delegate as? AppDelegate)?.setTimerItem else { return }
-        guard let modeMenu = (NSApp.delegate as? AppDelegate)?.timeModeMenu else { return }
-        
-        // Turn off all items in mode menu and select stopwatch
-        modeMenu.items.forEach({ $0.state = .off })
-        timerModeItem.state = .on
-        timingControl.mode = .timer
-        
-        // Enable "Set Timer" menu item
-        setTimerItem.isEnabled = true
+        TimeController.setTimeMode(mode: .timer, sender: self)
     }
     
     
@@ -215,12 +209,12 @@ class PresenterViewController: NSViewController {
     
     
     @IBAction func startStopTime(_ sender: NSMenuItem) {
-        timingControl.startStop()
+        TimeController.switchIsRunning(sender: self)
     }
     
     
     @IBAction func resetTime(_ sender: NSMenuItem) {
-        timingControl.reset()
+        TimeController.resetTime(sender: self)
     }
     
     

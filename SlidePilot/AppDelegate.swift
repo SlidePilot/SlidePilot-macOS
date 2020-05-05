@@ -72,6 +72,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Set default display options
         DisplayController.setPointerAppearance(.cursor, sender: self)
         
+        // Subscribe to time changes
+        TimeController.subscribeTimeMode(target: self, action: #selector(timeModeDidChange(_:)))
+        
+        // Set default time options
+        TimeController.setTimeMode(mode: .stopwatch, sender: self)
+        
         startup()
     }
     
@@ -211,6 +217,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.setDisplayNextSlidePreview(true, sender: self)
         DisplayController.setNotesPosition(.none, sender: self)
         DisplayController.setDisplayNotes(false, sender: self)
+        
+        // Reset stopwatch/timer
+        TimeController.resetTime(sender: self)
     }
     
     
@@ -405,5 +414,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         case .targetColor:
             pointerAppearanceTargetColorItem.state = .on
         }
+    }
+    
+    
+    @objc func timeModeDidChange(_ notification: Notification) {
+        // Turn off all items in mode menu
+        timeModeMenu.items.forEach({ $0.state = .off })
+        
+        // Select correct menu item for notes position
+        // Enable/Disable "Set Timer" menu item
+        switch TimeController.timeMode {
+        case .stopwatch:
+            stopwatchModeItem.state = .on
+            setTimerItem.isEnabled = false
+        case .timer:
+            timerModeItem.state = .on
+            setTimerItem.isEnabled = true
+        }
+        
+        TimeController.resetTime(sender: self)
     }
 }
