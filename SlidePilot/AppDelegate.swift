@@ -12,6 +12,11 @@ import PDFKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    // MARK: - Properties
+    /** Indicates, whether the timer should be started on slide change. */
+    var shouldStartTimerOnSlideChange = true
+    
+    
     // MARK: - Menu Outlets
     @IBOutlet weak var showNavigatorItem: NSMenuItem!
     @IBOutlet weak var previewNextSlideItem: NSMenuItem!
@@ -220,6 +225,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Reset stopwatch/timer
         TimeController.resetTime(sender: self)
+        
+        // Reset property, that timer should start when chaning slide
+        shouldStartTimerOnSlideChange = true
     }
     
     
@@ -239,6 +247,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func nextSlide(_ sender: NSMenuItem) {
         PageController.nextPage(sender: self)
+        
+        // If this is the first next slide call for this document, start time automatically
+        if shouldStartTimerOnSlideChange {
+            shouldStartTimerOnSlideChange = false
+            TimeController.setIsRunning(true, sender: self)
+        }
     }
     
     
@@ -342,6 +356,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func startStopTime(_ sender: NSMenuItem) {
         TimeController.switchIsRunning(sender: self)
+        
+        // Don't start time automatically anymore
+        shouldStartTimerOnSlideChange = false
     }
     
     
