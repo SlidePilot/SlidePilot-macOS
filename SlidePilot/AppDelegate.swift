@@ -325,6 +325,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.setPointerAppearance(.targetColor, sender: sender)
     }
     
+    @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
+        TimeController.setTimeMode(mode: .stopwatch, sender: self)
+    }
+    
+    
+    @IBAction func selectModeTimer(_ sender: NSMenuItem) {
+        TimeController.setTimeMode(mode: .timer, sender: self)
+    }
+    
+    
+    @IBAction func setTimer(_ sender: NSMenuItem) {
+        TimeController.requestSetTimerInterval(sender: self)
+    }
+    
+    
+    @IBAction func startStopTime(_ sender: NSMenuItem) {
+        TimeController.switchIsRunning(sender: self)
+    }
+    
+    
+    @IBAction func resetTime(_ sender: NSMenuItem) {
+        TimeController.resetTime(sender: self)
+    }
+    
     
     
     
