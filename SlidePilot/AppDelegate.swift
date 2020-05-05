@@ -185,44 +185,56 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let presentationWindow = presentationWindowController.window,
             let presentationScreen = presentationWindow.screen else { return }
         
-        
-        for (window, screen) in zip([presentationWindow, presenterWindow], [presenterScreen, presentationScreen]) {
-            // Check if window was in fullscreen mode
-            let windowFullScreen = window.styleMask.contains(.fullScreen)
-            
-            if windowFullScreen {
-                window.toggleFullScreen(self)
-            }
-            
-            let windowFrame = window.frame
-            let screenFrame = screen.visibleFrame
-            
-            var windowNewFrame: NSRect = screenFrame
-            
-            // If window was not fullscreen, keep window size and center it on new screen
-            if !windowFullScreen {
-                // Center window and with old window size if it fits on new screen, otherwise screen size
-                let windowNewSize = NSSize(
-                    width: min(windowFrame.width, screenFrame.width),
-                    height: min(windowFrame.height, screenFrame.height))
-                windowNewFrame = NSRect(
-                    x: screenFrame.minX + (screenFrame.width - windowNewSize.width) / 2,
-                    y: screenFrame.minY + (screenFrame.height - windowNewSize.height) / 2,
-                    width: windowNewSize.width,
-                    height: windowNewSize.height)
-            }
-            
-            window.setFrame(windowNewFrame, display: true, animate: false)
-            window.orderFront(self)
-            
-            if windowFullScreen {
-                window.toggleFullScreen(self)
-            }
-        }
+        move(window: presentationWindow, to: presenterScreen, allowFullScreen: true)
+        move(window: presenterWindow, to: presentationScreen, allowFullScreen: false)
         
         presenterWindow.makeKeyAndOrderFront(nil)
+    }
+    
+    
+    /**
+     Moves a window to the specified screen.
+     
+     - parameters:
+        - window: `NSWindow` to be moved.
+        - screen: The target screen, to which window should be moved.
+        - allowFullScreen: If this option is `true` and window was in full screen before, it will go back to full screen. If this option is `false`, the window won't go into full screen, no matter if it was in full screen before
+     */
+    func move(window: NSWindow, to screen: NSScreen, allowFullScreen: Bool) {
+        // Check if window was in fullscreen mode
+        let wasWindowInFullScreen = window.styleMask.contains(.fullScreen)
         
-        // FIXME: Is it necessary to toggle to make small and toggle again to make big?
+        // Turn off fullscreen for moving window
+        if wasWindowInFullScreen {
+            window.toggleFullScreen(self)
+        }
+        
+        let windowFrame = window.frame
+        let screenFrame = screen.visibleFrame
+        
+        var windowNewFrame: NSRect = screenFrame
+        
+        // If should not enter full screen, keep window size and center it on new screen
+        if !allowFullScreen || !wasWindowInFullScreen {
+            // Center window and with old window size if it fits on new screen, otherwise screen size
+            let windowNewSize = NSSize(
+                width: min(windowFrame.width, screenFrame.width),
+                height: min(windowFrame.height, screenFrame.height))
+            windowNewFrame = NSRect(
+                x: screenFrame.minX + (screenFrame.width - windowNewSize.width) / 2,
+                y: screenFrame.minY + (screenFrame.height - windowNewSize.height) / 2,
+                width: windowNewSize.width,
+                height: windowNewSize.height)
+        }
+        
+        window.setFrame(windowNewFrame, display: true, animate: false)
+        window.level = .normal
+        window.orderFront(self)
+        
+        // Enter full screen if requested
+        if wasWindowInFullScreen, allowFullScreen {
+            window.toggleFullScreen(self)
+        }
     }
     
     
