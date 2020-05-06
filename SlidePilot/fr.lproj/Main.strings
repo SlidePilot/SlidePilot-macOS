@@ -1,192 +1,219 @@
 
-/* Class = "NSMenuItem"; title = "Slidejar"; ObjectID = "1Xt-HY-uBw"; */
-"1Xt-HY-uBw.title" = "Slidejar";
+/* Class = "NSMenuItem"; title = "SlidePilot"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "SlidePilot";
 
 /* Class = "NSMenuItem"; title = "Bottom"; ObjectID = "3BI-JZ-e7T"; */
-"3BI-JZ-e7T.title" = "Bottom";
+"3BI-JZ-e7T.title" = "En bas";
 
 /* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "4J7-dP-txa"; */
-"4J7-dP-txa.title" = "Enter Full Screen";
+"4J7-dP-txa.title" = "Activer le mode plein écran";
 
-/* Class = "NSMenuItem"; title = "Quit Slidejar"; ObjectID = "4sb-4s-VLi"; */
-"4sb-4s-VLi.title" = "Quit Slidejar";
+/* Class = "NSMenuItem"; title = "Quit SlidePilot"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "Quitter SlidePilot";
 
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
-"5QF-Oa-p0T.title" = "Edit";
+"5QF-Oa-p0T.title" = "Édition";
 
-/* Class = "NSMenuItem"; title = "About Slidejar"; ObjectID = "5kV-Vb-QxS"; */
-"5kV-Vb-QxS.title" = "About Slidejar";
+/* Class = "NSMenuItem"; title = "About SlidePilot"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "À propos de SlidePilot";
 
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
-"6dh-zS-Vam.title" = "Redo";
-
-/* Class = "NSMenuItem"; title = "Dark Appearance"; ObjectID = "9cd-7L-rZh"; */
-"9cd-7L-rZh.title" = "Dark Appearance";
+"6dh-zS-Vam.title" = "Rétablir";
 
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "Main Menu";
 
+/* Class = "NSMenuItem"; title = "Preview Next Slide"; ObjectID = "Atm-A9-uUk"; */
+"Atm-A9-uUk.title" = "Aperçu de la diapositive suivante";
+
+/* Class = "NSMenuItem"; title = "Cursor"; ObjectID = "Auy-Z6-pIV"; */
+"Auy-Z6-pIV.title" = "Curseur";
+
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
-"BOF-NM-1cW.title" = "Preferences…";
+"BOF-NM-1cW.title" = "Préférences…";
 
 /* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
-"DVo-aG-piG.title" = "Close";
+"DVo-aG-piG.title" = "Fermer";
 
 /* Class = "NSTextFieldCell"; title = "Label"; ObjectID = "Dvc-Nd-8iL"; */
 "Dvc-Nd-8iL.title" = "Label";
 
 /* Class = "NSMenuItem"; title = "Display White Screen"; ObjectID = "E0b-Yv-pqH"; */
-"E0b-Yv-pqH.title" = "Display White Screen";
+"E0b-Yv-pqH.title" = "Afficher l'écran blanc";
 
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
-"F2S-fz-NVQ.title" = "Help";
+"F2S-fz-NVQ.title" = "Aide";
 
-/* Class = "NSMenuItem"; title = "Slidejar Help"; ObjectID = "FKE-Sm-Kum"; */
-"FKE-Sm-Kum.title" = "Slidejar Help";
+/* Class = "NSMenuItem"; title = "SlidePilot Help"; ObjectID = "FKE-Sm-Kum"; */
+"FKE-Sm-Kum.title" = "Aide SlidePilot";
 
 /* Class = "NSMenuItem"; title = "Set Timer"; ObjectID = "GyA-9h-Aoe"; */
-"GyA-9h-Aoe.title" = "Set Timer";
+"GyA-9h-Aoe.title" = "Régler le minuteur";
 
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "H8h-7b-M4v"; */
-"H8h-7b-M4v.title" = "View";
+"H8h-7b-M4v.title" = "Présentation";
+
+/* Class = "NSMenuItem"; title = "Cursor Appearance"; ObjectID = "HNs-Tl-r53"; */
+"HNs-Tl-r53.title" = "Apparence du curseur";
 
 /* Class = "NSMenu"; title = "View"; ObjectID = "HyV-fh-RgO"; */
-"HyV-fh-RgO.title" = "View";
+"HyV-fh-RgO.title" = "Présentation";
 
 /* Class = "NSMenuItem"; title = "Open…"; ObjectID = "IAo-SY-fd9"; */
-"IAo-SY-fd9.title" = "Open…";
+"IAo-SY-fd9.title" = "Ouvrir…";
 
 /* Class = "NSWindow"; title = "Window"; ObjectID = "IQv-IB-iLA"; */
-"IQv-IB-iLA.title" = "Window";
+"IQv-IB-iLA.title" = "Fenêtre";
 
 /* Class = "NSTextFieldCell"; title = "Label"; ObjectID = "KO4-ee-5js"; */
 "KO4-ee-5js.title" = "Label";
 
+/* Class = "NSMenuItem"; title = "Circle"; ObjectID = "KeP-a7-ltS"; */
+"KeP-a7-ltS.title" = "Cercle";
+
 /* Class = "NSMenuItem"; title = "None"; ObjectID = "Kws-6x-VZZ"; */
-"Kws-6x-VZZ.title" = "None";
+"Kws-6x-VZZ.title" = "Aucune";
 
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
-"LE2-aR-0XJ.title" = "Bring All to Front";
+"LE2-aR-0XJ.title" = "Tout ramener au premier plan";
 
 /* Class = "NSMenuItem"; title = "Timer"; ObjectID = "Mhe-VV-WGl"; */
-"Mhe-VV-WGl.title" = "Timer";
+"Mhe-VV-WGl.title" = "Minuteur";
+
+/* Class = "NSMenu"; title = "Moderator"; ObjectID = "O4y-2K-zDw"; */
+"O4y-2K-zDw.title" = "Modérateur";
 
 /* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
-"OY7-WF-poV.title" = "Minimize";
+"OY7-WF-poV.title" = "Placer dans le dock";
 
 /* Class = "NSMenuItem"; title = "Previous Slide"; ObjectID = "Ogv-VI-0Jg"; */
-"Ogv-VI-0Jg.title" = "Previous Slide";
+"Ogv-VI-0Jg.title" = "Diapositive précédente";
 
-/* Class = "NSMenuItem"; title = "Hide Slidejar"; ObjectID = "Olw-nP-bQN"; */
-"Olw-nP-bQN.title" = "Hide Slidejar";
+/* Class = "NSMenuItem"; title = "Hide SlidePilot"; ObjectID = "Olw-nP-bQN"; */
+"Olw-nP-bQN.title" = "Masquer SlidePilot";
 
 /* Class = "NSMenuItem"; title = "Reset Time"; ObjectID = "PX1-Gg-U0w"; */
-"PX1-Gg-U0w.title" = "Reset Time";
+"PX1-Gg-U0w.title" = "Réinitialiser le temps";
 
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
 "R4o-n2-Eq4.title" = "Zoom";
 
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
-"Ruw-6m-B2m.title" = "Select All";
+"Ruw-6m-B2m.title" = "Tout sélectionner";
 
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
-"Td7-aD-5lo.title" = "Window";
+"Td7-aD-5lo.title" = "Fenêtre";
 
 /* Class = "NSMenuItem"; title = "Top"; ObjectID = "Tzc-zb-uAo"; */
-"Tzc-zb-uAo.title" = "Top";
+"Tzc-zb-uAo.title" = "En haut";
+
+/* Class = "NSMenuItem"; title = "Target Color"; ObjectID = "UYT-sb-cqr"; */
+"UYT-sb-cqr.title" = "Cible couleur";
 
 /* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "VVU-xh-TkN"; */
-"VVU-xh-TkN.title" = "Check for Updates…";
+"VVU-xh-TkN.title" = "Recherche de mises à jour…";
 
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
-"Vdr-fp-XzO.title" = "Hide Others";
+"Vdr-fp-XzO.title" = "Masequer les autres";
 
 /* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
-"W48-6f-4Dl.title" = "Edit";
+"W48-6f-4Dl.title" = "Édition";
 
 /* Class = "NSMenuItem"; title = "Paste and Match Style"; ObjectID = "WeT-3V-zwk"; */
-"WeT-3V-zwk.title" = "Paste and Match Style";
+"WeT-3V-zwk.title" = "Coller et adapter le style";
 
 /* Class = "NSMenuItem"; title = "Display Black Screen"; ObjectID = "Wsl-Lh-Rzy"; */
-"Wsl-Lh-Rzy.title" = "Display Black Screen";
+"Wsl-Lh-Rzy.title" = "Afficher l'écran noir";
 
 /* Class = "NSMenuItem"; title = "Notes Position"; ObjectID = "WtB-Ny-SAM"; */
-"WtB-Ny-SAM.title" = "Notes Position";
+"WtB-Ny-SAM.title" = "Position des notes";
 
 /* Class = "NSMenuItem"; title = "Next Slide"; ObjectID = "XpD-9W-0P3"; */
-"XpD-9W-0P3.title" = "Next Slide";
+"XpD-9W-0P3.title" = "Diapositive suivante";
+
+/* Class = "NSMenuItem"; title = "Target"; ObjectID = "YH8-Ja-Yo4"; */
+"YH8-Ja-Yo4.title" = "Cible";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
-"aUF-d1-5bR.title" = "Window";
+"aUF-d1-5bR.title" = "Fenêtre";
+
+/* Class = "NSMenuItem"; title = "Dot"; ObjectID = "akh-gx-hr7"; */
+"akh-gx-hr7.title" = "Point";
 
 /* Class = "NSMenuItem"; title = "Start/Stop Time"; ObjectID = "bL3-yv-j1V"; */
-"bL3-yv-j1V.title" = "Start/Stop Time";
+"bL3-yv-j1V.title" = "Démarrer/Arrêter le temps";
 
 /* Class = "NSMenuItem"; title = "Left"; ObjectID = "bSo-dU-i8i"; */
-"bSo-dU-i8i.title" = "Left";
+"bSo-dU-i8i.title" = "À gauche";
 
 /* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
-"bib-Uj-vzu.title" = "File";
+"bib-Uj-vzu.title" = "Fichier";
 
 /* Class = "NSMenuItem"; title = "File"; ObjectID = "dMs-cI-mzQ"; */
-"dMs-cI-mzQ.title" = "File";
+"dMs-cI-mzQ.title" = "Fichier";
 
 /* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
-"dRJ-4n-Yzg.title" = "Undo";
+"dRJ-4n-Yzg.title" = "Annuler";
 
 /* Class = "NSMenuItem"; title = "Right"; ObjectID = "f9q-Hv-2g2"; */
-"f9q-Hv-2g2.title" = "Right";
+"f9q-Hv-2g2.title" = "À droite";
 
 /* Class = "NSMenuItem"; title = "Show Notes"; ObjectID = "fS9-YP-QfR"; */
-"fS9-YP-QfR.title" = "Show Notes";
+"fS9-YP-QfR.title" = "Afficher les notes";
 
 /* Class = "NSMenuItem"; title = "Stopwatch"; ObjectID = "fd7-Nw-UnK"; */
-"fd7-Nw-UnK.title" = "Stopwatch";
+"fd7-Nw-UnK.title" = "Chronomètre";
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
-"gVA-U4-sdL.title" = "Paste";
+"gVA-U4-sdL.title" = "Coller";
 
 /* Class = "NSMenuItem"; title = "Previous Slide"; ObjectID = "gcL-Jw-1Oj"; */
-"gcL-Jw-1Oj.title" = "Previous Slide";
+"gcL-Jw-1Oj.title" = "Diapositive précédente";
 
 /* Class = "NSMenuItem"; title = "Show Cursor"; ObjectID = "iHL-eH-XtE"; */
-"iHL-eH-XtE.title" = "Show Cursor";
+"iHL-eH-XtE.title" = "Afficher le curseur";
 
 /* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
-"oas-Oc-fiZ.title" = "Open Recent";
+"oas-Oc-fiZ.title" = "Ouvrir un élément récent";
 
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
-"pa3-QI-u2k.title" = "Delete";
+"pa3-QI-u2k.title" = "Supprimer";
 
 /* Class = "NSMenuItem"; title = "Next Slide"; ObjectID = "s0G-5Y-hRb"; */
-"s0G-5Y-hRb.title" = "Next Slide";
+"s0G-5Y-hRb.title" = "Diapositive suivante";
 
 /* Class = "NSMenuItem"; title = "Mode"; ObjectID = "sQh-A9-Icc"; */
 "sQh-A9-Icc.title" = "Mode";
 
 /* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
-"tXI-mr-wws.title" = "Open Recent";
+"tXI-mr-wws.title" = "Ouvrir un élément récent";
 
-/* Class = "NSMenu"; title = "Slidejar"; ObjectID = "uQy-DD-JDr"; */
-"uQy-DD-JDr.title" = "Slidejar";
+/* Class = "NSMenu"; title = "SlidePilot"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "SlidePilot";
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
-"uRl-iY-unG.title" = "Cut";
+"uRl-iY-unG.title" = "Couper";
 
 /* Class = "NSMenu"; title = "Presentation"; ObjectID = "uzH-JS-q45"; */
-"uzH-JS-q45.title" = "Presentation";
+"uzH-JS-q45.title" = "Exposé";
 
 /* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "vNY-rz-j42"; */
-"vNY-rz-j42.title" = "Clear Menu";
+"vNY-rz-j42.title" = "Effacer le menu";
 
 /* Class = "NSMenuItem"; title = "Presentation"; ObjectID = "w6Q-ep-WBl"; */
-"w6Q-ep-WBl.title" = "Presentation";
+"w6Q-ep-WBl.title" = "Exposé";
+
+/* Class = "NSMenuItem"; title = "Moderator"; ObjectID = "w7l-df-asi"; */
+"w7l-df-asi.title" = "Modérateur";
 
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
-"wpr-3q-Mcd.title" = "Help";
+"wpr-3q-Mcd.title" = "Aide";
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
-"x3v-GG-iWU.title" = "Copy";
+"x3v-GG-iWU.title" = "Copier";
 
 /* Class = "NSWindow"; title = "Window"; ObjectID = "zZP-Ud-eGP"; */
-"zZP-Ud-eGP.title" = "Window";
+"zZP-Ud-eGP.title" = "Fenêtre";
+
+/* Class = "NSMenuItem"; title = "Show Navigator"; ObjectID = "zx2-Yz-Rxn"; */
+"zx2-Yz-Rxn.title" = "Afficher le navigateur";

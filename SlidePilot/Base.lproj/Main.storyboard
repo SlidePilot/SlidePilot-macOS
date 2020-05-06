@@ -172,44 +172,20 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Presentation" identifier="PresentationMenu" id="w6Q-ep-WBl">
+                            <menuItem title="Moderator" id="w7l-df-asi">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Presentation" autoenablesItems="NO" id="uzH-JS-q45">
+                                <menu key="submenu" title="Moderator" autoenablesItems="NO" id="O4y-2K-zDw">
                                     <items>
-                                        <menuItem title="Previous Slide" tag="1" keyEquivalent="" id="gcL-Jw-1Oj">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="ijM-Of-CjL"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Previous Slide" tag="2" hidden="YES" keyEquivalent="" id="Ogv-VI-0Jg">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="pup-Ul-KmX"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Next Slide" tag="3" keyEquivalent="" id="s0G-5Y-hRb">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="sj2-C9-1bJ"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Next Slide" tag="4" hidden="YES" keyEquivalent="" id="XpD-9W-0P3">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="DhG-49-Jbe"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Show Navigator" keyEquivalent="o" id="zx2-Yz-Rxn">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="showNavigator:" target="Ady-hI-5gd" id="wx2-dD-z2m"/>
+                                                <action selector="showNavigator:" target="Ady-hI-5gd" id="fbU-Ll-dU4"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Preview Next Slide" keyEquivalent="p" id="Atm-A9-uUk">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="previewNextSlide:" target="Voe-Tx-rLC" id="vGH-su-rW4"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="lIR-Xf-rG6"/>
@@ -250,26 +226,6 @@
                                                 <action selector="resetTime:" target="Ady-hI-5gd" id="yza-tb-hV3"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="WxF-lf-SZG"/>
-                                        <menuItem title="Display Black Screen" tag="201" keyEquivalent="b" identifier="DisplayBlackScreen" id="Wsl-Lh-Rzy">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="displayBlackScreen:" target="Ady-hI-5gd" id="BKA-af-xoT"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Display White Screen" tag="202" keyEquivalent="w" identifier="DisplayWhiteScreen" id="E0b-Yv-pqH">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="displayWhiteScreen:" target="Ady-hI-5gd" id="7b4-IZ-DMM"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="SKb-ny-ddI"/>
-                                        <menuItem title="Show Cursor" keyEquivalent="c" id="iHL-eH-XtE">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="showCursor:" target="Ady-hI-5gd" id="Fo5-gZ-C8j"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="A3e-R8-0Hj"/>
                                         <menuItem title="Show Notes" tag="401" keyEquivalent="n" identifier="ShowNotes" id="fS9-YP-QfR">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -282,29 +238,150 @@
                                             <menu key="submenu" autoenablesItems="NO" id="Vm6-Hh-mT3">
                                                 <items>
                                                     <menuItem title="None" keyEquivalent="0" identifier="NotesPositionNone" id="Kws-6x-VZZ">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="selectNotesPositionNone:" target="Ady-hI-5gd" id="7hZ-8n-HCQ"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="qQ8-DW-93l"/>
                                                     <menuItem title="Right" tag="403" keyEquivalent="1" identifier="NotesPositionRight" id="f9q-Hv-2g2">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="selectNotesPositionRight:" target="Ady-hI-5gd" id="fHi-wN-OWr"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Left" tag="404" keyEquivalent="2" identifier="NotesPositionLeft" id="bSo-dU-i8i">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="selectNotesPositionLeft:" target="Ady-hI-5gd" id="JCn-OR-xmn"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Bottom" tag="405" keyEquivalent="3" identifier="NotesPositionBottom" id="3BI-JZ-e7T">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="selectNotesPositionBottom:" target="Ady-hI-5gd" id="e5h-U3-JO9"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Top" tag="406" keyEquivalent="4" identifier="NotesPositionTop" id="Tzc-zb-uAo">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="selectNotesPositionTop:" target="Ady-hI-5gd" id="YQs-qy-cpR"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Presentation" identifier="PresentationMenu" id="w6Q-ep-WBl">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Presentation" autoenablesItems="NO" id="uzH-JS-q45">
+                                    <items>
+                                        <menuItem title="Previous Slide" tag="1" keyEquivalent="" id="gcL-Jw-1Oj">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="ijM-Of-CjL"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Previous Slide" tag="2" hidden="YES" keyEquivalent="" id="Ogv-VI-0Jg">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="pup-Ul-KmX"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Previous Slide" tag="3" hidden="YES" keyEquivalent="" id="ywH-LG-iQS">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="7VZ-jt-0gk"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Next Slide" tag="4" keyEquivalent="" id="s0G-5Y-hRb">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="sj2-C9-1bJ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Next Slide" tag="5" hidden="YES" keyEquivalent="" id="XpD-9W-0P3">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="DhG-49-Jbe"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Next Slide" tag="6" hidden="YES" keyEquivalent="" id="BWz-Hx-oMf">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="Lo6-NI-nsc"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="WxF-lf-SZG"/>
+                                        <menuItem title="Display Black Screen" tag="201" keyEquivalent="b" identifier="DisplayBlackScreen" id="Wsl-Lh-Rzy">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="displayBlackCurtain:" target="Ady-hI-5gd" id="BgD-xe-xba"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Display Black Screen" tag="201" hidden="YES" keyEquivalent="." id="nx9-eN-d1w">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="displayBlackCurtain:" target="Ady-hI-5gd" id="BAz-re-8Tu"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Display White Screen" tag="203" keyEquivalent="w" identifier="DisplayWhiteScreen" id="E0b-Yv-pqH">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="displayWhiteCurtain:" target="Ady-hI-5gd" id="3Wm-Pt-dzj"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="SKb-ny-ddI"/>
+                                        <menuItem title="Show Cursor" keyEquivalent="c" id="iHL-eH-XtE">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showPointer:" target="Ady-hI-5gd" id="p1W-9V-QV8"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Cursor Appearance" id="HNs-Tl-r53">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="Fg3-Dc-rDB">
+                                                <items>
+                                                    <menuItem title="Cursor" keyEquivalent="1" id="Auy-Z6-pIV">
+                                                        <connections>
+                                                            <action selector="selectPointerAppearanceCursor:" target="Voe-Tx-rLC" id="L30-4o-wCD"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Dot" keyEquivalent="2" id="akh-gx-hr7">
+                                                        <connections>
+                                                            <action selector="selectPointerAppearanceDot:" target="Voe-Tx-rLC" id="yAb-B4-aPy"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Circle" keyEquivalent="3" id="KeP-a7-ltS">
+                                                        <connections>
+                                                            <action selector="selectPointerAppearanceCircle:" target="Voe-Tx-rLC" id="wSW-XY-aJk"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Target" keyEquivalent="4" id="YH8-Ja-Yo4">
+                                                        <connections>
+                                                            <action selector="selectPointerAppearanceTarget:" target="Voe-Tx-rLC" id="env-0T-faO"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Target Color" keyEquivalent="5" id="UYT-sb-cqr">
+                                                        <connections>
+                                                            <action selector="selectPointerAppearanceTargetColor:" target="Voe-Tx-rLC" id="JUi-fX-son"/>
                                                         </connections>
                                                     </menuItem>
                                                 </items>
@@ -319,7 +396,7 @@
                                     <items>
                                         <menuItem title="SlidePilot Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
+                                                <action selector="openHelpWebsite:" target="Ady-hI-5gd" id="WG8-f5-oev"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -333,13 +410,28 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SlidePilot" customModuleProvider="target">
                     <connections>
+                        <outlet property="displayBlackCurtainItem" destination="Wsl-Lh-Rzy" id="7mA-Hq-uva"/>
+                        <outlet property="displayWhiteCurtainItem" destination="E0b-Yv-pqH" id="SEd-Ly-9Bk"/>
                         <outlet property="notesPositionBottomItem" destination="3BI-JZ-e7T" id="pKx-fs-G7H"/>
                         <outlet property="notesPositionLeftItem" destination="bSo-dU-i8i" id="DjP-tk-Ahe"/>
                         <outlet property="notesPositionMenu" destination="Vm6-Hh-mT3" id="cll-ph-YG3"/>
                         <outlet property="notesPositionNoneItem" destination="Kws-6x-VZZ" id="Jqy-jR-rNk"/>
                         <outlet property="notesPositionRightItem" destination="f9q-Hv-2g2" id="bSh-UA-wpQ"/>
                         <outlet property="notesPositionTopItem" destination="Tzc-zb-uAo" id="qQM-zP-BpH"/>
+                        <outlet property="pointerAppearanceCircleItem" destination="KeP-a7-ltS" id="Uw9-xu-cuL"/>
+                        <outlet property="pointerAppearanceCursorItem" destination="Auy-Z6-pIV" id="YXR-VY-B6z"/>
+                        <outlet property="pointerAppearanceDotItem" destination="akh-gx-hr7" id="W68-MN-b4s"/>
+                        <outlet property="pointerAppearanceMenu" destination="Fg3-Dc-rDB" id="Lc7-rB-8Fb"/>
+                        <outlet property="pointerAppearanceTargetColorItem" destination="UYT-sb-cqr" id="I6y-rg-13D"/>
+                        <outlet property="pointerAppearanceTargetItem" destination="YH8-Ja-Yo4" id="MIO-hN-XUi"/>
+                        <outlet property="previewNextSlideItem" destination="Atm-A9-uUk" id="nUt-4P-7zY"/>
+                        <outlet property="setTimerItem" destination="GyA-9h-Aoe" id="4aw-Cy-cL1"/>
+                        <outlet property="showNavigatorItem" destination="zx2-Yz-Rxn" id="h3m-To-UaI"/>
                         <outlet property="showNotesItem" destination="fS9-YP-QfR" id="eB2-IZ-Yjq"/>
+                        <outlet property="showPointerItem" destination="iHL-eH-XtE" id="h7j-l5-bM6"/>
+                        <outlet property="stopwatchModeItem" destination="fd7-Nw-UnK" id="oc8-Pp-V2A"/>
+                        <outlet property="timeModeMenu" destination="yoy-J2-sgx" id="BNz-oA-ZwN"/>
+                        <outlet property="timerModeItem" destination="Mhe-VV-WGl" id="PVP-pB-rBi"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -432,7 +524,7 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="tLk-sB-UgV">
                                         <rect key="frame" x="0.0" y="0.0" width="700" height="180"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="SlidePilot" customModuleProvider="target">
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="SlidePilot" customModuleProvider="target">
                                                 <rect key="frame" x="267" y="47" width="166" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="85" id="vnc-Hp-eJ9"/>
@@ -456,7 +548,7 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="IVP-vn-KwH">
                                         <rect key="frame" x="700" y="0.0" width="700" height="180"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="SlidePilot" customModuleProvider="target">
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="SlidePilot" customModuleProvider="target">
                                                 <rect key="frame" x="267" y="47" width="166" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="85" id="dOp-qt-xnl"/>

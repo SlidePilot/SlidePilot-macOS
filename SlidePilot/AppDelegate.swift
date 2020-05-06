@@ -12,8 +12,25 @@ import PDFKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    // MARK: - Properties
+    /** Indicates, whether the timer should be started on slide change. */
+    var shouldStartTimerOnSlideChange = true
+    
+    
     // MARK: - Menu Outlets
+    @IBOutlet weak var showNavigatorItem: NSMenuItem!
+    @IBOutlet weak var previewNextSlideItem: NSMenuItem!
+    @IBOutlet weak var displayBlackCurtainItem: NSMenuItem!
+    @IBOutlet weak var displayWhiteCurtainItem: NSMenuItem!
+    @IBOutlet weak var showPointerItem: NSMenuItem!
     @IBOutlet weak var showNotesItem: NSMenuItem!
+    
+    @IBOutlet weak var pointerAppearanceMenu: NSMenu!
+    @IBOutlet weak var pointerAppearanceCursorItem: NSMenuItem!
+    @IBOutlet weak var pointerAppearanceDotItem: NSMenuItem!
+    @IBOutlet weak var pointerAppearanceCircleItem: NSMenuItem!
+    @IBOutlet weak var pointerAppearanceTargetItem: NSMenuItem!
+    @IBOutlet weak var pointerAppearanceTargetColorItem: NSMenuItem!
     
     @IBOutlet weak var notesPositionMenu: NSMenu!
     @IBOutlet weak var notesPositionNoneItem: NSMenuItem!
@@ -22,11 +39,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var notesPositionBottomItem: NSMenuItem!
     @IBOutlet weak var notesPositionTopItem: NSMenuItem!
     
-
+    @IBOutlet weak var timeModeMenu: NSMenu!
+    @IBOutlet weak var stopwatchModeItem: NSMenuItem!
+    @IBOutlet weak var timerModeItem: NSMenuItem!
+    @IBOutlet weak var setTimerItem: NSMenuItem!
+    
+    
+    // MARK: - Identifiers
+    private let presenterWindowIdentifier = NSUserInterfaceItemIdentifier("PresenterWindowID")
+    private let presentationWindowIdentifier = NSUserInterfaceItemIdentifier("PresentationWindowID")
+    
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        // Disable Tabs
         if #available(OSX 10.12, *) {
             NSWindow.allowsAutomaticWindowTabbing = false
+        }
+        
+        // Enable TouchBar
+        if #available(OSX 10.12.2, *) {
+            NSApplication.shared.isAutomaticCustomizeTouchBarMenuItemEnabled = true
         }
         
         // Count app starts
@@ -35,6 +67,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
         DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChange(_:)))
+        DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
+        DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
+        DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
+        DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
+        DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
+        DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
+        
+        // Set default display options
+        DisplayController.setPointerAppearance(.cursor, sender: self)
+        
+        // Subscribe to time changes
+        TimeController.subscribeTimeMode(target: self, action: #selector(timeModeDidChange(_:)))
+        
+        // Set default time options
+        TimeController.setTimeMode(mode: .stopwatch, sender: self)
         
         startup()
     }
@@ -42,6 +89,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
+    
+    
+    @IBAction func openHelpWebsite(_ sender: Any) {
+        if #available(OSX 10.15, *) {
+            let openConfig = NSWorkspace.OpenConfiguration()
+            openConfig.addsToRecentItems = true
+            NSWorkspace.shared.open(URL(string: "http://slidepilot.gitbook.io")!, configuration: openConfig, completionHandler: nil)
+        } else {
+            NSWorkspace.shared.open(URL(string: "http://slidepilot.gitbook.io")!)
+        }
     }
 
     
@@ -77,6 +140,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             PresentationWindowController else { return }
         guard let presentationWindow = presentationWindowCtrl.window else { return }
         guard let presentationView = presentationWindowCtrl.contentViewController as? PresentationViewController else { return }
+        
+        // Set window identifiers
+        presenterWindow.identifier = presenterWindowIdentifier
+        presentationWindow.identifier = presentationWindowIdentifier
         
         NSApp.activate(ignoringOtherApps: true)
         
@@ -145,15 +212,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
         guard let pdfDocument = PDFDocument(url: url) else { return }
         
+        // Open document
+        DocumentController.setDocument(pdfDocument, sender: self)
+        
         // Reset page
         PageController.selectPage(at: 0, sender: self)
         
         // Reset display options
+        DisplayController.setDisplayNextSlidePreview(true, sender: self)
         DisplayController.setNotesPosition(.none, sender: self)
         DisplayController.setDisplayNotes(false, sender: self)
         
-        // Open document
-        DocumentController.setDocument(pdfDocument, sender: self)
+        // Reset stopwatch/timer
+        TimeController.resetTime(sender: self)
+        
+        // Reset property, that timer should start when chaning slide
+        shouldStartTimerOnSlideChange = true
     }
     
     
@@ -164,7 +238,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     
-    // MARK: - Handling Slides
+    // MARK: - Menu Item Actions
     
     @IBAction func previousSlide(_ sender: NSMenuItem) {
         PageController.previousPage(sender: self)
@@ -173,6 +247,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func nextSlide(_ sender: NSMenuItem) {
         PageController.nextPage(sender: self)
+        
+        // If this is the first next slide call for this document, start time automatically
+        if shouldStartTimerOnSlideChange {
+            shouldStartTimerOnSlideChange = false
+            TimeController.setIsRunning(true, sender: self)
+        }
     }
     
     
@@ -206,46 +286,84 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
-    @IBAction func displayWhiteScreen(_ sender: NSMenuItem) {
-        // Uncheck other item
-        if let whiteScreenItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "DisplayBlackScreen") }) {
-            whiteScreenItem.state = .off
-        }
-        
-        guard let isCovered = presentationView?.pageView.isCoveredWhite else { return }
-        
-        // Cover or uncover
-        if isCovered {
-            presentationView?.pageView.uncover()
-            sender.state = .off
-        } else {
-            presentationView?.pageView.coverWhite()
-            sender.state = .on
-        }
-    }
-    
-    
-    @IBAction func displayBlackScreen(_ sender: NSMenuItem) {
-        // Uncheck other item
-        if let whiteScreenItem = sender.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "DisplayWhiteScreen") }) {
-            whiteScreenItem.state = .off
-        }
-        
-        guard let isCovered = presentationView?.pageView.isCoveredBlack else { return }
-        
-        // Cover or uncover
-        if isCovered {
-            presentationView?.pageView.uncover()
-            sender.state = .off
-        } else {
-            presentationView?.pageView.coverBlack()
-            sender.state = .on
-        }
-    }
-    
-    
     @IBAction func showNotes(_ sender: NSMenuItem) {
         DisplayController.switchDisplayNotes(sender: sender)
+    }
+    
+    
+    @IBAction func displayBlackCurtain(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayBlackCurtain(sender: sender)
+    }
+    
+    
+    @IBAction func displayWhiteCurtain(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayWhiteCurtain(sender: sender)
+    }
+    
+    
+    @IBAction func showNavigator(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayNavigator(sender: sender)
+    }
+    
+    @IBAction func previewNextSlide(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayNextSlidePreview(sender: sender)
+    }
+    
+    
+    @IBAction func showPointer(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayPointer(sender: sender)
+    }
+    
+    
+    @IBAction func selectPointerAppearanceCursor(_ sender: NSMenuItem) {
+        DisplayController.setPointerAppearance(.cursor, sender: sender)
+    }
+    
+    
+    @IBAction func selectPointerAppearanceDot(_ sender: NSMenuItem) {
+        DisplayController.setPointerAppearance(.dot, sender: sender)
+    }
+    
+    
+    @IBAction func selectPointerAppearanceCircle(_ sender: NSMenuItem) {
+        DisplayController.setPointerAppearance(.circle, sender: sender)
+    }
+    
+    
+    @IBAction func selectPointerAppearanceTarget(_ sender: NSMenuItem) {
+        DisplayController.setPointerAppearance(.target, sender: sender)
+    }
+    
+    
+    @IBAction func selectPointerAppearanceTargetColor(_ sender: NSMenuItem) {
+        DisplayController.setPointerAppearance(.targetColor, sender: sender)
+    }
+    
+    @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
+        TimeController.setTimeMode(mode: .stopwatch, sender: self)
+    }
+    
+    
+    @IBAction func selectModeTimer(_ sender: NSMenuItem) {
+        TimeController.setTimeMode(mode: .timer, sender: self)
+    }
+    
+    
+    @IBAction func setTimer(_ sender: NSMenuItem) {
+        TimeController.requestSetTimerInterval(sender: self)
+    }
+    
+    
+    @IBAction func startStopTime(_ sender: NSMenuItem) {
+        TimeController.switchIsRunning(sender: self)
+        
+        // Don't start time automatically anymore
+        shouldStartTimerOnSlideChange = false
+    }
+    
+    
+    @IBAction func resetTime(_ sender: NSMenuItem) {
+        TimeController.resetTime(sender: self)
     }
     
     
@@ -257,10 +375,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Turn off all items in notes position menu
         notesPositionMenu.items.forEach({ $0.state = .off })
         
-        // Set correct menu item identifier for notes position
+        // Select correct menu item for notes position
         switch DisplayController.notesPosition {
         case .none:
             notesPositionNoneItem.state = .on
+            if DisplayController.areNotesDisplayed {
+                DisplayController.setDisplayNotes(false, sender: self)
+            }
         case .right:
             notesPositionRightItem.state = .on
         case .left:
@@ -275,17 +396,82 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func displayNotesDidChange(_ notification: Notification) {
         // Set correct state for display notes menu item
-        showNotesItem.state = DisplayController.displayNotes ? .on : .off
+        showNotesItem.state = DisplayController.areNotesDisplayed ? .on : .off
         
         
         // Select notes position right by default when displaying notes
         // Only if notes are displayed currently and current note position is none
-        if DisplayController.displayNotes, DisplayController.notesPosition == .none {
+        if DisplayController.areNotesDisplayed, DisplayController.notesPosition == .none {
             DisplayController.setNotesPosition(.right, sender: self)
         }
+    }
+    
+    
+    @objc func displayBlackCurtainDidChange(_ notification: Notification) {
+        // Set correct state for menu item
+        displayBlackCurtainItem.state = DisplayController.isBlackCurtainDisplayed ? .on : .off
+    }
+    
+    
+    @objc func displayWhiteCurtainDidChange(_ notification: Notification) {
+        // Set correct state for menu item
+        displayWhiteCurtainItem.state = DisplayController.isWhiteCurtainDisplayed ? .on : .off
+    }
+    
+    
+    @objc func displayNavigatorDidChange(_ notification: Notification) {
+        // Set correct state for menu item
+        showNavigatorItem.state = DisplayController.isNavigatorDisplayed ? .on : .off
+    }
+    
+    
+    @objc func displayNextSlidePreviewDidChange(_ notifcation: Notification) {
+        // Set correct state for menu item
+        previewNextSlideItem.state = DisplayController.isNextSlidePreviewDisplayed ? .on : .off
+    }
+    
+    
+    @objc func displayPointerDidChange(_ notification: Notification) {
+        // Set correct state for menu item
+        showPointerItem.state = DisplayController.isPointerDisplayed ? .on : .off
+    }
+    
+    
+    @objc func pointerAppearanceDidChange(_ notification: Notification) {
+        // Turn off all items in notes position menu
+        pointerAppearanceMenu.items.forEach({ $0.state = .off })
         
-        // Enable selecting notes position none when notes ARE NOT displayed
-        // Disable selecting notes position none when notes ARE displayed
-        notesPositionNoneItem.isEnabled = !DisplayController.displayNotes
+        // Select correct menu item for notes position
+        switch DisplayController.pointerAppearance {
+        case .cursor:
+            pointerAppearanceCursorItem.state = .on
+        case .dot:
+            pointerAppearanceDotItem.state = .on
+        case .circle:
+            pointerAppearanceCircleItem.state = .on
+        case .target:
+            pointerAppearanceTargetItem.state = .on
+        case .targetColor:
+            pointerAppearanceTargetColorItem.state = .on
+        }
+    }
+    
+    
+    @objc func timeModeDidChange(_ notification: Notification) {
+        // Turn off all items in mode menu
+        timeModeMenu.items.forEach({ $0.state = .off })
+        
+        // Select correct menu item for notes position
+        // Enable/Disable "Set Timer" menu item
+        switch TimeController.timeMode {
+        case .stopwatch:
+            stopwatchModeItem.state = .on
+            setTimerItem.isEnabled = false
+        case .timer:
+            timerModeItem.state = .on
+            setTimerItem.isEnabled = true
+        }
+        
+        TimeController.resetTime(sender: self)
     }
 }

@@ -11,10 +11,14 @@ import Cocoa
 class PointerView: NSImageView {
     
     enum PointerType {
-        case cursor, dot, circle
+        case cursor, dot, circle, target, targetColor
     }
     
-    let type: PointerType
+    var type: PointerType {
+        didSet {
+            setup(type: type)
+        }
+    }
     
 
     override init(frame frameRect: NSRect) {
@@ -31,14 +35,31 @@ class PointerView: NSImageView {
     }
     
     
-    init(frame frameRect: NSRect, type: PointerType) {
+    init(origin: NSPoint, type: PointerType) {
         self.type = type
-        super.init(frame: frameRect)
+        super.init(frame: .zero)
         setup(type: self.type)
     }
     
     
-    func setup(type: PointerType) {
+    private func resetAppearance() {
+        self.image = nil
+        
+        self.layer?.cornerRadius = 0
+        self.layer?.backgroundColor = .clear
+        self.layer?.borderWidth = 0
+        self.layer?.borderColor = .clear
+
+        self.shadow = nil
+        self.layer?.shadowOpacity = 0
+        self.layer?.shadowColor = .clear
+        self.layer?.shadowOffset = NSMakeSize(0, 0)
+        self.layer?.shadowRadius = 0.0
+    }
+    
+    
+    private func setup(type: PointerType) {
+        resetAppearance()
         switch type {
         case .cursor:
             setupCursor()
@@ -46,22 +67,28 @@ class PointerView: NSImageView {
             setupDot()
         case .circle:
             setupCircle()
+        case .target:
+            setupTarget()
+        case .targetColor:
+            setupTargetColor()
         }
     }
     
     
-    func setupCursor() {
+    private func setupCursor() {
         let cursorImage = NSCursor.arrow.image
-        self.frame = NSRect(x: self.frame.minX, y: self.frame.minY, width: cursorImage.size.width, height: cursorImage.size.height)
+        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: cursorImage.size.width, height: cursorImage.size.height)
         self.image = cursorImage
     }
     
     
-    func setupDot() {
+    private func setupDot() {
+        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 10.0, height: 10.0)
+            
         self.wantsLayer = true
         self.layer?.cornerRadius = min(self.frame.width, self.frame.height) / 2
-        self.layer?.backgroundColor = NSColor(calibratedWhite: 0.0, alpha: 0.8).cgColor
-        self.layer?.borderWidth = 3.0
+        self.layer?.backgroundColor = .black
+        self.layer?.borderWidth = 2.0
         self.layer?.borderColor = .white
 
         self.shadow = NSShadow()
@@ -72,7 +99,9 @@ class PointerView: NSImageView {
     }
     
     
-    func setupCircle() {
+    private func setupCircle() {
+        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 20.0, height: 20.0)
+        
         self.wantsLayer = true
         self.layer?.cornerRadius = min(self.frame.width, self.frame.height) / 2
         self.layer?.backgroundColor = .clear
@@ -87,13 +116,25 @@ class PointerView: NSImageView {
     }
     
     
-    func setPosition(_ position: NSPoint) {
+    private func setupTarget() {
+        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 44.0, height: 44.0)
+        self.image = NSImage(named: "TargetPointer")!
+    }
+    
+    
+    private func setupTargetColor() {
+        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 44.0, height: 44.0)
+        self.image = NSImage(named: "TargetPointerColor")!
+    }
+    
+    
+    public func setPosition(_ position: NSPoint) {
         var pointerPosition = position
         switch self.type {
         case .cursor:
             pointerPosition.x -= 4
             pointerPosition.y = pointerPosition.y - self.bounds.height + 4
-        case .dot, .circle:
+        case .dot, .circle, .target, .targetColor:
             pointerPosition.x -= self.bounds.width / 2
             pointerPosition.y -= self.bounds.height / 2
         }

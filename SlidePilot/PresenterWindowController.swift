@@ -18,5 +18,4 @@ class PresenterWindowController: NSWindowController {
         
         self.window?.backgroundColor = NSColor(white: 0.07, alpha: 1.0)
     }
-
 }

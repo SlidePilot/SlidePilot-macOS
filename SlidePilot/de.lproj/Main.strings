@@ -20,11 +20,14 @@
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
 "6dh-zS-Vam.title" = "Wiederholen";
 
-/* Class = "NSMenuItem"; title = "Dark Appearance"; ObjectID = "9cd-7L-rZh"; */
-"9cd-7L-rZh.title" = "Dunkle Darstellung";
-
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "Hauptmenü";
+
+/* Class = "NSMenuItem"; title = "Preview Next Slide"; ObjectID = "Atm-A9-uUk"; */
+"Atm-A9-uUk.title" = "Vorschau nächste Folie";
+
+/* Class = "NSMenuItem"; title = "Cursor"; ObjectID = "Auy-Z6-pIV"; */
+"Auy-Z6-pIV.title" = "Cursor";
 
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
 "BOF-NM-1cW.title" = "Einstellungen…";
@@ -50,6 +53,9 @@
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "H8h-7b-M4v"; */
 "H8h-7b-M4v.title" = "Darstellung";
 
+/* Class = "NSMenuItem"; title = "Cursor Appearance"; ObjectID = "HNs-Tl-r53"; */
+"HNs-Tl-r53.title" = "Cursor Aussehen";
+
 /* Class = "NSMenu"; title = "View"; ObjectID = "HyV-fh-RgO"; */
 "HyV-fh-RgO.title" = "Darstellung";
 
@@ -62,6 +68,9 @@
 /* Class = "NSTextFieldCell"; title = "Label"; ObjectID = "KO4-ee-5js"; */
 "KO4-ee-5js.title" = "Label";
 
+/* Class = "NSMenuItem"; title = "Circle"; ObjectID = "KeP-a7-ltS"; */
+"KeP-a7-ltS.title" = "Kreis";
+
 /* Class = "NSMenuItem"; title = "None"; ObjectID = "Kws-6x-VZZ"; */
 "Kws-6x-VZZ.title" = "Keine";
 
@@ -70,6 +79,9 @@
 
 /* Class = "NSMenuItem"; title = "Timer"; ObjectID = "Mhe-VV-WGl"; */
 "Mhe-VV-WGl.title" = "Timer";
+
+/* Class = "NSMenu"; title = "Moderator"; ObjectID = "O4y-2K-zDw"; */
+"O4y-2K-zDw.title" = "Moderator";
 
 /* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
 "OY7-WF-poV.title" = "Im Dock ablegen";
@@ -95,6 +107,9 @@
 /* Class = "NSMenuItem"; title = "Top"; ObjectID = "Tzc-zb-uAo"; */
 "Tzc-zb-uAo.title" = "Oben";
 
+/* Class = "NSMenuItem"; title = "Target Color"; ObjectID = "UYT-sb-cqr"; */
+"UYT-sb-cqr.title" = "Target Farbe";
+
 /* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "VVU-xh-TkN"; */
 "VVU-xh-TkN.title" = "Nach Updates suchen…";
 
@@ -116,8 +131,14 @@
 /* Class = "NSMenuItem"; title = "Next Slide"; ObjectID = "XpD-9W-0P3"; */
 "XpD-9W-0P3.title" = "Nächste Folie";
 
+/* Class = "NSMenuItem"; title = "Target"; ObjectID = "YH8-Ja-Yo4"; */
+"YH8-Ja-Yo4.title" = "Target";
+
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "Fenster";
+
+/* Class = "NSMenuItem"; title = "Dot"; ObjectID = "akh-gx-hr7"; */
+"akh-gx-hr7.title" = "Punkt";
 
 /* Class = "NSMenuItem"; title = "Start/Stop Time"; ObjectID = "bL3-yv-j1V"; */
 "bL3-yv-j1V.title" = "Start/Stop Zeit";
@@ -181,6 +202,9 @@
 
 /* Class = "NSMenuItem"; title = "Presentation"; ObjectID = "w6Q-ep-WBl"; */
 "w6Q-ep-WBl.title" = "Präsentation";
+
+/* Class = "NSMenuItem"; title = "Moderator"; ObjectID = "w7l-df-asi"; */
+"w7l-df-asi.title" = "Moderator";
 
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
 "wpr-3q-Mcd.title" = "Hilfe";

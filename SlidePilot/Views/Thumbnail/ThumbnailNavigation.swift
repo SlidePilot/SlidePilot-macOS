@@ -100,7 +100,9 @@ class ThumbnailNavigation: NSView {
         tableView.delegate = self
         tableView.backgroundColor = .clear
         scrollView.documentView = tableView
-        tableView.usesAutomaticRowHeights = true
+        if #available(OSX 10.13, *) {
+            tableView.usesAutomaticRowHeights = true
+        }
         tableView.intercellSpacing = NSSize(width: 0.0, height: 20.0)
         tableView.selectionHighlightStyle = .none
         tableView.rowHeight = 50.0
@@ -276,9 +278,13 @@ extension ThumbnailNavigation: NSTableViewDelegate {
         cell.translatesAutoresizingMaskIntoConstraints = false
         cell.addSubview(thumbnail)
         cell.addConstraints([NSLayoutConstraint(item: thumbnail, attribute: .left, relatedBy: .equal, toItem: cell, attribute: .left, multiplier: 1.0, constant: 0.0),
-                             NSLayoutConstraint(item: thumbnail, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: 0.0),
-                             NSLayoutConstraint(item: thumbnail, attribute: .right, relatedBy: .equal, toItem: cell, attribute: .right, multiplier: 1.0, constant: -20.0),
-                             NSLayoutConstraint(item: thumbnail, attribute: .bottom, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+                             NSLayoutConstraint(item: thumbnail, attribute: .right, relatedBy: .equal, toItem: cell, attribute: .right, multiplier: 1.0, constant: -20.0)])
+        
+        // Add constraints for automaticRowHeight
+        if #available(OSX 10.13, *) {
+            cell.addConstraints([NSLayoutConstraint(item: thumbnail, attribute: .top, relatedBy: .equal, toItem: cell, attribute: .top, multiplier: 1.0, constant: 0.0),
+                                 NSLayoutConstraint(item: thumbnail, attribute: .bottom, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+        }
         
         // Adjust thumbnail height to fit the images height if possible
         if let pageFrame = thumbnail.page.pdfDocument?.page(at: thumbnail.page.currentPage)?.bounds(for: .cropBox) {
@@ -294,7 +300,18 @@ extension ThumbnailNavigation: NSTableViewDelegate {
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return 120.0
+        if #available(OSX 10.13, *) {
+            return 120.0
+        } else {
+            // Calculate row height for specific page
+            if let document = DocumentController.document,
+                let pageBounds = RenderCache.shared.getPage(at: 0, for: document, mode: DisplayController.notesPosition.displayModeForPresentation(), priority: .background)?.size {
+                let tableWidth: CGFloat = PresenterViewController.navigationWidth-20.0
+                return pageBounds.height * (tableWidth / pageBounds.width)
+            } else {
+                return 120.0
+            }
+        }
     }
     
     
@@ -303,6 +320,26 @@ extension ThumbnailNavigation: NSTableViewDelegate {
         PageController.selectPage(at: tableView.selectedRow, sender: self)
     }
     
+    
+    func tableView(_ tableView: NSTableView, shouldTypeSelectFor event: NSEvent, withCurrentSearch searchString: String?) -> Bool {
+        false
+    }
+    
+    
+    override func keyDown(with event: NSEvent) {
+        // When a key is pressed, select the searchField
+        searchField.becomeFirstResponder()
+        
+        // Get the typed key and insert it in the searchField
+        guard let input = event.characters else { return }
+        searchField.stringValue = input
+        
+        // Deselect searchField text and locate the cursor at the correct position
+        searchField.currentEditor()?.selectedRange = NSRange(location: input.count, length: 0)
+        
+        // Notify, that the searchField input has changed
+        searchStringEntered(input)
+    }
 }
 
 
@@ -323,24 +360,34 @@ extension ThumbnailNavigation: NSTextFieldDelegate {
             // Select currently highlighted thumbnail on ENTER
             guard let index = currentHighlight else { return false }
             PageController.selectPage(at: index, sender: self)
+            
+            // Select the text in the searchField, so user can continue changing input quickly
+            textView.selectAll(nil)
+            
             return true
         }
         return false
     }
     
+    
     func controlTextDidChange(_ obj: Notification) {
         guard let textField = obj.object as? NSTextField else { return }
         if textField == searchField {
-            // If numbers were entered, find page with this number
-            if let index = Int(textField.stringValue) {
-                highlightThumbnail(at: index-1, scrollVisible: true)
-            }
-            // Otherwise clean highlight
-            else {
-                cleanHighlight(restoreSelection: true)
-            }
-            // TODO: If not a number, search for text on pages
-            // Asynchronously find text in PDF using beginFindString
+            searchStringEntered(textField.stringValue)
         }
+    }
+    
+    
+    func searchStringEntered(_ searchString: String) {
+        // If numbers were entered, find page with this number
+        if let index = Int(searchString) {
+            highlightThumbnail(at: index-1, scrollVisible: true)
+        }
+        // Otherwise clean highlight
+        else {
+            cleanHighlight(restoreSelection: true)
+        }
+        // TODO: If not a number, search for text on pages
+        // Asynchronously find text in PDF using beginFindString
     }
 }

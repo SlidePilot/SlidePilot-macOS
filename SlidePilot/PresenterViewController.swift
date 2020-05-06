@@ -35,12 +35,8 @@ class PresenterViewController: NSViewController {
     
     var navigation: ThumbnailNavigation?
     var navigationLeft: NSLayoutConstraint?
-    let navigationWidth: CGFloat = 180.0
-    
-    
-    var presentationMenu: NSMenu? {
-        NSApp.menu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "PresentationMenu") })?.submenu
-    }
+    static let navigationWidth: CGFloat = 180.0
+    let navigationWidth: CGFloat = PresenterViewController.navigationWidth
     
     
     override func viewDidLoad() {
@@ -48,15 +44,19 @@ class PresenterViewController: NSViewController {
         
         // Setup default configuration
         
-        // Setup timingControl
-        if let timeModeItem = presentationMenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "TimeMode") }) {
-            if let stopwatchModeItem = timeModeItem.submenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier(rawValue: "ModeStopwatch") }) {
-                selectModeStopwatch(stopwatchModeItem)
-            }
-        }
-        
         // Subscribe to document changes
         DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        
+        // Subscribe to display changes
+        DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
+        DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
+        DisplayController.subscribeDisplayCurtain(target: self, action: #selector(displayCurtainDidChange(_:)))
+        
+        // Subscribe to time changes
+        TimeController.subscribeIsRunning(target: self, action: #selector(timeIsRunningDidChange(_:)))
+        TimeController.subscribeTimeMode(target: self, action: #selector(timeModeDidChange(_:)))
+        TimeController.subscribeReset(target: self, action: #selector(timeDidReset(_:)))
+        TimeController.subscribeRequestTimerInterval(target: self, action: #selector(didRequestSetTimerInterval(_:)))
     }
     
     
@@ -93,53 +93,95 @@ class PresenterViewController: NSViewController {
     
     @objc func documentDidChange(_ notification: Notification) {
         hideNavigation(animated: false)
+        DisplayController.setDisplayNavigator(false, sender: self)
     }
     
     
-    
-    
-    // MARK: - Menu Actions
-    
-    var isNavigationShown = false
-    
-    @IBAction func showNavigator(_ sender: NSMenuItem) {
-        if isNavigationShown {
-            hideNavigation(animated: true)
-        } else {
+    @objc func displayNavigatorDidChange(_ notification: Notification) {
+        if DisplayController.isNavigatorDisplayed {
             showNavigation()
-        }
-        
-        sender.state = isNavigationShown ? .on : .off
-    }
-    
-    
-    @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        timingControl.mode = .stopwatch
-        
-        // Disable "Set Timer" menu item
-        if let setTimerMenuItem = sender.menu?.supermenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("SetTimer")} ) {
-            setTimerMenuItem.isEnabled = false
+        } else {
+            hideNavigation(animated: true)
         }
     }
     
     
-    @IBAction func selectModeTimer(_ sender: NSMenuItem) {
-        // Turn off all menu items in same menu
-        sender.menu?.items.forEach({ $0.state = .off })
-        sender.state = .on
-        timingControl.mode = .timer
+    @objc func displayPointerDidChange(_ notification: Notification) {
+        // Set delegate to receive mouse events
+        slideArrangement.trackingDelegate = self
         
-        // Enable "Set Timer" menu item
-        if let setTimerMenuItem = sender.menu?.supermenu?.items.first(where: { $0.identifier == NSUserInterfaceItemIdentifier("SetTimer")} ) {
-            setTimerMenuItem.isEnabled = true
+        // Start tracking by setting initial tracking area
+        slideArrangement.currentSlideView?.addTrackingAreaForSlide()
+        
+        guard pointerDelegate != nil else { return }
+        // Hide pointer immediately if pointer should not display
+        if !DisplayController.isPointerDisplayed {
+            pointerDelegate!.hidePointer()
         }
     }
     
     
-    @IBAction func setTimer(_ sender: NSMenuItem) {
+    @objc func displayCurtainDidChange(_ notification: Notification) {
+        if DisplayController.isCurtainDisplayed {
+            showHiddenScreenNotice()
+        } else {
+            hideHiddenScreenNotice()
+        }
+    }
+    
+    
+    @objc func timeIsRunningDidChange(_ notification: Notification) {
+        // Start/Stop timingControl depending on isRunning from TimeController
+        if TimeController.isRunning {
+            timingControl.start()
+        } else {
+            timingControl.stop()
+        }
+    }
+    
+    
+    @objc func timeModeDidChange(_ notification: Notification) {
+        // Set correct mode for timingControl
+        timingControl.mode = TimeController.timeMode
+    }
+    
+    
+    @objc func timeDidReset(_ notification: Notification) {
+        // Reset time on timingControl
+        timingControl.reset()
+    }
+    
+    
+    @objc func didRequestSetTimerInterval(_ notification: Notification) {
+        // Open the set timer popover
+        openSetTimerDialog(completion: {
+            TimeController.setIsRunning(false, sender: self)
+        })
+    }
+    
+    
+    
+    
+    // MARK: - UI
+    
+    var hiddenScreenNotice: UserNotice?
+    
+    func showHiddenScreenNotice() {
+        // Create notice if necessary
+        if hiddenScreenNotice == nil {
+            hiddenScreenNotice = UserNotice(style: .warning, message: NSLocalizedString("Hidden Screen Warning", comment: "Message for the warning notice, that the screen is hidden."))
+            hiddenScreenNotice?.maxWidth = 250.0
+        }
+        hiddenScreenNotice?.show(in: self.view)
+    }
+    
+    
+    func hideHiddenScreenNotice() {
+        hiddenScreenNotice?.hide()
+    }
+    
+    
+    func openSetTimerDialog(completion: @escaping()->()) {
         let alert = NSAlert()
         alert.messageText = NSLocalizedString("Enter Timer Interval", comment: "Alert message asking for timer interval.")
         alert.informativeText = NSLocalizedString("Enter Timer Interval Text", comment: "Alert text asking for timer interval.")
@@ -156,39 +198,9 @@ class PresenterViewController: NSViewController {
         if let window = self.view.window {
             alert.beginSheetModal(for: window) { (response) in
                 self.timingControl.setTimer(timePicker.time)
+                completion()
             }
         }
-    }
-    
-    
-    @IBAction func startStopTime(_ sender: NSMenuItem) {
-        timingControl.startStop()
-    }
-    
-    
-    @IBAction func resetTime(_ sender: NSMenuItem) {
-        timingControl.reset()
-    }
-    
-    
-    var isShowCursorActive: Bool = false
-    
-    @IBAction func showCursor(_ sender: NSMenuItem) {
-        // Set delegate to receive mouse events
-        slideArrangement.trackingDelegate = self
-        
-        // Start tracking by setting initial tracking area
-        slideArrangement.currentSlideView?.addTrackingAreaForSlide()
-        
-        guard pointerDelegate != nil else { return }
-        if isShowCursorActive {
-            pointerDelegate!.hidePointer()
-            isShowCursorActive = false
-        } else {
-            isShowCursorActive = true
-        }
-        
-        sender.state = isShowCursorActive ? .on : .off
     }
     
     
@@ -221,8 +233,6 @@ class PresenterViewController: NSViewController {
         navigationLeft!.constant = 0.0
         self.view.updateConstraints()
         navigation?.searchField.becomeFirstResponder()
-        
-        isNavigationShown = true
     }
     
     
@@ -246,13 +256,11 @@ class PresenterViewController: NSViewController {
         } else {
             self.view.updateConstraints()
         }
-        
-        isNavigationShown = false
     }
     
     
     override func cancelOperation(_ sender: Any?) {
-        hideNavigation(animated: true)
+        DisplayController.setDisplayNavigator(false, sender: self)
     }
     
     
@@ -274,14 +282,14 @@ class PresenterViewController: NSViewController {
 extension PresenterViewController: SlideTrackingDelegate {
     
     func mouseMoved(to position: NSPoint, in sender: PDFPageView?) {
-        guard isShowCursorActive else { return }
+        guard DisplayController.isPointerDisplayed else { return }
         guard let page = sender else { return }
         
         // Calculate relative position by setting width to 100
         let relativeInImage = calculateRelativePosition(for: position, in: page)
         
         // Hide Pointer if at edge of view
-        if relativeInImage.x < 0.01 || relativeInImage.x > 0.99 || relativeInImage.y < 0.01 || relativeInImage.y > 0.99 {
+        if relativeInImage.x < 0.0 || relativeInImage.x > 1.0 || relativeInImage.y < 0.0 || relativeInImage.y > 1.0 {
             pointerDelegate?.hidePointer()
         } else {
             pointerDelegate?.showPointer()
