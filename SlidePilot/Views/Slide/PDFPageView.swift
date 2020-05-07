@@ -112,6 +112,95 @@ class PDFPageView: NSImageView {
         // Display image
         self.imageScaling = .scaleProportionallyUpOrDown
         self.image = pdfImage
+        
+        // Update cursor rects
+        self.window?.invalidateCursorRects(for: self)
+    }
+    
+    
+    override func resetCursorRects() {
+        super.resetCursorRects()
+        
+        // Add cursor rects for annotation
+        addAnnotationCursorRects()
+    }
+    
+    
+    /** Adds cursor rect for where clickable annotations are. */
+    private func addAnnotationCursorRects() {
+        // Extract annotations
+        guard let page = pdfDocument?.page(at: currentPage) else { return }
+        
+        // Add cursor rects for each annotation
+        for annotation in page.annotations {
+            let annotationBounds = annotation.bounds
+            let pageBounds = page.bounds(for: .cropBox)
+            
+            // Calculate relative bounds on PDF page
+            let relativeBounds = NSRect(x: annotationBounds.origin.x / pageBounds.width,
+                                        y: annotationBounds.origin.y / pageBounds.height,
+                                        width: annotationBounds.width / pageBounds.width,
+                                        height: annotationBounds.height / pageBounds.height)
+            
+            // Translate relative annotations bounds to PDF image bounds
+            let imageFrame = imageRect()
+            let annotationBoundsInImage = NSRect(x: relativeBounds.origin.x * imageFrame.width,
+                                                 y: relativeBounds.origin.y * imageFrame.height,
+                                                 width: relativeBounds.width * imageFrame.width,
+                                                 height: relativeBounds.height * imageFrame.height)
+            
+            // Translate the annotation bounds position to self view frame
+            let annotationBoundsInView = NSRect(x: annotationBoundsInImage.origin.x + imageFrame.origin.x,
+                                                y: annotationBoundsInImage.origin.y + imageFrame.origin.y,
+                                                width: annotationBoundsInImage.width,
+                                                height: annotationBoundsInImage.height)
+            
+            addCursorRect(annotationBoundsInView, cursor: .pointingHand)
+        }
+    }
+    
+    
+    override func mouseDown(with event: NSEvent) {
+        // Calculate the point in relativity to this views origin
+        guard let pointInView = self.window?.contentView?.convert(event.locationInWindow, to: self) else { return }
+        
+        // Calculate the absolute point on the displayed PDF image
+        let imageFrame = imageRect()
+        let pointInImage = NSPoint(x: pointInView.x - imageFrame.origin.x, y: pointInView.y - imageFrame.origin.y)
+        
+        // Calculate the relative point on the displayed PDF image (relative to its size)
+        let relativePointInImage = NSPoint(x: pointInImage.x / imageFrame.width , y: pointInImage.y / imageFrame.height)
+        
+        // Calculate click point relative to PDF page bounds
+        guard let page = pdfDocument?.page(at: currentPage) else { return }
+        let pageBounds = page.bounds(for: .cropBox)
+        let pointOnPage = NSPoint(x: relativePointInImage.x * pageBounds.width, y: relativePointInImage.y * pageBounds.height)
+        
+        // Get annotation for click position
+        let annotation = pdfDocument?.page(at: currentPage)?.annotation(at: pointOnPage)
+        
+        
+        // Handle clicking on annotation
+        
+        // Go to document page
+        if let goToAction = annotation?.action as? PDFActionGoTo {
+            guard let destPage = goToAction.destination.page else { return }
+            guard let destPageIndex = pdfDocument?.index(for: destPage) else { return }
+            PageController.selectPage(at: destPageIndex, sender: self)
+        }
+        
+        // Open web page
+        else if let urlAction = annotation?.action as? PDFActionURL {
+            guard let url = urlAction.url else { return }
+            // Open url in browser
+            if #available(OSX 10.15, *) {
+                let openConfig = NSWorkspace.OpenConfiguration()
+                openConfig.addsToRecentItems = true
+                NSWorkspace.shared.open(url, configuration: openConfig, completionHandler: nil)
+            } else {
+                NSWorkspace.shared.open(url)
+            }
+        }
     }
     
     
