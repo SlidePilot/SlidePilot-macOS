@@ -141,7 +141,7 @@ class PDFPageView: NSImageView {
             
             // Calculate relative bounds on PDF page
             let relativeBounds = NSRect(x: annotationBounds.origin.x / pageBounds.width,
-                                        y: annotationBounds.origin.y / pageBounds.height,
+                                        y: (annotationBounds.origin.y - pageBounds.origin.y) / pageBounds.height,
                                         width: annotationBounds.width / pageBounds.width,
                                         height: annotationBounds.height / pageBounds.height)
             
@@ -177,7 +177,10 @@ class PDFPageView: NSImageView {
         // Calculate click point relative to PDF page bounds
         guard let page = pdfDocument?.page(at: currentPage) else { return }
         let pageBounds = page.bounds(for: .cropBox)
-        let pointOnPage = NSPoint(x: relativePointInImage.x * pageBounds.width, y: relativePointInImage.y * pageBounds.height)
+        let pointOnPage = NSPoint(x: relativePointInImage.x * pageBounds.width, y: relativePointInImage.y * pageBounds.height + pageBounds.origin.y)
+        // Add pageBounds.origin.y to fix when only top half is displayed
+        // Somehow the annotation method doesn't pay respect to cropBox y origin but x origin
+        // Thus no correction for x origin is needed
         
         // Get annotation for click position
         let annotation = pdfDocument?.page(at: currentPage)?.annotation(at: pointOnPage)
