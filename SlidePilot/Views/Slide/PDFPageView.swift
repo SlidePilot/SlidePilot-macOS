@@ -158,6 +158,9 @@ class PDFPageView: NSImageView {
                                                 width: annotationBoundsInImage.width,
                                                 height: annotationBoundsInImage.height)
             
+            // Only continue, when annotation is in image frame
+            guard imageFrame.intersects(annotationBoundsInView) else { continue }
+            
             addCursorRect(annotationBoundsInView, cursor: .pointingHand)
         }
     }
@@ -167,8 +170,11 @@ class PDFPageView: NSImageView {
         // Calculate the point in relativity to this views origin
         guard let pointInView = self.window?.contentView?.convert(event.locationInWindow, to: self) else { return }
         
-        // Calculate the absolute point on the displayed PDF image
+        // Only continue if click is inside of imageFrame
         let imageFrame = imageRect()
+        guard imageFrame.contains(pointInView) else { return }
+        
+        // Calculate the absolute point on the displayed PDF image
         let pointInImage = NSPoint(x: pointInView.x - imageFrame.origin.x, y: pointInView.y - imageFrame.origin.y)
         
         // Calculate the relative point on the displayed PDF image (relative to its size)
