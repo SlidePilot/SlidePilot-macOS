@@ -133,6 +133,9 @@ class PDFPageView: NSImageView {
         
         // Add cursor rects for each annotation
         for annotation in page.annotations {
+            // Only add cursor rect for link annotations
+            guard annotation.type == "Link" else { continue }
+            
             let annotationBounds = annotation.bounds
             let pageBounds = page.bounds(for: .cropBox)
             
