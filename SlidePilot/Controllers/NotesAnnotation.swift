@@ -12,7 +12,12 @@ import PDFKit
 class NotesAnnotation {
     
     private static let notesAnnotationIdentifier = "#SLIDEPILOT-NOTES#\n"
+    private static let notesAnnotationPageSeparator = "#SLIDEPILOT-NOTES-PAGE-SEPARATOR#"
     
+    
+    
+    
+    // MARK: - Read/Write
     
     /**
      - returns
@@ -35,6 +40,18 @@ class NotesAnnotation {
             let currentPage = document.page(at: PageController.currentPage)
             else { return nil }
         return getNotesAnnotation(on: currentPage)
+    }
+    
+    
+    /**
+     - returns:
+     The text from the notes annotation on the given page. Returns nil if no notes annotation on current page.
+    */
+    public static func getNotesText(on page: PDFPage) -> String? {
+        guard let notesAnnotationString = getNotesAnnotation(on: page)?.contents else { return nil }
+        
+        // Remove notesAnnotationIdentifier and then return string
+        return String(notesAnnotationString.dropFirst(notesAnnotationIdentifier.count))
     }
     
     
@@ -109,5 +126,136 @@ class NotesAnnotation {
         
         // Save updated PDF
         return document.write(to: documentFileURL)
+    }
+    
+    
+    
+    
+    // MARK: - Import/Export
+    
+    /**
+     Gathers the text from all annotations on that page and puts them in the notes annotation.
+     This will override the existing content in the notes annotation on that page.
+     
+     - parameters:
+        - page: The `PDFPage` on which the import should be done.
+     */
+    public static func importNotesFromAnnotation(page: PDFPage) {
+        var annotationsText = ""
+        
+        // Iterate over all annotations and put them in one string
+        for annotation in page.annotations {
+            if annotation.type == "Text" {
+                guard let annotationContent = annotation.contents else { continue }
+                annotationsText += annotationContent + "\n"
+            }
+        }
+        
+        // Write the gathered text into the notes annotation
+        _ = write(annotationsText, to: page)
+    }
+    
+    
+    /**
+     Gathers the text from all annotations on the current page and puts them in the notes annotation.
+     This will override the existing content in the notes annotation on that page.
+     */
+    public static func importNotesFromAnnotation() {
+        guard let document = DocumentController.document,
+            let currentPage = document.page(at: PageController.currentPage)
+            else { return }
+        
+        importNotesFromAnnotation(page: currentPage)
+    }
+    
+    
+    /**
+     Imports the text from annotations into the notes annotation for every page in the document.
+     */
+    public static func importNotesFromAnnotationForDocument() {
+        guard let document = DocumentController.document else { return }
+        
+        // Go over every page in document and import notes
+        for index in 0...document.pageCount-1 {
+            guard let page = document.page(at: index) else { continue }
+            importNotesFromAnnotation(page: page)
+        }
+    }
+    
+    
+    /**
+     Writes the content of all notes annotations to a `.txt` file.
+     
+     - parameters:
+        - file: The `URL` file path, where the file should be stored.
+     
+     - returns:
+    `true` if export and saving was successfull, `false` otherwise.
+     */
+    public static func exportNotes(to file: URL) -> Bool {
+        guard let document = DocumentController.document else { return false }
+        
+        // Compose export string
+        var exportString = ""
+        
+        // Go over every page in document and gather the content of notes annotations
+        for index in 0...document.pageCount-1 {
+            // Add page separator
+            exportString += notesAnnotationPageSeparator + "\n"
+            
+            guard let page = document.page(at: index) else { continue }
+            if let notesText = getNotesText(on: page) {
+                // Append notes to export
+                exportString += notesText + "\n"
+            }
+        }
+        
+        // Save to file
+        do {
+            try exportString.write(to: file, atomically: true, encoding: .utf8)
+            return true
+        } catch let error {
+            print(error)
+            return false
+        }
+    }
+    
+    /**
+     Imports the content a notes file to all corresponding notes annotations.
+     
+     - parameters:
+        - file: The `URL` file path, where the notes file is located.
+     
+     - returns:
+    `true` if import was successfull, `false` otherwise.
+     */
+    public static func importNotes(from file: URL) -> Bool {
+        guard let document = DocumentController.document else { return false }
+        
+        do {
+            // Read notes file
+            let importString = try String(contentsOf: file)
+            
+            // Separate importString with page separator. Drop first to remove empty string
+            var notesPerPage = importString.components(separatedBy: notesAnnotationPageSeparator + "\n")
+            notesPerPage.removeFirst(1)
+            
+            // Ensure that there are enough notes to fill document
+            guard notesPerPage.count == document.pageCount else { return false }
+            
+            var didSucceed = true
+            for index in 0...document.pageCount-1 {
+                // Add each component to the correct page notes annotation
+                guard let page = document.page(at: index) else { continue }
+                
+                didSucceed = didSucceed && write(notesPerPage[index], to: page)
+            }
+            
+            return didSucceed
+        } catch let error {
+            print(error)
+            return false
+        }
+        
     }
 }
