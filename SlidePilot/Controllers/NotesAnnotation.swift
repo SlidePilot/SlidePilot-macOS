@@ -14,6 +14,10 @@ class NotesAnnotation {
     private static let notesAnnotationIdentifier = "#SLIDEPILOT-NOTES#\n"
     
     
+    /**
+     - returns
+     The text from the notes annotation on the current page. Returns nil if no notes annotation on current page.
+     */
     public static func getNotesOnCurrentPage() -> String? {
         guard let notesAnnotationString = getNotesAnnotationOnCurrentPage()?.contents else { return nil }
         
@@ -49,6 +53,15 @@ class NotesAnnotation {
     }
     
     
+    /**
+     Writes text to the notes annotation on the current page and saves the PDF.
+      
+      - parameters:
+         - text: The text to write to the notes annotation.
+      
+      - returns:
+     `true` if writing and saving was successfull, `false` if not.
+     */
     public static func writeToCurrentPage(_ text: String) -> Bool {
         guard let document = DocumentController.document,
             let currentPage = document.page(at: PageController.currentPage)
@@ -58,7 +71,7 @@ class NotesAnnotation {
     
     
     /**
-     Writes text to the notes annotation on a specified page and saves the PDF.
+     Writes text to the notes annotation on the specified page and saves the PDF.
      
      - parameters:
         - text: The text to write to the notes annotation.
