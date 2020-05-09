@@ -103,6 +103,7 @@ class NotesAnnotation {
             notesAnnotation.alignment = .left
             notesAnnotation.fieldName = NSFullUserName()
             notesAnnotation.stampName = "Note"
+            notesAnnotation.shouldPrint = false
             page.addAnnotation(notesAnnotation)
         }
         
