@@ -157,7 +157,7 @@ extension NotesTextFormatter: NSTextViewDelegate {
         let currentLine = NSString(string: textView.string).substring(with: currentLineRange)
         
         // Replace list character with empty line
-        string.replaceCharacters(in: currentLineRange, with: NSAttributedString(string: currentLine.replacingOccurrences(of: listCharacter, with: ""), attributes: [.font: NSFont.systemFont(ofSize: 16.0)]))
+        string.replaceCharacters(in: currentLineRange, with: NSAttributedString(string: currentLine.replacingOccurrences(of: listCharacter, with: ""), attributes: fontAttributes))
         textView.textStorage?.setAttributedString(string)
         
         // Set cursor to be at the beginning of the currentLine
@@ -168,7 +168,7 @@ extension NotesTextFormatter: NSTextViewDelegate {
     func addTrailingListCharacter(in string: NSMutableAttributedString, currentLineRange: NSRange, currentSelection: NSRange) {
         // Add list character to the new line
         let currentLocation = textView.selectedRanges[0].rangeValue.location
-        let newLine = NSAttributedString(string: "\n" + listCharacter, attributes: [.paragraphStyle: paragraphStyle, .font: NSFont.systemFont(ofSize: 16.0)])
+        let newLine = NSAttributedString(string: "\n" + listCharacter, attributes: [.paragraphStyle: paragraphStyle].merging(fontAttributes, uniquingKeysWith: { (current, _) in current }))
         string.insert(newLine, at: currentLocation)
         
         textView.textStorage?.setAttributedString(string)
