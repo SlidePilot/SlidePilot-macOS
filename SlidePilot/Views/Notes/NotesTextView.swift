@@ -11,7 +11,7 @@ import Cocoa
 class NotesTextView: NSTextView {
     
     var shouldInsertText = false
-    var notesProcessor: NotesTextProcessor!
+    var notesProcessor: NotesTextFormatter!
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -26,7 +26,7 @@ class NotesTextView: NSTextView {
     
     
     func setup() {
-        notesProcessor = NotesTextProcessor(textView: self)
+        notesProcessor = NotesTextFormatter(textView: self)
     }
     
     

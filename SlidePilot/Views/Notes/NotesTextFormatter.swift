@@ -1,5 +1,5 @@
 //
-//  NotesTextProcessor.swift
+//  NotesTextFormatter.swift
 //  SlidePilot
 //
 //  Created by Pascal Braband on 12.05.20.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class NotesTextProcessor: NSObject {
+class NotesTextFormatter: NSObject {
     
     let listCharacter = "  •    "
     let listIndicatorCharacter = "- "
@@ -53,7 +53,7 @@ class NotesTextProcessor: NSObject {
     }
     
     
-    func processText(string: String) -> (NSAttributedString, NSRange) {
+    func formatText(string: String) -> (NSAttributedString, NSRange) {
         var currentSelection = textView.selectedRange()
         
         let lines = string.components(separatedBy:  separator)
@@ -94,11 +94,11 @@ class NotesTextProcessor: NSObject {
 
 
 
-extension NotesTextProcessor: NSTextViewDelegate {
+extension NotesTextFormatter: NSTextViewDelegate {
     
     func textDidChange(_ notification: Notification) {
         // Update text and set correct position
-        let (res, selection) = processText(string: textView.string)
+        let (res, selection) = formatText(string: textView.string)
         textView.textStorage?.setAttributedString(res)
         textView.setSelectedRange(selection)
     }
