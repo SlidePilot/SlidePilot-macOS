@@ -19,6 +19,12 @@ class NotesTextView: NSTextView {
     }
     
     
+    override init(frame frameRect: NSRect, textContainer container: NSTextContainer?) {
+        super.init(frame: frameRect, textContainer: container)
+        setup()
+    }
+    
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()

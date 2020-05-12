@@ -21,6 +21,7 @@ class SlideArrangementView: NSView {
     var currentSlideView: SlideView?
     var nextSlideView: SlideView?
     var notesSlideView: SlideView?
+    var notesTextView: NotesTextView?
     
     let padding: CGFloat = 40.0
     let distributionRatio: CGFloat = 0.6

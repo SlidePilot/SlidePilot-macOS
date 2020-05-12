@@ -173,6 +173,72 @@ extension SlideArrangementView {
     }
     
     
+    private func setupSlidesLayoutCurrentNotesText() {
+        guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
+        splitView?.isHidden = false
+        
+        // Left container: Setup notes
+        let notesScrollView = NSScrollView()
+        
+        // ScrollView setup
+        let contentSize = notesScrollView.contentSize
+        notesScrollView.borderType = .noBorder
+        notesScrollView.hasVerticalScroller = true
+        notesScrollView.hasHorizontalScroller = false
+        notesScrollView.translatesAutoresizingMaskIntoConstraints = false
+        notesScrollView.backgroundColor = NSColor(white: 0.1, alpha: 1.0)
+        
+        // TextView setup
+        notesTextView = NotesTextView(frame: .zero)
+        notesTextView!.minSize = NSSize(width: 0, height: contentSize.height)
+        notesTextView!.maxSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+        notesTextView!.isVerticallyResizable = true
+        notesTextView!.isHorizontallyResizable = false
+        notesTextView!.autoresizingMask = .width
+        
+        // Text container setup
+        notesTextView!.textContainer?.containerSize = NSSize(width: contentSize.width, height: CGFloat.greatestFiniteMagnitude)
+        notesTextView?.textContainer?.widthTracksTextView = true
+        
+        // Additional appearance setup for notes text field
+        notesTextView!.setFontSize(16.0)
+        notesTextView!.backgroundColor = .black
+        notesTextView!.setFontColor(.white)
+        
+        notesScrollView.documentView = notesTextView
+        leftContainer?.addSubview(notesScrollView)
+
+        leftContainer?.addConstraints([
+            NSLayoutConstraint(item: notesScrollView, attribute: .centerX, relatedBy: .equal, toItem: leftContainer, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: notesScrollView, attribute: .centerY, relatedBy: .equal, toItem: leftContainer!, attribute: .centerY, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: notesScrollView, attribute: .width, relatedBy: .equal, toItem: leftContainer!, attribute: .width, multiplier: 0.9, constant: 0.0),
+            NSLayoutConstraint(item: notesScrollView, attribute: .height, relatedBy: .equal, toItem: leftContainer!, attribute: .height, multiplier: 0.8, constant: 0.0)
+            ])
+        
+        
+        // Right container: Setup current
+        currentSlideView = SlideView(frame: .zero)
+        currentSlideView!.delegate = self
+        currentSlideView!.page.setDocument(DocumentController.document)
+        currentSlideView!.translatesAutoresizingMaskIntoConstraints = false
+        rightContainer?.addSubview(currentSlideView!)
+        rightContainer?.addConstraints([
+            NSLayoutConstraint(item: currentSlideView!, attribute: .centerX, relatedBy: .equal, toItem: rightContainer!, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: currentSlideView!, attribute: .height, relatedBy: .equal, toItem: currentSlideView!, attribute: .width, multiplier: 0.7, constant: 0.0),
+            NSLayoutConstraint(item: currentSlideView!, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: rightContainer!, attribute: .top, multiplier: 1.0, constant: padding),
+            NSLayoutConstraint(item: rightContainer!, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: currentSlideView!, attribute: .bottom, multiplier: 1.0, constant: padding)])
+        
+        let currentCenterY = NSLayoutConstraint(item: currentSlideView!, attribute: .centerY, relatedBy: .equal, toItem: rightContainer!, attribute: .centerY, multiplier: 1.0, constant: 0.0)
+        currentCenterY.priority = NSLayoutConstraint.Priority(750.0)
+        let currentWidth = NSLayoutConstraint(item: currentSlideView!, attribute: .width, relatedBy: .equal, toItem: rightContainer!, attribute: .width, multiplier: 0.9, constant: 0.0)
+        currentWidth.priority = NSLayoutConstraint.Priority(260.0)
+        rightContainer?.addConstraints([currentWidth, currentCenterY])
+        
+        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
+        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
+    }
+    
+    
     private func setupSlidesLayoutCurrentNextNotes() {
         guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
         splitView?.isHidden = false
@@ -193,6 +259,90 @@ extension SlideArrangementView {
         let notesWidth = NSLayoutConstraint(item: notesSlideView!, attribute: .width, relatedBy: .equal, toItem: leftContainer!, attribute: .width, multiplier: 0.9, constant: 0.0)
         notesWidth.priority = NSLayoutConstraint.Priority(260.0)
         leftContainer?.addConstraints([notesWidth, notesCenterY])
+        
+        
+        // Right container: Setup current
+        currentSlideView = SlideView(frame: .zero)
+        currentSlideView!.delegate = self
+        currentSlideView!.page.setDocument(DocumentController.document)
+        currentSlideView!.translatesAutoresizingMaskIntoConstraints = false
+        rightContainer?.addSubview(currentSlideView!)
+        rightContainer?.addConstraints([
+            NSLayoutConstraint(item: currentSlideView!, attribute: .centerX, relatedBy: .equal, toItem: rightContainer!, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: currentSlideView!, attribute: .height, relatedBy: .equal, toItem: currentSlideView!, attribute: .width, multiplier: 0.7, constant: 0.0),
+            NSLayoutConstraint(item: currentSlideView!, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: rightContainer!, attribute: .top, multiplier: 1.0, constant: padding),
+            NSLayoutConstraint(item: rightContainer!, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: currentSlideView!, attribute: .bottom, multiplier: 1.0, constant: padding)])
+        
+        let currentCenterY = NSLayoutConstraint(item: currentSlideView!, attribute: .centerY, relatedBy: .equal, toItem: rightContainer!, attribute: .centerY, multiplier: 0.5, constant: 0.0)
+        currentCenterY.priority = NSLayoutConstraint.Priority(750.0)
+        let currentWidth = NSLayoutConstraint(item: currentSlideView!, attribute: .width, relatedBy: .equal, toItem: rightContainer!, attribute: .width, multiplier: 0.9, constant: 0.0)
+        currentWidth.priority = NSLayoutConstraint.Priority(260.0)
+        rightContainer?.addConstraints([currentWidth, currentCenterY])
+        
+        
+        // Right container: Setup next
+        nextSlideView = SlideView(frame: .zero)
+        nextSlideView!.page.setDocument(DocumentController.document)
+        nextSlideView!.translatesAutoresizingMaskIntoConstraints = false
+        rightContainer?.addSubview(nextSlideView!)
+        rightContainer?.addConstraints([
+            NSLayoutConstraint(item: nextSlideView!, attribute: .centerX, relatedBy: .equal, toItem: rightContainer!, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: nextSlideView!, attribute: .height, relatedBy: .equal, toItem: nextSlideView!, attribute: .width, multiplier: 0.7, constant: 0.0),
+            NSLayoutConstraint(item: nextSlideView!, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: rightContainer!, attribute: .top, multiplier: 1.0, constant: padding),
+            NSLayoutConstraint(item: rightContainer!, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: nextSlideView!, attribute: .bottom, multiplier: 1.0, constant: padding)])
+        
+        let nextCenterY = NSLayoutConstraint(item: nextSlideView!, attribute: .centerY, relatedBy: .equal, toItem: rightContainer!, attribute: .centerY, multiplier: 1.5, constant: 0.0)
+        nextCenterY.priority = NSLayoutConstraint.Priority(750.0)
+        let nextWidth = NSLayoutConstraint(item: nextSlideView!, attribute: .width, relatedBy: .equal, toItem: rightContainer!, attribute: .width, multiplier: 0.9, constant: 0.0)
+        nextWidth.priority = NSLayoutConstraint.Priority(260.0)
+        rightContainer?.addConstraints([nextWidth, nextCenterY])
+        
+        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
+        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
+    }
+    
+    
+    func setupSlidesLayoutCurrentNextNotesText() {
+        guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
+        splitView?.isHidden = false
+        
+        // Left container: Setup notes
+        let notesScrollView = NSScrollView()
+        
+        // ScrollView setup
+        let contentSize = notesScrollView.contentSize
+        notesScrollView.borderType = .noBorder
+        notesScrollView.hasVerticalScroller = true
+        notesScrollView.hasHorizontalScroller = false
+        notesScrollView.translatesAutoresizingMaskIntoConstraints = false
+        notesScrollView.backgroundColor = NSColor(white: 0.1, alpha: 1.0)
+        
+        // TextView setup
+        notesTextView = NotesTextView(frame: .zero)
+        notesTextView!.minSize = NSSize(width: 0, height: contentSize.height)
+        notesTextView!.maxSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+        notesTextView!.isVerticallyResizable = true
+        notesTextView!.isHorizontallyResizable = false
+        notesTextView!.autoresizingMask = .width
+        
+        // Text container setup
+        notesTextView!.textContainer?.containerSize = NSSize(width: contentSize.width, height: CGFloat.greatestFiniteMagnitude)
+        notesTextView?.textContainer?.widthTracksTextView = true
+        
+        // Additional appearance setup for notes text field
+        notesTextView!.setFontSize(16.0)
+        notesTextView!.backgroundColor = .black
+        notesTextView!.setFontColor(.white)
+        
+        notesScrollView.documentView = notesTextView
+        leftContainer?.addSubview(notesScrollView)
+
+        leftContainer?.addConstraints([
+            NSLayoutConstraint(item: notesScrollView, attribute: .centerX, relatedBy: .equal, toItem: leftContainer, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: notesScrollView, attribute: .centerY, relatedBy: .equal, toItem: leftContainer!, attribute: .centerY, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: notesScrollView, attribute: .width, relatedBy: .equal, toItem: leftContainer!, attribute: .width, multiplier: 0.9, constant: 0.0),
+            NSLayoutConstraint(item: notesScrollView, attribute: .height, relatedBy: .equal, toItem: leftContainer!, attribute: .height, multiplier: 0.8, constant: 0.0)
+            ])
         
         
         // Right container: Setup current
