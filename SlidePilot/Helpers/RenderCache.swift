@@ -213,7 +213,6 @@ class RenderCache {
     private func createImage(from page: PDFPage, mode: PDFPageView.DisplayMode = .full) -> NSImage? {
         // Set correct display bounds
         let pageRect = getBoundsFor(mode: mode, pdfPage: page)
-        page.setBounds(pageRect, for: .cropBox)
         
         return NSImage(size: pageRect.size, flipped: false, drawingHandler: { (rect) -> Bool in
             guard let ctx = NSGraphicsContext.current?.cgContext else { return false }
@@ -225,6 +224,7 @@ class RenderCache {
             notesAnnotation?.shouldDisplay = false
             
             // Draw page
+            page.setBounds(pageRect, for: .cropBox)
             page.draw(with: .cropBox)
 
             // Display notes annotation again
