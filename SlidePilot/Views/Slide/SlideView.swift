@@ -90,6 +90,7 @@ class SlideView: NSView {
     }
     
     override func updateTrackingAreas() {
+        super.updateTrackingAreas()
         addTrackingAreaForSlide()
     }
     
