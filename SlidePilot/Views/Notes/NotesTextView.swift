@@ -32,6 +32,7 @@ class NotesTextView: NSTextView {
     
     
     func setup() {
+        self.allowsUndo = true
         notesProcessor = NotesTextFormatter(textView: self)
     }
     

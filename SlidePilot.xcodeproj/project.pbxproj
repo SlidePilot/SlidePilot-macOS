@@ -290,8 +290,8 @@
 		50D6EF91246AEA5800E63C84 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
-				50D6EF92246AEAFF00E63C84 /* NotesTextFormatter.swift */,
 				50D6EF94246AEB7600E63C84 /* NotesTextView.swift */,
+				50D6EF92246AEAFF00E63C84 /* NotesTextFormatter.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";

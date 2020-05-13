@@ -98,9 +98,11 @@ extension NotesTextFormatter: NSTextViewDelegate {
     
     func textDidChange(_ notification: Notification) {
         // Update text and set correct position
+        textView.undoManager?.beginUndoGrouping()
         let (res, selection) = formatText(string: textView.string)
         textView.textStorage?.setAttributedString(res)
         textView.setSelectedRange(selection)
+        textView.undoManager?.endUndoGrouping()
     }
     
     
