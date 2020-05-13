@@ -227,15 +227,36 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="A3e-R8-0Hj"/>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Notes" id="S1P-dF-E0F">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Notes" id="ryB-n0-GtE">
+                                    <items>
                                         <menuItem title="Show Notes" tag="401" keyEquivalent="n" identifier="ShowNotes" id="fS9-YP-QfR">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showNotes:" target="Ady-hI-5gd" id="v6k-IP-Uza"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Notes Position" tag="402" identifier="NotesPosition" id="WtB-Ny-SAM" userLabel="Notes Position">
+                                        <menuItem title="Notes Mode" id="uSc-ut-AIX">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" autoenablesItems="NO" id="Vm6-Hh-mT3">
+                                            <menu key="submenu" id="WZZ-GG-9YY">
+                                                <items>
+                                                    <menuItem title="Text" id="DZ4-Bo-Sur">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Split PDF" id="mZv-HA-uBY">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="EqW-fs-Lbd"/>
+                                        <menuItem title="Split Position" tag="402" identifier="NotesPosition" id="WtB-Ny-SAM" userLabel="Notes Position">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Split Position" autoenablesItems="NO" id="Vm6-Hh-mT3">
                                                 <items>
                                                     <menuItem title="None" keyEquivalent="0" identifier="NotesPositionNone" id="Kws-6x-VZZ">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
@@ -271,6 +292,19 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="34s-if-2If"/>
+                                        <menuItem title="Import Notes from Annotations" id="Zvn-jO-ucu">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Import Notes from File" id="YrR-wA-wIs">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Export Notes to File" id="uA6-U5-dub">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="oF6-jw-Wvf"/>
+                                        <menuItem title="Increase Font Size" keyEquivalent="+" id="ie4-IO-iDS"/>
+                                        <menuItem title="Decrease Font Size" keyEquivalent="-" id="3dS-4D-w6v"/>
                                     </items>
                                 </menu>
                             </menuItem>
