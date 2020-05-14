@@ -43,25 +43,25 @@ class DocumentController {
     
     
     /** Sends a notification, that the document was edited. */
-    public static func didEditDocument(success: Bool, sender: Any) {
+    public static func didEditDocument(sender: Any) {
         NotificationCenter.default.post(name: .didEditDocument, object: sender)
     }
     
     
     /** Sends a notification, that importing notes from annotations was requested. */
-    public static func requestImportNotesFromAnnotations(success: Bool, sender: Any) {
+    public static func requestImportNotesFromAnnotations(sender: Any) {
         NotificationCenter.default.post(name: .requestImportNotesFromAnnotations, object: sender)
     }
     
     
     /** Sends a notification, that importing notes from file was requested. */
-    public static func requestImportNotesFromFile(success: Bool, sender: Any) {
+    public static func requestImportNotesFromFile(sender: Any) {
         NotificationCenter.default.post(name: .requestImportNotesFromFile, object: sender)
     }
     
     
     /** Sends a notification, that exporting notes to file was requested. */
-    public static func requestExportNotesToFile(success: Bool, sender: Any) {
+    public static func requestExportNotesToFile(sender: Any) {
         NotificationCenter.default.post(name: .requestExportNotesToFile, object: sender)
     }
     
@@ -95,19 +95,19 @@ class DocumentController {
     
     
     /** Subscribes a target to all `.didSaveDocument` notifications sent by `DocumentController`. */
-    public static func subscribeDidSaveDocument(success: Bool, target: Any, action: Selector) {
+    public static func subscribeDidSaveDocument(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name:  .didSaveDocument, object: nil)
     }
     
     
     /** Subscribes a target to all `.didEditDocument` notifications sent by `DocumentController`. */
-    public static func subscribeDidEditDocument(success: Bool, target: Any, action: Selector) {
+    public static func subscribeDidEditDocument(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .didEditDocument, object: nil)
     }
     
     
     /** Subscribes a target to all `.requestImportNotesFromAnnotations` notifications sent by `DocumentController`. */
-    public static func subscribeRequestImportNotesFromAnnotations(success: Bool, target: Any, action: Selector) {
+    public static func subscribeRequestImportNotesFromAnnotations(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .requestImportNotesFromAnnotations, object: nil)
     }
     
