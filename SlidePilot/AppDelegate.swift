@@ -188,7 +188,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     
-    // MARK: - Open File
+    // MARK: - File Handling
+    
+    @IBAction func saveDocument(_ sender: NSMenuItem) {
+        DocumentController.requestSaveDocument(sender: sender)
+    }
+    
     
     @IBAction func openDocument(_ sender: NSMenuItem) {
         presentOpenFileDialog { (fileUrl) in

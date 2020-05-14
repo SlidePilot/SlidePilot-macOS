@@ -233,6 +233,9 @@
 /* Class = "NSMenuItem"; title = "Notes Mode"; ObjectID = "uSc-ut-AIX"; */
 "uSc-ut-AIX.title" = "Mode des notes";
 
+/* Class = "NSMenuItem"; title = "Save"; ObjectID = "utk-JA-3OO"; */
+"utk-JA-3OO.title" = "Enregistrer";
+
 /* Class = "NSMenu"; title = "Presentation"; ObjectID = "uzH-JS-q45"; */
 "uzH-JS-q45.title" = "Exposé";
 

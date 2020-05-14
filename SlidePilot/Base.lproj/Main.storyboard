@@ -75,6 +75,12 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Sd6-1D-Zhe"/>
+                                        <menuItem title="Save" keyEquivalent="s" id="utk-JA-3OO">
+                                            <connections>
+                                                <action selector="saveDocument:" target="Ady-hI-5gd" id="Wyz-pF-YlT"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
