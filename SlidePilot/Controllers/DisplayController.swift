@@ -306,7 +306,7 @@ class DisplayController {
     
     
     /** Subscribes a target to all `.didChangeNotesMode` notifications sent by `DisplayController`. */
-    public static func subscribeNotesModes(target: Any, action: Selector) {
+    public static func subscribeNotesMode(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .didChangeNotesMode, object: nil)
     }
     

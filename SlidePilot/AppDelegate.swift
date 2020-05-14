@@ -79,7 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
         DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
-        DisplayController.subscribeNotesModes(target: self, action: #selector(notesModeDidChange(_:)))
+        DisplayController.subscribeNotesMode(target: self, action: #selector(notesModeDidChange(_:)))
         
         // Set default display options
         DisplayController.setPointerAppearance(.cursor, sender: self)
