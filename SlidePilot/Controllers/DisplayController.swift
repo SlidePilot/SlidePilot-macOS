@@ -50,10 +50,16 @@ class DisplayController {
     }
     
     
+    enum NotesMode {
+        case text, split
+    }
+    
+    
     
     
     // MARK: - Variables (Getters)
     public private(set) static var notesPosition: NotesPosition = .none
+    public private(set) static var notesMode: NotesMode = .text
     
     public private(set) static var areNotesDisplayed: Bool = false
     public private(set) static var isBlackCurtainDisplayed: Bool = false
@@ -210,6 +216,26 @@ class DisplayController {
     }
     
     
+    /** Sends a notification, that font size increase was requested. */
+    public static func increaseFontSize(sender: Any) {
+        NotificationCenter.default.post(name: .requestIncreaseFontSize, object: sender)
+    }
+    
+    
+    /** Sends a notification, that font size decrease was requested. */
+    public static func decreaseFontSize(sender: Any) {
+        NotificationCenter.default.post(name: .requestDecreaseFontSize, object: sender)
+    }
+    
+    
+    /** Sends a notification, that notes mode was changed. */
+    public static func setNotesMode(_ mode: NotesMode, sender: Any) {
+        notesMode = mode
+        NotificationCenter.default.post(name: .didChangeNotesMode, object: sender)
+    }
+    
+    
+    
     
     // MARK: - Subscribe
     
@@ -267,6 +293,22 @@ class DisplayController {
     }
     
     
+    /** Subscribes a target to all `.requestIncreaseFontSize` notifications sent by `DisplayController`. */
+    public static func subscribeIncreaseFontSize(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .requestIncreaseFontSize, object: nil)
+    }
+    
+    
+    /** Subscribes a target to all `.requestDecreaseFontSize` notifications sent by `DisplayController`. */
+    public static func subscribeDecreaseFontSize(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .requestDecreaseFontSize, object: nil)
+    }
+    
+    
+    /** Subscribes a target to all `.didChangeNotesMode` notifications sent by `DisplayController`. */
+    public static func subscribeNotesModes(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeNotesMode, object: nil)
+    }
     
     
     // MARK: - Unsubscribe
@@ -282,6 +324,9 @@ class DisplayController {
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayPointer, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangePointerAppearance, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayNextSlidePreview, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .requestIncreaseFontSize, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .requestDecreaseFontSize, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeNotesMode, object: nil)
     }
 }
 
@@ -298,4 +343,7 @@ extension Notification.Name {
     static let didChangeDisplayNextSlidePreview = Notification.Name("didChangeDisplayNextSlidePreview")
     static let didChangeDisplayPointer = Notification.Name("didChangeDisplayPointer")
     static let didChangePointerAppearance = Notification.Name("didChangePointerAppearance")
+    static let requestIncreaseFontSize = Notification.Name("requestIncreaseFontSize")
+    static let requestDecreaseFontSize = Notification.Name("requestDecreaseFontSize")
+    static let didChangeNotesMode = Notification.Name("didChangeNotesMode")
 }

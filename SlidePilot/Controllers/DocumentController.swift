@@ -19,6 +19,10 @@ class DocumentController {
     }
     
     
+    
+    
+    // MARK: - Setters/Senders
+    
     /** Sends a notification, that the document was changed. */
     public static func setDocument(_ document: PDFDocument, sender: Any) {
         self.document = document
@@ -73,6 +77,10 @@ class DocumentController {
         NotificationCenter.default.post(name: .didExportNotes, object: sender, userInfo: ["success": success])
     }
     
+    
+    
+    
+    // MARK: - Subscribe
     
     /** Subscribes a target to all `.didOpenDocument` notifications sent by `DocumentController`. */
     public static func subscribeDidOpenDocument(target: Any, action: Selector) {
