@@ -48,23 +48,15 @@ class DocumentController {
     }
     
     
-    /**
-    Sends a notification, that importing notes from annotations was requested.
-    - parameters:
-       - approved: A boolean value indicating if request was approved.
-    */
-    public static func requestImportNotesFromAnnotations(approved: Bool, sender: Any) {
-        NotificationCenter.default.post(name: .requestImportNotesFromAnnotations, object: sender, userInfo: ["approved": approved])
+    /** Sends a notification, that importing notes from annotations was requested. */
+    public static func requestImportNotesFromAnnotations(sender: Any) {
+        NotificationCenter.default.post(name: .requestImportNotesFromAnnotations, object: sender)
     }
     
     
-    /**
-     Sends a notification, that importing notes from file was requested.
-     - parameters:
-        - approved: A boolean value indicating if request was approved.
-     */
-    public static func requestImportNotesFromFile(approved: Bool, sender: Any) {
-        NotificationCenter.default.post(name: .requestImportNotesFromFile, object: sender, userInfo: ["approved": approved])
+    /** Sends a notification, that importing notes from file was requested. */
+    public static func requestImportNotesFromFile(sender: Any) {
+        NotificationCenter.default.post(name: .requestImportNotesFromFile, object: sender)
     }
     
     
