@@ -11,16 +11,20 @@ import Cocoa
 // This extension contains all the UI code for the different view setups
 extension SlideArrangementView {
     
-    func setupLayout(displayNext: Bool, displayNotes: Bool) {
+    func setupLayout(displayNext: Bool, displayNotes: Bool, notesMode: DisplayController.NotesMode) {
         clearView()
         if displayNext == false, displayNotes == false {
             setupSlidesLayoutCurrent()
         } else if displayNext == true, displayNotes == false {
             setupSlidesLayoutCurrentNext()
-        } else if displayNext == true, displayNotes == true {
+        } else if displayNext == true, displayNotes == true, notesMode == .split {
             setupSlidesLayoutCurrentNextNotes()
-        } else if displayNext == false, displayNotes == true {
+        } else if displayNext == false, displayNotes == true, notesMode == .split {
             setupSlidesLayoutCurrentNotes()
+        } else if displayNext == true, displayNotes == true, notesMode == .text {
+            setupSlidesLayoutCurrentNextNotesText()
+        } else if displayNext == false, displayNotes == true, notesMode == .text {
+            setupSlidesLayoutCurrentNotesText()
         }
     }
     
@@ -259,5 +263,7 @@ extension SlideArrangementView {
             NSLayoutConstraint(item: notesScrollView, attribute: .width, relatedBy: .equal, toItem: container, attribute: .width, multiplier: 0.9, constant: 0.0),
             NSLayoutConstraint(item: notesScrollView, attribute: .height, relatedBy: .equal, toItem: container, attribute: .height, multiplier: 0.8, constant: 0.0)
             ])
+        
+        notesTextView?.updateContent()
     }
 }
