@@ -35,8 +35,12 @@ class NotesTextView: NSTextView {
         self.allowsUndo = true
         notesProcessor = NotesTextFormatter(textView: self)
         
+        // Subscribe to document save request
+        DocumentController.subscribeRequestSaveDocument(target: self, action: #selector(saveDocument(_:)))
+        
         // Subscribe to changes, when text view needs to update content
         DocumentController.subscribeFinishedImportingNotes(target: self, action: #selector(didImportNotes(_:)))
+        PageController.subscribeWillSelectPage(target: self, action: #selector(willSelectPage(_:)))
         PageController.subscribe(target: self, action: #selector(didSelectPage(_:)))
         
         // Subscribe to display changes
@@ -76,7 +80,7 @@ class NotesTextView: NSTextView {
     
     func updateContent() {
         guard let currentPage = DocumentController.document?.page(at: PageController.currentPage) else { return }
-        guard let notesText = NotesAnnotation.getNotesText(on: currentPage) else { return }
+        let notesText = NotesAnnotation.getNotesText(on: currentPage) ?? ""
         self.string = notesText
         self.didChangeText()
     }
@@ -87,8 +91,19 @@ class NotesTextView: NSTextView {
     // MARK: - Control Handlers
     
     
+    @objc func saveDocument(_ notification: Notification) {
+        let success = NotesAnnotation.writeToCurrentPage(self.string, save: true)
+        DocumentController.didSaveDocument(success: success, sender: self)
+    }
+    
+    
     @objc func didImportNotes(_ notification: Notification) {
         updateContent()
+    }
+    
+    
+    @objc func willSelectPage(_ notification: Notification) {
+        _ = NotesAnnotation.writeToCurrentPage(self.string, save: false)
     }
     
     

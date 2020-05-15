@@ -28,6 +28,7 @@ class PageController {
     /** Sends a notification, that the page was changed. With the corresponding page as user info. */
     public static func selectPage(at index: Int, sender: Any?) {
         if isValidIndex(index) {
+            NotificationCenter.default.post(name: .willSelectPage, object: sender)
             currentPage = index
             NotificationCenter.default.post(name: .didSelectPage, object: sender)
         }
@@ -39,15 +40,22 @@ class PageController {
     }
     
     
-    /** Subscribes a target to all notifications sent by `PageController`. */
+    /** Subscribes a target to all `.didSelectPage` notifications sent by `PageController`. */
     public static func subscribe(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .didSelectPage, object: nil)
+    }
+    
+    
+    /** Subscribes a target to all `.willSelectPage` notifications sent by `PageController`. */
+    public static func subscribeWillSelectPage(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .willSelectPage, object: nil)
     }
     
     
     /** Unsubscribes a target from all notifications sent by `PageController`. */
     public static func unsubscribe(target: Any) {
         NotificationCenter.default.removeObserver(target, name: .didSelectPage, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .willSelectPage, object: nil)
     }
 }
 
@@ -55,5 +63,6 @@ class PageController {
 
 
 extension Notification.Name {
+    static let willSelectPage = Notification.Name("willSelectPage")
     static let didSelectPage = Notification.Name("didSelectPage")
 }

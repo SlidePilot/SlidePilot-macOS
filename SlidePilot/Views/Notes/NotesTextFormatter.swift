@@ -97,6 +97,8 @@ class NotesTextFormatter: NSObject {
 extension NotesTextFormatter: NSTextViewDelegate {
     
     func textDidChange(_ notification: Notification) {
+        DocumentController.didEditDocument(sender: self)
+        
         // Update text and set correct position
         textView.undoManager?.beginUndoGrouping()
         let (res, selection) = formatText(string: textView.string)

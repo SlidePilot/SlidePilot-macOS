@@ -78,7 +78,7 @@
                                         <menuItem isSeparatorItem="YES" id="Sd6-1D-Zhe"/>
                                         <menuItem title="Save" keyEquivalent="s" id="utk-JA-3OO">
                                             <connections>
-                                                <action selector="saveDocument:" target="Ady-hI-5gd" id="Wyz-pF-YlT"/>
+                                                <action selector="saveDocument:" target="Voe-Tx-rLC" id="yuf-p7-ybv"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
