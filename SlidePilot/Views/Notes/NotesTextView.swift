@@ -82,7 +82,7 @@ class NotesTextView: NSTextView {
         guard let currentPage = DocumentController.document?.page(at: PageController.currentPage) else { return }
         let notesText = NotesAnnotation.getNotesText(on: currentPage) ?? ""
         self.string = notesText
-        self.didChangeText()
+        notesProcessor.updateWithFormattedText(sendModificationNotification: false)
     }
     
     

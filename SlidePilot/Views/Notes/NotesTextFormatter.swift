@@ -28,13 +28,13 @@ class NotesTextFormatter: NSObject {
     
     var fontSize: CGFloat = 12.0 {
         didSet {
-            textView.didChangeText()
+            updateWithFormattedText(sendModificationNotification: false)
         }
     }
     
     var fontColor: NSColor = .black {
         didSet {
-            textView.didChangeText()
+            updateWithFormattedText(sendModificationNotification: false)
         }
     }
     
@@ -50,6 +50,20 @@ class NotesTextFormatter: NSObject {
         let p = NSMutableParagraphStyle()
         p.headIndent = (listCharacter as NSString).size(withAttributes: fontAttributes).width
         return p
+    }
+    
+    
+    func updateWithFormattedText(sendModificationNotification: Bool) {
+        if sendModificationNotification {
+            DocumentController.didEditDocument(sender: self)
+        }
+        
+        // Update text and set correct position
+        textView.undoManager?.beginUndoGrouping()
+        let (formattedText, selection) = formatText(string: textView.string)
+        textView.textStorage?.setAttributedString(formattedText)
+        textView.setSelectedRange(selection)
+        textView.undoManager?.endUndoGrouping()
     }
     
     
@@ -97,14 +111,7 @@ class NotesTextFormatter: NSObject {
 extension NotesTextFormatter: NSTextViewDelegate {
     
     func textDidChange(_ notification: Notification) {
-        DocumentController.didEditDocument(sender: self)
-        
-        // Update text and set correct position
-        textView.undoManager?.beginUndoGrouping()
-        let (res, selection) = formatText(string: textView.string)
-        textView.textStorage?.setAttributedString(res)
-        textView.setSelectedRange(selection)
-        textView.undoManager?.endUndoGrouping()
+        updateWithFormattedText(sendModificationNotification: true)
     }
     
     
