@@ -51,6 +51,7 @@ class PresenterViewController: NSViewController {
         DocumentController.subscribeRequestExportNotesToFile(target: self, action: #selector(requestExportNotes(_:)))
         DocumentController.subscribeFinishedImportingNotes(target: self, action: #selector(finishedImportNotes(_:)))
         DocumentController.subscribeFinishedExportingNotes(target: self, action: #selector(finishedExportNotes(_:)))
+        DocumentController.subscribeDidSaveDocument(target: self, action: #selector(didSaveDocument(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
@@ -247,6 +248,18 @@ class PresenterViewController: NSViewController {
         if !success {
             let message = NSLocalizedString("Export Failed", comment: "Alert message informing about failed export.")
             let text = NSLocalizedString("Export Failed Text", comment: "Alert text informing about failed export.")
+            let alertStyle = NSAlert.Style.critical
+            showNotice(message: message, text: text, alertStyle: alertStyle)
+        }
+    }
+    
+    
+    @objc func didSaveDocument(_ notification: Notification) {
+        guard let success = notification.userInfo?["success"] as? Bool else { return }
+        // Show alert on failed save
+        if !success {
+            let message = NSLocalizedString("Save Failed", comment: "Alert message informing about failed save.")
+            let text = NSLocalizedString("Save Failed Text", comment: "Alert text informing about failed save.")
             let alertStyle = NSAlert.Style.critical
             showNotice(message: message, text: text, alertStyle: alertStyle)
         }
