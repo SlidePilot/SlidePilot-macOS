@@ -556,11 +556,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @objc func didEditDocument(_ notification: Notification) {
-        presenterWindow?.isDocumentEdited = true
+        presenterWindow?.windowController?.setDocumentEdited(true)
     }
     
     
     @objc func didSaveDocument(_ notification: Notification) {
-        presenterWindow?.isDocumentEdited = false
+        presenterWindow?.windowController?.setDocumentEdited(false)
     }
 }
