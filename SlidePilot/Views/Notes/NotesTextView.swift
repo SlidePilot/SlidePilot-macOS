@@ -34,6 +34,14 @@ class NotesTextView: NSTextView {
     func setup() {
         self.allowsUndo = true
         notesProcessor = NotesTextFormatter(textView: self)
+        
+        // Subscribe to changes, when text view needs to update content
+        DocumentController.subscribeFinishedImportingNotes(target: self, action: #selector(didImportNotes(_:)))
+        PageController.subscribe(target: self, action: #selector(didSelectPage(_:)))
+        
+        // Subscribe to display changes
+        DisplayController.subscribeIncreaseFontSize(target: self, action: #selector(didIncreaseFontSize(_:)))
+        DisplayController.subscribeDecreaseFontSize(target: self, action: #selector(didDecreaseFontSize(_:)))
     }
     
     
@@ -63,6 +71,39 @@ class NotesTextView: NSTextView {
         } else {
             self.insertionPointColor = .black
         }
+    }
+    
+    
+    func updateContent() {
+        guard let currentPage = DocumentController.document?.page(at: PageController.currentPage) else { return }
+        guard let notesText = NotesAnnotation.getNotesText(on: currentPage) else { return }
+        self.string = notesText
+        self.didChangeText()
+    }
+    
+    
+    
+    
+    // MARK: - Control Handlers
+    
+    
+    @objc func didImportNotes(_ notification: Notification) {
+        updateContent()
+    }
+    
+    
+    @objc func didSelectPage(_ notification: Notification) {
+        updateContent()
+    }
+    
+    
+    @objc func didIncreaseFontSize(_ notification: Notification) {
+        increaseFontSize()
+    }
+    
+    
+    @objc func didDecreaseFontSize(_ notification: Notification) {
+        decreaseFontSize()
     }
 }
 
