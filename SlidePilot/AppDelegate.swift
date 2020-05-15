@@ -431,8 +431,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         switch DisplayController.notesPosition {
         case .none:
             notesPositionNoneItem.state = .on
-            if DisplayController.areNotesDisplayed {
-                DisplayController.setDisplayNotes(false, sender: self)
+            if DisplayController.areNotesDisplayed, DisplayController.notesMode == .split {
+                DisplayController.setNotesMode(.text, sender: self)
             }
         case .right:
             notesPositionRightItem.state = .on
@@ -451,9 +451,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         showNotesItem.state = DisplayController.areNotesDisplayed ? .on : .off
         
         
-        // Select notes position right by default when displaying notes
+        // Select notes position right by default when displaying notes split
         // Only if notes are displayed currently and current note position is none
-        if DisplayController.areNotesDisplayed, DisplayController.notesPosition == .none {
+        if DisplayController.areNotesDisplayed, DisplayController.notesPosition == .none , DisplayController.notesMode == .split{
             DisplayController.setNotesPosition(.right, sender: self)
         }
     }
@@ -545,6 +545,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Disable menu items only which are only for text mode
             increaseFontSizeItem.isEnabled = false
             decreaseFontSizeItem.isEnabled = false
+            
+            // Select notes position right by default when displaying notes split
+            // Only if notes are displayed currently and current note position is none
+            if DisplayController.areNotesDisplayed, DisplayController.notesPosition == .none , DisplayController.notesMode == .split{
+                DisplayController.setNotesPosition(.right, sender: self)
+            }
         }
     }
     
