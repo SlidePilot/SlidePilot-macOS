@@ -140,19 +140,21 @@ class NotesAnnotation {
      - parameters:
         - page: The `PDFPage` on which the import should be done.
      */
-    public static func importNotesFromAnnotation(page: PDFPage) {
+    public static func importNotesFromAnnotation(page: PDFPage) -> Bool {
         var annotationsText = ""
         
         // Iterate over all annotations and put them in one string
         for annotation in page.annotations {
             if annotation.type == "Text" {
                 guard let annotationContent = annotation.contents else { continue }
+                // Don't import annotation content from own notes annotation
+                guard !annotationContent.hasPrefix(notesAnnotationIdentifier) else { continue }
                 annotationsText += annotationContent + "\n"
             }
         }
         
         // Write the gathered text into the notes annotation
-        _ = write(annotationsText, to: page)
+        return write(annotationsText, to: page)
     }
     
     
@@ -160,26 +162,28 @@ class NotesAnnotation {
      Gathers the text from all annotations on the current page and puts them in the notes annotation.
      This will override the existing content in the notes annotation on that page.
      */
-    public static func importNotesFromAnnotation() {
+    public static func importNotesFromAnnotationForCurrentPage() -> Bool {
         guard let document = DocumentController.document,
             let currentPage = document.page(at: PageController.currentPage)
-            else { return }
+            else { return false }
         
-        importNotesFromAnnotation(page: currentPage)
+        return importNotesFromAnnotation(page: currentPage)
     }
     
     
     /**
      Imports the text from annotations into the notes annotation for every page in the document.
      */
-    public static func importNotesFromAnnotationForDocument() {
-        guard let document = DocumentController.document else { return }
+    public static func importNotesFromAnnotationForDocument() -> Bool {
+        guard let document = DocumentController.document else { return false }
         
         // Go over every page in document and import notes
+        var didSucceed = true
         for index in 0...document.pageCount-1 {
             guard let page = document.page(at: index) else { continue }
-            importNotesFromAnnotation(page: page)
+            didSucceed = didSucceed && importNotesFromAnnotation(page: page)
         }
+        return didSucceed
     }
     
     
