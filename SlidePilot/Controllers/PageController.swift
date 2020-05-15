@@ -41,7 +41,7 @@ class PageController {
     
     
     /** Subscribes a target to all `.didSelectPage` notifications sent by `PageController`. */
-    public static func subscribe(target: Any, action: Selector) {
+    public static func subscribeDidSelectPage(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .didSelectPage, object: nil)
     }
     

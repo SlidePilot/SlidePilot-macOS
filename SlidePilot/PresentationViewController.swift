@@ -21,7 +21,7 @@ class PresentationViewController: NSViewController {
         self.view.layer?.backgroundColor = NSColor.black.cgColor
         
         // Subscribe to page changes
-        PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))
+        PageController.subscribeDidSelectPage(target: self, action: #selector(pageDidChange(_:)))
         
         // Subscribe to document changes
         DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))

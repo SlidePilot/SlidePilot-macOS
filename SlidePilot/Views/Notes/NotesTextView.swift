@@ -41,7 +41,7 @@ class NotesTextView: NSTextView {
         // Subscribe to changes, when text view needs to update content
         DocumentController.subscribeFinishedImportingNotes(target: self, action: #selector(didImportNotes(_:)))
         PageController.subscribeWillSelectPage(target: self, action: #selector(willSelectPage(_:)))
-        PageController.subscribe(target: self, action: #selector(didSelectPage(_:)))
+        PageController.subscribeDidSelectPage(target: self, action: #selector(didSelectPage(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeIncreaseFontSize(target: self, action: #selector(didIncreaseFontSize(_:)))
