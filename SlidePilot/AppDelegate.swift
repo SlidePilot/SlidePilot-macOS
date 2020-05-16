@@ -99,7 +99,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        // Request saving document
+        DocumentController.requestSaveDocument(sender: self)
     }
     
     
@@ -227,6 +228,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func openFile(url: URL) {
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
         guard let pdfDocument = PDFDocument(url: url) else { return }
+        
+        // Request saving current document
+        DocumentController.requestSaveDocument(sender: self)
         
         // Open document
         DocumentController.setDocument(pdfDocument, sender: self)
