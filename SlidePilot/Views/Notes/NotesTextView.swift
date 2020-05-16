@@ -33,7 +33,7 @@ class NotesTextView: NSTextView {
     
     func setup() {
         self.allowsUndo = true
-        notesProcessor = NotesTextFormatter(textView: self)
+        notesProcessor = NotesTextFormatter()
         
         // Subscribe to document save request
         DocumentController.subscribeRequestSaveDocument(target: self, action: #selector(saveDocument(_:)))
@@ -64,6 +64,7 @@ class NotesTextView: NSTextView {
     func setFontSize(_ fontSize: CGFloat) {
         self.font = NSFont.systemFont(ofSize: fontSize)
         notesProcessor.fontSize = fontSize
+        update(with: self.string, reportModification: false)
     }
     
     
@@ -75,14 +76,65 @@ class NotesTextView: NSTextView {
         } else {
             self.insertionPointColor = .black
         }
+        update(with: self.string, reportModification: false)
     }
     
     
-    func updateContent() {
+    
+    
+    // MARK: - Update Methods
+    
+    /**
+     Formats the given string and puts it in the text view (self).
+     
+     - parameters:
+        - text: The `String` which should be formatted.
+        - reportModification: A boolean value indicating, whether the modification should be reported with a notification.
+     */
+    func update(with text: String, reportModification: Bool) {
+        let notesUpdate = notesProcessor.format(text, currentSelection: self.selectedRange())
+        performUpdate(notesUpdate, reportModification: reportModification)
+    }
+    
+    
+    func performUpdate(_ update: NotesTextFormatter.NotesTextUpdate, reportModification: Bool) {
+        // Send didEditDocument notification if requested
+        if reportModification {
+            DocumentController.didEditDocument(sender: self)
+        }
+        
+        self.undoManager?.beginUndoGrouping()
+        self.textStorage?.setAttributedString(update.text)
+        self.setSelectedRange(update.cursorPositon)
+        self.undoManager?.endUndoGrouping()
+    }
+    
+    
+    /**
+     Reloads the notes from the annotations and puts them in the text view (self).
+     */
+    func reloadNotes(reportModification: Bool) {
         guard let currentPage = DocumentController.document?.page(at: PageController.currentPage) else { return }
         let notesText = NotesAnnotation.getNotesText(on: currentPage) ?? ""
-        self.string = notesText
-        notesProcessor.updateWithFormattedText(sendModificationNotification: false)
+        
+        // Update text
+        update(with: notesText, reportModification: reportModification)
+    }
+    
+    
+    override func didChangeText() {
+        super.didChangeText()
+        update(with: self.string, reportModification: true)
+    }
+    
+    
+    override func doCommand(by selector: Selector) {
+        // Update the notes text for the given command
+        if let notesUpdate = notesProcessor.modify(self.attributedString(), currentSelection: self.selectedRange(), commandSelector: selector) {
+            performUpdate(notesUpdate, reportModification: true)
+        } else {
+            super.doCommand(by: selector)
+        }
     }
     
     
@@ -98,7 +150,7 @@ class NotesTextView: NSTextView {
     
     
     @objc func didImportNotes(_ notification: Notification) {
-        updateContent()
+        reloadNotes(reportModification: false)
     }
     
     
@@ -108,7 +160,7 @@ class NotesTextView: NSTextView {
     
     
     @objc func didSelectPage(_ notification: Notification) {
-        updateContent()
+        reloadNotes(reportModification: false)
     }
     
     
@@ -121,4 +173,3 @@ class NotesTextView: NSTextView {
         decreaseFontSize()
     }
 }
-

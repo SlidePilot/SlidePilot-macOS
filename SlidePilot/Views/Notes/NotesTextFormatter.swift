@@ -10,33 +10,22 @@ import Cocoa
 
 class NotesTextFormatter: NSObject {
     
+    struct NotesTextUpdate {
+        var text: NSMutableAttributedString
+        var cursorPositon: NSRange
+    }
+    
     let listCharacter = "  •    "
     let listIndicatorCharacter = "- "
     let separator = "\n"
     
     
-    #if os(macOS)
-    var textView: NSTextView!
+    /** Sets the font size, which will be used in the methods which return a `NotesTextUpdate`. */
+    var fontSize: CGFloat = 12.0
     
-    init(textView: NSTextView) {
-        self.textView = textView
-        super.init()
-        textView.delegate = self
-    }
-    #endif
+    /** Sets the font color, which will be used in the methods which return a `NotesTextUpdate`. */
+    var fontColor: NSColor = .black
     
-    
-    var fontSize: CGFloat = 12.0 {
-        didSet {
-            updateWithFormattedText(sendModificationNotification: false)
-        }
-    }
-    
-    var fontColor: NSColor = .black {
-        didSet {
-            updateWithFormattedText(sendModificationNotification: false)
-        }
-    }
     
     var fontAttributes: [NSAttributedString.Key: Any] {
         var attributes = [NSAttributedString.Key: Any]()
@@ -53,24 +42,20 @@ class NotesTextFormatter: NSObject {
     }
     
     
-    func updateWithFormattedText(sendModificationNotification: Bool) {
-        if sendModificationNotification {
-            DocumentController.didEditDocument(sender: self)
-        }
+    /**
+     Formats the given text.
+     
+     - parameters:
+        - text: The `String` which should be formatted.
+        - currentSelection: The current cursor position. For `NSTextView` use the method `.selectedRange()`.
+     
+     - returns:
+     A `NotesTextUpdate` which can be used to update the text and cursor position of `NSTextView`.
+     */
+    func format(_ text: String, currentSelection: NSRange) -> NotesTextUpdate {
+        var newSelection = currentSelection
         
-        // Update text and set correct position
-        textView.undoManager?.beginUndoGrouping()
-        let (formattedText, selection) = formatText(string: textView.string)
-        textView.textStorage?.setAttributedString(formattedText)
-        textView.setSelectedRange(selection)
-        textView.undoManager?.endUndoGrouping()
-    }
-    
-    
-    func formatText(string: String) -> (NSAttributedString, NSRange) {
-        var currentSelection = textView.selectedRange()
-        
-        let lines = string.components(separatedBy:  separator)
+        let lines = text.components(separatedBy:  separator)
             .flatMap { [$0, separator] }
             .dropLast()
         
@@ -86,7 +71,7 @@ class NotesTextFormatter: NSObject {
                     attributedString.append(listItemLine)
                     
                     // Adjust selection
-                    currentSelection.location = currentSelection.location - listIndicatorCharacter.count + listCharacter.count
+                    newSelection.location = currentSelection.location - listIndicatorCharacter.count + listCharacter.count
                 }
             } else if line.hasPrefix(listCharacter) {
                 // Append existing items with the same paragraph style
@@ -100,61 +85,54 @@ class NotesTextFormatter: NSObject {
         // Add font from attributes
         attributedString.addAttributes(fontAttributes, range: NSRange(location: 0, length: attributedString.length))
         
-        return (attributedString, currentSelection)
-    }
-
-}
-
-
-
-
-extension NotesTextFormatter: NSTextViewDelegate {
-    
-    func textDidChange(_ notification: Notification) {
-        updateWithFormattedText(sendModificationNotification: true)
+        return NotesTextUpdate(text: attributedString, cursorPositon: newSelection)
     }
     
     
-    func textView(_ textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        if textView == self.textView {
-            // Compose mutable attributed string, which should be modified
-            let attributedString = textView.attributedString()
-            let modifyString = NSMutableAttributedString()
-            modifyString.append(attributedString)
-            
-            // Find current line
-            let textViewContent = NSString(string: textView.string)
-            let currentSelection = textView.selectedRange()
-            let currentLineRange = textViewContent.lineRange(for: currentSelection)
-            let currentLine = textViewContent.substring(with: currentLineRange)
-            
-            // Did hit enter
-            if commandSelector == #selector(NSResponder.insertNewline(_:)) {
-                if currentLine.hasPrefix(listCharacter) {
-                    
-                    // Check if current line is empty (except list character)
-                    if currentLine == listCharacter || currentLine == listCharacter + "\n" {
-                        removeTrailingListCharacter(in: modifyString, currentLineRange: currentLineRange)
-                        return true
-                    }
-                    
-                    // Line is not empty
-                    else {
-                        addTrailingListCharacter(in: modifyString, currentLineRange: currentLineRange, currentSelection: currentSelection)
-                        return true
-                    }
-                }
-            }
-            
-            // Did hit delete
-            else if commandSelector == #selector(NSResponder.deleteBackward(_:)) {
+    /**
+     Modifes the given text for a given command
+     
+     - parameters:
+        - text: The `NSAttributedString` which should be modified.
+        - currentSelection: The current cursor position. For `NSTextView` use the method `.selectedRange()`.
+        - commandSelector: A `Selector` which determines which modification to be performed.
+     
+     - returns:
+     A `NotesTextUpdate` which can be used to update the text and cursor position of `NSTextView`.
+     */
+    func modify(_ text: NSAttributedString, currentSelection: NSRange, commandSelector: Selector) -> NotesTextUpdate? {
+        // Compose mutable attributed string, which should be modified
+        let modifyString = NSMutableAttributedString()
+        modifyString.append(text)
+        
+        // Find current line
+        let textViewContent = NSString(string: text.string)
+        let currentLineRange = textViewContent.lineRange(for: currentSelection)
+        let currentLine = textViewContent.substring(with: currentLineRange)
+        
+        // Did hit enter
+        if commandSelector == #selector(NSResponder.insertNewline(_:)) {
+            if currentLine.hasPrefix(listCharacter) {
+                
+                // Check if current line is empty (except list character)
                 if currentLine == listCharacter || currentLine == listCharacter + "\n" {
-                    removeTrailingListCharacter(in: modifyString, currentLineRange: currentLineRange)
-                    return true
+                    return removeTrailingListCharacter(in: modifyString, currentLineRange: currentLineRange)
+                }
+                    
+                // Line is not empty
+                else {
+                    return addTrailingListCharacter(in: modifyString, currentLineRange: currentLineRange, currentSelection: currentSelection)
                 }
             }
         }
-        return false
+            
+        // Did hit delete
+        else if commandSelector == #selector(NSResponder.deleteBackward(_:)) {
+            if currentSelection.location - currentLineRange.location == listCharacter.count {
+                return removeTrailingListCharacter(in: modifyString, currentLineRange: currentLineRange)
+            }
+        }
+        return nil
     }
     
     
@@ -164,25 +142,36 @@ extension NotesTextFormatter: NSTextViewDelegate {
      - returns:
      `true` if something was changed, otherwise `false`.
      */
-    func removeTrailingListCharacter(in string: NSMutableAttributedString, currentLineRange: NSRange) {
-        let currentLine = NSString(string: textView.string).substring(with: currentLineRange)
+    func removeTrailingListCharacter(in text: NSMutableAttributedString, currentLineRange: NSRange) -> NotesTextUpdate {
+        let currentLine = NSString(string: text.string).substring(with: currentLineRange)
         
         // Replace list character with empty line
-        string.replaceCharacters(in: currentLineRange, with: NSAttributedString(string: currentLine.replacingOccurrences(of: listCharacter, with: ""), attributes: fontAttributes))
-        textView.textStorage?.setAttributedString(string)
+        text.replaceCharacters(in: currentLineRange, with: NSAttributedString(string: currentLine.replacingOccurrences(of: listCharacter, with: ""), attributes: fontAttributes))
         
         // Set cursor to be at the beginning of the currentLine
-        textView.setSelectedRange(NSRange(location: currentLineRange.location, length: 0))
+        let newCursorPosition = NSRange(location: currentLineRange.location, length: 0)
+        
+        return NotesTextUpdate(text: text, cursorPositon: newCursorPosition)
     }
     
     
-    func addTrailingListCharacter(in string: NSMutableAttributedString, currentLineRange: NSRange, currentSelection: NSRange) {
+    /**
+     Adds a new line with a trailling list character after the given current line.
+     
+     - parameters:
+        - text: An `NSMutableAttributedString` which will be modified.
+        - currentLineRange: `NSRange` of the current line. The line after which the new line should be inserted.
+        - currentSelection: `NSRange` of the current cursor position. This is used to determine the new cursor position
+     */
+    func addTrailingListCharacter(in text: NSMutableAttributedString, currentLineRange: NSRange, currentSelection: NSRange) -> NotesTextUpdate {
         // Add list character to the new line
-        let currentLocation = textView.selectedRanges[0].rangeValue.location
+        let currentLocation = currentSelection.location
         let newLine = NSAttributedString(string: "\n" + listCharacter, attributes: [.paragraphStyle: paragraphStyle].merging(fontAttributes, uniquingKeysWith: { (current, _) in current }))
-        string.insert(newLine, at: currentLocation)
+        text.insert(newLine, at: currentLocation)
         
-        textView.textStorage?.setAttributedString(string)
-        textView.setSelectedRange(NSRange(location: currentSelection.location + 1 + listCharacter.count, length: 0))
+        // Move cursor to end of list character
+        let newCursorPosition = NSRange(location: currentSelection.location + 1 + listCharacter.count, length: 0)
+        
+        return NotesTextUpdate(text: text, cursorPositon: newCursorPosition)
     }
 }

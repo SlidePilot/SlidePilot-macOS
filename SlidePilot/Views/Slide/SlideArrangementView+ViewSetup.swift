@@ -40,6 +40,9 @@ extension SlideArrangementView {
         // Remove all subviews from split view containers
         leftContainer!.subviews.forEach({ $0.removeFromSuperview() })
         rightContainer!.subviews.forEach({ $0.removeFromSuperview() })
+        
+        // Remove references to views
+        notesTextView = nil
     }
     
     
@@ -264,6 +267,6 @@ extension SlideArrangementView {
             NSLayoutConstraint(item: notesScrollView, attribute: .height, relatedBy: .equal, toItem: container, attribute: .height, multiplier: 0.8, constant: 0.0)
             ])
         
-        notesTextView?.updateContent()
+        notesTextView?.reloadNotes(reportModification: false)
     }
 }
