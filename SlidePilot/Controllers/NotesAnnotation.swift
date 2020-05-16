@@ -107,12 +107,15 @@ class NotesAnnotation {
         // Compose notes string
         let notesString = notesAnnotationIdentifier + text
         
-        // Update/Create annotation with notes string
+        // Update annotation with notes string
         if let notesAnnotation = getNotesAnnotation(on: page) {
             // Write content to existing annotation
             notesAnnotation.contents = notesString
             notesAnnotation.modificationDate = Date()
-        } else {
+        }
+        
+        // Create annotation with notes string, but only if given text was not empty
+        else if text != "" {
             // Create new annotation an write content
             let notesAnnotation = PDFAnnotation(bounds: NSRect(x: 0, y: 0, width: 25, height: 25))
             notesAnnotation.type = "Text"
