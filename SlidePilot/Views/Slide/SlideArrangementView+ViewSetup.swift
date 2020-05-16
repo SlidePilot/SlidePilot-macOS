@@ -12,6 +12,8 @@ import Cocoa
 extension SlideArrangementView {
     
     func setupLayout(displayNext: Bool, displayNotes: Bool, notesMode: DisplayController.NotesMode) {
+        willSwitchLayout()
+        
         clearView()
         if displayNext == false, displayNotes == false {
             setupSlidesLayoutCurrent()
@@ -26,6 +28,14 @@ extension SlideArrangementView {
         } else if displayNext == false, displayNotes == true, notesMode == .text {
             setupSlidesLayoutCurrentNotesText()
         }
+    }
+    
+    
+    private func willSwitchLayout() {
+        // Switching layout may remove subviews
+        // Put all actions that need to be done before that in here
+        
+        notesTextView?.write(shouldSave: false)
     }
     
     

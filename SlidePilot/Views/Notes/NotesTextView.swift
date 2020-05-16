@@ -138,14 +138,27 @@ class NotesTextView: NSTextView {
     }
     
     
+    /**
+     Writes the content to the notes annotation of the current page of the PDF document.
+     
+    - parameters:
+        - shouldSave: A boolean value indicating, whether the PDF should be saved.
+     */
+    func write(shouldSave: Bool) {
+        let success = NotesAnnotation.writeToCurrentPage(self.string, save: shouldSave)
+        if shouldSave {
+            DocumentController.didSaveDocument(success: success, sender: self)
+        }
+    }
+    
+    
     
     
     // MARK: - Control Handlers
     
     
     @objc func saveDocument(_ notification: Notification) {
-        let success = NotesAnnotation.writeToCurrentPage(self.string, save: true)
-        DocumentController.didSaveDocument(success: success, sender: self)
+        write(shouldSave: true)
     }
     
     
@@ -155,7 +168,7 @@ class NotesTextView: NSTextView {
     
     
     @objc func willSelectPage(_ notification: Notification) {
-        _ = NotesAnnotation.writeToCurrentPage(self.string, save: false)
+        write(shouldSave: false)
     }
     
     
