@@ -57,6 +57,7 @@ class PresenterViewController: NSViewController {
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
         DisplayController.subscribeDisplayCurtain(target: self, action: #selector(displayCurtainDidChange(_:)))
+        DisplayController.subscribePresentationFrozen(target: self, action: #selector(presentationFrozenDidChange(_:)))
         
         // Subscribe to time changes
         TimeController.subscribeIsRunning(target: self, action: #selector(timeIsRunningDidChange(_:)))
@@ -132,6 +133,15 @@ class PresenterViewController: NSViewController {
             showHiddenScreenNotice()
         } else {
             hideHiddenScreenNotice()
+        }
+    }
+    
+    
+    @objc func presentationFrozenDidChange(_ notification: Notification) {
+        if DisplayController.isPresentationFrozen {
+            showFrozenScreenNotice()
+        } else {
+            hideFrozenScreenNotice()
         }
     }
     
@@ -284,6 +294,23 @@ class PresenterViewController: NSViewController {
     
     func hideHiddenScreenNotice() {
         hiddenScreenNotice?.hide()
+    }
+    
+    
+    var frozenScreenNotice: UserNotice?
+    
+    func showFrozenScreenNotice() {
+        // Create notice if necessary
+        if frozenScreenNotice == nil {
+            frozenScreenNotice = UserNotice(style: .warning, message: NSLocalizedString("Frozen Presentation Warning", comment: "Message for the warning notice, that the presentation is frozen."))
+            frozenScreenNotice?.maxWidth = 270.0
+        }
+        frozenScreenNotice?.show(in: self.view)
+    }
+    
+    
+    func hideFrozenScreenNotice() {
+        frozenScreenNotice?.hide()
     }
     
     

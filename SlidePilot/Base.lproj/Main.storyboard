@@ -375,6 +375,12 @@
                                                 <action selector="displayWhiteCurtain:" target="Ady-hI-5gd" id="3Wm-Pt-dzj"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Freeze Presentation" keyEquivalent="f" id="gyh-t9-yDC">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="freezePresentation:" target="Ady-hI-5gd" id="2pV-LG-4sb"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="SKb-ny-ddI"/>
                                         <menuItem title="Show Cursor" keyEquivalent="c" id="iHL-eH-XtE">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -440,6 +446,7 @@
                         <outlet property="decreaseFontSizeItem" destination="3dS-4D-w6v" id="hjj-HZ-GA4"/>
                         <outlet property="displayBlackCurtainItem" destination="Wsl-Lh-Rzy" id="7mA-Hq-uva"/>
                         <outlet property="displayWhiteCurtainItem" destination="E0b-Yv-pqH" id="SEd-Ly-9Bk"/>
+                        <outlet property="freezePresentationItem" destination="gyh-t9-yDC" id="ZMg-dG-E0z"/>
                         <outlet property="increaseFontSizeItem" destination="ie4-IO-iDS" id="sqS-pa-Bsf"/>
                         <outlet property="notesModeMenu" destination="WZZ-GG-9YY" id="yAi-sO-khT"/>
                         <outlet property="notesModeSplitItem" destination="mZv-HA-uBY" id="1Ip-Kl-i5u"/>

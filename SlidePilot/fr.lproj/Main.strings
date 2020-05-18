@@ -191,6 +191,9 @@
 /* Class = "NSMenuItem"; title = "Previous Slide"; ObjectID = "gcL-Jw-1Oj"; */
 "gcL-Jw-1Oj.title" = "Diapositive précédente";
 
+/* Class = "NSMenuItem"; title = "Freeze Presentation"; ObjectID = "gyh-t9-yDC"; */
+"gyh-t9-yDC.title" = "Se figer l'écran";
+
 /* Class = "NSMenuItem"; title = "Show Cursor"; ObjectID = "iHL-eH-XtE"; */
 "iHL-eH-XtE.title" = "Afficher le curseur";
 
