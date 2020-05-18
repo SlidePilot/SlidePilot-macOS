@@ -213,19 +213,22 @@ class RenderCache {
     private func createImage(from page: PDFPage, mode: PDFPageView.DisplayMode = .full) -> NSImage? {
         // Set correct display bounds
         let pageRect = getBoundsFor(mode: mode, pdfPage: page)
-        page.setBounds(pageRect, for: .cropBox)
         
-        // Generate data and image
-        guard let pageData = page.dataRepresentation else { return nil }
-        guard let imageRep = NSPDFImageRep(data: pageData) else { return nil }
-        
-        return NSImage(size: imageRep.size, flipped: false, drawingHandler: { (rect) -> Bool in
+        return NSImage(size: pageRect.size, flipped: false, drawingHandler: { (rect) -> Bool in
             guard let ctx = NSGraphicsContext.current?.cgContext else { return false }
             NSColor.white.set()
             ctx.fill(rect)
 
-            imageRep.draw(in: rect)
+            // Hide notes annotation temporarily for drawing
+            let notesAnnotation = NotesAnnotation.getNotesAnnotation(on: page)
+            notesAnnotation?.shouldDisplay = false
+            
+            // Draw page
+            page.setBounds(pageRect, for: .cropBox)
+            page.draw(with: .cropBox)
 
+            // Display notes annotation again
+            notesAnnotation?.shouldDisplay = true
             return true
         })
     }

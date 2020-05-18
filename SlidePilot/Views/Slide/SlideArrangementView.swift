@@ -21,6 +21,7 @@ class SlideArrangementView: NSView {
     var currentSlideView: SlideView?
     var nextSlideView: SlideView?
     var notesSlideView: SlideView?
+    var notesTextView: NotesTextView?
     
     let padding: CGFloat = 40.0
     let distributionRatio: CGFloat = 0.6
@@ -43,15 +44,16 @@ class SlideArrangementView: NSView {
     
     func setup() {
         // Subscribe to page changes
-        PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))
+        PageController.subscribeDidSelectPage(target: self, action: #selector(pageDidChange(_:)))
         
         // Subscribe to document changes
-        DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
         DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChange(_:)))
         DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
+        DisplayController.subscribeNotesMode(target: self, action: #selector(notesModeDidChange(_:)))
         
         setupSplitView()
         
@@ -62,7 +64,9 @@ class SlideArrangementView: NSView {
     
     private func updateView() {
         // Setup layout with/without next slide and with/without notes slide
-        setupLayout(displayNext: DisplayController.isNextSlidePreviewDisplayed, displayNotes: DisplayController.areNotesDisplayed)
+        setupLayout(displayNext: DisplayController.isNextSlidePreviewDisplayed,
+                    displayNotes: DisplayController.areNotesDisplayed,
+                    notesMode: DisplayController.notesMode)
         
         // Setup notes position
         notesSlideView?.page?.setDisplayMode(DisplayController.notesPosition.displayModeForNotes())
@@ -143,6 +147,11 @@ class SlideArrangementView: NSView {
     
     
     @objc func displayNextSlidePreviewDidChange(_ notification: Notification) {
+        updateView()
+    }
+    
+    
+    @objc func notesModeDidChange(_ notification: Notification) {
         updateView()
     }
     

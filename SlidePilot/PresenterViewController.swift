@@ -45,7 +45,13 @@ class PresenterViewController: NSViewController {
         // Setup default configuration
         
         // Subscribe to document changes
-        DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeRequestImportNotesFromFile(target: self, action: #selector(requestImportNotesFile(_:)))
+        DocumentController.subscribeRequestImportNotesFromAnnotations(target: self, action: #selector(requestImportNotesAnnotations(_:)))
+        DocumentController.subscribeRequestExportNotesToFile(target: self, action: #selector(requestExportNotes(_:)))
+        DocumentController.subscribeFinishedImportingNotes(target: self, action: #selector(finishedImportNotes(_:)))
+        DocumentController.subscribeFinishedExportingNotes(target: self, action: #selector(finishedExportNotes(_:)))
+        DocumentController.subscribeDidSaveDocument(target: self, action: #selector(didSaveDocument(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
@@ -160,6 +166,106 @@ class PresenterViewController: NSViewController {
     }
     
     
+    @objc func requestImportNotesFile(_ notification: Notification) {
+        showImportAlert { (result) in
+            if result {
+                // Open file dialog
+                let openPanel = NSOpenPanel()
+                openPanel.title = NSLocalizedString("Choose File", comment: "Title for open file panel.");
+                openPanel.showsResizeIndicator = true
+                openPanel.showsHiddenFiles = false
+                openPanel.canChooseFiles = true
+                openPanel.canChooseDirectories = false
+                openPanel.canCreateDirectories = false
+                openPanel.allowsMultipleSelection = false
+                openPanel.allowedFileTypes = ["txt"]
+                
+                openPanel.begin { (result) in
+                    if result == .OK {
+                        var success = false
+                        if let notesURL = openPanel.url {
+                            // Start import from file using NotesAnnotation
+                            success = NotesAnnotation.importNotes(from: notesURL)
+                        }
+                        // Send notification, that import finished with success value
+                        DocumentController.finishedImportingNotes(success: success, sender: self)
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    @objc func requestImportNotesAnnotations(_ notification: Notification) {
+        showImportAlert { (result) in
+            if result {
+                // Start import from annotations using NotesAnnotation
+                let success = NotesAnnotation.importNotesFromAnnotationForDocument()
+                // Send notification, that import finished with success value
+                DocumentController.finishedImportingNotes(success: success, sender: self)
+            }
+        }
+    }
+    
+    
+    @objc func requestExportNotes(_ notification: Notification) {
+        // Open save panel to select export file
+        let savePanel = NSSavePanel()
+        savePanel.canCreateDirectories = true
+        savePanel.showsTagField = false
+        savePanel.nameFieldStringValue = "notes.txt"
+        savePanel.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.modalPanelWindow)))
+        
+        savePanel.begin { (result) in
+            if result == .OK {
+                var success = false
+                if let saveURL = savePanel.url {
+                    // Start export notes to file using NotesAnnotation
+                    success = NotesAnnotation.exportNotes(to: saveURL)
+                }
+                // Send notification, that export finished with success value
+                DocumentController.finishedExportingNotes(success: success, sender: self)
+            }
+        }
+    }
+    
+    
+    @objc func finishedImportNotes(_ notification: Notification) {
+        guard let success = notification.userInfo?["success"] as? Bool else { return }
+        // Show alert on failed import
+        if !success {
+            let message = NSLocalizedString("Import Failed", comment: "Alert message informing about failed import.")
+            let text = NSLocalizedString("Import Failed Text", comment: "Alert text informing about failed import.")
+            let alertStyle = NSAlert.Style.critical
+            showNotice(message: message, text: text, alertStyle: alertStyle)
+        }
+    }
+    
+    
+    @objc func finishedExportNotes(_ notification: Notification) {
+        guard let success = notification.userInfo?["success"] as? Bool else { return }
+        // Show alert on failed export
+        if !success {
+            let message = NSLocalizedString("Export Failed", comment: "Alert message informing about failed export.")
+            let text = NSLocalizedString("Export Failed Text", comment: "Alert text informing about failed export.")
+            let alertStyle = NSAlert.Style.critical
+            showNotice(message: message, text: text, alertStyle: alertStyle)
+        }
+    }
+    
+    
+    @objc func didSaveDocument(_ notification: Notification) {
+        guard let success = notification.userInfo?["success"] as? Bool else { return }
+        // Show alert on failed save
+        if !success {
+            let message = NSLocalizedString("Save Failed", comment: "Alert message informing about failed save.")
+            let text = NSLocalizedString("Save Failed Text", comment: "Alert text informing about failed save.")
+            let alertStyle = NSAlert.Style.critical
+            showNotice(message: message, text: text, alertStyle: alertStyle)
+        }
+    }
+    
+    
     
     
     // MARK: - UI
@@ -201,6 +307,33 @@ class PresenterViewController: NSViewController {
                 completion()
             }
         }
+    }
+    
+    
+    func showImportAlert(completion: @escaping(Bool)->()) {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("Import Warning", comment: "Alert message warning for import.")
+        alert.informativeText = NSLocalizedString("Import Warning Text", comment: "Alert text warning for import.")
+        alert.alertStyle = NSAlert.Style.warning
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Title for cancel button."))
+        
+        let result = alert.runModal()
+        if result == .alertFirstButtonReturn {
+            completion(true)
+        } else {
+            completion(false)
+        }
+    }
+    
+    
+    func showNotice(message: String, text: String, alertStyle: NSAlert.Style) {
+        let alert = NSAlert()
+        alert.messageText = message
+        alert.informativeText = text
+        alert.alertStyle = alertStyle
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
+        alert.runModal()
     }
     
     

@@ -116,10 +116,10 @@ class ThumbnailNavigation: NSView {
         NSLayoutConstraint(item: tableView!, attribute: .left, relatedBy: .equal, toItem: scrollView!, attribute: .left, multiplier: 1.0, constant: 0.0)])
         
         // Subscribe to page changes
-        PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))
+        PageController.subscribeDidSelectPage(target: self, action: #selector(pageDidChange(_:)))
         
         // Subscribe to document changes
-        DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange))
@@ -327,11 +327,18 @@ extension ThumbnailNavigation: NSTableViewDelegate {
     
     
     override func keyDown(with event: NSEvent) {
+        // Get the typed key and insert it in the searchField
+        guard let input = event.characters,
+            input.first?.isLetter ?? false || input.first?.isNumber ?? false
+            else {
+                // Forward event
+                self.nextResponder?.keyDown(with: event)
+                return
+        }
+        
         // When a key is pressed, select the searchField
         searchField.becomeFirstResponder()
         
-        // Get the typed key and insert it in the searchField
-        guard let input = event.characters else { return }
         searchField.stringValue = input
         
         // Deselect searchField text and locate the cursor at the correct position
