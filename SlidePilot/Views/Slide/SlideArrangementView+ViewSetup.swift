@@ -35,7 +35,7 @@ extension SlideArrangementView {
         // Switching layout may remove subviews
         // Put all actions that need to be done before that in here
         
-        notesTextView?.write(shouldSave: false)
+        DocumentController.requestSaveDocument(sender: self)
     }
     
     
