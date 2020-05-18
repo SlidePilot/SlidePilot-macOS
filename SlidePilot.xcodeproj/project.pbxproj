@@ -27,6 +27,8 @@
 		50440BB5243357C1000C0C9E /* Clipfree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50440BB4243357C1000C0C9E /* Clipfree.swift */; };
 		50440BB7243357F5000C0C9E /* ThumbnailNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50440BB6243357F5000C0C9E /* ThumbnailNavigation.swift */; };
 		50440BB924339CEA000C0C9E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 50440BB824339CEA000C0C9E /* README.md */; };
+		5045AE07247308A7007525B6 /* PresenterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5045AE06247308A7007525B6 /* PresenterWindow.swift */; };
+		5045AE0924731339007525B6 /* NavigationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5045AE0824731339007525B6 /* NavigationWindow.swift */; };
 		505243B72445AF650050AB98 /* RenderCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505243B62445AF650050AB98 /* RenderCache.swift */; };
 		5070AA5A24619C400025B8C5 /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5070AA5924619C400025B8C5 /* TimeController.swift */; };
 		508BBD622460591800F81FFF /* UserNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BBD612460591800F81FFF /* UserNotice.swift */; };
@@ -101,6 +103,8 @@
 		50440BB824339CEA000C0C9E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		504450A0245ADFB900330984 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		504450A1245ADFB900330984 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5045AE06247308A7007525B6 /* PresenterWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterWindow.swift; sourceTree = "<group>"; };
+		5045AE0824731339007525B6 /* NavigationWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWindow.swift; sourceTree = "<group>"; };
 		505243B62445AF650050AB98 /* RenderCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderCache.swift; sourceTree = "<group>"; };
 		5070AA5924619C400025B8C5 /* TimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
 		508BBD612460591800F81FFF /* UserNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotice.swift; sourceTree = "<group>"; };
@@ -220,7 +224,9 @@
 				503834542434721600E73E43 /* Sparkle.framework */,
 				509B96F62428A3AC0076B8B4 /* AppDelegate.swift */,
 				50440BB824339CEA000C0C9E /* README.md */,
+				5045AE0824731339007525B6 /* NavigationWindow.swift */,
 				503FFDFB242A180000B6F438 /* PresenterWindowController.swift */,
+				5045AE06247308A7007525B6 /* PresenterWindow.swift */,
 				509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */,
 				503FFDFD242A193500B6F438 /* PresentationWindowController.swift */,
 				50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */,
@@ -428,6 +434,7 @@
 				509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */,
 				50EF741224538F690028DB06 /* DocumentController.swift in Sources */,
 				50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */,
+				5045AE0924731339007525B6 /* NavigationWindow.swift in Sources */,
 				50026AD02430EED80049387E /* String+Extension.swift in Sources */,
 				509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */,
 				50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */,
@@ -455,6 +462,7 @@
 				509B970E2428B0A90076B8B4 /* TimeInterval+Extension.swift in Sources */,
 				50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */,
 				50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */,
+				5045AE07247308A7007525B6 /* PresenterWindow.swift in Sources */,
 				50440BB7243357F5000C0C9E /* ThumbnailNavigation.swift in Sources */,
 				50026AD22430F02F0049387E /* PDFPage+Extension.swift in Sources */,
 				500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */,
