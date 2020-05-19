@@ -16,9 +16,7 @@ class NavigationWindow: NSWindow {
         } else if event.keyCode == 124 || event.keyCode == 125 || event.specialKey == NSEvent.SpecialKey.pageDown {
             PageController.nextPage(sender: self)
         } else {
-            if !self.performKeyEquivalent(with: event) {
-                NSApp.mainMenu?.performKeyEquivalent(with: event)
-            }
+            super.keyDown(with: event)
         }
     }
 

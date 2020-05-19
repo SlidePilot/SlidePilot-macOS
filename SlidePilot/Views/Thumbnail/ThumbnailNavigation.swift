@@ -332,7 +332,7 @@ extension ThumbnailNavigation: NSTableViewDelegate {
             input.first?.isLetter ?? false || input.first?.isNumber ?? false
             else {
                 // Forward event
-                self.nextResponder?.keyDown(with: event)
+                super.keyDown(with: event)
                 return
         }
         
