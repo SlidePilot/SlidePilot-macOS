@@ -64,6 +64,7 @@ class DisplayController {
     public private(set) static var areNotesDisplayed: Bool = false
     public private(set) static var isBlackCurtainDisplayed: Bool = false
     public private(set) static var isWhiteCurtainDisplayed: Bool = false
+    public private(set) static var isPresentationFrozen: Bool = false
     public private(set) static var isNavigatorDisplayed: Bool = false
     public private(set) static var isPointerDisplayed: Bool = false
     public private(set) static var isNextSlidePreviewDisplayed: Bool = false
@@ -127,12 +128,20 @@ class DisplayController {
             if isWhiteCurtainDisplayed {
                 setDisplayWhiteCurtain(false, sender: sender)
             }
+            // Turn off frozen presentation
+            if isPresentationFrozen {
+                setPresentationFrozen(false, sender: sender)
+            }
             setDisplayBlackCurtain(true, sender: sender)
             
         case .white:
             // Turn off black curtain if display
             if isBlackCurtainDisplayed {
                 setDisplayBlackCurtain(false, sender: sender)
+            }
+            // Turn off frozen presentation
+            if isPresentationFrozen {
+                setPresentationFrozen(false, sender: sender)
             }
             setDisplayWhiteCurtain(true, sender: sender)
         
@@ -167,6 +176,27 @@ class DisplayController {
             setDisplayCurtain(.none, sender: sender)
         } else {
             setDisplayCurtain(.white, sender: sender)
+        }
+    }
+    
+    
+    /** Sends a notification, that the presentation frozen property was changed. */
+    public static func setPresentationFrozen(_ shouldFreeze: Bool, sender: Any) {
+        // Turn off black / white curtains
+        if isBlackCurtainDisplayed || isWhiteCurtainDisplayed {
+            setDisplayCurtain(.none, sender: sender)
+        }
+        isPresentationFrozen = shouldFreeze
+        NotificationCenter.default.post(name: .didChangePresentationFrozen, object: sender)
+    }
+    
+    
+    /** Changes presentation frozen to the opposite and sends notification, that this property changed. */
+    public static func switchPresentationFrozen(sender: Any) {
+        if isPresentationFrozen {
+            setPresentationFrozen(false, sender: self)
+        } else {
+            setPresentationFrozen(true, sender: self)
         }
     }
     
@@ -268,6 +298,10 @@ class DisplayController {
         NotificationCenter.default.addObserver(target, selector: action, name: .didChangeDisplayCurtain, object: nil)
     }
     
+    /** Subscribes a target to all `.didChangePresentationFrozen` notifications sent by `DisplayController`. */
+    public static func subscribePresentationFrozen(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangePresentationFrozen, object: nil)
+    }
     
     /** Subscribes a target to all `.didChangeDisplayNavigator` notifications sent by `DisplayController`. */
     public static func subscribeDisplayNavigator(target: Any, action: Selector) {
@@ -320,6 +354,7 @@ class DisplayController {
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayBlackCurtain, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayWhiteCurtain, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayCurtain, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangePresentationFrozen, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayNavigator, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayPointer, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangePointerAppearance, object: nil)
@@ -339,6 +374,7 @@ extension Notification.Name {
     static let didChangeDisplayBlackCurtain = Notification.Name("didChangeDisplayBlackCurtain")
     static let didChangeDisplayWhiteCurtain = Notification.Name("didChangeDisplayWhiteCurtain")
     static let didChangeDisplayCurtain = Notification.Name("didChangeDisplayCurtain")
+    static let didChangePresentationFrozen = Notification.Name("didChangePresentationFrozen")
     static let didChangeDisplayNavigator = Notification.Name("didChangeDisplayNavigator")
     static let didChangeDisplayNextSlidePreview = Notification.Name("didChangeDisplayNextSlidePreview")
     static let didChangeDisplayPointer = Notification.Name("didChangeDisplayPointer")

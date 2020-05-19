@@ -12,6 +12,7 @@ import Cocoa
 extension NSTouchBarItem.Identifier {
     static let blackCurtainItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.blackCurtain")
     static let whiteCurtainItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.whiteCurtain")
+    static let freezePresentationItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.freezePresentation")
     static let notesItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.notes")
     static let navigatorItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.navigator")
     static let pointerItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerItem")

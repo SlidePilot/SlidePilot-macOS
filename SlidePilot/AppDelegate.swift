@@ -22,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var previewNextSlideItem: NSMenuItem!
     @IBOutlet weak var displayBlackCurtainItem: NSMenuItem!
     @IBOutlet weak var displayWhiteCurtainItem: NSMenuItem!
+    @IBOutlet weak var freezePresentationItem: NSMenuItem!
     @IBOutlet weak var showPointerItem: NSMenuItem!
     @IBOutlet weak var showNotesItem: NSMenuItem!
     
@@ -75,6 +76,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChange(_:)))
         DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
+        DisplayController.subscribePresentationFrozen(target: self, action: #selector(presentationFrozenDidChange(_:)))
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
         DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
@@ -357,6 +359,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func freezePresentation(_ sender: NSMenuItem) {
+        DisplayController.switchPresentationFrozen(sender: sender)
+    }
+    
+    
     @IBAction func showNavigator(_ sender: NSMenuItem) {
         DisplayController.switchDisplayNavigator(sender: sender)
     }
@@ -472,6 +479,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func displayWhiteCurtainDidChange(_ notification: Notification) {
         // Set correct state for menu item
         displayWhiteCurtainItem.state = DisplayController.isWhiteCurtainDisplayed ? .on : .off
+    }
+    
+    
+    @objc func presentationFrozenDidChange(_ notification: Notification) {
+        // Set correct state for menu item
+        freezePresentationItem.state = DisplayController.isPresentationFrozen ? .on : .off
     }
     
     

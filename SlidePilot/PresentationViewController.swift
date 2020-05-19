@@ -31,6 +31,7 @@ class PresentationViewController: NSViewController {
         DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
         DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
+        DisplayController.subscribePresentationFrozen(target: self, action: #selector(presentationFrozenDidChange(_:)))
     }
     
     
@@ -39,7 +40,10 @@ class PresentationViewController: NSViewController {
     // MARK: - Control Handlers
     
     @objc private func pageDidChange(_ notification: Notification) {
-        pageView.setCurrentPage(PageController.currentPage)
+        // Only change page if screen is not frozen
+        if !DisplayController.isPresentationFrozen {
+            pageView.setCurrentPage(PageController.currentPage)
+        }
     }
     
     
@@ -69,6 +73,14 @@ class PresentationViewController: NSViewController {
             pageView.coverWhite()
         } else {
             pageView.uncover()
+        }
+    }
+    
+    
+    @objc func presentationFrozenDidChange(_ notification: Notification) {
+        // Unfreeze screen, depending on isPresentationFrozen
+        if !DisplayController.isPresentationFrozen {
+            pageView.setCurrentPage(PageController.currentPage)
         }
     }
     
