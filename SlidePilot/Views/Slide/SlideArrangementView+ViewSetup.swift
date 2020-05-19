@@ -263,7 +263,6 @@ extension SlideArrangementView {
         notesTextView?.textContainer?.widthTracksTextView = true
         
         // Additional appearance setup for notes text field
-        notesTextView!.setFontSize(16.0)
         notesTextView!.backgroundColor = .black
         notesTextView!.setFontColor(.white)
         

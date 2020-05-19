@@ -10,6 +10,9 @@ import Cocoa
 
 class NotesTextView: NSTextView {
     
+    let fontSizeDefaultsKey = "notesEditorFontSize"
+    let defaultFontSize: CGFloat = 16.0
+    
     var shouldInsertText = false
     var notesProcessor: NotesTextFormatter!
     
@@ -46,6 +49,14 @@ class NotesTextView: NSTextView {
         // Subscribe to display changes
         DisplayController.subscribeIncreaseFontSize(target: self, action: #selector(didIncreaseFontSize(_:)))
         DisplayController.subscribeDecreaseFontSize(target: self, action: #selector(didDecreaseFontSize(_:)))
+        
+        // Set initial font size, either saved from UserDefaults or default size
+        if let userFontSize = UserDefaults.standard.value(forKey: fontSizeDefaultsKey) as? CGFloat {
+            setFontSize(userFontSize)
+        } else {
+            setFontSize(defaultFontSize)
+        }
+        
     }
     
     
@@ -64,6 +75,7 @@ class NotesTextView: NSTextView {
     func setFontSize(_ fontSize: CGFloat) {
         self.font = NSFont.systemFont(ofSize: fontSize)
         notesProcessor.fontSize = fontSize
+        UserDefaults.standard.set(fontSize, forKey: fontSizeDefaultsKey)
         update(with: self.string, reportModification: false)
     }
     
