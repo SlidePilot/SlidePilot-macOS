@@ -65,6 +65,12 @@ class PDFPageView: NSImageView {
     private(set) var displayMode: DisplayMode = .full
     private(set) var currentPage: Int = 0
     
+    var areLinksEnabled: Bool = true {
+        didSet {
+            self.window?.invalidateCursorRects(for: self)
+        }
+    }
+    
     
     public func setDocument(_ document: PDFDocument?, mode displayMode: DisplayMode = .full, at currentPage: Int = 0) {
         self.pdfDocument = document
@@ -121,8 +127,11 @@ class PDFPageView: NSImageView {
     override func resetCursorRects() {
         super.resetCursorRects()
         
-        // Add cursor rects for annotation
-        addAnnotationCursorRects()
+        // Check if links are enabled
+        if areLinksEnabled {
+            // Add cursor rects for annotation
+            addAnnotationCursorRects()
+        }
     }
     
     
@@ -167,6 +176,9 @@ class PDFPageView: NSImageView {
     
     
     override func mouseDown(with event: NSEvent) {
+        // Only continue if links are enabled
+        guard areLinksEnabled else { super.mouseDown(with: event); return }
+        
         // Calculate the point in relativity to this views origin
         guard let pointInView = self.window?.contentView?.convert(event.locationInWindow, to: self) else { super.mouseDown(with: event); return }
         
