@@ -16,12 +16,13 @@ extension PresenterWindowController: NSTouchBarDelegate {
         let touchBar = NSTouchBar()
         touchBar.delegate = self
         
-        touchBar.defaultItemIdentifiers = [.blackCurtainItem, .whiteCurtainItem, .notesItem, .navigatorItem, .previewNextSlideItem, .fixedSpaceLarge, .pointerItem, .pointerAppearancePopover]
+        touchBar.defaultItemIdentifiers = [.blackCurtainItem, .whiteCurtainItem, .freezePresentationItem, .notesItem, .navigatorItem, .previewNextSlideItem, .fixedSpaceLarge, .pointerItem, .pointerAppearancePopover]
         
         // Subscribe to display changes
         DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChangeTouchBar(_:)))
         DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChangeTouchBar(_:)))
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChangeTouchBar(_:)))
+        DisplayController.subscribePresentationFrozen(target: self, action: #selector(presentationFrozenDidChangeTouchBar(_:)))
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChangeTouchBar(_:)))
         DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChangeTouchBar(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChangeTouchBar(_:)))
@@ -55,6 +56,18 @@ extension PresenterWindowController: NSTouchBarDelegate {
             setSelected(button: button, DisplayController.isWhiteCurtainDisplayed)
             item.view = button
             item.customizationLabel = NSLocalizedString("WhiteCurtainTBLabel", comment: "The customization label for white curtain Touch Bar item.")
+            return item
+            
+        case .freezePresentationItem:
+            let item = NSCustomTouchBarItem(identifier: identifier)
+            let button = NSSegmentedControl(
+                images: [NSImage(named: "Freeze")!],
+                trackingMode: .selectAny,
+                target: self,
+                action: #selector(touchBarFreezePresentationPressed(_:)))
+            setSelected(button: button, DisplayController.isPresentationFrozen)
+            item.view = button
+            item.customizationLabel = NSLocalizedString("FreezePresentationTBLabel", comment: "The customization label for white curtain Touch Bar item.")
             return item
             
         case .notesItem:
@@ -134,6 +147,11 @@ extension PresenterWindowController: NSTouchBarDelegate {
     }
     
     
+    @objc func touchBarFreezePresentationPressed(_ sender: NSSegmentedControl) {
+        DisplayController.switchPresentationFrozen(sender: sender)
+    }
+    
+    
     @objc func touchBarNotesPressed(_ sender: NSSegmentedControl) {
         DisplayController.switchDisplayNotes(sender: sender)
     }
@@ -172,6 +190,15 @@ extension PresenterWindowController: NSTouchBarDelegate {
         guard let blackCurtainButton = blackCurtainItem.view as? NSSegmentedControl else { return }
         
         setSelected(button: blackCurtainButton, DisplayController.isBlackCurtainDisplayed)
+    }
+    
+    
+    @objc func presentationFrozenDidChangeTouchBar(_ notification: Notification) {
+        // Set correct state for touch bar button
+        guard let freezeItem = self.touchBar?.item(forIdentifier: .freezePresentationItem) else { return }
+        guard let freezeButton = freezeItem.view as? NSSegmentedControl else { return }
+        
+        setSelected(button: freezeButton, DisplayController.isPresentationFrozen)
     }
     
     
