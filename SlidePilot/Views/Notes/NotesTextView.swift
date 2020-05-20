@@ -38,17 +38,16 @@ class NotesTextView: NSTextView {
         self.allowsUndo = true
         notesProcessor = NotesTextFormatter()
         
-        // Subscribe to document save request
-        DocumentController.subscribeRequestSaveDocument(target: self, action: #selector(saveDocument(_:)))
-        
         // Subscribe to changes, when text view needs to update content
         DocumentController.subscribeFinishedImportingNotes(target: self, action: #selector(didImportNotes(_:)))
-        PageController.subscribeWillSelectPage(target: self, action: #selector(willSelectPage(_:)))
         PageController.subscribeDidSelectPage(target: self, action: #selector(didSelectPage(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeIncreaseFontSize(target: self, action: #selector(didIncreaseFontSize(_:)))
         DisplayController.subscribeDecreaseFontSize(target: self, action: #selector(didDecreaseFontSize(_:)))
+        
+        // Set initial content
+        self.reloadNotes(reportModification: false)
         
         // Set initial font size, either saved from UserDefaults or default size
         if let userFontSize = UserDefaults.standard.value(forKey: fontSizeDefaultsKey) as? CGFloat {
@@ -106,6 +105,7 @@ class NotesTextView: NSTextView {
     func update(with text: String, reportModification: Bool) {
         let notesUpdate = notesProcessor.format(text, currentSelection: self.selectedRange())
         performUpdate(notesUpdate, reportModification: reportModification)
+        write()
     }
     
     
@@ -152,15 +152,9 @@ class NotesTextView: NSTextView {
     
     /**
      Writes the content to the notes annotation of the current page of the PDF document.
-     
-    - parameters:
-        - shouldSave: A boolean value indicating, whether the PDF should be saved.
      */
-    func write(shouldSave: Bool) {
-        let success = NotesAnnotation.writeToCurrentPage(self.string, save: shouldSave)
-        if shouldSave {
-            DocumentController.didSaveDocument(success: success, sender: self)
-        }
+    func write() {
+        _ = NotesAnnotation.writeToCurrentPage(self.string)
     }
     
     
@@ -169,18 +163,8 @@ class NotesTextView: NSTextView {
     // MARK: - Control Handlers
     
     
-    @objc func saveDocument(_ notification: Notification) {
-        write(shouldSave: true)
-    }
-    
-    
     @objc func didImportNotes(_ notification: Notification) {
-        reloadNotes(reportModification: false)
-    }
-    
-    
-    @objc func willSelectPage(_ notification: Notification) {
-        write(shouldSave: false)
+        reloadNotes(reportModification: true)
     }
     
     

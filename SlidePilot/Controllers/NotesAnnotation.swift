@@ -75,35 +75,31 @@ class NotesAnnotation {
       
       - parameters:
          - text: The text to write to the notes annotation.
-         - save: A boolean value indicating, whether the changes should be saved to the PDF file on disk.
       
       - returns:
      `true` if writing and saving was successfull, `false` if not.
      */
-    public static func writeToCurrentPage(_ text: String, save: Bool) -> Bool {
+    public static func writeToCurrentPage(_ text: String) -> Bool {
         guard let document = DocumentController.document,
             let currentPage = document.page(at: PageController.currentPage)
             else { return false }
-        return write(text, to: currentPage, save: save)
+        return write(text, to: currentPage)
     }
     
     
     /**
-     Writes text to the notes annotation on the specified page and saves the PDF.
+     Writes text to the notes annotation on the specified page.
+     
+     *Important:* The document is not saved to the disk, only the document in the application is changed.
      
      - parameters:
         - text: The text to write to the notes annotation.
         - page: The page on which the text should be saved.
-        - save: A boolean value indicating, whether the changes should be saved to the PDF file on disk.
      
      - returns:
     `true` if writing and saving was successfull, `false` if not.
      */
-    public static func write(_ text: String, to page: PDFPage, save: Bool) -> Bool {
-        // Gather prequisites for saving
-        guard let document = DocumentController.document else { return false }
-        guard let documentFileURL = document.documentURL else { return false }
-        
+    public static func write(_ text: String, to page: PDFPage) -> Bool {
         // Compose notes string
         let notesString = notesAnnotationIdentifier + text
         
@@ -127,11 +123,6 @@ class NotesAnnotation {
             notesAnnotation.stampName = "Note"
             notesAnnotation.shouldPrint = false
             page.addAnnotation(notesAnnotation)
-        }
-        
-        // Save updated PDF
-        if save {
-            return document.write(to: documentFileURL)
         }
         return true
     }
@@ -162,7 +153,7 @@ class NotesAnnotation {
         }
         
         // Write the gathered text into the notes annotation
-        return write(annotationsText, to: page, save: true)
+        return write(annotationsText, to: page)
     }
     
     
@@ -260,7 +251,7 @@ class NotesAnnotation {
                 // Add each component to the correct page notes annotation
                 guard let page = document.page(at: index) else { continue }
                 
-                didSucceed = didSucceed && write(notesPerPage[index], to: page, save: true)
+                didSucceed = didSucceed && write(notesPerPage[index], to: page)
             }
             
             return didSucceed

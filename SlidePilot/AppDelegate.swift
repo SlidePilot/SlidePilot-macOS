@@ -102,7 +102,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Request saving document
-        DocumentController.requestSaveDocument(sender: self)
+        DocumentController.saveDocument(sender: self)
     }
     
     
@@ -194,7 +194,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - File Handling
     
     @IBAction func saveDocument(_ sender: NSMenuItem) {
-        DocumentController.requestSaveDocument(sender: sender)
+        DocumentController.saveDocument(sender: sender)
     }
     
     
@@ -232,7 +232,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let pdfDocument = PDFDocument(url: url) else { return }
         
         // Request saving current document
-        DocumentController.requestSaveDocument(sender: self)
+        DocumentController.saveDocument(sender: self)
         
         // Open document
         DocumentController.setDocument(pdfDocument, sender: self)

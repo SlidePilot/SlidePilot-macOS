@@ -34,8 +34,6 @@ extension SlideArrangementView {
     private func willSwitchLayout() {
         // Switching layout may remove subviews
         // Put all actions that need to be done before that in here
-        
-        DocumentController.requestSaveDocument(sender: self)
     }
     
     
@@ -275,7 +273,5 @@ extension SlideArrangementView {
             NSLayoutConstraint(item: notesScrollView, attribute: .width, relatedBy: .equal, toItem: container, attribute: .width, multiplier: 0.9, constant: 0.0),
             NSLayoutConstraint(item: notesScrollView, attribute: .height, relatedBy: .equal, toItem: container, attribute: .height, multiplier: 0.8, constant: 0.0)
             ])
-        
-        notesTextView?.reloadNotes(reportModification: false)
     }
 }

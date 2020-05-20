@@ -30,14 +30,27 @@ class DocumentController {
     }
     
     
-    /** Sends a notification, that saving the document was requested. */
-    public static func requestSaveDocument(sender: Any) {
-        NotificationCenter.default.post(name: .requestSaveDocument, object: sender)
+    /** Saves a document and sends a `.didSaveDocument` notification with the correct success value. */
+    public static func saveDocument(sender: Any) {
+        guard let document = document else { return }
+        guard let documentFileURL = document.documentURL
+            else {
+                didSaveDocument(success: false, sender: sender)
+                return
+        }
+        
+        // Save document
+        DispatchQueue.global().async {
+            let success = document.write(to: documentFileURL)
+            DispatchQueue.main.async {
+                didSaveDocument(success: success, sender: sender)
+            }
+        }
     }
     
     
     /** Sends a notification, that saving the document was saved with success value. */
-    public static func didSaveDocument(success: Bool, sender: Any) {
+    private static func didSaveDocument(success: Bool, sender: Any) {
         NotificationCenter.default.post(name: .didSaveDocument, object: sender, userInfo: ["success": success])
     }
     
@@ -88,12 +101,6 @@ class DocumentController {
     }
     
     
-    /** Subscribes a target to all `.requestSaveDocument` notifications sent by `DocumentController`. */
-    public static func subscribeRequestSaveDocument(target: Any, action: Selector) {
-        NotificationCenter.default.addObserver(target, selector: action, name: .requestSaveDocument, object: nil)
-    }
-    
-    
     /** Subscribes a target to all `.didSaveDocument` notifications sent by `DocumentController`. */
     public static func subscribeDidSaveDocument(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name:  .didSaveDocument, object: nil)
@@ -140,7 +147,6 @@ class DocumentController {
     public static func unsubscribe(target: Any) {
         NotificationCenter.default.removeObserver(target, name: .didOpenDocument, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didOpenDocument, object: nil)
-        NotificationCenter.default.removeObserver(target, name: .requestSaveDocument, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didSaveDocument, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didEditDocument, object: nil)
         NotificationCenter.default.removeObserver(target, name: .requestImportNotesFromAnnotations, object: nil)
@@ -156,7 +162,6 @@ class DocumentController {
 
 extension Notification.Name {
     static let didOpenDocument = Notification.Name("didOpenDocument")
-    static let requestSaveDocument = Notification.Name("requestSaveDocument")
     static let didSaveDocument = Notification.Name("didSaveDocument")
     static let didEditDocument = Notification.Name("didEditDocument")
     static let requestImportNotesFromAnnotations = Notification.Name("requestImportNotesFromAnnotations")
