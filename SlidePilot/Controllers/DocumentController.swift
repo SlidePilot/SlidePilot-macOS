@@ -12,6 +12,7 @@ import PDFKit
 class DocumentController {
     
     public private(set) static var document: PDFDocument?
+    public private(set) static var hasUnsavedChanges: Bool = false
     
     /** Returns the number of pages in the current document */
     public static var pageCount: Int {
@@ -32,6 +33,8 @@ class DocumentController {
     
     /** Saves a document and sends a `.didSaveDocument` notification with the correct success value. */
     public static func saveDocument(sender: Any) {
+        // Only save if there are unsaved changes
+        guard hasUnsavedChanges else { return }
         guard let document = document else { return }
         guard let documentFileURL = document.documentURL
             else {
@@ -51,12 +54,16 @@ class DocumentController {
     
     /** Sends a notification, that saving the document was saved with success value. */
     private static func didSaveDocument(success: Bool, sender: Any) {
+        if success {
+            hasUnsavedChanges = false
+        }
         NotificationCenter.default.post(name: .didSaveDocument, object: sender, userInfo: ["success": success])
     }
     
     
     /** Sends a notification, that the document was edited. */
     public static func didEditDocument(sender: Any) {
+        hasUnsavedChanges = true
         NotificationCenter.default.post(name: .didEditDocument, object: sender)
     }
     
