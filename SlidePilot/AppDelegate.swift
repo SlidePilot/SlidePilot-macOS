@@ -578,6 +578,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @objc func didSaveDocument(_ notification: Notification) {
-        presenterWindow?.windowController?.setDocumentEdited(false)
+        guard let success = notification.userInfo?["success"] as? Bool else { return }
+        if success {
+            presenterWindow?.windowController?.setDocumentEdited(false)
+        }
     }
 }
