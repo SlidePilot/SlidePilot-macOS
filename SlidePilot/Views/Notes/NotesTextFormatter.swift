@@ -128,7 +128,7 @@ class NotesTextFormatter: NSObject {
             
         // Did hit delete
         else if commandSelector == #selector(NSResponder.deleteBackward(_:)) {
-            if currentSelection.location - currentLineRange.location == listCharacter.count {
+            if currentSelection.location - currentLineRange.location == listCharacter.count, currentLine.hasPrefix(listCharacter) {
                 return removeTrailingListCharacter(in: modifyString, currentLineRange: currentLineRange)
             }
         }
