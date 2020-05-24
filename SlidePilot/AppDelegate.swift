@@ -98,7 +98,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Close the current notes file (implies saving it)
-        DocumentController.closeNotesFile(sender: self)
+        DocumentController.requestCloseNotesFile(sender: self)
     }
     
     
@@ -223,7 +223,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let pdfDocument = PDFDocument(url: url) else { return }
         
         // Close the current notes file (implies saving it)
-        DocumentController.closeNotesFile(sender: self)
+        DocumentController.requestCloseNotesFile(sender: self)
         
         // Open document
         DocumentController.setDocument(pdfDocument, sender: self)

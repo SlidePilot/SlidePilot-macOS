@@ -40,7 +40,7 @@ class DocumentController {
     
     
     /** Sends a notification, that saving the document was saved with success value. */
-    private static func didSaveDocument(success: Bool, sender: Any) {
+    public static func didSaveNotes(success: Bool, sender: Any) {
         if success {
             hasNotesUnsavedChanges = false
         }
@@ -69,9 +69,16 @@ class DocumentController {
     
     
     /** Sends a notification, that the notes file should be closed. Requests to save the current notes file beforehand. */
-    public static func closeNotesFile(sender: Any) {
+    public static func requestCloseNotesFile(sender: Any) {
         requestSaveNotes(sender: sender)
-        NotificationCenter.default.post(name: .closeNotes, object: sender)
+        NotificationCenter.default.post(name: .requestCloseNotes, object: sender)
+    }
+    
+    
+    /** Sends a notification, that the notes file has been closed. */
+    public static func didCloseNotesFile(sender: Any) {
+        notesFileURL = nil
+        NotificationCenter.default.post(name: .didCloseNotes, object: sender)
     }
     
     
@@ -114,9 +121,15 @@ class DocumentController {
     }
     
     
-    /** Subscribes a target to all `.closeNotes` notifications sent by `DocumentController`. */
-    public static func subscribeCloseNotes(target: Any, action: Selector) {
-        NotificationCenter.default.addObserver(target, selector: action, name: .closeNotes, object: nil)
+    /** Subscribes a target to all `.requestCloseNotes` notifications sent by `DocumentController`. */
+    public static func subscribeRequestCloseNotes(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .requestCloseNotes, object: nil)
+    }
+    
+    
+    /** Subscribes a target to all `.didCloseNotes` notifications sent by `DocumentController`. */
+    public static func subscribeDidCloseNotes(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didCloseNotes, object: nil)
     }
     
     
@@ -128,7 +141,8 @@ class DocumentController {
         NotificationCenter.default.removeObserver(target, name: .didSaveNotes, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didEditNotes, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didOpenNotes, object: nil)
-        NotificationCenter.default.removeObserver(target, name: .closeNotes, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .requestCloseNotes, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didCloseNotes, object: nil)
     }
 }
 
@@ -142,5 +156,6 @@ extension Notification.Name {
     static let didSaveNotes = Notification.Name("didSaveNotes")
     static let didEditNotes = Notification.Name("didEditNotes")
     static let didOpenNotes = Notification.Name("didOpenNotes")
-    static let closeNotes = Notification.Name("closeNotes")
+    static let requestCloseNotes = Notification.Name("requestCloseNotes")
+    static let didCloseNotes = Notification.Name("didCloseNotes")
 }
