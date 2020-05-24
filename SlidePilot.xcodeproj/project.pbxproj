@@ -49,6 +49,7 @@
 		50DD8B292458819600E83784 /* PresenterWindowController+TouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B282458819600E83784 /* PresenterWindowController+TouchBar.swift */; };
 		50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B2A245881C700E83784 /* TouchBarIdentifiers.swift */; };
 		50DD8B2D2458DCED00E83784 /* PointerAppearanceTouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B2C2458DCED00E83784 /* PointerAppearanceTouchBar.swift */; };
+		50E2E5E8247AA12800CE6FDA /* NotesTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E5E7247AA12800CE6FDA /* NotesTextView.swift */; };
 		50EF741224538F690028DB06 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741124538F690028DB06 /* DocumentController.swift */; };
 		50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741324539A3E0028DB06 /* DisplayController.swift */; };
 		50FA6B98245356F000EDEFC6 /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA6B97245356F000EDEFC6 /* PageController.swift */; };
@@ -129,6 +130,7 @@
 		50DD8B282458819600E83784 /* PresenterWindowController+TouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PresenterWindowController+TouchBar.swift"; sourceTree = "<group>"; };
 		50DD8B2A245881C700E83784 /* TouchBarIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBarIdentifiers.swift; sourceTree = "<group>"; };
 		50DD8B2C2458DCED00E83784 /* PointerAppearanceTouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerAppearanceTouchBar.swift; sourceTree = "<group>"; };
+		50E2E5E7247AA12800CE6FDA /* NotesTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTextView.swift; sourceTree = "<group>"; };
 		50EF741124538F690028DB06 /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		50EF741324539A3E0028DB06 /* DisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
 		50FA6B97245356F000EDEFC6 /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 		509B97062428A3C40076B8B4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				50E2E5E6247AA11300CE6FDA /* Notes */,
 				50DD8B2724587FC600E83784 /* TouchBar */,
 				509B97272428CBA20076B8B4 /* Slide */,
 				50440BB124335787000C0C9E /* Thumbnail */,
@@ -294,6 +297,14 @@
 				50DD8B2C2458DCED00E83784 /* PointerAppearanceTouchBar.swift */,
 			);
 			path = TouchBar;
+			sourceTree = "<group>";
+		};
+		50E2E5E6247AA11300CE6FDA /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				50E2E5E7247AA12800CE6FDA /* NotesTextView.swift */,
+			);
+			path = Notes;
 			sourceTree = "<group>";
 		};
 		50FA6B992453606600EDEFC6 /* Controllers */ = {
@@ -435,6 +446,7 @@
 				503FFDFF242A193500B6F438 /* PresentationWindowController.swift in Sources */,
 				508BBD642460966800F81FFF /* CAKeyframeAnimation+Extension.swift in Sources */,
 				509B970C2428AA2F0076B8B4 /* TimingControl.swift in Sources */,
+				50E2E5E8247AA12800CE6FDA /* NotesTextView.swift in Sources */,
 				50440BB3243357AA000C0C9E /* ThumbnailView.swift in Sources */,
 				503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */,
 				500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */,
