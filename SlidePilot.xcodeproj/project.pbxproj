@@ -50,6 +50,8 @@
 		50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B2A245881C700E83784 /* TouchBarIdentifiers.swift */; };
 		50DD8B2D2458DCED00E83784 /* PointerAppearanceTouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B2C2458DCED00E83784 /* PointerAppearanceTouchBar.swift */; };
 		50E2E5E8247AA12800CE6FDA /* NotesTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E5E7247AA12800CE6FDA /* NotesTextView.swift */; };
+		50E2E5EC247AB84C00CE6FDA /* NotesDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E5EB247AB84C00CE6FDA /* NotesDocument.swift */; };
+		50E2E5EE247AC05500CE6FDA /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */; };
 		50EF741224538F690028DB06 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741124538F690028DB06 /* DocumentController.swift */; };
 		50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741324539A3E0028DB06 /* DisplayController.swift */; };
 		50FA6B98245356F000EDEFC6 /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA6B97245356F000EDEFC6 /* PageController.swift */; };
@@ -131,6 +133,8 @@
 		50DD8B2A245881C700E83784 /* TouchBarIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBarIdentifiers.swift; sourceTree = "<group>"; };
 		50DD8B2C2458DCED00E83784 /* PointerAppearanceTouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerAppearanceTouchBar.swift; sourceTree = "<group>"; };
 		50E2E5E7247AA12800CE6FDA /* NotesTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTextView.swift; sourceTree = "<group>"; };
+		50E2E5EB247AB84C00CE6FDA /* NotesDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesDocument.swift; sourceTree = "<group>"; };
+		50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		50EF741124538F690028DB06 /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		50EF741324539A3E0028DB06 /* DisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
 		50FA6B97245356F000EDEFC6 /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
@@ -166,6 +170,8 @@
 				5036BD892435F8CD0007AF6F /* AppStartTracker.swift */,
 				505243B62445AF650050AB98 /* RenderCache.swift */,
 				508BBD632460966800F81FFF /* CAKeyframeAnimation+Extension.swift */,
+				50E2E5EB247AB84C00CE6FDA /* NotesDocument.swift */,
+				50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -429,6 +435,7 @@
 				50EF741224538F690028DB06 /* DocumentController.swift in Sources */,
 				50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */,
 				50026AD02430EED80049387E /* String+Extension.swift in Sources */,
+				50E2E5EC247AB84C00CE6FDA /* NotesDocument.swift in Sources */,
 				509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */,
 				50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */,
 				503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */,
@@ -454,6 +461,7 @@
 				509B970E2428B0A90076B8B4 /* TimeInterval+Extension.swift in Sources */,
 				50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */,
 				5077493B247A8C4000316F0B /* PresenterWindow.swift in Sources */,
+				50E2E5EE247AC05500CE6FDA /* NSAttributedString+Extension.swift in Sources */,
 				50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */,
 				50440BB7243357F5000C0C9E /* ThumbnailNavigation.swift in Sources */,
 				50026AD22430F02F0049387E /* PDFPage+Extension.swift in Sources */,
