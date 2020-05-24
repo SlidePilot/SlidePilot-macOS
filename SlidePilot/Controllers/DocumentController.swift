@@ -27,7 +27,7 @@ class DocumentController {
     
     
     /** Subscribes a target to all notifications sent by `DocumentController`. */
-    public static func subscribe(target: Any, action: Selector) {
+    public static func subscribeDidOpenDocument(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .didOpenDocument, object: nil)
     }
     
