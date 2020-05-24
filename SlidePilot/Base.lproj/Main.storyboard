@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -278,52 +278,16 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Presentation" autoenablesItems="NO" id="uzH-JS-q45">
                                     <items>
-                                        <menuItem title="Previous Slide" tag="1" keyEquivalent="" id="gcL-Jw-1Oj">
+                                        <menuItem title="Previous Slide" tag="1" id="gcL-Jw-1Oj">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="previousSlide:" target="Ady-hI-5gd" id="ijM-Of-CjL"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Previous Slide" tag="2" hidden="YES" keyEquivalent="" id="Ogv-VI-0Jg">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="pup-Ul-KmX"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Previous Slide" tag="3" hidden="YES" keyEquivalent="" id="ywH-LG-iQS">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="7VZ-jt-0gk"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Next Slide" tag="4" keyEquivalent="" id="s0G-5Y-hRb">
+                                        <menuItem title="Next Slide" tag="4" id="s0G-5Y-hRb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="nextSlide:" target="Ady-hI-5gd" id="sj2-C9-1bJ"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Next Slide" tag="5" hidden="YES" keyEquivalent="" id="XpD-9W-0P3">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="DhG-49-Jbe"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Next Slide" tag="6" hidden="YES" keyEquivalent="" id="BWz-Hx-oMf">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="Lo6-NI-nsc"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="WxF-lf-SZG"/>
@@ -444,7 +408,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController storyboardIdentifier="PresenterWindow" id="B8D-0N-5wS" customClass="PresenterWindowController" customModule="SlidePilot" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA" customClass="PresenterWindow" customModule="SlidePilot" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
