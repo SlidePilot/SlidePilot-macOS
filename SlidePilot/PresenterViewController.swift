@@ -46,6 +46,7 @@ class PresenterViewController: NSViewController {
         
         // Subscribe to document changes
         DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeDidSaveNotes(target: self, action: #selector(didSaveNotes(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
@@ -94,6 +95,18 @@ class PresenterViewController: NSViewController {
     @objc func documentDidChange(_ notification: Notification) {
         hideNavigation(animated: false)
         DisplayController.setDisplayNavigator(false, sender: self)
+    }
+    
+    
+    @objc func didSaveNotes(_ notification: Notification) {
+        guard let success = notification.userInfo?["success"] as? Bool else { return }
+        // Show alert on failed save
+        if !success {
+            let message = NSLocalizedString("Save Failed", comment: "Alert message informing about failed save.")
+            let text = NSLocalizedString("Save Failed Text", comment: "Alert text informing about failed save.")
+            let alertStyle = NSAlert.Style.critical
+            showNotice(message: message, text: text, alertStyle: alertStyle)
+        }
     }
     
     
@@ -202,6 +215,17 @@ class PresenterViewController: NSViewController {
             }
         }
     }
+    
+    
+    func showNotice(message: String, text: String, alertStyle: NSAlert.Style) {
+        let alert = NSAlert()
+        alert.messageText = message
+        alert.informativeText = text
+        alert.alertStyle = alertStyle
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
+        alert.runModal()
+    }
+
     
     
     
