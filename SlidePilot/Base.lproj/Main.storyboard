@@ -299,8 +299,16 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wSb-6N-lIr"/>
-                                        <menuItem title="Open Notes" keyEquivalent="O" id="ypU-UU-7oB"/>
-                                        <menuItem title="Save Notes" keyEquivalent="s" id="Nrq-4X-0EL"/>
+                                        <menuItem title="Open Notes" keyEquivalent="O" id="ypU-UU-7oB">
+                                            <connections>
+                                                <action selector="openNotes:" target="Ady-hI-5gd" id="FbF-0w-PpX"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Save Notes" keyEquivalent="s" id="Nrq-4X-0EL">
+                                            <connections>
+                                                <action selector="saveNotes:" target="Ady-hI-5gd" id="98j-Be-It3"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>

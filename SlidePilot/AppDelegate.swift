@@ -82,6 +82,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Set default display options
         DisplayController.setPointerAppearance(.cursor, sender: self)
         
+        // Subscribe to notes file changes
+        DocumentController.subscribeDidEditNotes(target: self, action: #selector(didEditNotes(_:)))
+        DocumentController.subscribeDidSaveNotes(target: self, action: #selector(didSaveNotes(_:)))
+        
         // Subscribe to time changes
         TimeController.subscribeTimeMode(target: self, action: #selector(timeModeDidChange(_:)))
         
@@ -93,7 +97,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        // Close the current notes file (implies saving it)
+        DocumentController.closeNotesFile(sender: self)
     }
     
     
@@ -217,8 +222,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
         guard let pdfDocument = PDFDocument(url: url) else { return }
         
+        // Close the current notes file (implies saving it)
+        DocumentController.closeNotesFile(sender: self)
+        
         // Open document
         DocumentController.setDocument(pdfDocument, sender: self)
+        
+        // TODO: Open the notes file if it can be found
         
         // Reset page
         PageController.selectPage(at: 0, sender: self)
@@ -303,6 +313,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func selectNotesModeSplit(_ sender: NSMenuItem) {
         DisplayController.setNotesMode(.split, sender: sender)
+    }
+    
+    
+    @IBAction func saveNotes(_ sender: NSMenuItem) {
+        DocumentController.requestSaveNotes(sender: sender)
+    }
+    
+    
+    @IBAction func openNotes(_ sender: NSMenuItem) {
+        DocumentController.requestOpenNotes(sender: sender)
     }
     
     
@@ -427,6 +447,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 DisplayController.setNotesPosition(.right, sender: self)
             }
         }
+    }
+    
+    
+    @objc func didEditNotes(_ notification: Notification) {
+        presenterWindow?.isDocumentEdited = true
+    }
+    
+    
+    @objc func didSaveNotes(_ notification: Notification) {
+        presenterWindow?.isDocumentEdited = false
     }
     
     
