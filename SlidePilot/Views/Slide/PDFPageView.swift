@@ -65,6 +65,12 @@ class PDFPageView: NSImageView {
     private(set) var displayMode: DisplayMode = .full
     private(set) var currentPage: Int = 0
     
+    var areLinksEnabled: Bool = true {
+        didSet {
+            self.window?.invalidateCursorRects(for: self)
+        }
+    }
+    
     
     public func setDocument(_ document: PDFDocument?, mode displayMode: DisplayMode = .full, at currentPage: Int = 0) {
         self.pdfDocument = document
@@ -121,8 +127,11 @@ class PDFPageView: NSImageView {
     override func resetCursorRects() {
         super.resetCursorRects()
         
-        // Add cursor rects for annotation
-        addAnnotationCursorRects()
+        // Check if links are enabled
+        if areLinksEnabled {
+            // Add cursor rects for annotation
+            addAnnotationCursorRects()
+        }
     }
     
     
@@ -167,12 +176,15 @@ class PDFPageView: NSImageView {
     
     
     override func mouseDown(with event: NSEvent) {
+        // Only continue if links are enabled
+        guard areLinksEnabled else { super.mouseDown(with: event); return }
+        
         // Calculate the point in relativity to this views origin
-        guard let pointInView = self.window?.contentView?.convert(event.locationInWindow, to: self) else { return }
+        guard let pointInView = self.window?.contentView?.convert(event.locationInWindow, to: self) else { super.mouseDown(with: event); return }
         
         // Only continue if click is inside of imageFrame
         let imageFrame = imageRect()
-        guard imageFrame.contains(pointInView) else { return }
+        guard imageFrame.contains(pointInView) else { super.mouseDown(with: event); return }
         
         // Calculate the absolute point on the displayed PDF image
         let pointInImage = NSPoint(x: pointInView.x - imageFrame.origin.x, y: pointInView.y - imageFrame.origin.y)
@@ -181,7 +193,7 @@ class PDFPageView: NSImageView {
         let relativePointInImage = NSPoint(x: pointInImage.x / imageFrame.width , y: pointInImage.y / imageFrame.height)
         
         // Calculate click point relative to PDF page bounds
-        guard let page = pdfDocument?.page(at: currentPage) else { return }
+        guard let page = pdfDocument?.page(at: currentPage) else { super.mouseDown(with: event); return }
         let pageBounds = page.bounds(for: .cropBox)
         let pointOnPage = NSPoint(x: relativePointInImage.x * pageBounds.width + pageBounds.origin.x,
                                   y: relativePointInImage.y * pageBounds.height + pageBounds.origin.y)
@@ -189,20 +201,20 @@ class PDFPageView: NSImageView {
         // That means that the origin for the crop box is not at (0,0)
         
         // Get annotation for click position
-        let annotation = pdfDocument?.page(at: currentPage)?.annotation(at: pointOnPage)
+        guard let annotation = pdfDocument?.page(at: currentPage)?.annotation(at: pointOnPage) else { super.mouseDown(with: event); return }
         
         
         // Handle clicking on annotation
         
         // Go to document page
-        if let goToAction = annotation?.action as? PDFActionGoTo {
-            guard let destPage = goToAction.destination.page else { return }
-            guard let destPageIndex = pdfDocument?.index(for: destPage) else { return }
+        if let goToAction = annotation.action as? PDFActionGoTo {
+            guard let destPage = goToAction.destination.page else { super.mouseDown(with: event); return }
+            guard let destPageIndex = pdfDocument?.index(for: destPage) else { super.mouseDown(with: event); return }
             PageController.selectPage(at: destPageIndex, sender: self)
         }
         
         // Open web page
-        else if let urlAction = annotation?.action as? PDFActionURL {
+        else if let urlAction = annotation.action as? PDFActionURL {
             guard let url = urlAction.url else { return }
             // Open url in browser
             if #available(OSX 10.15, *) {
