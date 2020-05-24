@@ -227,15 +227,36 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="A3e-R8-0Hj"/>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Notes" id="jvc-gB-nHf">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Notes" autoenablesItems="NO" id="eeB-A4-p01">
+                                    <items>
                                         <menuItem title="Show Notes" tag="401" keyEquivalent="n" identifier="ShowNotes" id="fS9-YP-QfR">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showNotes:" target="Ady-hI-5gd" id="v6k-IP-Uza"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Notes Position" tag="402" identifier="NotesPosition" id="WtB-Ny-SAM" userLabel="Notes Position">
+                                        <menuItem title="Notes Mode" id="6b4-5J-R1q">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" autoenablesItems="NO" id="Vm6-Hh-mT3">
+                                            <menu key="submenu" id="hqc-Um-UGA">
+                                                <items>
+                                                    <menuItem title="Text" id="hxO-Rn-nAO">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Split" id="OMC-wK-B8t">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="tCQ-vc-et8"/>
+                                        <menuItem title="Split Position" tag="402" identifier="NotesPosition" id="WtB-Ny-SAM" userLabel="Notes Position">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Split Position" autoenablesItems="NO" id="Vm6-Hh-mT3">
                                                 <items>
                                                     <menuItem title="None" keyEquivalent="0" identifier="NotesPositionNone" id="Kws-6x-VZZ">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
@@ -271,6 +292,9 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="wSb-6N-lIr"/>
+                                        <menuItem title="Open Notes" keyEquivalent="O" id="ypU-UU-7oB"/>
+                                        <menuItem title="Save Notes" keyEquivalent="s" id="Nrq-4X-0EL"/>
                                     </items>
                                 </menu>
                             </menuItem>
