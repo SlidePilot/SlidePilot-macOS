@@ -32,6 +32,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var pointerAppearanceTargetItem: NSMenuItem!
     @IBOutlet weak var pointerAppearanceTargetColorItem: NSMenuItem!
     
+    @IBOutlet weak var notesModeMenu: NSMenu!
+    @IBOutlet weak var notesModeTextItem: NSMenuItem!
+    @IBOutlet weak var notesModeSplitItem: NSMenuItem!
+    
     @IBOutlet weak var notesPositionMenu: NSMenu!
     @IBOutlet weak var notesPositionNoneItem: NSMenuItem!
     @IBOutlet weak var notesPositionRightItem: NSMenuItem!
@@ -73,6 +77,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
         DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
+        DisplayController.subscribeNotesMode(target: self, action: #selector(notesModeDidChange(_:)))
         
         // Set default display options
         DisplayController.setPointerAppearance(.cursor, sender: self)
@@ -222,6 +227,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.setDisplayNextSlidePreview(true, sender: self)
         DisplayController.setNotesPosition(.none, sender: self)
         DisplayController.setDisplayNotes(false, sender: self)
+        DisplayController.setNotesMode(.text, sender: self)
         
         // Reset stopwatch/timer
         TimeController.resetTime(sender: self)
@@ -288,6 +294,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func showNotes(_ sender: NSMenuItem) {
         DisplayController.switchDisplayNotes(sender: sender)
+    }
+    
+    @IBAction func selectNotesModeText(_ sender: NSMenuItem) {
+        DisplayController.setNotesMode(.text, sender: sender)
+    }
+    
+    
+    @IBAction func selectNotesModeSplit(_ sender: NSMenuItem) {
+        DisplayController.setNotesMode(.split, sender: sender)
     }
     
     
@@ -379,8 +394,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         switch DisplayController.notesPosition {
         case .none:
             notesPositionNoneItem.state = .on
-            if DisplayController.areNotesDisplayed {
-                DisplayController.setDisplayNotes(false, sender: self)
+            if DisplayController.areNotesDisplayed, DisplayController.notesMode == .split {
+                DisplayController.setNotesMode(.text, sender: self)
             }
         case .right:
             notesPositionRightItem.state = .on
@@ -394,14 +409,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @objc func notesModeDidChange(_ notification: Notification) {
+        // Turn off all items in notes mode menu
+        notesModeMenu.items.forEach({ $0.state = .off })
+        
+        // Select correct menu item for notes position
+        switch DisplayController.notesMode {
+        case .text:
+            notesModeTextItem.state = .on
+            
+        case .split:
+            notesModeSplitItem.state = .on
+            
+            // Select notes position right by default when displaying notes split
+            // Only if notes are displayed currently and current note position is none
+            if DisplayController.areNotesDisplayed, DisplayController.notesPosition == .none , DisplayController.notesMode == .split{
+                DisplayController.setNotesPosition(.right, sender: self)
+            }
+        }
+    }
+    
+    
     @objc func displayNotesDidChange(_ notification: Notification) {
         // Set correct state for display notes menu item
         showNotesItem.state = DisplayController.areNotesDisplayed ? .on : .off
         
         
-        // Select notes position right by default when displaying notes
+        // Select notes position right by default when displaying notes split
         // Only if notes are displayed currently and current note position is none
-        if DisplayController.areNotesDisplayed, DisplayController.notesPosition == .none {
+        if DisplayController.areNotesDisplayed, DisplayController.notesPosition == .none , DisplayController.notesMode == .split{
             DisplayController.setNotesPosition(.right, sender: self)
         }
     }

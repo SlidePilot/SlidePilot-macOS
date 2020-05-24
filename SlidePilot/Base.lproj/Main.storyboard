@@ -246,9 +246,15 @@
                                                 <items>
                                                     <menuItem title="Text" id="hxO-Rn-nAO">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectNotesModeText:" target="Ady-hI-5gd" id="bhd-Th-WMr"/>
+                                                        </connections>
                                                     </menuItem>
                                                     <menuItem title="Split" id="OMC-wK-B8t">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectNotesModeSplit:" target="Ady-hI-5gd" id="EEM-XW-S8g"/>
+                                                        </connections>
                                                     </menuItem>
                                                 </items>
                                             </menu>
@@ -400,6 +406,9 @@
                     <connections>
                         <outlet property="displayBlackCurtainItem" destination="Wsl-Lh-Rzy" id="7mA-Hq-uva"/>
                         <outlet property="displayWhiteCurtainItem" destination="E0b-Yv-pqH" id="SEd-Ly-9Bk"/>
+                        <outlet property="notesModeMenu" destination="hqc-Um-UGA" id="ynB-4W-PuA"/>
+                        <outlet property="notesModeSplitItem" destination="OMC-wK-B8t" id="1Vn-Pl-SVb"/>
+                        <outlet property="notesModeTextItem" destination="hxO-Rn-nAO" id="nfD-ji-Pvs"/>
                         <outlet property="notesPositionBottomItem" destination="3BI-JZ-e7T" id="pKx-fs-G7H"/>
                         <outlet property="notesPositionLeftItem" destination="bSo-dU-i8i" id="DjP-tk-Ahe"/>
                         <outlet property="notesPositionMenu" destination="Vm6-Hh-mT3" id="cll-ph-YG3"/>
