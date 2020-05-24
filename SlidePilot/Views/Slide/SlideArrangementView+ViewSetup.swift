@@ -247,6 +247,9 @@ extension SlideArrangementView {
         notesScrollView.hasHorizontalScroller = false
         notesScrollView.translatesAutoresizingMaskIntoConstraints = false
         notesScrollView.backgroundColor = NSColor(white: 0.1, alpha: 1.0)
+        if #available(OSX 10.14, *) {
+            notesScrollView.appearance = NSAppearance(named: .darkAqua)
+        }
         
         // TextView setup
         notesTextView = NotesTextView(frame: .zero)
