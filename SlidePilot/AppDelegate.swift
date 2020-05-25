@@ -517,7 +517,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Compose predefined filename
             var notesFilename = "Notes.rtf"
             if let pdfFilename = DocumentController.document?.documentURL?.deletingPathExtension().lastPathComponent {
-                notesFilename = pdfFilename + "-Notes.rtf"
+                let notesString = NSLocalizedString("Notes", comment: "Notes filename extension")
+                notesFilename = pdfFilename + "-" + notesString + ".rtf"
+                
             }
             
             let savePanel = NSSavePanel()
