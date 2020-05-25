@@ -230,7 +230,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Open document
         DocumentController.setDocument(pdfDocument, sender: self)
         
-        // TODO: Open the notes file if it can be found
+        // Open the notes document if it can be found
+        if let notesURL = searchNotesDocument() {
+            let notesDocument = NotesDocument(contentsOf: notesURL)
+            DocumentController.didOpenNotes(document: notesDocument, sender: self)
+        }
+        // Create new document otherwise
+        else {
+            DocumentController.createNewNotesDocument(sender: self)
+        }
         
         // Reset page
         PageController.selectPage(at: 0, sender: self)
@@ -246,6 +254,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Reset property, that timer should start when chaning slide
         shouldStartTimerOnSlideChange = true
+    }
+    
+    
+    /** Checks if a notes file exists for the PDF and returns the URL of it. Returns `nil` if no notes file was found. */
+    func searchNotesDocument() -> URL? {
+        guard let basePath = DocumentController.document?.documentURL?.deletingPathExtension().path else { return nil }
+        
+        let fileManager = FileManager.default
+        let separators = ["-", "_", " "]
+        let names = ["Notes", "notes", "Notizen"]
+        let fileExtension = ".rtf"
+        
+        // Generate different options, example: basePath-Notes.rtf
+        // Check if one of them exists and return it
+        for separator in separators {
+            for name in names {
+                let option = basePath + separator + name + fileExtension
+                if fileManager.fileExists(atPath: option) {
+                    return URL(fileURLWithPath: option)
+                }
+            }
+        }
+        
+        return nil
     }
     
     
