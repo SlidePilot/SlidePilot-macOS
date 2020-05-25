@@ -13,7 +13,6 @@ class DocumentController {
     
     public private(set) static var document: PDFDocument?
     public private(set) static var notesDocument: NotesDocument?
-    public private(set) static var hasNotesUnsavedChanges: Bool = false
     
     /** Returns the number of pages in the current document */
     public static var pageCount: Int {
@@ -34,23 +33,19 @@ class DocumentController {
     /** Requests to save notes to file. */
     public static func requestSaveNotes(sender: Any) {
         // Only save if there are unsaved changes
-        guard hasNotesUnsavedChanges else { return }
+        guard let notesDocument = notesDocument, notesDocument.isDocumentEdited else { return }
         NotificationCenter.default.post(name: .requestSaveNotes, object: sender)
     }
     
     
     /** Sends a notification, that saving the document was saved with success value. */
     public static func didSaveNotes(success: Bool, sender: Any) {
-        if success {
-            hasNotesUnsavedChanges = false
-        }
         NotificationCenter.default.post(name: .didSaveNotes, object: sender, userInfo: ["success": success])
     }
     
     
     /** Sends a notification, that the notes were edited. */
     public static func didEditNotes(sender: Any) {
-        hasNotesUnsavedChanges = true
         NotificationCenter.default.post(name: .didEditNotes, object: sender)
     }
     

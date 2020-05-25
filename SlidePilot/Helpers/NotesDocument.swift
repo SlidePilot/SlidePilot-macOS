@@ -12,6 +12,7 @@ class NotesDocument: NSObject {
     
     private(set) var contents: [NSAttributedString] = [NSAttributedString]()
     private(set) var url: URL?
+    var isDocumentEdited: Bool
     
     
     /**
@@ -22,6 +23,7 @@ class NotesDocument: NSObject {
      */
     init?(contentsOf fileURL: URL) {
         self.url = fileURL
+        self.isDocumentEdited = false
         super.init()
         if !load(fileURL: fileURL) {
             return nil
@@ -31,6 +33,7 @@ class NotesDocument: NSObject {
     
     override init() {
         self.url = nil
+        self.isDocumentEdited = false
         super.init()
     }
     
@@ -40,6 +43,9 @@ class NotesDocument: NSObject {
      */
     func set(notes: NSAttributedString, on pageIndex: Int) {
         contents[pageIndex] = notes
+        
+        // New unsaved changes
+        isDocumentEdited = true
     }
     
     
@@ -77,6 +83,9 @@ class NotesDocument: NSObject {
         } catch _ {
             return false
         }
+        
+        // All changes were saved
+        isDocumentEdited = false
         
         return true
     }
