@@ -83,6 +83,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.setPointerAppearance(.cursor, sender: self)
         
         // Subscribe to notes file changes
+        DocumentController.subscribeRequestOpenNotes(target: self, action: #selector(didRequestOpenNotes(_:)))
+        DocumentController.subscribeRequestSaveNotes(target: self, action: #selector(didRequestSaveNotes(_:)))
         DocumentController.subscribeDidEditNotes(target: self, action: #selector(didEditNotes(_:)))
         DocumentController.subscribeDidSaveNotes(target: self, action: #selector(didSaveNotes(_:)))
         
@@ -447,6 +449,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 DisplayController.setNotesPosition(.right, sender: self)
             }
         }
+    }
+    
+    
+    @objc func didRequestOpenNotes(_ notification: Notification) {
+        let dialog = NSOpenPanel();
+
+        dialog.title = NSLocalizedString("Choose File", comment: "Title for open file panel.");
+        dialog.showsResizeIndicator = true
+        dialog.showsHiddenFiles = false
+        dialog.canChooseFiles = true
+        dialog.canChooseDirectories = false
+        dialog.canCreateDirectories = false
+        dialog.allowsMultipleSelection = false
+        dialog.allowedFileTypes = ["rtf"]
+
+        if (dialog.runModal() == .OK) {
+            if let result = dialog.url {
+                let notesDocument = NotesDocument(contentsOf: result)
+                DocumentController.didOpenNotes(document: notesDocument, sender: self)
+            }
+        }
+    }
+    
+    
+    @objc func didRequestSaveNotes(_ notification: Notification) {
+        // TODO: Check if document has already been saved, then save it to its url
+        // If not open the save panel
     }
     
     
