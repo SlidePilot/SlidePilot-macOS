@@ -31,8 +31,10 @@ class DocumentController {
     
     
     /** Requests to create a new notes document. */
-    public static func requestNewNotes(sender: Any) {
-        NotificationCenter.default.post(name: .requestNewNotes, object: sender)
+    public static func createNewNotesDocument(sender: Any) {
+        guard let document = self.document else { return }
+        self.notesDocument = NotesDocument(pageCount: document.pageCount)
+        NotificationCenter.default.post(name: .didCreateNewNotesDocument, object: sender)
     }
     
     
@@ -100,9 +102,9 @@ class DocumentController {
     }
     
     
-    /** Subscribes a target to all `.requestNewNotes` notifications sent by `DocumentController`. */
-    public static func subscribeRequestNewNotes(target: Any, action: Selector) {
-        NotificationCenter.default.addObserver(target, selector: action, name: .requestNewNotes, object: nil)
+    /** Subscribes a target to all `.createNewNotesDocument` notifications sent by `DocumentController`. */
+    public static func subscribeNewNotes(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didCreateNewNotesDocument, object: nil)
     }
     
     
@@ -151,7 +153,7 @@ class DocumentController {
     /** Unsubscribes a target from all notifications sent by `DocumentController`. */
     public static func unsubscribe(target: Any) {
         NotificationCenter.default.removeObserver(target, name: .didOpenDocument, object: nil)
-        NotificationCenter.default.removeObserver(target, name: .requestNewNotes, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didCreateNewNotesDocument, object: nil)
         NotificationCenter.default.removeObserver(target, name: .requestSaveNotes, object: nil)
         NotificationCenter.default.removeObserver(target, name: .requestOpenNotes, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didSaveNotes, object: nil)
@@ -167,7 +169,7 @@ class DocumentController {
 
 extension Notification.Name {
     static let didOpenDocument = Notification.Name("didOpenDocument")
-    static let requestNewNotes = Notification.Name("requestNewNotes")
+    static let didCreateNewNotesDocument = Notification.Name("didCreateNewNotesDocument")
     static let requestSaveNotes = Notification.Name("requestSaveNotes")
     static let requestOpenNotes = Notification.Name("requestOpenNotes")
     static let didSaveNotes = Notification.Name("didSaveNotes")
