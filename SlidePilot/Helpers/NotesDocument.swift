@@ -11,7 +11,7 @@ import Cocoa
 class NotesDocument: NSObject {
     
     private(set) var contents: [NSAttributedString] = [NSAttributedString]()
-    private(set) var url: URL
+    private(set) var url: URL?
     
     
     /**
@@ -26,6 +26,12 @@ class NotesDocument: NSObject {
         if !load(fileURL: fileURL) {
             return nil
         }
+    }
+    
+    
+    override init() {
+        self.url = nil
+        super.init()
     }
     
     
@@ -67,10 +73,20 @@ class NotesDocument: NSObject {
         guard let outputData = output.rtf(from: NSRange(location: 0, length: output.length), documentAttributes: [.documentType: NSAttributedString.DocumentType.html]) else { return false }
         do {
             try outputData.write(to: fileURL)
+            self.url = fileURL
         } catch _ {
             return false
         }
         
         return true
+    }
+    
+    
+    /**
+     Saves the `contents` to the file specified in the `url` property.
+     */
+    func save() -> Bool {
+        guard self.url != nil else { return false }
+        return save(to: self.url!)
     }
 }
