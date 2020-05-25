@@ -544,12 +544,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @objc func didEditNotes(_ notification: Notification) {
-        presenterWindow?.isDocumentEdited = true
+        presenterWindowCtrl?.setDocumentEdited(true)
     }
     
     
     @objc func didSaveNotes(_ notification: Notification) {
-        presenterWindow?.isDocumentEdited = false
+        presenterWindowCtrl?.setDocumentEdited(false)
     }
     
     
