@@ -47,6 +47,7 @@ class PresenterViewController: NSViewController {
         // Subscribe to document changes
         DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))
         DocumentController.subscribeDidSaveNotes(target: self, action: #selector(didSaveNotes(_:)))
+        DocumentController.subscribeDidOpenNotes(target: self, action: #selector(didOpenNotes(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
@@ -102,8 +103,20 @@ class PresenterViewController: NSViewController {
         guard let success = notification.userInfo?["success"] as? Bool else { return }
         // Show alert on failed save
         if !success {
-            let message = NSLocalizedString("Save Failed", comment: "Alert message informing about failed save.")
-            let text = NSLocalizedString("Save Failed Text", comment: "Alert text informing about failed save.")
+            let message = NSLocalizedString("Save Notes Failed", comment: "Alert message informing about failed saving notes..")
+            let text = NSLocalizedString("Save Notes Failed Text", comment: "Alert text informing about failed saving notes..")
+            let alertStyle = NSAlert.Style.critical
+            showNotice(message: message, text: text, alertStyle: alertStyle)
+        }
+    }
+    
+    
+    @objc func didOpenNotes(_ notification: Notification) {
+        guard let success = notification.userInfo?["success"] as? Bool else { return }
+        // Show alert on failed open
+        if !success {
+            let message = NSLocalizedString("Open Notes Failed", comment: "Alert message informing about failed opening.")
+            let text = NSLocalizedString("Open Notes Failed Text", comment: "Alert text informing about failed opening.")
             let alertStyle = NSAlert.Style.critical
             showNotice(message: message, text: text, alertStyle: alertStyle)
         }

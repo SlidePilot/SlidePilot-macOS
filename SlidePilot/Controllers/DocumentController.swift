@@ -61,10 +61,18 @@ class DocumentController {
     }
     
     
-    /** Sends a notification, that a notes file was opened. */
-    public static func didOpenNotes(document: NotesDocument, sender: Any) {
-        notesDocument = document
-        NotificationCenter.default.post(name: .didOpenNotes, object: sender)
+    /**
+     Sends a notification, that a notes file was opened.
+     If `document` is `nil`, then the `.didOpenNotes` notification is send with `false` as success value.
+     If `document` is not `nil`, then the `.didOpenNotes` notification is send with `true` as success value.
+     */
+    public static func didOpenNotes(document: NotesDocument?, sender: Any) {
+        if document != nil {
+            notesDocument = document
+            NotificationCenter.default.post(name: .didOpenNotes, object: sender, userInfo: ["success": true])
+        } else {
+            NotificationCenter.default.post(name: .didOpenNotes, object: sender, userInfo: ["success": false])
+        }
     }
     
     
