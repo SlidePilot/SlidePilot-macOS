@@ -30,6 +30,11 @@ extension NSAttributedString {
                 range.length = matches[i+1].range.location - range.location
             }
             
+            // Remove trailling new line
+            if attributedSubstring(from: NSRange(location: range.location + range.length - 1, length: 1)).string == "\n" {
+                range.length -= 1
+            }
+            
             // Create substring
             let attributedString = attributedSubstring(from: range)
             result.append(attributedString)

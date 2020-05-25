@@ -83,8 +83,9 @@ class NotesDocument: NSObject {
     func save(to fileURL: URL) -> Bool {
         let output = NSMutableAttributedString()
         for (i, pageContent) in contents.enumerated() {
-            output.append(NSAttributedString(string: "SLIDEPILOT-NOTES-PAGE-SEPARATOR#-Page-\(i+1)\n"))
+            output.append(NSAttributedString(string: "#SLIDEPILOT-NOTES-PAGE-SEPARATOR#-Page-\(i+1)\n"))
             output.append(pageContent)
+            output.append(NSAttributedString(string: "\n"))
         }
         
         guard let outputData = output.rtf(from: NSRange(location: 0, length: output.length), documentAttributes: [.documentType: NSAttributedString.DocumentType.html]) else { return false }
