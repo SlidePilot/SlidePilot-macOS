@@ -232,7 +232,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Open the notes document if it can be found
         if let notesURL = searchNotesDocument() {
-            let notesDocument = NotesDocument(contentsOf: notesURL)
+            let notesDocument = NotesDocument(contentsOf: notesURL, pageCount: DocumentController.document?.pageCount ?? 0)
             DocumentController.didOpenNotes(document: notesDocument, sender: self)
         }
         // Create new document otherwise
@@ -498,7 +498,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         if (dialog.runModal() == .OK) {
             if let result = dialog.url {
-                let notesDocument = NotesDocument(contentsOf: result)
+                let notesDocument = NotesDocument(contentsOf: result, pageCount: DocumentController.document?.pageCount ?? 0)
                 DocumentController.didOpenNotes(document: notesDocument, sender: self)
             }
         }

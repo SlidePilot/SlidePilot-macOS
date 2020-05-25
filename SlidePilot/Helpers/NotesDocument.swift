@@ -10,7 +10,7 @@ import Cocoa
 
 class NotesDocument: NSObject {
     
-    private(set) var contents: [NSAttributedString]
+    private(set) var contents: [NSAttributedString] = [NSAttributedString]()
     private(set) var url: URL?
     var isDocumentEdited: Bool
     
@@ -21,14 +21,17 @@ class NotesDocument: NSObject {
      - returns:
      `nil` if loading the file failed.
      */
-    init?(contentsOf fileURL: URL) {
+    init?(contentsOf fileURL: URL, pageCount: Int) {
         self.url = fileURL
         self.isDocumentEdited = false
-        self.contents = [NSAttributedString]()
         super.init()
+        
+        // Load contents
         if !load(fileURL: fileURL) {
             return nil
         }
+        // Fill up contents if necessary (if not enough notes were loaded)
+        fillContents(to: pageCount)
     }
     
     
@@ -36,10 +39,9 @@ class NotesDocument: NSObject {
         self.url = nil
         self.isDocumentEdited = false
         
-        // Initialize each page with empty string
-        self.contents = [NSAttributedString].init(repeating: NSAttributedString(string: ""), count: pageCount)
-        
         super.init()
+        
+        fillContents(to: pageCount)
     }
     
     
@@ -109,5 +111,13 @@ class NotesDocument: NSObject {
     func save() -> Bool {
         guard self.url != nil else { return false }
         return save(to: self.url!)
+    }
+    
+    
+    /** Fills the `contents` array with empty `NSAttributed`, until the `targetCount` is reached. */
+    func fillContents(to targetCount: Int) {
+        while contents.count < targetCount {
+            contents.append(NSAttributedString(string: ""))
+        }
     }
 }
