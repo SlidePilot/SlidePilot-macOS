@@ -474,8 +474,38 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @objc func didRequestSaveNotes(_ notification: Notification) {
-        // TODO: Check if document has already been saved, then save it to its url
+        // Check if document has already been saved, then save it to its url
+        if DocumentController.notesDocument?.url != nil {
+            let success = DocumentController.notesDocument?.save() ?? false
+            DocumentController.didSaveNotes(success: success, sender: self)
+        }
+        
         // If not open the save panel
+        else {
+            // Compose predefined filename
+            var notesFilename = "Notes.rtf"
+            if let pdfFilename = DocumentController.document?.documentURL?.deletingPathExtension().lastPathComponent {
+                notesFilename = pdfFilename + "-Notes.rtf"
+            }
+            
+            let savePanel = NSSavePanel()
+            savePanel.canCreateDirectories = true
+            savePanel.showsTagField = false
+            savePanel.nameFieldStringValue = notesFilename
+            savePanel.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.modalPanelWindow)))
+            
+            savePanel.begin { (result) in
+                if result == .OK {
+                    var success = false
+                    if let saveURL = savePanel.url {
+                        // Start export notes to file using NotesAnnotation
+                        success = DocumentController.notesDocument?.save(to: saveURL) ?? false
+                    }
+                    // Send notification, that export finished with success value
+                    DocumentController.didSaveNotes(success: success, sender: self)
+                }
+            }
+        }
     }
     
     
