@@ -12,7 +12,7 @@ import PDFKit
 class DocumentController {
     
     public private(set) static var document: PDFDocument?
-    public private(set) static var notesFileURL: URL?
+    public private(set) static var notesDocument: NotesDocument?
     public private(set) static var hasNotesUnsavedChanges: Bool = false
     
     /** Returns the number of pages in the current document */
@@ -62,8 +62,8 @@ class DocumentController {
     
     
     /** Sends a notification, that a notes file was opened. */
-    public static func didOpenNotes(at url: URL, sender: Any) {
-        notesFileURL = url
+    public static func didOpenNotes(document: NotesDocument, sender: Any) {
+        notesDocument = document
         NotificationCenter.default.post(name: .didOpenNotes, object: sender)
     }
     
@@ -77,7 +77,7 @@ class DocumentController {
     
     /** Sends a notification, that the notes file has been closed. */
     public static func didCloseNotesFile(sender: Any) {
-        notesFileURL = nil
+        notesDocument = nil
         NotificationCenter.default.post(name: .didCloseNotes, object: sender)
     }
     

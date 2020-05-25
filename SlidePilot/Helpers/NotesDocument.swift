@@ -11,6 +11,7 @@ import Cocoa
 class NotesDocument: NSObject {
     
     private(set) var contents: [NSAttributedString] = [NSAttributedString]()
+    private(set) var url: URL
     
     
     /**
@@ -20,6 +21,7 @@ class NotesDocument: NSObject {
      `nil` if loading the file failed.
      */
     init?(contentsOf fileURL: URL) {
+        self.url = fileURL
         super.init()
         if !load(fileURL: fileURL) {
             return nil
@@ -41,7 +43,7 @@ class NotesDocument: NSObject {
      - returns:
      `true` if loading was successfull, otherwise `false`.
      */
-    func load(fileURL: URL) -> Bool {
+    private func load(fileURL: URL) -> Bool {
         // Load file
         guard let fileContents = try? NSAttributedString(url: fileURL, options: [:], documentAttributes: nil) else { return false }
         
