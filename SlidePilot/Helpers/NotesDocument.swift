@@ -10,7 +10,7 @@ import Cocoa
 
 class NotesDocument: NSObject {
     
-    private(set) var contents: [NSAttributedString] = [NSAttributedString]()
+    private(set) var contents: [NSAttributedString]
     private(set) var url: URL?
     var isDocumentEdited: Bool
     
@@ -24,6 +24,7 @@ class NotesDocument: NSObject {
     init?(contentsOf fileURL: URL) {
         self.url = fileURL
         self.isDocumentEdited = false
+        self.contents = [NSAttributedString]()
         super.init()
         if !load(fileURL: fileURL) {
             return nil
@@ -31,21 +32,31 @@ class NotesDocument: NSObject {
     }
     
     
-    override init() {
+    init(pageCount: Int) {
         self.url = nil
         self.isDocumentEdited = false
+        
+        // Initialize each page with empty string
+        self.contents = [NSAttributedString].init(repeating: NSAttributedString(string: ""), count: pageCount)
+        
         super.init()
     }
     
     
     /**
      Sets the notes for a specified page.
+     
+     - returns:
+     `true` if setting value was successfull, otherwise `false`.
      */
-    func set(notes: NSAttributedString, on pageIndex: Int) {
+    func set(notes: NSAttributedString, on pageIndex: Int) -> Bool {
+        guard 0 <= pageIndex, pageIndex < contents.count else { return false }
         contents[pageIndex] = notes
         
         // New unsaved changes
         isDocumentEdited = true
+        
+        return true
     }
     
     
