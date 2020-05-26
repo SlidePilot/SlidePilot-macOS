@@ -1,9 +1,14 @@
+/* Class = "NSMenuItem"; title = "Format"; ObjectID = "0Gn-3s-ITh"; */
+"0Gn-3s-ITh.title" = "Format";
 
 /* Class = "NSMenuItem"; title = "SlidePilot"; ObjectID = "1Xt-HY-uBw"; */
 "1Xt-HY-uBw.title" = "SlidePilot";
 
 /* Class = "NSMenuItem"; title = "Bottom"; ObjectID = "3BI-JZ-e7T"; */
 "3BI-JZ-e7T.title" = "Unten";
+
+/* Class = "NSMenu"; title = "Format"; ObjectID = "42S-Y1-0zg"; */
+"42S-Y1-0zg.title" = "Format";
 
 /* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "4J7-dP-txa"; */
 "4J7-dP-txa.title" = "Vollbildmodus";
@@ -107,6 +112,9 @@
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
 "Ruw-6m-B2m.title" = "Alles auswählen";
 
+/* Class = "NSMenuItem"; title = "Align Right"; ObjectID = "TWd-Px-sJm"; */
+"TWd-Px-sJm.title" = "Rechtsbündig";
+
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "Fenster";
 
@@ -140,8 +148,14 @@
 /* Class = "NSMenuItem"; title = "Target"; ObjectID = "YH8-Ja-Yo4"; */
 "YH8-Ja-Yo4.title" = "Target";
 
+/* Class = "NSMenuItem"; title = "Align Left"; ObjectID = "Zi0-Hd-gZC"; */
+"Zi0-Hd-gZC.title" = "Linksbündig";
+
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "Fenster";
+
+/* Class = "NSMenuItem"; title = "Center"; ObjectID = "aW2-30-SOk"; */
+"aW2-30-SOk.title" = "Zentriert";
 
 /* Class = "NSMenuItem"; title = "Dot"; ObjectID = "akh-gx-hr7"; */
 "akh-gx-hr7.title" = "Punkt";
@@ -160,6 +174,9 @@
 
 /* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
 "dRJ-4n-Yzg.title" = "Wiederrufen";
+
+/* Class = "NSMenuItem"; title = "Underline"; ObjectID = "dTz-JK-ND4"; */
+"dTz-JK-ND4.title" = "Unterstrichen";
 
 /* Class = "NSMenu"; title = "Notes"; ObjectID = "eeB-A4-p01"; */
 "eeB-A4-p01.title" = "Notizen";
@@ -185,8 +202,20 @@
 /* Class = "NSMenuItem"; title = "Show Cursor"; ObjectID = "iHL-eH-XtE"; */
 "iHL-eH-XtE.title" = "Cursor anzeigen";
 
+/* Class = "NSMenuItem"; title = "Bigger"; ObjectID = "imS-PA-oW0"; */
+"imS-PA-oW0.title" = "Größer";
+
+/* Class = "NSMenuItem"; title = "Italic"; ObjectID = "j9w-kc-N3h"; */
+"j9w-kc-N3h.title" = "Kursiv";
+
 /* Class = "NSMenuItem"; title = "Notes"; ObjectID = "jvc-gB-nHf"; */
 "jvc-gB-nHf.title" = "Notizen";
+
+/* Class = "NSMenuItem"; title = "Bold"; ObjectID = "k0O-Vd-fHq"; */
+"k0O-Vd-fHq.title" = "Fett";
+
+/* Class = "NSMenuItem"; title = "Smaller"; ObjectID = "nYX-Cm-qit"; */
+"nYX-Cm-qit.title" = "Kleiner";
 
 /* Class = "NSMenuItem"; title = "Display Black Screen"; ObjectID = "nx9-eN-d1w"; */
 "nx9-eN-d1w.title" = "Schwarzen Bildschirm zeigen";

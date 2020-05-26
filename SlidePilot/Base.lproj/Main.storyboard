@@ -134,6 +134,47 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Format" id="0Gn-3s-ITh">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Format" id="42S-Y1-0zg">
+                                    <items>
+                                        <menuItem title="Bold" tag="2" keyEquivalent="b" id="k0O-Vd-fHq">
+                                            <connections>
+                                                <action selector="addFontTrait:" target="YLy-65-1bz" id="nCL-Am-uan"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Italic" tag="1" keyEquivalent="i" id="j9w-kc-N3h">
+                                            <connections>
+                                                <action selector="addFontTrait:" target="YLy-65-1bz" id="6PL-if-u8b"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Underline" keyEquivalent="u" id="dTz-JK-ND4">
+                                            <connections>
+                                                <action selector="underline:" target="Ady-hI-5gd" id="G3w-Te-wT4"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="qiW-Kj-zXm"/>
+                                        <menuItem title="Bigger" tag="3" keyEquivalent="+" id="imS-PA-oW0"/>
+                                        <menuItem title="Smaller" tag="4" keyEquivalent="-" id="nYX-Cm-qit"/>
+                                        <menuItem isSeparatorItem="YES" id="RzA-TS-vmo"/>
+                                        <menuItem title="Align Left" keyEquivalent="{" id="Zi0-Hd-gZC">
+                                            <connections>
+                                                <action selector="alignLeft:" target="Ady-hI-5gd" id="YRN-EZ-g8n"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Center" keyEquivalent="|" id="aW2-30-SOk">
+                                            <connections>
+                                                <action selector="alignCenter:" target="Ady-hI-5gd" id="NDj-UW-Vq9"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Align Right" keyEquivalent="}" id="TWd-Px-sJm">
+                                            <connections>
+                                                <action selector="alignRight:" target="Ady-hI-5gd" id="RAR-Sz-FvB"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="View" identifier="ViewMenu" id="H8h-7b-M4v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
