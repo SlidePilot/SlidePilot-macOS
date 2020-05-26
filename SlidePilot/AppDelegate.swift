@@ -290,6 +290,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Menu Item Actions
     
+    @IBAction func increaseFontSize(_ sender: NSMenuItem) {
+        TextFormatController.increaseFontSize(sender: sender)
+    }
+    
+    
+    @IBAction func decreaseFontSize(_ sender: NSMenuItem) {
+        TextFormatController.decreaseFontSize(sender: sender)
+    }
+
+    
     @IBAction func previousSlide(_ sender: NSMenuItem) {
         PageController.previousPage(sender: self)
     }

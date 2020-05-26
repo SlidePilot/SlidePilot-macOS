@@ -154,8 +154,16 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="qiW-Kj-zXm"/>
-                                        <menuItem title="Bigger" tag="3" keyEquivalent="+" id="imS-PA-oW0"/>
-                                        <menuItem title="Smaller" tag="4" keyEquivalent="-" id="nYX-Cm-qit"/>
+                                        <menuItem title="Bigger" tag="3" keyEquivalent="+" id="imS-PA-oW0">
+                                            <connections>
+                                                <action selector="increaseFontSize:" target="Ady-hI-5gd" id="nLu-lo-zNT"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Smaller" tag="4" keyEquivalent="-" id="nYX-Cm-qit">
+                                            <connections>
+                                                <action selector="decreaseFontSize:" target="Ady-hI-5gd" id="uo3-Kv-ova"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="RzA-TS-vmo"/>
                                         <menuItem title="Align Left" keyEquivalent="{" id="Zi0-Hd-gZC">
                                             <connections>

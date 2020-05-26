@@ -34,10 +34,14 @@ class NotesTextView: NSTextView {
         self.importsGraphics = false
         self.allowsUndo = true
         
-        // Subscribe to changes
+        // Subscribe to changes (where content should be changed)
         DocumentController.subscribeNewNotes(target: self, action: #selector(didCreateNewNotes(_:)))
         DocumentController.subscribeDidOpenNotes(target: self, action: #selector(didOpenNotes(_:)))
         PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))
+        
+        // Subscribe to format changes
+        TextFormatController.subscribeIncreaseFontSize(target: self, action: #selector(didIncreaseFontSize(_:)))
+        TextFormatController.subscribeDecreaseFontSize(target: self, action: #selector(didDecreaseFontSize(_:)))
         
         reloadContent()
     }
@@ -103,5 +107,18 @@ class NotesTextView: NSTextView {
         self.font = NSFont.systemFont(ofSize: fontSize)
         DocumentController.notesDocument?.setFontSize(to: fontSize)
     }
-
+    
+    
+    
+    
+    // MARK: - Controllers
+    
+    @objc func didIncreaseFontSize(_ notification: Notification) {
+        increaseFontSize()
+    }
+    
+    
+    @objc func didDecreaseFontSize(_ notification: Notification) {
+        decreaseFontSize()
+    }
 }
