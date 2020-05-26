@@ -35,6 +35,9 @@ class NotesDocument: NSObject {
     }
     
     
+    /**
+     Intializes an empty notes document.
+     */
     init(pageCount: Int) {
         self.url = nil
         self.isDocumentEdited = false
@@ -90,6 +93,9 @@ class NotesDocument: NSObject {
             output.append(NSAttributedString(string: "\n"))
         }
         
+        // Save notes with black font color
+        output.setFontColor(.black)
+        
         guard let outputData = output.rtf(from: NSRange(location: 0, length: output.length), documentAttributes: [.documentType: NSAttributedString.DocumentType.html]) else { return false }
         do {
             try outputData.write(to: fileURL)
@@ -118,6 +124,28 @@ class NotesDocument: NSObject {
     func fillContents(to targetCount: Int) {
         while contents.count < targetCount {
             contents.append(NSAttributedString(string: ""))
+        }
+    }
+    
+    
+    
+    
+    // MARK: Modify
+    
+    func setFontSize(to pointSize: CGFloat) {
+        for (i, item) in contents.enumerated() {
+            let mutable = NSMutableAttributedString(attributedString: item)
+            mutable.setFont(NSFont.systemFont(ofSize: pointSize))
+            contents[i] = mutable
+        }
+    }
+    
+    
+    func setFontColor(to color: NSColor) {
+        for (i, item) in contents.enumerated() {
+            let mutable = NSMutableAttributedString(attributedString: item)
+            mutable.setFontColor(color)
+            contents[i] = mutable
         }
     }
 }

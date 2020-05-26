@@ -43,3 +43,54 @@ extension NSAttributedString {
         return result
     }
 }
+
+
+
+
+extension NSMutableAttributedString {
+    
+    func setFont(_ font: NSFont, color: NSColor? = nil) {
+        beginEditing()
+        self.enumerateAttribute(.font, in: NSRange(location: 0, length: self.length)) { (value, range, stop) in
+            if let attrFont = value as? NSFont {
+                updateFont(current: attrFont, new: font, in: range)
+            }
+            
+            // Update color
+            if let color = color {
+                updateFontColor(to: color, in: range)
+            }
+        }
+        endEditing()
+    }
+    
+    
+    func setFontColor(_ color: NSColor) {
+        beginEditing()
+        self.enumerateAttribute(.font, in: NSRange(location: 0, length: self.length)) { (value, range, stop) in
+            updateFontColor(to: color, in: range)
+        }
+        endEditing()
+    }
+    
+    
+    private func updateFont(current currentFont: NSFont, new newFont: NSFont, in range: NSRange) {
+        if let fontFamily = currentFont.familyName {
+           let newFontDescriptor = currentFont.fontDescriptor
+               .withFamily(fontFamily)
+               .withSymbolicTraits(currentFont.fontDescriptor.symbolicTraits)
+           
+           if let updatedFont = NSFont(descriptor: newFontDescriptor, size: newFont.pointSize) {
+               // Remove current font and add font with updated size
+               removeAttribute(.font, range: range)
+               addAttribute(.font, value: updatedFont, range: range)
+            }
+        }
+    }
+    
+    
+    private func updateFontColor(to newColor: NSColor, in range: NSRange) {
+        removeAttribute(.foregroundColor, range: range)
+        addAttribute(.foregroundColor, value: newColor, range: range)
+    }
+}

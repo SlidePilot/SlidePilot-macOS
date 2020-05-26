@@ -39,13 +39,6 @@ class NotesTextView: NSTextView {
         DocumentController.subscribeDidOpenNotes(target: self, action: #selector(didOpenNotes(_:)))
         PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))
         
-        // TODO: Set default font properties
-//        self.backgroundColor = .black
-//        self.insertionPointColor = .white
-//        self.textColor = .white
-//        self.setFontSize(16.0)
-        
-        
         reloadContent()
     }
     
@@ -89,9 +82,4 @@ class NotesTextView: NSTextView {
     @objc func pageDidChange(_ notification: Notification) {
         reloadContent()
     }
-    
-    
-    
-    // MARK: Modify text
-
 }
