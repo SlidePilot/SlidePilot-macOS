@@ -81,4 +81,27 @@ class NotesTextView: NSTextView {
     @objc func pageDidChange(_ notification: Notification) {
         reloadContent()
     }
+    
+    
+    
+    
+    // MARK: - Modify
+    
+    func increaseFontSize() {
+        guard let currentFontSize = self.font?.pointSize else { return }
+        setFontSize(currentFontSize + 1.0)
+    }
+    
+    
+    func decreaseFontSize() {
+        guard let currentFontSize = self.font?.pointSize else { return }
+        setFontSize(currentFontSize - 1.0)
+    }
+    
+    
+    func setFontSize(_ fontSize: CGFloat) {
+        self.font = NSFont.systemFont(ofSize: fontSize)
+        DocumentController.notesDocument?.setFontSize(to: fontSize)
+    }
+
 }
