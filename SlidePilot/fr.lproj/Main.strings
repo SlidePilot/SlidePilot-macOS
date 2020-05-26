@@ -16,6 +16,9 @@
 /* Class = "NSMenuItem"; title = "Quit SlidePilot"; ObjectID = "4sb-4s-VLi"; */
 "4sb-4s-VLi.title" = "Quitter SlidePilot";
 
+/* Class = "NSMenuItem"; title = "Spacing"; ObjectID = "50S-x6-AAW"; */
+"50S-x6-AAW.title" = "Espacement …";
+
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
 "5QF-Oa-p0T.title" = "Édition";
 
@@ -39,6 +42,9 @@
 
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
 "BOF-NM-1cW.title" = "Préférences…";
+
+/* Class = "NSMenuItem"; title = "List"; ObjectID = "CBj-Fu-sHU"; */
+"CBj-Fu-sHU.title" = "Liste …";
 
 /* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
 "DVo-aG-piG.title" = "Fermer";

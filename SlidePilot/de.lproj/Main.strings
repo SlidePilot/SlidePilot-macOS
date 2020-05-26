@@ -16,6 +16,9 @@
 /* Class = "NSMenuItem"; title = "Quit SlidePilot"; ObjectID = "4sb-4s-VLi"; */
 "4sb-4s-VLi.title" = "SlidePilot beenden";
 
+/* Class = "NSMenuItem"; title = "Spacing"; ObjectID = "50S-x6-AAW"; */
+"50S-x6-AAW.title" = "Zeilenabstand …";
+
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
 "5QF-Oa-p0T.title" = "Bearbeiten";
 
@@ -38,7 +41,10 @@
 "Auy-Z6-pIV.title" = "Cursor";
 
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
-"BOF-NM-1cW.title" = "Einstellungen…";
+"BOF-NM-1cW.title" = "Einstellungen …";
+
+/* Class = "NSMenuItem"; title = "List"; ObjectID = "CBj-Fu-sHU"; */
+"CBj-Fu-sHU.title" = "Liste …";
 
 /* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
 "DVo-aG-piG.title" = "Schließen";
@@ -128,7 +134,7 @@
 "UYT-sb-cqr.title" = "Target Farbe";
 
 /* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "VVU-xh-TkN"; */
-"VVU-xh-TkN.title" = "Nach Updates suchen…";
+"VVU-xh-TkN.title" = "Nach Updates suchen …";
 
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
 "Vdr-fp-XzO.title" = "Andere ausblenden";

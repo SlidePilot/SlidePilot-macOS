@@ -180,6 +180,18 @@
                                                 <action selector="alignRight:" target="Ady-hI-5gd" id="RAR-Sz-FvB"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="U5w-Yw-fSv"/>
+                                        <menuItem title="List…" keyEquivalent="l" id="CBj-Fu-sHU">
+                                            <connections>
+                                                <action selector="orderFrontListPanel:" target="Ady-hI-5gd" id="sN9-lT-RR1"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Spacing…" keyEquivalent="s" id="50S-x6-AAW">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="orderFrontSpacingPanel:" target="Ady-hI-5gd" id="3HF-ca-xmE"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
