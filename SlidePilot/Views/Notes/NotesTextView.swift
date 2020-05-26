@@ -48,7 +48,6 @@ class NotesTextView: NSTextView {
         
         let notes = self.attributedString().copy() as! NSAttributedString
         _ = DocumentController.notesDocument?.set(notes: notes, on: PageController.currentPage)
-        DocumentController.didEditNotes(sender: self)
     }
     
     

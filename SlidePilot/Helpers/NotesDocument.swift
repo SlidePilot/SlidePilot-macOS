@@ -12,7 +12,13 @@ class NotesDocument: NSObject {
     
     private(set) var contents: [NSAttributedString] = [NSAttributedString]()
     private(set) var url: URL?
-    var isDocumentEdited: Bool
+    var isDocumentEdited: Bool {
+        didSet {
+            if isDocumentEdited {
+                DocumentController.didEditNotes(sender: self)
+            }
+        }
+    }
     
     
     /**
@@ -138,6 +144,7 @@ class NotesDocument: NSObject {
             mutable.setFont(NSFont.systemFont(ofSize: pointSize))
             contents[i] = mutable
         }
+        isDocumentEdited = true
     }
     
     
@@ -147,5 +154,6 @@ class NotesDocument: NSObject {
             mutable.setFontColor(color)
             contents[i] = mutable
         }
+        isDocumentEdited = true
     }
 }
