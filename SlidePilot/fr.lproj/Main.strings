@@ -85,6 +85,9 @@
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
 "LE2-aR-0XJ.title" = "Tout ramener au premier plan";
 
+/* Class = "NSMenuItem"; title = "New Notes"; ObjectID = "Lc1-jS-yKf"; */
+"Lc1-jS-yKf.title" = "Nouveau notes";
+
 /* Class = "NSMenuItem"; title = "Timer"; ObjectID = "Mhe-VV-WGl"; */
 "Mhe-VV-WGl.title" = "Minuteur";
 

@@ -348,6 +348,11 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wSb-6N-lIr"/>
+                                        <menuItem title="New Notes" keyEquivalent="n" id="Lc1-jS-yKf">
+                                            <connections>
+                                                <action selector="newNotes:" target="Ady-hI-5gd" id="hxt-DG-4Rp"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Open Notes" keyEquivalent="O" id="ypU-UU-7oB">
                                             <connections>
                                                 <action selector="openNotes:" target="Ady-hI-5gd" id="FbF-0w-PpX"/>

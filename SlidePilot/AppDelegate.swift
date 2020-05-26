@@ -360,6 +360,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func newNotes(_ sender: NSMenuItem) {
+        DocumentController.createNewNotesDocument(sender: self)
+    }
+    
+    
     @IBAction func saveNotes(_ sender: NSMenuItem) {
         DocumentController.requestSaveNotes(sender: sender)
     }
