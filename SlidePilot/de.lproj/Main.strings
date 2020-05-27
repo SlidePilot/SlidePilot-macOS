@@ -1,3 +1,5 @@
+/* Class = "NSMenuItem"; title = "Format"; ObjectID = "0Gn-3s-ITh"; */
+"0Gn-3s-ITh.title" = "Format";
 
 /* Class = "NSMenuItem"; title = "SlidePilot"; ObjectID = "1Xt-HY-uBw"; */
 "1Xt-HY-uBw.title" = "SlidePilot";
@@ -5,17 +7,26 @@
 /* Class = "NSMenuItem"; title = "Bottom"; ObjectID = "3BI-JZ-e7T"; */
 "3BI-JZ-e7T.title" = "Unten";
 
+/* Class = "NSMenu"; title = "Format"; ObjectID = "42S-Y1-0zg"; */
+"42S-Y1-0zg.title" = "Format";
+
 /* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "4J7-dP-txa"; */
 "4J7-dP-txa.title" = "Vollbildmodus";
 
 /* Class = "NSMenuItem"; title = "Quit SlidePilot"; ObjectID = "4sb-4s-VLi"; */
 "4sb-4s-VLi.title" = "SlidePilot beenden";
 
+/* Class = "NSMenuItem"; title = "Spacing"; ObjectID = "50S-x6-AAW"; */
+"50S-x6-AAW.title" = "Zeilenabstand …";
+
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
 "5QF-Oa-p0T.title" = "Bearbeiten";
 
 /* Class = "NSMenuItem"; title = "About SlidePilot"; ObjectID = "5kV-Vb-QxS"; */
 "5kV-Vb-QxS.title" = "Über SlidePilot";
+
+/* Class = "NSMenuItem"; title = "Notes Mode"; ObjectID = "6b4-5J-R1q"; */
+"6b4-5J-R1q.title" = "Notizmodus";
 
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
 "6dh-zS-Vam.title" = "Wiederholen";
@@ -30,7 +41,10 @@
 "Auy-Z6-pIV.title" = "Cursor";
 
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
-"BOF-NM-1cW.title" = "Einstellungen…";
+"BOF-NM-1cW.title" = "Einstellungen …";
+
+/* Class = "NSMenuItem"; title = "List"; ObjectID = "CBj-Fu-sHU"; */
+"CBj-Fu-sHU.title" = "Liste …";
 
 /* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
 "DVo-aG-piG.title" = "Schließen";
@@ -77,17 +91,23 @@
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
 "LE2-aR-0XJ.title" = "Alle nach vorne bringen";
 
+/* Class = "NSMenuItem"; title = "New Notes"; ObjectID = "Lc1-jS-yKf"; */
+"Lc1-jS-yKf.title" = "Neue Notizen";
+
 /* Class = "NSMenuItem"; title = "Timer"; ObjectID = "Mhe-VV-WGl"; */
 "Mhe-VV-WGl.title" = "Timer";
+
+/* Class = "NSMenuItem"; title = "Save Notes"; ObjectID = "Nrq-4X-0EL"; */
+"Nrq-4X-0EL.title" = "Notizen speichern";
 
 /* Class = "NSMenu"; title = "Moderator"; ObjectID = "O4y-2K-zDw"; */
 "O4y-2K-zDw.title" = "Moderator";
 
+/* Class = "NSMenuItem"; title = "Split"; ObjectID = "OMC-wK-B8t"; */
+"OMC-wK-B8t.title" = "PDF spalten";
+
 /* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
 "OY7-WF-poV.title" = "Im Dock ablegen";
-
-/* Class = "NSMenuItem"; title = "Previous Slide"; ObjectID = "Ogv-VI-0Jg"; */
-"Ogv-VI-0Jg.title" = "Vorherige Folie";
 
 /* Class = "NSMenuItem"; title = "Hide SlidePilot"; ObjectID = "Olw-nP-bQN"; */
 "Olw-nP-bQN.title" = "SlidePilot ausblenden";
@@ -101,6 +121,9 @@
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
 "Ruw-6m-B2m.title" = "Alles auswählen";
 
+/* Class = "NSMenuItem"; title = "Align Right"; ObjectID = "TWd-Px-sJm"; */
+"TWd-Px-sJm.title" = "Rechtsbündig";
+
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
 "Td7-aD-5lo.title" = "Fenster";
 
@@ -111,10 +134,13 @@
 "UYT-sb-cqr.title" = "Target Farbe";
 
 /* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "VVU-xh-TkN"; */
-"VVU-xh-TkN.title" = "Nach Updates suchen…";
+"VVU-xh-TkN.title" = "Nach Updates suchen …";
 
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
 "Vdr-fp-XzO.title" = "Andere ausblenden";
+
+/* Class = "NSMenu"; title = "Split Position"; ObjectID = "Vm6-Hh-mT3"; */
+"Vm6-Hh-mT3.title" = "Trennposition";
 
 /* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
 "W48-6f-4Dl.title" = "Bearbeiten";
@@ -125,17 +151,20 @@
 /* Class = "NSMenuItem"; title = "Display Black Screen"; ObjectID = "Wsl-Lh-Rzy"; */
 "Wsl-Lh-Rzy.title" = "Schwarzen Bildschirm zeigen";
 
-/* Class = "NSMenuItem"; title = "Notes Position"; ObjectID = "WtB-Ny-SAM"; */
-"WtB-Ny-SAM.title" = "Notizenposition";
-
-/* Class = "NSMenuItem"; title = "Next Slide"; ObjectID = "XpD-9W-0P3"; */
-"XpD-9W-0P3.title" = "Nächste Folie";
+/* Class = "NSMenuItem"; title = "Split Position"; ObjectID = "WtB-Ny-SAM"; */
+"WtB-Ny-SAM.title" = "Trennposition";
 
 /* Class = "NSMenuItem"; title = "Target"; ObjectID = "YH8-Ja-Yo4"; */
 "YH8-Ja-Yo4.title" = "Target";
 
+/* Class = "NSMenuItem"; title = "Align Left"; ObjectID = "Zi0-Hd-gZC"; */
+"Zi0-Hd-gZC.title" = "Linksbündig";
+
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
 "aUF-d1-5bR.title" = "Fenster";
+
+/* Class = "NSMenuItem"; title = "Center"; ObjectID = "aW2-30-SOk"; */
+"aW2-30-SOk.title" = "Zentriert";
 
 /* Class = "NSMenuItem"; title = "Dot"; ObjectID = "akh-gx-hr7"; */
 "akh-gx-hr7.title" = "Punkt";
@@ -155,6 +184,12 @@
 /* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
 "dRJ-4n-Yzg.title" = "Wiederrufen";
 
+/* Class = "NSMenuItem"; title = "Underline"; ObjectID = "dTz-JK-ND4"; */
+"dTz-JK-ND4.title" = "Unterstrichen";
+
+/* Class = "NSMenu"; title = "Notes"; ObjectID = "eeB-A4-p01"; */
+"eeB-A4-p01.title" = "Notizen";
+
 /* Class = "NSMenuItem"; title = "Right"; ObjectID = "f9q-Hv-2g2"; */
 "f9q-Hv-2g2.title" = "Rechts";
 
@@ -170,8 +205,29 @@
 /* Class = "NSMenuItem"; title = "Previous Slide"; ObjectID = "gcL-Jw-1Oj"; */
 "gcL-Jw-1Oj.title" = "Vorherige Folie";
 
+/* Class = "NSMenuItem"; title = "Text"; ObjectID = "hxO-Rn-nAO"; */
+"hxO-Rn-nAO.title" = "Text";
+
 /* Class = "NSMenuItem"; title = "Show Cursor"; ObjectID = "iHL-eH-XtE"; */
 "iHL-eH-XtE.title" = "Cursor anzeigen";
+
+/* Class = "NSMenuItem"; title = "Bigger"; ObjectID = "imS-PA-oW0"; */
+"imS-PA-oW0.title" = "Größer";
+
+/* Class = "NSMenuItem"; title = "Italic"; ObjectID = "j9w-kc-N3h"; */
+"j9w-kc-N3h.title" = "Kursiv";
+
+/* Class = "NSMenuItem"; title = "Notes"; ObjectID = "jvc-gB-nHf"; */
+"jvc-gB-nHf.title" = "Notizen";
+
+/* Class = "NSMenuItem"; title = "Bold"; ObjectID = "k0O-Vd-fHq"; */
+"k0O-Vd-fHq.title" = "Fett";
+
+/* Class = "NSMenuItem"; title = "Smaller"; ObjectID = "nYX-Cm-qit"; */
+"nYX-Cm-qit.title" = "Kleiner";
+
+/* Class = "NSMenuItem"; title = "Display Black Screen"; ObjectID = "nx9-eN-d1w"; */
+"nx9-eN-d1w.title" = "Schwarzen Bildschirm zeigen";
 
 /* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
 "oas-Oc-fiZ.title" = "Benutzte Dokumente";
@@ -211,6 +267,9 @@
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
 "x3v-GG-iWU.title" = "Kopieren";
+
+/* Class = "NSMenuItem"; title = "Open Notes"; ObjectID = "ypU-UU-7oB"; */
+"ypU-UU-7oB.title" = "Notizen öffnen";
 
 /* Class = "NSWindow"; title = "Window"; ObjectID = "zZP-Ud-eGP"; */
 "zZP-Ud-eGP.title" = "Fenster";

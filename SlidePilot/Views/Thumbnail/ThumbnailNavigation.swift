@@ -86,6 +86,9 @@ class ThumbnailNavigation: NSView {
         scrollView.drawsBackground = false
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalScroller = false
+        if #available(OSX 10.14, *) {
+            scrollView.appearance = NSAppearance(named: .darkAqua)
+        }
         self.addSubview(scrollView)
         self.addConstraints([NSLayoutConstraint(item: scrollView!, attribute: .top, relatedBy: .equal, toItem: searchContainer, attribute: .bottom, multiplier: 1.0, constant: 0.0),
                              NSLayoutConstraint(item: scrollView!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0),
@@ -119,7 +122,7 @@ class ThumbnailNavigation: NSView {
         PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))
         
         // Subscribe to document changes
-        DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange))
