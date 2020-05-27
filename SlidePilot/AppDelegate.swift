@@ -572,6 +572,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         case .text:
             notesModeTextItem.state = .on
             
+            // Reset notes position
+            if DisplayController.areNotesDisplayed {
+                DisplayController.setNotesPosition(.none, sender: self)
+            }
+            
         case .split:
             notesModeSplitItem.state = .on
             
