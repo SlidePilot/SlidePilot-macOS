@@ -97,10 +97,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         startup()
     }
     
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Close the current notes file (implies saving it)
-        DocumentController.requestCloseNotesFile(sender: self)
+    
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        // Wait for saving to be completed until terminating application
+        saveUnsavedChanges { (shouldContinue) in
+            NSApp.reply(toApplicationShouldTerminate: shouldContinue)
+        }
+        
+        return .terminateLater
     }
     
     
@@ -193,7 +197,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func openDocument(_ sender: NSMenuItem) {
         presentOpenFileDialog { (fileUrl) in
-            openFile(url: fileUrl)
+            requestOpenFile(url: fileUrl)
         }
     }
     
@@ -219,13 +223,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    func requestOpenFile(url: URL) {
+        // Wait for saving to be completed until opening a new PDF document
+        saveUnsavedChanges { (shouldContinue) in
+            if shouldContinue {
+                self.openFile(url: url)
+            }
+        }
+    }
+    
+    
     /** Opens the PDF document at the given `URL` in both presenter and presentation window. */
     func openFile(url: URL) {
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
         guard let pdfDocument = PDFDocument(url: url) else { return }
-        
-        // Close the current notes file (implies saving it)
-        DocumentController.requestCloseNotesFile(sender: self)
         
         // Open document
         DocumentController.setDocument(pdfDocument, sender: self)
@@ -282,9 +293,71 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        openFile(url: URL(fileURLWithPath: filename))
+        requestOpenFile(url: URL(fileURLWithPath: filename))
         return true
     }
+    
+    
+    /**
+     First asks if unsaved changes should be saved and then performs either save or not. Then indicates the completion handler if actions can be continued or not.
+     
+     - parameters:
+        - completion: Completion handler, which receives a `Bool` completion status `shouldContinue`, indicating whether the actual actions can be continued or not.
+     */
+    func saveUnsavedChanges(completion: @escaping (Bool) -> ()) {
+        shouldSaveUnsavedChanges { (shouldSave) in
+            // Wait for saving to be completed
+            if shouldSave {
+                DocumentController.requestSaveNotes(sender: self, completion: { (status) in
+                    // If .success, call completion with true. Otherwise false.
+                    completion(status == .success)
+                })
+            }
+            // Can continue immediatly, if should not save
+            else {
+                completion(true)
+            }
+        }
+    }
+    
+    
+    /**
+     Determines whether unsaved changes should be saved.
+     Unsaved changes are always saved if the document has already been saved and has a URL.
+     If notes document has no URL, user is asked what to do.
+     
+     - returns:
+     Boolean value indicating, whether to save the unsaved changes or not.
+     */
+    func shouldSaveUnsavedChanges(completion: @escaping (Bool) -> ()) {
+        if let notesDocument = DocumentController.notesDocument {
+            // Only proceed if document has been edited
+            if notesDocument.isDocumentEdited {
+                // Prompt alert if document needs a filename to be saved
+                if notesDocument.url == nil {
+                    let alert = NSAlert()
+                    alert.messageText = NSLocalizedString("Unsaved Changes", comment: "Message for unsaved changes alert.")
+                    alert.informativeText = NSLocalizedString("Unsaved Changes Text", comment: "Text for unsaved changes alert.")
+                    alert.alertStyle = .warning
+                    alert.addButton(withTitle: NSLocalizedString("Save", comment: "Title for save button."))
+                    alert.addButton(withTitle: NSLocalizedString("Delete", comment: "Title for delete button."))
+                    
+                    let res = alert.runModal()
+                    if res == .alertFirstButtonReturn {
+                        completion(true)
+                        return
+                    }
+                }
+                // Always save changes if notes document has already been saved to a file and has a URL to save to
+                else {
+                    completion(true)
+                    return
+                }
+            }
+        }
+        completion(false)
+    }
+    
     
     
     
@@ -361,7 +434,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func newNotes(_ sender: NSMenuItem) {
-        DocumentController.createNewNotesDocument(sender: self)
+        // Wait for saving to be completed until creating new notes document
+        saveUnsavedChanges { (shouldContinue) in
+            if shouldContinue {
+                DocumentController.createNewNotesDocument(sender: self)
+            }
+        }
     }
     
     
@@ -371,7 +449,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func openNotes(_ sender: NSMenuItem) {
-        DocumentController.requestOpenNotes(sender: sender)
+        // Wait for saving to be completed until opening new notes document
+        saveUnsavedChanges { (shouldContinue) in
+            if shouldContinue {
+                DocumentController.requestOpenNotes(sender: sender)
+            }
+        }
     }
     
     
