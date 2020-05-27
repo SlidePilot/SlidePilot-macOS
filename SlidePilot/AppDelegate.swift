@@ -621,6 +621,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             
             let savePanel = NSSavePanel()
+            savePanel.allowedFileTypes = ["rtf"]
             savePanel.canCreateDirectories = true
             savePanel.showsTagField = false
             savePanel.nameFieldStringValue = notesFilename
