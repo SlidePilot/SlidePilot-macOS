@@ -568,7 +568,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func didSaveNotes(_ notification: Notification) {
         guard let status = notification.userInfo?["status"] as? CompletionStatus else { return }
         // Only update if saving notes was successfull
-        if status.isSuccess() {
+        if status == .success {
             presenterWindowCtrl?.setDocumentEdited(false)
         }
     }

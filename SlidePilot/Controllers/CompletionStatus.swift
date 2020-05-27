@@ -18,13 +18,4 @@ enum CompletionStatus {
             self = .failed
         }
     }
-    
-    func isSuccess() -> Bool {
-        switch self {
-        case .success:
-            return true
-        default:
-            return false
-        }
-    }
 }
