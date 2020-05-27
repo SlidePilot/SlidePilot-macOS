@@ -290,7 +290,13 @@ extension ThumbnailNavigation: NSTableViewDelegate {
         }
         
         // Adjust thumbnail height to fit the images height if possible
-        if let pageFrame = thumbnail.page.pdfDocument?.page(at: thumbnail.page.currentPage)?.bounds(for: .cropBox) {
+        if let page = thumbnail.page.pdfDocument?.page(at: thumbnail.page.currentPage) {
+            var pageFrame = page.bounds(for: .cropBox)
+            // Fix rotation
+            if page.rotation == 270 || page.rotation == 90 {
+                pageFrame = CGRect(x: pageFrame.minX, y: pageFrame.minY, width: pageFrame.height, height: pageFrame.width)
+            }
+            
             // ratioFix is just try and error value
             let ratioFix: CGFloat = 60.0
             let aspectRatio = pageFrame.height / (pageFrame.width + ratioFix)
