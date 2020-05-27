@@ -14,6 +14,8 @@ class DocumentController {
     public private(set) static var document: PDFDocument?
     public private(set) static var notesDocument: NotesDocument?
     
+    private static var didSaveNotesCompletions = [(CompletionStatus) -> ()]()
+    
     /** Returns the number of pages in the current document */
     public static var pageCount: Int {
         return document?.pageCount ?? 0
@@ -39,16 +41,33 @@ class DocumentController {
     
     
     /** Requests to save notes to file. */
-    public static func requestSaveNotes(sender: Any) {
+    public static func requestSaveNotes(sender: Any, completion: ((CompletionStatus) -> ())? = nil) {
         // Only save if there are unsaved changes
         guard let notesDocument = notesDocument, notesDocument.isDocumentEdited else { return }
+        
+        // Add completion handler
+        if let completion = completion {
+            didSaveNotesCompletions.append(completion)
+        }
+        
         NotificationCenter.default.post(name: .requestSaveNotes, object: sender)
     }
     
     
-    /** Sends a notification, that saving the document was saved with success value. */
-    public static func didSaveNotes(success: Bool, sender: Any) {
-        NotificationCenter.default.post(name: .didSaveNotes, object: sender, userInfo: ["success": success])
+    /** Sends a notification, that saving the document was saved with status value. */
+    public static func didSaveNotes(status: CompletionStatus, sender: Any) {
+        performDidSaveNotesCompletions(status)
+        NotificationCenter.default.post(name: .didSaveNotes, object: sender, userInfo: ["status": status])
+    }
+    
+    
+    private static func performDidSaveNotesCompletions(_ status: CompletionStatus) {
+        // Call all completions
+        for completion in didSaveNotesCompletions {
+            completion(status)
+        }
+        // Clear completions
+        didSaveNotesCompletions.removeAll()
     }
     
     

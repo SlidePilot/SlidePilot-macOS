@@ -524,10 +524,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Check if document has already been saved, then save it to its url
         if DocumentController.notesDocument?.url != nil {
             let success = DocumentController.notesDocument?.save() ?? false
-            DocumentController.didSaveNotes(success: success, sender: self)
+            DocumentController.didSaveNotes(status: CompletionStatus(success), sender: self)
         }
         
-        // If not open the save panel
+        // If document has not been saved yet, open the save panel
         else {
             // Compose predefined filename
             var notesFilename = "Notes.rtf"
@@ -551,7 +551,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         success = DocumentController.notesDocument?.save(to: saveURL) ?? false
                     }
                     // Send notification, that export finished with success value
-                    DocumentController.didSaveNotes(success: success, sender: self)
+                    DocumentController.didSaveNotes(status: CompletionStatus(success), sender: self)
+                } else {
+                    DocumentController.didSaveNotes(status: .aborted, sender: self)
                 }
             }
         }

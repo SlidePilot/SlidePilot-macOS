@@ -100,9 +100,9 @@ class PresenterViewController: NSViewController {
     
     
     @objc func didSaveNotes(_ notification: Notification) {
-        guard let success = notification.userInfo?["success"] as? Bool else { return }
+        guard let status = notification.userInfo?["status"] as? CompletionStatus else { return }
         // Show alert on failed save
-        if !success {
+        if !status.isSuccess() {
             let message = NSLocalizedString("Save Notes Failed", comment: "Alert message informing about failed saving notes..")
             let text = NSLocalizedString("Save Notes Failed Text", comment: "Alert text informing about failed saving notes..")
             let alertStyle = NSAlert.Style.critical
