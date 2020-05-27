@@ -87,6 +87,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DocumentController.subscribeRequestSaveNotes(target: self, action: #selector(didRequestSaveNotes(_:)))
         DocumentController.subscribeDidEditNotes(target: self, action: #selector(didEditNotes(_:)))
         DocumentController.subscribeDidSaveNotes(target: self, action: #selector(didSaveNotes(_:)))
+        DocumentController.subscribeDidOpenNotes(target: self, action: #selector(didOpenNotes(_:)))
+        DocumentController.subscribeNewNotes(target: self, action: #selector(didCreateNewNotes(_:)))
         
         // Subscribe to time changes
         TimeController.subscribeTimeMode(target: self, action: #selector(timeModeDidChange(_:)))
@@ -313,7 +315,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     completion(status == .success)
                 })
             }
-            // Can continue immediatly, if should not save
+            // Can continue immediatly, if should not save (i.e. delete unsaved changes)
             else {
                 completion(true)
             }
@@ -655,6 +657,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if status == .success {
             presenterWindowCtrl?.setDocumentEdited(false)
         }
+    }
+    
+    
+    @objc func didOpenNotes (_ notification: Notification) {
+        presenterWindowCtrl?.setDocumentEdited(false)
+    }
+    
+    
+    @objc func didCreateNewNotes (_ notification: Notification)  {
+        presenterWindowCtrl?.setDocumentEdited(false)
     }
     
     
