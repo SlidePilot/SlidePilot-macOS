@@ -131,7 +131,7 @@
 "Tzc-zb-uAo.title" = "Oben";
 
 /* Class = "NSMenuItem"; title = "Target Color"; ObjectID = "UYT-sb-cqr"; */
-"UYT-sb-cqr.title" = "Target Farbe";
+"UYT-sb-cqr.title" = "Target rot";
 
 /* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "VVU-xh-TkN"; */
 "VVU-xh-TkN.title" = "Nach Updates suchen …";
@@ -155,7 +155,7 @@
 "WtB-Ny-SAM.title" = "Trennposition";
 
 /* Class = "NSMenuItem"; title = "Target"; ObjectID = "YH8-Ja-Yo4"; */
-"YH8-Ja-Yo4.title" = "Target";
+"YH8-Ja-Yo4.title" = "Target schwarz";
 
 /* Class = "NSMenuItem"; title = "Align Left"; ObjectID = "Zi0-Hd-gZC"; */
 "Zi0-Hd-gZC.title" = "Linksbündig";

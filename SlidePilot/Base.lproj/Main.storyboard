@@ -442,12 +442,12 @@
                                                             <action selector="selectPointerAppearanceCircle:" target="Voe-Tx-rLC" id="wSW-XY-aJk"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Target" keyEquivalent="4" id="YH8-Ja-Yo4">
+                                                    <menuItem title="Target Black" keyEquivalent="4" id="YH8-Ja-Yo4">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceTarget:" target="Voe-Tx-rLC" id="env-0T-faO"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Target Color" keyEquivalent="5" id="UYT-sb-cqr">
+                                                    <menuItem title="Target Red" keyEquivalent="5" id="UYT-sb-cqr">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceTargetColor:" target="Voe-Tx-rLC" id="JUi-fX-son"/>
                                                         </connections>
