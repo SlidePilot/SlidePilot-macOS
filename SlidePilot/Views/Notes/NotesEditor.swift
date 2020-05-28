@@ -61,6 +61,7 @@ class NotesEditor: NSView {
         notesTextView!.isVerticallyResizable = true
         notesTextView!.isHorizontallyResizable = false
         notesTextView!.autoresizingMask = .width
+        notesTextView!.responderDelegate = self
         
         // Text container setup
         notesTextView!.textContainer?.containerSize = NSSize(width: contentSize.width, height: CGFloat.greatestFiniteMagnitude)
@@ -89,6 +90,7 @@ class NotesEditor: NSView {
         finishButton.title = NSLocalizedString("Finish", comment: "The title for the finish button.")
         finishButton.target = self
         finishButton.action = #selector(finishPressed(_:))
+        finishButton.isHidden = true
         
         if #available(OSX 10.14, *) {
             finishButton.appearance = NSAppearance(named: .darkAqua)
@@ -104,5 +106,38 @@ class NotesEditor: NSView {
     
     @objc func finishPressed(_ sender: NSButton) {
         notesTextView.window?.makeFirstResponder(nil)
+    }
+    
+    
+    func showFinishButton() {
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.duration = 0.1
+            context.allowsImplicitAnimation = true
+            context.timingFunction = CAMediaTimingFunction(name: .easeIn)
+            finishButton.isHidden = false
+        }, completionHandler: nil)
+    }
+    
+    
+    func hideFinishButton() {
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.duration = 0.2
+            context.allowsImplicitAnimation = true
+            context.timingFunction = CAMediaTimingFunction(name: .easeIn)
+            finishButton.isHidden = true
+        }, completionHandler: nil)
+    }
+}
+
+
+
+
+extension NotesEditor: TextViewResponderDelegate {
+    func didBecomeFirstResponder() {
+        showFinishButton()
+    }
+    
+    func didResignFirstResponder() {
+        hideFinishButton()
     }
 }
