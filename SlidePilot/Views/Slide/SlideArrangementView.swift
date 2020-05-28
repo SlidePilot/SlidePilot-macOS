@@ -83,19 +83,16 @@ class SlideArrangementView: NSView {
     
     /** Updates slides and labels */
     private func updateSlides(for index: Int) {
-        let currentSlideString = NSLocalizedString("Current Slide", comment: "Title for current slide") + " \(index+1) / \(DocumentController.pageCount)"
+        let currentSlideString = NSLocalizedString("Current Slide", comment: "Title for current slide.") + " \(index+1) / \(DocumentController.pageCount)"
+        let notesSlideString = NSLocalizedString("Notes Slide", comment: "Title for notes slide.") + " \(index+1) / \(DocumentController.pageCount)"
         
         // Set current slide label
-        if DisplayController.areNotesDisplayed {
-            currentSlideView?.label?.stringValue = NSLocalizedString("Current Slide", comment: "Title for current slide")
-        } else {
-            currentSlideView?.label?.stringValue = currentSlideString
-        }
+        currentSlideView?.label?.stringValue = currentSlideString
         
         // Set notes page
         if let notesPageView = notesSlideView?.page {
             notesPageView.setCurrentPage(index)
-            notesSlideView?.label?.stringValue = currentSlideString
+            notesSlideView?.label?.stringValue = notesSlideString
         }
         
         // Set next page
