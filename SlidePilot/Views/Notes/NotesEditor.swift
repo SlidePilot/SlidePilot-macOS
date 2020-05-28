@@ -13,6 +13,7 @@ class NotesEditor: NSView {
     var label: NSTextField!
     var notesScrollView: NSScrollView!
     var notesTextView: NotesTextView!
+    var finishButton: NSButton!
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -40,6 +41,7 @@ class NotesEditor: NSView {
                              NSLayoutConstraint(item: label!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0),
                              NSLayoutConstraint(item: label!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25.0)])
         
+        
         // ScrollView setup
         notesScrollView = NSScrollView()
         let contentSize = notesScrollView.contentSize
@@ -51,6 +53,7 @@ class NotesEditor: NSView {
         if #available(OSX 10.14, *) {
             notesScrollView.appearance = NSAppearance(named: .darkAqua)
         }
+        
         
         // TextView setup
         notesTextView = NotesTextView(frame: .zero)
@@ -78,6 +81,28 @@ class NotesEditor: NSView {
             NSLayoutConstraint(item: notesScrollView!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: notesScrollView!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0)
         ])
+        
+        
+        // Add finish button
+        finishButton = NSButton(frame: .zero)
+        finishButton.translatesAutoresizingMaskIntoConstraints = false
+        finishButton.bezelStyle = .rounded
+        finishButton.title = NSLocalizedString("Finish", comment: "The title for the finish button.")
+        finishButton.target = self
+        finishButton.action = #selector(finishPressed(_:))
+        
+        if #available(OSX 10.14, *) {
+            finishButton.appearance = NSAppearance(named: .darkAqua)
+        }
+        
+        self.addSubview(finishButton)
+        self.addConstraints([
+            NSLayoutConstraint(item: finishButton!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: finishButton!, attribute: .centerY, relatedBy: .equal, toItem: label!, attribute: .centerY, multiplier: 1.0, constant: 0.0)])
     }
     
+    
+    @objc func finishPressed(_ sender: NSButton) {
+        notesTextView.window?.makeFirstResponder(nil)
+    }
 }
