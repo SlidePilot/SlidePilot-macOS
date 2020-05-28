@@ -50,7 +50,7 @@ extension SlideArrangementView {
         rightContainer!.subviews.forEach({ $0.removeFromSuperview() })
         
         // Remove references to views
-        notesTextView = nil
+        notesEditor = nil
     }
     
     
@@ -239,43 +239,16 @@ extension SlideArrangementView {
     
     
     func setupNotesTextView(in container: NSView) {
-        // ScrollView setup
-        let notesScrollView = NSScrollView()
-        let contentSize = notesScrollView.contentSize
-        notesScrollView.borderType = .noBorder
-        notesScrollView.hasVerticalScroller = true
-        notesScrollView.hasHorizontalScroller = false
-        notesScrollView.translatesAutoresizingMaskIntoConstraints = false
-        notesScrollView.backgroundColor = NSColor(white: 0.1, alpha: 1.0)
-        if #available(OSX 10.14, *) {
-            notesScrollView.appearance = NSAppearance(named: .darkAqua)
-        }
+        // Notes Editor setup
+        notesEditor = NotesEditor(frame: .zero)
+        notesEditor!.translatesAutoresizingMaskIntoConstraints = false
         
-        // TextView setup
-        notesTextView = NotesTextView(frame: .zero)
-        notesTextView!.minSize = NSSize(width: 0, height: contentSize.height)
-        notesTextView!.maxSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
-        notesTextView!.isVerticallyResizable = true
-        notesTextView!.isHorizontallyResizable = false
-        notesTextView!.autoresizingMask = .width
-        
-        // Text container setup
-        notesTextView!.textContainer?.containerSize = NSSize(width: contentSize.width, height: CGFloat.greatestFiniteMagnitude)
-        notesTextView?.textContainer?.widthTracksTextView = true
-        
-        // Additional appearance setup for notes text field
-        notesTextView!.backgroundColor = NSColor(red: 0.17, green: 0.17, blue: 0.17, alpha: 1.0)
-        notesTextView!.insertionPointColor = .white
-        notesTextView!.textColor = .white
-        
-        notesScrollView.documentView = notesTextView
-        container.addSubview(notesScrollView)
-
+        container.addSubview(notesEditor!)
         container.addConstraints([
-            NSLayoutConstraint(item: notesScrollView, attribute: .centerX, relatedBy: .equal, toItem: container, attribute: .centerX, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: notesScrollView, attribute: .centerY, relatedBy: .equal, toItem: container, attribute: .centerY, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: notesScrollView, attribute: .width, relatedBy: .equal, toItem: container, attribute: .width, multiplier: 0.9, constant: 0.0),
-            NSLayoutConstraint(item: notesScrollView, attribute: .height, relatedBy: .equal, toItem: container, attribute: .height, multiplier: 0.8, constant: 0.0)
+            NSLayoutConstraint(item: notesEditor!, attribute: .centerX, relatedBy: .equal, toItem: container, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: notesEditor!, attribute: .centerY, relatedBy: .equal, toItem: container, attribute: .centerY, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: notesEditor!, attribute: .width, relatedBy: .equal, toItem: container, attribute: .width, multiplier: 0.9, constant: 0.0),
+            NSLayoutConstraint(item: notesEditor!, attribute: .height, relatedBy: .equal, toItem: container, attribute: .height, multiplier: 0.8, constant: 0.0)
             ])
     }
 }
