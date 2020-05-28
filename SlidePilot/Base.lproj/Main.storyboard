@@ -388,10 +388,28 @@
                                                 <action selector="previousSlide:" target="Ady-hI-5gd" id="ijM-Of-CjL"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Previous Slide" tag="1" hidden="YES" keyEquivalent="" id="j2s-KC-OdN">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="cbM-0o-xEF"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Next Slide" tag="4" id="s0G-5Y-hRb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="nextSlide:" target="Ady-hI-5gd" id="sj2-C9-1bJ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Next Slide" tag="4" hidden="YES" keyEquivalent="" id="QHz-hK-x1G">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="tOG-m1-6cw"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="WxF-lf-SZG"/>

@@ -10,6 +10,8 @@ import Cocoa
 
 class NotesTextView: NSTextView {
     
+    var responderDelegate: TextViewResponderDelegate?
+    
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -121,4 +123,41 @@ class NotesTextView: NSTextView {
     @objc func didDecreaseFontSize(_ notification: Notification) {
         decreaseFontSize()
     }
+    
+    
+    
+    
+    override func keyDown(with event: NSEvent) {
+        if event.keyCode == 36 && event.modifierFlags.intersection(.deviceIndependentFlagsMask) == .command {
+            self.window?.makeFirstResponder(nil)
+        } else {
+            super.keyDown(with: event)
+        }
+    }
+    
+
+    override func becomeFirstResponder() -> Bool {
+        let shouldBecomeFirstResponder = super.becomeFirstResponder()
+        if shouldBecomeFirstResponder {
+            responderDelegate?.didBecomeFirstResponder()
+        }
+        return shouldBecomeFirstResponder
+    }
+
+
+    override func resignFirstResponder() -> Bool {
+        let shouldResignFirstResponder = super.resignFirstResponder()
+        if shouldResignFirstResponder {
+            responderDelegate?.didResignFirstResponder()
+        }
+        return shouldResignFirstResponder
+    }
+}
+
+
+
+
+protocol TextViewResponderDelegate {
+    func didBecomeFirstResponder()
+    func didResignFirstResponder()
 }

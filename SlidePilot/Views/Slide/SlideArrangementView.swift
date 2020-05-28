@@ -21,7 +21,7 @@ class SlideArrangementView: NSView {
     var currentSlideView: SlideView?
     var nextSlideView: SlideView?
     var notesSlideView: SlideView?
-    var notesTextView: NotesTextView?
+    var notesEditor: NotesEditor?
     
     let padding: CGFloat = 40.0
     let distributionRatio: CGFloat = 0.6
@@ -94,6 +94,9 @@ class SlideArrangementView: NSView {
             notesPageView.setCurrentPage(index)
             notesSlideView?.label?.stringValue = notesSlideString
         }
+        
+        // Set notes editor title
+        notesEditor?.label.stringValue = notesSlideString
         
         // Set next page
         if let nextPageView = nextSlideView?.page {
