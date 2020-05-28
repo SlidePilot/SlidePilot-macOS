@@ -264,7 +264,7 @@ extension SlideArrangementView {
         notesTextView?.textContainer?.widthTracksTextView = true
         
         // Additional appearance setup for notes text field
-        notesTextView!.backgroundColor = NSColor(red: 0.11, green: 0.11, blue: 0.11, alpha: 1.0)
+        notesTextView!.backgroundColor = NSColor(red: 0.17, green: 0.17, blue: 0.17, alpha: 1.0)
         notesTextView!.insertionPointColor = .white
         notesTextView!.textColor = .white
         
