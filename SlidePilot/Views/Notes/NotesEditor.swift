@@ -36,9 +36,8 @@ class NotesEditor: NSView {
         
         label!.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(label!)
-        self.addConstraints([NSLayoutConstraint(item: label!, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0.0),
+        self.addConstraints([NSLayoutConstraint(item: label!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0),
                              NSLayoutConstraint(item: label!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0),
-                             NSLayoutConstraint(item: label!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0),
                              NSLayoutConstraint(item: label!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25.0)])
         
         
@@ -98,7 +97,8 @@ class NotesEditor: NSView {
         self.addSubview(finishButton)
         self.addConstraints([
             NSLayoutConstraint(item: finishButton!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: finishButton!, attribute: .centerY, relatedBy: .equal, toItem: label!, attribute: .centerY, multiplier: 1.0, constant: 0.0)])
+            NSLayoutConstraint(item: finishButton!, attribute: .centerY, relatedBy: .equal, toItem: label!, attribute: .centerY, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: finishButton!, attribute: .left, relatedBy: .greaterThanOrEqual, toItem: label!, attribute: .right, multiplier: 1.0, constant: 10.0)])
     }
     
     
