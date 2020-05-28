@@ -121,4 +121,15 @@ class NotesTextView: NSTextView {
     @objc func didDecreaseFontSize(_ notification: Notification) {
         decreaseFontSize()
     }
+    
+    
+    
+    
+    override func keyDown(with event: NSEvent) {
+        if event.keyCode == 36 && event.modifierFlags.intersection(.deviceIndependentFlagsMask) == .command {
+            self.window?.makeFirstResponder(nil)
+        } else {
+            super.keyDown(with: event)
+        }
+    }
 }
