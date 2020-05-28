@@ -383,6 +383,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func nextSlide(_ sender: NSMenuItem) {
         PageController.nextPage(sender: self)
         
+        startTimerIfNeeded()
+    }
+    
+    
+    public func startTimerIfNeeded() {
         // If this is the first next slide call for this document, start time automatically
         if shouldStartTimerOnSlideChange {
             shouldStartTimerOnSlideChange = false

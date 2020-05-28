@@ -15,6 +15,9 @@ class NavigationWindow: NSWindow {
             PageController.previousPage(sender: self)
         } else if event.keyCode == 124 || event.keyCode == 125 || event.specialKey == NSEvent.SpecialKey.pageDown {
             PageController.nextPage(sender: self)
+            if let appDelegate = NSApp.delegate as? AppDelegate {
+                appDelegate.startTimerIfNeeded()
+            }
         } else {
             super.keyDown(with: event)
         }
