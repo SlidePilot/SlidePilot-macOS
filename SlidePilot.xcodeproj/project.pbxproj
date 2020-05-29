@@ -29,6 +29,9 @@
 		50440BB924339CEA000C0C9E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 50440BB824339CEA000C0C9E /* README.md */; };
 		505243B72445AF650050AB98 /* RenderCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505243B62445AF650050AB98 /* RenderCache.swift */; };
 		5070AA5A24619C400025B8C5 /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5070AA5924619C400025B8C5 /* TimeController.swift */; };
+		5077493B247A8C4000316F0B /* PresenterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50774939247A8C4000316F0B /* PresenterWindow.swift */; };
+		5077493C247A8C4000316F0B /* NavigationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5077493A247A8C4000316F0B /* NavigationWindow.swift */; };
+		50849E7D247D3D0C00548712 /* TextFormatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50849E7C247D3D0C00548712 /* TextFormatController.swift */; };
 		508BBD622460591800F81FFF /* UserNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BBD612460591800F81FFF /* UserNotice.swift */; };
 		508BBD642460966800F81FFF /* CAKeyframeAnimation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BBD632460966800F81FFF /* CAKeyframeAnimation+Extension.swift */; };
 		509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B96F62428A3AC0076B8B4 /* AppDelegate.swift */; };
@@ -43,10 +46,16 @@
 		509B971F2428B6A10076B8B4 /* ClockLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B971E2428B6A10076B8B4 /* ClockLabel.swift */; };
 		509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */; };
 		509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B972E2428D74E0076B8B4 /* SlideView.swift */; };
+		50B14415248037F700532A8B /* NotesEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B14414248037F700532A8B /* NotesEditor.swift */; };
+		50B1441724803E5C00532A8B /* SlideInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1441624803E5C00532A8B /* SlideInfoLabel.swift */; };
+		50C46F79247E76AD001602EA /* CompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C46F78247E76AD001602EA /* CompletionStatus.swift */; };
 		50C77F39242CD32500066752 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50C77F3B242CD32500066752 /* Localizable.strings */; };
 		50DD8B292458819600E83784 /* PresenterWindowController+TouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B282458819600E83784 /* PresenterWindowController+TouchBar.swift */; };
 		50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B2A245881C700E83784 /* TouchBarIdentifiers.swift */; };
 		50DD8B2D2458DCED00E83784 /* PointerAppearanceTouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B2C2458DCED00E83784 /* PointerAppearanceTouchBar.swift */; };
+		50E2E5E8247AA12800CE6FDA /* NotesTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E5E7247AA12800CE6FDA /* NotesTextView.swift */; };
+		50E2E5EC247AB84C00CE6FDA /* NotesDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E5EB247AB84C00CE6FDA /* NotesDocument.swift */; };
+		50E2E5EE247AC05500CE6FDA /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */; };
 		50EF741224538F690028DB06 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741124538F690028DB06 /* DocumentController.swift */; };
 		50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741324539A3E0028DB06 /* DisplayController.swift */; };
 		50FA6B98245356F000EDEFC6 /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA6B97245356F000EDEFC6 /* PageController.swift */; };
@@ -100,6 +109,9 @@
 		504450A1245ADFB900330984 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		505243B62445AF650050AB98 /* RenderCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderCache.swift; sourceTree = "<group>"; };
 		5070AA5924619C400025B8C5 /* TimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
+		50774939247A8C4000316F0B /* PresenterWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterWindow.swift; sourceTree = "<group>"; };
+		5077493A247A8C4000316F0B /* NavigationWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationWindow.swift; sourceTree = "<group>"; };
+		50849E7C247D3D0C00548712 /* TextFormatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatController.swift; sourceTree = "<group>"; };
 		508BBD612460591800F81FFF /* UserNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotice.swift; sourceTree = "<group>"; };
 		508BBD632460966800F81FFF /* CAKeyframeAnimation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAKeyframeAnimation+Extension.swift"; sourceTree = "<group>"; };
 		509B96F32428A3AC0076B8B4 /* SlidePilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlidePilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,12 +131,18 @@
 		509B971E2428B6A10076B8B4 /* ClockLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockLabel.swift; sourceTree = "<group>"; };
 		509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideArrangementView.swift; sourceTree = "<group>"; };
 		509B972E2428D74E0076B8B4 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
+		50B14414248037F700532A8B /* NotesEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesEditor.swift; sourceTree = "<group>"; };
+		50B1441624803E5C00532A8B /* SlideInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInfoLabel.swift; sourceTree = "<group>"; };
+		50C46F78247E76AD001602EA /* CompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionStatus.swift; sourceTree = "<group>"; };
 		50C77F2F242CCCC800066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		50C77F3A242CD32500066752 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		50C77F3C242CD32600066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		50DD8B282458819600E83784 /* PresenterWindowController+TouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PresenterWindowController+TouchBar.swift"; sourceTree = "<group>"; };
 		50DD8B2A245881C700E83784 /* TouchBarIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBarIdentifiers.swift; sourceTree = "<group>"; };
 		50DD8B2C2458DCED00E83784 /* PointerAppearanceTouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerAppearanceTouchBar.swift; sourceTree = "<group>"; };
+		50E2E5E7247AA12800CE6FDA /* NotesTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTextView.swift; sourceTree = "<group>"; };
+		50E2E5EB247AB84C00CE6FDA /* NotesDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesDocument.swift; sourceTree = "<group>"; };
+		50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		50EF741124538F690028DB06 /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		50EF741324539A3E0028DB06 /* DisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
 		50FA6B97245356F000EDEFC6 /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
@@ -160,6 +178,8 @@
 				5036BD892435F8CD0007AF6F /* AppStartTracker.swift */,
 				505243B62445AF650050AB98 /* RenderCache.swift */,
 				508BBD632460966800F81FFF /* CAKeyframeAnimation+Extension.swift */,
+				50E2E5EB247AB84C00CE6FDA /* NotesDocument.swift */,
+				50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -214,7 +234,9 @@
 				503834542434721600E73E43 /* Sparkle.framework */,
 				509B96F62428A3AC0076B8B4 /* AppDelegate.swift */,
 				50440BB824339CEA000C0C9E /* README.md */,
+				5077493A247A8C4000316F0B /* NavigationWindow.swift */,
 				503FFDFB242A180000B6F438 /* PresenterWindowController.swift */,
+				50774939247A8C4000316F0B /* PresenterWindow.swift */,
 				509B96F82428A3AC0076B8B4 /* PresenterViewController.swift */,
 				503FFDFD242A193500B6F438 /* PresentationWindowController.swift */,
 				50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */,
@@ -234,6 +256,7 @@
 		509B97062428A3C40076B8B4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				50E2E5E6247AA11300CE6FDA /* Notes */,
 				50DD8B2724587FC600E83784 /* TouchBar */,
 				509B97272428CBA20076B8B4 /* Slide */,
 				50440BB124335787000C0C9E /* Thumbnail */,
@@ -241,6 +264,7 @@
 				50440BB02433574D000C0C9E /* Presentation */,
 				50440BB4243357C1000C0C9E /* Clipfree.swift */,
 				508BBD612460591800F81FFF /* UserNotice.swift */,
+				50B1441624803E5C00532A8B /* SlideInfoLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -290,6 +314,15 @@
 			path = TouchBar;
 			sourceTree = "<group>";
 		};
+		50E2E5E6247AA11300CE6FDA /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				50E2E5E7247AA12800CE6FDA /* NotesTextView.swift */,
+				50B14414248037F700532A8B /* NotesEditor.swift */,
+			);
+			path = Notes;
+			sourceTree = "<group>";
+		};
 		50FA6B992453606600EDEFC6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -297,6 +330,8 @@
 				50EF741124538F690028DB06 /* DocumentController.swift */,
 				5070AA5924619C400025B8C5 /* TimeController.swift */,
 				50EF741324539A3E0028DB06 /* DisplayController.swift */,
+				50849E7C247D3D0C00548712 /* TextFormatController.swift */,
+				50C46F78247E76AD001602EA /* CompletionStatus.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -406,15 +441,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50B14415248037F700532A8B /* NotesEditor.swift in Sources */,
 				5028D31D245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift in Sources */,
+				50C46F79247E76AD001602EA /* CompletionStatus.swift in Sources */,
 				509B97082428A3DD0076B8B4 /* PDFPageView.swift in Sources */,
 				509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */,
 				50EF741224538F690028DB06 /* DocumentController.swift in Sources */,
 				50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */,
 				50026AD02430EED80049387E /* String+Extension.swift in Sources */,
+				50E2E5EC247AB84C00CE6FDA /* NotesDocument.swift in Sources */,
+				50B1441724803E5C00532A8B /* SlideInfoLabel.swift in Sources */,
 				509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */,
 				50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */,
 				503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */,
+				5077493C247A8C4000316F0B /* NavigationWindow.swift in Sources */,
 				50026AA22430AC0B0049387E /* SplitView.swift in Sources */,
 				50440BB5243357C1000C0C9E /* Clipfree.swift in Sources */,
 				509B971F2428B6A10076B8B4 /* ClockLabel.swift in Sources */,
@@ -428,12 +468,16 @@
 				503FFDFF242A193500B6F438 /* PresentationWindowController.swift in Sources */,
 				508BBD642460966800F81FFF /* CAKeyframeAnimation+Extension.swift in Sources */,
 				509B970C2428AA2F0076B8B4 /* TimingControl.swift in Sources */,
+				50E2E5E8247AA12800CE6FDA /* NotesTextView.swift in Sources */,
 				50440BB3243357AA000C0C9E /* ThumbnailView.swift in Sources */,
 				503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */,
 				500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */,
 				509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */,
 				509B970E2428B0A90076B8B4 /* TimeInterval+Extension.swift in Sources */,
 				50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */,
+				5077493B247A8C4000316F0B /* PresenterWindow.swift in Sources */,
+				50E2E5EE247AC05500CE6FDA /* NSAttributedString+Extension.swift in Sources */,
+				50849E7D247D3D0C00548712 /* TextFormatController.swift in Sources */,
 				50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */,
 				50440BB7243357F5000C0C9E /* ThumbnailNavigation.swift in Sources */,
 				50026AD22430F02F0049387E /* PDFPage+Extension.swift in Sources */,
@@ -610,7 +654,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.3.0.1;
+				CURRENT_PROJECT_VERSION = 1.4.0.3;
 				DEVELOPMENT_TEAM = FFSR8KUJW2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -624,7 +668,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pascalbraband.SlidePilot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -639,7 +683,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.3.0.1;
+				CURRENT_PROJECT_VERSION = 1.4.0.3;
 				DEVELOPMENT_TEAM = FFSR8KUJW2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -653,7 +697,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pascalbraband.SlidePilot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

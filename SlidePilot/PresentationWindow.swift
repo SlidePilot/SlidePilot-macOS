@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PresentationWindow: NSWindow {
+class PresentationWindow: NavigationWindow {
 
     override var canBecomeKey: Bool {
         return false

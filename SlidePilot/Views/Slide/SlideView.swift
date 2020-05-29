@@ -40,14 +40,7 @@ class SlideView: NSView {
     
     func setupView() {
         // Setup info label for slide
-        label = NSTextField(frame: .zero)
-        label!.font = NSFont.systemFont(ofSize: 20.0, weight: .regular)
-        label!.alignment = .center
-        label!.isEditable = false
-        label!.isSelectable = false
-        label!.isBordered = false
-        label!.drawsBackground = false
-        label!.textColor = .white
+        label = SlideInfoLabel(frame: .zero)
         
         label!.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(label!)
@@ -90,6 +83,7 @@ class SlideView: NSView {
     }
     
     override func updateTrackingAreas() {
+        super.updateTrackingAreas()
         addTrackingAreaForSlide()
     }
     

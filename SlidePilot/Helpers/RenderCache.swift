@@ -98,7 +98,7 @@ class RenderCache {
         guard let page = document?.page(at: index) else { return nil }
         
         // Set crop box
-        let pageRect = getBoundsFor(mode: mode, pdfPage: page)
+        let pageRect = getBoundsFor(mode: mode, pdfPage: page, rotation: page.rotation)
         page.setBounds(pageRect, for: .cropBox)
         
         // Start pre rendering in a range +-50 pages from the requested pages
@@ -212,20 +212,22 @@ class RenderCache {
      */
     private func createImage(from page: PDFPage, mode: PDFPageView.DisplayMode = .full) -> NSImage? {
         // Set correct display bounds
-        let pageRect = getBoundsFor(mode: mode, pdfPage: page)
-        page.setBounds(pageRect, for: .cropBox)
+        let pageRect = getBoundsFor(mode: mode, pdfPage: page, rotation: page.rotation)
         
-        // Generate data and image
-        guard let pageData = page.dataRepresentation else { return nil }
-        guard let imageRep = NSPDFImageRep(data: pageData) else { return nil }
+        var drawRect = pageRect
+        if page.rotation == 270 || page.rotation == 90 {
+            drawRect = CGRect(x: pageRect.minX, y: pageRect.minY, width: pageRect.height, height: pageRect.width)
+        }
         
-        return NSImage(size: imageRep.size, flipped: false, drawingHandler: { (rect) -> Bool in
+        return NSImage(size: drawRect.size, flipped: false, drawingHandler: { (rect) -> Bool in
             guard let ctx = NSGraphicsContext.current?.cgContext else { return false }
             NSColor.white.set()
             ctx.fill(rect)
-
-            imageRep.draw(in: rect)
-
+            
+            // Draw page
+            page.setBounds(pageRect, for: .cropBox)
+            page.draw(with: .cropBox)
+            
             return true
         })
     }
@@ -234,18 +236,53 @@ class RenderCache {
     /**
      Returns correct bounds for `DisplayMode`.
      */
-    private func getBoundsFor(mode: PDFPageView.DisplayMode, pdfPage: PDFPage) -> CGRect {
+    private func getBoundsFor(mode: PDFPageView.DisplayMode, pdfPage: PDFPage, rotation: Int) -> CGRect {
+        let isRotatedClock = rotation == 90
+        let isRotatedCounterClock = rotation == 270
+        let isFlipped = rotation == 180
         switch mode {
         case .full:
             return pdfPage.bounds(for: .mediaBox)
         case .leftHalf:
-            return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width/2, height: pdfPage.bounds(for: .mediaBox).height)
+            if isRotatedCounterClock {
+                return CGRect(x: 0, y: pdfPage.bounds(for: .mediaBox).height/2, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
+            } else if isRotatedClock {
+                return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
+            } else if isFlipped {
+                return CGRect(x: pdfPage.bounds(for: .mediaBox).width/2, y: 0, width: pdfPage.bounds(for: .mediaBox).width/2, height: pdfPage.bounds(for: .mediaBox).height)
+            } else {
+                return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width/2, height: pdfPage.bounds(for: .mediaBox).height)
+            }
         case .rightHalf:
-            return CGRect(x: pdfPage.bounds(for: .mediaBox).width/2, y: 0, width: pdfPage.bounds(for: .mediaBox).width/2, height: pdfPage.bounds(for: .mediaBox).height)
+            if isRotatedCounterClock {
+                return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
+            } else if isRotatedClock {
+                return CGRect(x: 0, y: pdfPage.bounds(for: .mediaBox).height/2, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
+            } else if isFlipped {
+                return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width/2, height: pdfPage.bounds(for: .mediaBox).height)
+            } else {
+                return CGRect(x: pdfPage.bounds(for: .mediaBox).width/2, y: 0, width: pdfPage.bounds(for: .mediaBox).width/2, height: pdfPage.bounds(for: .mediaBox).height)
+            }
         case .topHalf:
-            return CGRect(x: 0, y: pdfPage.bounds(for: .mediaBox).height/2, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
+            if isRotatedCounterClock {
+                return CGRect(x: pdfPage.bounds(for: .mediaBox).width/2, y: 0, width: pdfPage.bounds(for: .mediaBox).width/2, height: pdfPage.bounds(for: .mediaBox).height)
+            } else if isRotatedClock {
+                return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width/2, height: pdfPage.bounds(for: .mediaBox).height)
+            } else if isFlipped {
+                return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
+            } else {
+                return CGRect(x: 0, y: pdfPage.bounds(for: .mediaBox).height/2, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
+            }
         case .bottomHalf:
-            return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
+            if isRotatedCounterClock {
+                return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width/2, height: pdfPage.bounds(for: .mediaBox).height)
+            } else if isRotatedClock {
+                return CGRect(x: pdfPage.bounds(for: .mediaBox).width/2, y: 0, width: pdfPage.bounds(for: .mediaBox).width/2, height: pdfPage.bounds(for: .mediaBox).height)
+            } else if isFlipped {
+                return CGRect(x: 0, y: pdfPage.bounds(for: .mediaBox).height/2, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
+            } else {
+                return CGRect(x: 0, y: 0, width: pdfPage.bounds(for: .mediaBox).width, height: pdfPage.bounds(for: .mediaBox).height/2)
+            }
         }
     }
 }

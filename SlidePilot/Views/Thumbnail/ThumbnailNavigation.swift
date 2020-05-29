@@ -86,6 +86,9 @@ class ThumbnailNavigation: NSView {
         scrollView.drawsBackground = false
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalScroller = false
+        if #available(OSX 10.14, *) {
+            scrollView.appearance = NSAppearance(named: .darkAqua)
+        }
         self.addSubview(scrollView)
         self.addConstraints([NSLayoutConstraint(item: scrollView!, attribute: .top, relatedBy: .equal, toItem: searchContainer, attribute: .bottom, multiplier: 1.0, constant: 0.0),
                              NSLayoutConstraint(item: scrollView!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0),
@@ -119,7 +122,7 @@ class ThumbnailNavigation: NSView {
         PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))
         
         // Subscribe to document changes
-        DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange))
@@ -287,7 +290,13 @@ extension ThumbnailNavigation: NSTableViewDelegate {
         }
         
         // Adjust thumbnail height to fit the images height if possible
-        if let pageFrame = thumbnail.page.pdfDocument?.page(at: thumbnail.page.currentPage)?.bounds(for: .cropBox) {
+        if let page = thumbnail.page.pdfDocument?.page(at: thumbnail.page.currentPage) {
+            var pageFrame = page.bounds(for: .cropBox)
+            // Fix rotation
+            if page.rotation == 270 || page.rotation == 90 {
+                pageFrame = CGRect(x: pageFrame.minX, y: pageFrame.minY, width: pageFrame.height, height: pageFrame.width)
+            }
+            
             // ratioFix is just try and error value
             let ratioFix: CGFloat = 60.0
             let aspectRatio = pageFrame.height / (pageFrame.width + ratioFix)
@@ -327,11 +336,18 @@ extension ThumbnailNavigation: NSTableViewDelegate {
     
     
     override func keyDown(with event: NSEvent) {
+        // Get the typed key and insert it in the searchField
+        guard let input = event.characters,
+            input.first?.isLetter ?? false || input.first?.isNumber ?? false
+            else {
+                // Forward event
+                super.keyDown(with: event)
+                return
+        }
+        
         // When a key is pressed, select the searchField
         searchField.becomeFirstResponder()
         
-        // Get the typed key and insert it in the searchField
-        guard let input = event.characters else { return }
         searchField.stringValue = input
         
         // Deselect searchField text and locate the cursor at the correct position

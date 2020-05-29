@@ -45,7 +45,9 @@ class PresenterViewController: NSViewController {
         // Setup default configuration
         
         // Subscribe to document changes
-        DocumentController.subscribe(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeDidSaveNotes(target: self, action: #selector(didSaveNotes(_:)))
+        DocumentController.subscribeDidOpenNotes(target: self, action: #selector(didOpenNotes(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
@@ -94,6 +96,30 @@ class PresenterViewController: NSViewController {
     @objc func documentDidChange(_ notification: Notification) {
         hideNavigation(animated: false)
         DisplayController.setDisplayNavigator(false, sender: self)
+    }
+    
+    
+    @objc func didSaveNotes(_ notification: Notification) {
+        guard let status = notification.userInfo?["status"] as? CompletionStatus else { return }
+        // Show alert on failed save
+        if status == .failed {
+            let message = NSLocalizedString("Save Notes Failed", comment: "Alert message informing about failed saving notes..")
+            let text = NSLocalizedString("Save Notes Failed Text", comment: "Alert text informing about failed saving notes..")
+            let alertStyle = NSAlert.Style.critical
+            showNotice(message: message, text: text, alertStyle: alertStyle)
+        }
+    }
+    
+    
+    @objc func didOpenNotes(_ notification: Notification) {
+        guard let success = notification.userInfo?["success"] as? Bool else { return }
+        // Show alert on failed open
+        if !success {
+            let message = NSLocalizedString("Open Notes Failed", comment: "Alert message informing about failed opening.")
+            let text = NSLocalizedString("Open Notes Failed Text", comment: "Alert text informing about failed opening.")
+            let alertStyle = NSAlert.Style.critical
+            showNotice(message: message, text: text, alertStyle: alertStyle)
+        }
     }
     
     
@@ -202,6 +228,17 @@ class PresenterViewController: NSViewController {
             }
         }
     }
+    
+    
+    func showNotice(message: String, text: String, alertStyle: NSAlert.Style) {
+        let alert = NSAlert()
+        alert.messageText = message
+        alert.informativeText = text
+        alert.alertStyle = alertStyle
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
+        alert.runModal()
+    }
+
     
     
     

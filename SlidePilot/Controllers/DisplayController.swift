@@ -50,10 +50,16 @@ class DisplayController {
     }
     
     
+    enum NotesMode {
+        case text, split
+    }
+    
+    
     
     
     // MARK: - Variables (Getters)
     public private(set) static var notesPosition: NotesPosition = .none
+    public private(set) static var notesMode: NotesMode = .text
     
     public private(set) static var areNotesDisplayed: Bool = false
     public private(set) static var isBlackCurtainDisplayed: Bool = false
@@ -210,6 +216,14 @@ class DisplayController {
     }
     
     
+    /** Sends a notification, that notes mode was changed. */
+    public static func setNotesMode(_ mode: NotesMode, sender: Any) {
+        notesMode = mode
+        NotificationCenter.default.post(name: .didChangeNotesMode, object: sender)
+    }
+    
+    
+    
     
     // MARK: - Subscribe
     
@@ -267,6 +281,10 @@ class DisplayController {
     }
     
     
+    /** Subscribes a target to all `.didChangeNotesMode` notifications sent by `DisplayController`. */
+    public static func subscribeNotesMode(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeNotesMode, object: nil)
+    }
     
     
     // MARK: - Unsubscribe
@@ -282,6 +300,7 @@ class DisplayController {
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayPointer, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangePointerAppearance, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayNextSlidePreview, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeNotesMode, object: nil)
     }
 }
 
@@ -298,4 +317,5 @@ extension Notification.Name {
     static let didChangeDisplayNextSlidePreview = Notification.Name("didChangeDisplayNextSlidePreview")
     static let didChangeDisplayPointer = Notification.Name("didChangeDisplayPointer")
     static let didChangePointerAppearance = Notification.Name("didChangePointerAppearance")
+    static let didChangeNotesMode = Notification.Name("didChangeNotesMode")
 }

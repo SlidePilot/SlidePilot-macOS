@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -134,6 +134,67 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Format" id="0Gn-3s-ITh">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Format" id="42S-Y1-0zg">
+                                    <items>
+                                        <menuItem title="Bold" tag="2" keyEquivalent="b" id="k0O-Vd-fHq">
+                                            <connections>
+                                                <action selector="addFontTrait:" target="YLy-65-1bz" id="nCL-Am-uan"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Italic" tag="1" keyEquivalent="i" id="j9w-kc-N3h">
+                                            <connections>
+                                                <action selector="addFontTrait:" target="YLy-65-1bz" id="6PL-if-u8b"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Underline" keyEquivalent="u" id="dTz-JK-ND4">
+                                            <connections>
+                                                <action selector="underline:" target="Ady-hI-5gd" id="G3w-Te-wT4"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="qiW-Kj-zXm"/>
+                                        <menuItem title="Bigger" tag="3" keyEquivalent="+" id="imS-PA-oW0">
+                                            <connections>
+                                                <action selector="increaseFontSize:" target="Ady-hI-5gd" id="nLu-lo-zNT"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Smaller" tag="4" keyEquivalent="-" id="nYX-Cm-qit">
+                                            <connections>
+                                                <action selector="decreaseFontSize:" target="Ady-hI-5gd" id="uo3-Kv-ova"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="RzA-TS-vmo"/>
+                                        <menuItem title="Align Left" keyEquivalent="{" id="Zi0-Hd-gZC">
+                                            <connections>
+                                                <action selector="alignLeft:" target="Ady-hI-5gd" id="YRN-EZ-g8n"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Center" keyEquivalent="|" id="aW2-30-SOk">
+                                            <connections>
+                                                <action selector="alignCenter:" target="Ady-hI-5gd" id="NDj-UW-Vq9"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Align Right" keyEquivalent="}" id="TWd-Px-sJm">
+                                            <connections>
+                                                <action selector="alignRight:" target="Ady-hI-5gd" id="RAR-Sz-FvB"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="U5w-Yw-fSv"/>
+                                        <menuItem title="List…" keyEquivalent="l" id="CBj-Fu-sHU">
+                                            <connections>
+                                                <action selector="orderFrontListPanel:" target="Ady-hI-5gd" id="sN9-lT-RR1"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Spacing…" keyEquivalent="s" id="50S-x6-AAW">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="orderFrontSpacingPanel:" target="Ady-hI-5gd" id="3HF-ca-xmE"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="View" identifier="ViewMenu" id="H8h-7b-M4v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
@@ -227,15 +288,42 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="A3e-R8-0Hj"/>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Notes" id="jvc-gB-nHf">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Notes" autoenablesItems="NO" id="eeB-A4-p01">
+                                    <items>
                                         <menuItem title="Show Notes" tag="401" keyEquivalent="n" identifier="ShowNotes" id="fS9-YP-QfR">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showNotes:" target="Ady-hI-5gd" id="v6k-IP-Uza"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Notes Position" tag="402" identifier="NotesPosition" id="WtB-Ny-SAM" userLabel="Notes Position">
+                                        <menuItem title="Notes Mode" id="6b4-5J-R1q">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" autoenablesItems="NO" id="Vm6-Hh-mT3">
+                                            <menu key="submenu" id="hqc-Um-UGA">
+                                                <items>
+                                                    <menuItem title="Text" id="hxO-Rn-nAO">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectNotesModeText:" target="Ady-hI-5gd" id="bhd-Th-WMr"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Split" id="OMC-wK-B8t">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="selectNotesModeSplit:" target="Ady-hI-5gd" id="EEM-XW-S8g"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="tCQ-vc-et8"/>
+                                        <menuItem title="Split Position" tag="402" identifier="NotesPosition" id="WtB-Ny-SAM" userLabel="Notes Position">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Split Position" autoenablesItems="NO" id="Vm6-Hh-mT3">
                                                 <items>
                                                     <menuItem title="None" keyEquivalent="0" identifier="NotesPositionNone" id="Kws-6x-VZZ">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
@@ -271,6 +359,22 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="wSb-6N-lIr"/>
+                                        <menuItem title="New Notes" keyEquivalent="n" id="Lc1-jS-yKf">
+                                            <connections>
+                                                <action selector="newNotes:" target="Ady-hI-5gd" id="hxt-DG-4Rp"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Open Notes" keyEquivalent="O" id="ypU-UU-7oB">
+                                            <connections>
+                                                <action selector="openNotes:" target="Ady-hI-5gd" id="FbF-0w-PpX"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Save Notes" keyEquivalent="s" id="Nrq-4X-0EL">
+                                            <connections>
+                                                <action selector="saveNotes:" target="Ady-hI-5gd" id="98j-Be-It3"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -278,52 +382,34 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Presentation" autoenablesItems="NO" id="uzH-JS-q45">
                                     <items>
-                                        <menuItem title="Previous Slide" tag="1" keyEquivalent="" id="gcL-Jw-1Oj">
+                                        <menuItem title="Previous Slide" tag="1" id="gcL-Jw-1Oj">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="previousSlide:" target="Ady-hI-5gd" id="ijM-Of-CjL"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Previous Slide" tag="2" hidden="YES" keyEquivalent="" id="Ogv-VI-0Jg">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Previous Slide" tag="1" hidden="YES" keyEquivalent="" id="j2s-KC-OdN">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="pup-Ul-KmX"/>
+                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="cbM-0o-xEF"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Previous Slide" tag="3" hidden="YES" keyEquivalent="" id="ywH-LG-iQS">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="previousSlide:" target="Ady-hI-5gd" id="7VZ-jt-0gk"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Next Slide" tag="4" keyEquivalent="" id="s0G-5Y-hRb">
+                                        <menuItem title="Next Slide" tag="4" id="s0G-5Y-hRb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="nextSlide:" target="Ady-hI-5gd" id="sj2-C9-1bJ"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Next Slide" tag="5" hidden="YES" keyEquivalent="" id="XpD-9W-0P3">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Next Slide" tag="4" hidden="YES" keyEquivalent="" id="QHz-hK-x1G">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="DhG-49-Jbe"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Next Slide" tag="6" hidden="YES" keyEquivalent="" id="BWz-Hx-oMf">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="allowsKeyEquivalentWhenHidden" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="Lo6-NI-nsc"/>
+                                                <action selector="nextSlide:" target="Ady-hI-5gd" id="tOG-m1-6cw"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="WxF-lf-SZG"/>
@@ -374,12 +460,12 @@
                                                             <action selector="selectPointerAppearanceCircle:" target="Voe-Tx-rLC" id="wSW-XY-aJk"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Target" keyEquivalent="4" id="YH8-Ja-Yo4">
+                                                    <menuItem title="Target Black" keyEquivalent="4" id="YH8-Ja-Yo4">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceTarget:" target="Voe-Tx-rLC" id="env-0T-faO"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Target Color" keyEquivalent="5" id="UYT-sb-cqr">
+                                                    <menuItem title="Target Red" keyEquivalent="5" id="UYT-sb-cqr">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceTargetColor:" target="Voe-Tx-rLC" id="JUi-fX-son"/>
                                                         </connections>
@@ -412,6 +498,9 @@
                     <connections>
                         <outlet property="displayBlackCurtainItem" destination="Wsl-Lh-Rzy" id="7mA-Hq-uva"/>
                         <outlet property="displayWhiteCurtainItem" destination="E0b-Yv-pqH" id="SEd-Ly-9Bk"/>
+                        <outlet property="notesModeMenu" destination="hqc-Um-UGA" id="ynB-4W-PuA"/>
+                        <outlet property="notesModeSplitItem" destination="OMC-wK-B8t" id="1Vn-Pl-SVb"/>
+                        <outlet property="notesModeTextItem" destination="hxO-Rn-nAO" id="nfD-ji-Pvs"/>
                         <outlet property="notesPositionBottomItem" destination="3BI-JZ-e7T" id="pKx-fs-G7H"/>
                         <outlet property="notesPositionLeftItem" destination="bSo-dU-i8i" id="DjP-tk-Ahe"/>
                         <outlet property="notesPositionMenu" destination="Vm6-Hh-mT3" id="cll-ph-YG3"/>
@@ -444,7 +533,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController storyboardIdentifier="PresenterWindow" id="B8D-0N-5wS" customClass="PresenterWindowController" customModule="SlidePilot" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA" customClass="PresenterWindow" customModule="SlidePilot" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
