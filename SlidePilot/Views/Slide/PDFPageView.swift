@@ -71,6 +71,18 @@ class PDFPageView: NSImageView {
         }
     }
     
+    /** Enabling this property will automatically set a height constraint, relative to the width constraint using the current images aspect ratio. */
+    var isAutoAspectRatioConstraintEnabled = false
+    var aspectRatioConstraint: NSLayoutConstraint?
+    
+    override var image: NSImage? {
+        didSet {
+            if isAutoAspectRatioConstraintEnabled {
+                updateAspectRatio()
+            }
+        }
+    }
+    
     
     public func setDocument(_ document: PDFDocument?, mode displayMode: DisplayMode = .full, at currentPage: Int = 0) {
         self.pdfDocument = document
@@ -121,6 +133,20 @@ class PDFPageView: NSImageView {
         
         // Update cursor rects
         self.window?.invalidateCursorRects(for: self)
+    }
+    
+    
+    private func updateAspectRatio() {
+        if aspectRatioConstraint != nil {
+            self.removeConstraint(aspectRatioConstraint!)
+        }
+        
+        // Add aspect ratio constraint based on the current images size
+        guard let imageSize = image?.size else { return }
+        let aspectRatio = imageSize.height / imageSize.width
+        aspectRatioConstraint = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: self, attribute: .width, multiplier: aspectRatio, constant: 0.0)
+        self.addConstraint(aspectRatioConstraint!)
+
     }
     
     
