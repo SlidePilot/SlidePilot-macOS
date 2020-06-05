@@ -151,14 +151,10 @@ extension SlideArrangementView {
         // Left container: Setup notes
         setupNotesSlideView(in: leftContainer!)
         
-        // Right container: Setup current
-        setupCurrentSlideView(in: rightContainer!, centerYMultiplier: 0.5)
-        
-        // Right container: Setup next
-        setupNextSlideView(in: rightContainer!, centerYMultiplier: 1.5)
-        
-        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
-        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
+        // Right container: Setup current and next
+        let (topContainer, bottomContainer) = createVerticallyStackedViews(in: rightContainer!)
+        setupCurrentSlideView(in: topContainer)
+        setupNextSlideView(in: bottomContainer)
     }
     
     
@@ -169,14 +165,40 @@ extension SlideArrangementView {
         // Left container: Setup notes
         setupNotesTextView(in: leftContainer!)
         
-        // Right container: Setup current
-        setupCurrentSlideView(in: rightContainer!, centerYMultiplier: 0.5)
+        // Right container: Setup current and next
+        let (topContainer, bottomContainer) = createVerticallyStackedViews(in: rightContainer!)
+        setupCurrentSlideView(in: topContainer)
+        setupNextSlideView(in: bottomContainer)
+    }
+    
+    
+    /**
+     Creates two vertically stacked containers in the given container.
+     
+     - returns:
+     Two `NSView`'s, the first is the top container, the second is the bottom container.
+     */
+    func createVerticallyStackedViews(in container: NSView) -> (NSView, NSView) {
+        // Create top container
+        let topContainer = NSView()
+        topContainer.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(topContainer)
+        container.addConstraints([
+            NSLayoutConstraint(item: topContainer, attribute: .top, relatedBy: .equal, toItem: container, attribute: .top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: topContainer, attribute: .left, relatedBy: .equal, toItem: container, attribute: .left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: topContainer, attribute: .right, relatedBy: .equal, toItem: container, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: topContainer, attribute: .height, relatedBy: .equal, toItem: container, attribute: .height, multiplier: 0.5, constant: 0.0)])
         
-        // Right container: Setup next
-        setupNextSlideView(in: rightContainer!, centerYMultiplier: 1.5)
+        let bottomContainer = NSView()
+        bottomContainer.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(bottomContainer)
+        container.addConstraints([
+            NSLayoutConstraint(item: bottomContainer, attribute: .bottom, relatedBy: .equal, toItem: container, attribute: .bottom, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: bottomContainer, attribute: .left, relatedBy: .equal, toItem: container, attribute: .left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: bottomContainer, attribute: .right, relatedBy: .equal, toItem: container, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: bottomContainer, attribute: .height, relatedBy: .equal, toItem: container, attribute: .height, multiplier: 0.5, constant: 0.0)])
         
-        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
-        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
+        return (topContainer, bottomContainer)
     }
     
     
@@ -187,16 +209,10 @@ extension SlideArrangementView {
         currentSlideView!.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(currentSlideView!)
         container.addConstraints([
-            NSLayoutConstraint(item: currentSlideView!, attribute: .centerX, relatedBy: .equal, toItem: container, attribute: .centerX, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: currentSlideView!, attribute: .height, relatedBy: .equal, toItem: currentSlideView!, attribute: .width, multiplier: 0.7, constant: 0.0),
-            NSLayoutConstraint(item: currentSlideView!, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: container, attribute: .top, multiplier: 1.0, constant: padding),
-            NSLayoutConstraint(item: container, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: currentSlideView!, attribute: .bottom, multiplier: 1.0, constant: padding)])
-        
-        let currentCenterY = NSLayoutConstraint(item: currentSlideView!, attribute: .centerY, relatedBy: .equal, toItem: container, attribute: .centerY, multiplier: centerYMultiplier, constant: 0.0)
-        currentCenterY.priority = NSLayoutConstraint.Priority(750.0)
-        let currentWidth = NSLayoutConstraint(item: currentSlideView!, attribute: .width, relatedBy: .equal, toItem: container, attribute: .width, multiplier: 0.9, constant: 0.0)
-        currentWidth.priority = NSLayoutConstraint.Priority(260.0)
-        container.addConstraints([currentWidth, currentCenterY])
+            NSLayoutConstraint(item: currentSlideView!, attribute: .left, relatedBy: .equal, toItem: container, attribute: .left, multiplier: 1.0, constant: padding),
+            NSLayoutConstraint(item: currentSlideView!, attribute: .right, relatedBy: .equal, toItem: container, attribute: .right, multiplier: 1.0, constant: -padding),
+            NSLayoutConstraint(item: currentSlideView!, attribute: .top, relatedBy: .equal, toItem: container, attribute: .top, multiplier: 1.0, constant: padding),
+            NSLayoutConstraint(item: container, attribute: .bottom, relatedBy: .equal, toItem: currentSlideView!, attribute: .bottom, multiplier: 1.0, constant: padding)])
     }
     
     
@@ -206,16 +222,10 @@ extension SlideArrangementView {
         nextSlideView!.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(nextSlideView!)
         container.addConstraints([
-            NSLayoutConstraint(item: nextSlideView!, attribute: .centerX, relatedBy: .equal, toItem: container, attribute: .centerX, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: nextSlideView!, attribute: .height, relatedBy: .equal, toItem: nextSlideView!, attribute: .width, multiplier: 0.7, constant: 0.0),
-            NSLayoutConstraint(item: nextSlideView!, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: container, attribute: .top, multiplier: 1.0, constant: padding),
-            NSLayoutConstraint(item: container, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: nextSlideView!, attribute: .bottom, multiplier: 1.0, constant: padding)])
-        
-        let nextCenterY = NSLayoutConstraint(item: nextSlideView!, attribute: .centerY, relatedBy: .equal, toItem: container, attribute: .centerY, multiplier: centerYMultiplier, constant: 0.0)
-        nextCenterY.priority = NSLayoutConstraint.Priority(750.0)
-        let nextWidth = NSLayoutConstraint(item: nextSlideView!, attribute: .width, relatedBy: .equal, toItem: container, attribute: .width, multiplier: 0.9, constant: 0.0)
-        nextWidth.priority = NSLayoutConstraint.Priority(260.0)
-        container.addConstraints([nextWidth, nextCenterY])
+            NSLayoutConstraint(item: nextSlideView!, attribute: .left, relatedBy: .equal, toItem: container, attribute: .left, multiplier: 1.0, constant: padding),
+            NSLayoutConstraint(item: nextSlideView!, attribute: .right, relatedBy: .equal, toItem: container, attribute: .right, multiplier: 1.0, constant: -padding),
+            NSLayoutConstraint(item: nextSlideView!, attribute: .top, relatedBy: .equal, toItem: container, attribute: .top, multiplier: 1.0, constant: padding),
+            NSLayoutConstraint(item: container, attribute: .bottom, relatedBy: .equal, toItem: nextSlideView!, attribute: .bottom, multiplier: 1.0, constant: padding)])
     }
     
     
@@ -225,16 +235,10 @@ extension SlideArrangementView {
         notesSlideView!.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(notesSlideView!)
         container.addConstraints([
-            NSLayoutConstraint(item: notesSlideView!, attribute: .centerX, relatedBy: .equal, toItem: container, attribute: .centerX, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: notesSlideView!, attribute: .height, relatedBy: .equal, toItem: notesSlideView!, attribute: .width, multiplier: 0.7, constant: 0.0),
-            NSLayoutConstraint(item: notesSlideView!, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: container, attribute: .top, multiplier: 1.0, constant: padding),
-            NSLayoutConstraint(item: container, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: notesSlideView!, attribute: .bottom, multiplier: 1.0, constant: padding)])
-        
-        let notesCenterY = NSLayoutConstraint(item: notesSlideView!, attribute: .centerY, relatedBy: .equal, toItem: container, attribute: .centerY, multiplier: 1.0, constant: 0.0)
-        notesCenterY.priority = NSLayoutConstraint.Priority(750.0)
-        let notesWidth = NSLayoutConstraint(item: notesSlideView!, attribute: .width, relatedBy: .equal, toItem: container, attribute: .width, multiplier: 0.9, constant: 0.0)
-        notesWidth.priority = NSLayoutConstraint.Priority(260.0)
-        container.addConstraints([notesWidth, notesCenterY])
+            NSLayoutConstraint(item: notesSlideView!, attribute: .left, relatedBy: .equal, toItem: container, attribute: .left, multiplier: 1.0, constant: padding),
+            NSLayoutConstraint(item: notesSlideView!, attribute: .right, relatedBy: .equal, toItem: container, attribute: .right, multiplier: 1.0, constant: -padding),
+            NSLayoutConstraint(item: notesSlideView!, attribute: .top, relatedBy: .equal, toItem: container, attribute: .top, multiplier: 1.0, constant: padding),
+            NSLayoutConstraint(item: container, attribute: .bottom, relatedBy: .equal, toItem: notesSlideView!, attribute: .bottom, multiplier: 1.0, constant: padding)])
     }
     
     
