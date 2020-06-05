@@ -61,7 +61,11 @@ class SlideView: NSView {
         topC.priority = NSLayoutConstraint.Priority.defaultLow
         let bottomC = NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: container!, attribute: .bottom, multiplier: 1.0, constant: 0.0)
         bottomC.priority = NSLayoutConstraint.Priority.defaultLow
-        self.addConstraints([leftC, rightC, topC, bottomC])
+        let widthC = NSLayoutConstraint(item: container!, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1.0, constant: 0.0)
+        widthC.priority = NSLayoutConstraint.Priority.defaultLow
+        let heightC = NSLayoutConstraint(item: container!, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 1.0, constant: 0.0)
+        heightC.priority = NSLayoutConstraint.Priority.defaultLow
+        self.addConstraints([leftC, rightC, topC, bottomC, widthC, heightC])
         
         
         // Setup slide view
