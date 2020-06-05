@@ -66,6 +66,7 @@ class SlideView: NSView {
         
         // Setup slide view
         page = PDFPageView(frame: .zero)
+        page.isAutoAspectRatioConstraintEnabled = true
         page!.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(page!)
         container.addConstraints([
@@ -87,37 +88,6 @@ class SlideView: NSView {
             NSLayoutConstraint(item: label!, attribute: .bottom, relatedBy: .equal, toItem: page!, attribute: .top, multiplier: 1.0, constant: -10.0),
             NSLayoutConstraint(item: label!, attribute: .top, relatedBy: .equal, toItem: container!, attribute: .top, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: label!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25.0)])
-        
-        
-        // Listen to changes when view needs update
-        PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))
-        DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
-        print("NEW \(self)")
-        
-        updateView()
-    }
-    
-    
-    /**
-     Updates the size of the page view to fit content.
-     */
-    func updateView() {
-        guard let currentPage = DocumentController.document?.page(at: page.currentPage) else { return }
-        
-        // Remove old height constraint
-        if heightConstraint != nil {
-            container.removeConstraint(heightConstraint!)
-        }
-        
-        // Add updated height constraint
-        let pageFrame = currentPage.bounds(for: .cropBox)
-        let aspectRatio = pageFrame.height / pageFrame.width
-        
-        heightConstraint = NSLayoutConstraint(item: page!, attribute: .height, relatedBy: .equal, toItem: page!, attribute: .width, multiplier: aspectRatio, constant: 0.0)
-        container.addConstraint(heightConstraint!)
-        
-        print("UPD \(self) \(aspectRatio)")
-        print()
     }
     
     
@@ -150,21 +120,5 @@ class SlideView: NSView {
     
     override func mouseMoved(with event: NSEvent) {
         delegate?.mouseMoved(to: event.locationInWindow, in: page)
-    }
-    
-    
-    
-    
-    // MARK: - Controllers
-    
-    @objc func pageDidChange(_ notification: Notification) {
-        print("page did change")
-        updateView()
-    }
-    
-    
-    @objc func notesPositionDidChange(_ notification: Notification) {
-        print("notes position changed")
-        updateView()
     }
 }
