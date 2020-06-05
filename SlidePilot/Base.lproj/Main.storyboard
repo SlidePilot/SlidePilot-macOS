@@ -607,86 +607,118 @@
                         <rect key="frame" x="0.0" y="0.0" width="1400" height="900"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="bi8-QE-Aey">
-                                <rect key="frame" x="0.0" y="720" width="1400" height="180"/>
+                            <splitView arrangesAllSubviews="NO" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yoC-eJ-q6a" customClass="NavigatorSplitView" customModule="SlidePilot" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1400" height="900"/>
                                 <subviews>
-                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="tLk-sB-UgV">
-                                        <rect key="frame" x="0.0" y="0.0" width="700" height="180"/>
-                                        <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="SlidePilot" customModuleProvider="target">
-                                                <rect key="frame" x="267" y="47" width="166" height="85"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="85" id="vnc-Hp-eJ9"/>
-                                                </constraints>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Label" id="Dvc-Nd-8iL">
-                                                    <font key="font" metaFont="systemLight" size="70"/>
-                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
-                                        </subviews>
+                                    <customView misplaced="YES" id="NaZ-oj-eiU" customClass="ThumbnailNavigation" customModule="SlidePilot" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="130" height="900"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <constraints>
-                                            <constraint firstItem="TbN-u6-wpl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tLk-sB-UgV" secondAttribute="leading" constant="50" id="2BF-I3-crv"/>
-                                            <constraint firstItem="TbN-u6-wpl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tLk-sB-UgV" secondAttribute="top" constant="20" id="GfT-bA-ZOc"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="TbN-u6-wpl" secondAttribute="bottom" constant="20" id="Lk0-Xg-eDK"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="TbN-u6-wpl" secondAttribute="trailing" constant="50" id="UtV-Yo-R0t"/>
-                                            <constraint firstItem="TbN-u6-wpl" firstAttribute="centerY" secondItem="tLk-sB-UgV" secondAttribute="centerY" id="djW-5K-pbM"/>
-                                            <constraint firstItem="TbN-u6-wpl" firstAttribute="centerX" secondItem="tLk-sB-UgV" secondAttribute="centerX" id="uKH-VJ-Jn2"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="5OD-Zy-gAh"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="uKd-rs-ko4"/>
                                         </constraints>
                                     </customView>
-                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="IVP-vn-KwH">
-                                        <rect key="frame" x="700" y="0.0" width="700" height="180"/>
+                                    <customView misplaced="YES" id="zsc-Z1-zdm">
+                                        <rect key="frame" x="140" y="0.0" width="1260" height="900"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="SlidePilot" customModuleProvider="target">
-                                                <rect key="frame" x="267" y="47" width="166" height="85"/>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="bi8-QE-Aey">
+                                                <rect key="frame" x="0.0" y="720" width="1210" height="180"/>
+                                                <subviews>
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="tLk-sB-UgV">
+                                                        <rect key="frame" x="0.0" y="0.0" width="605" height="180"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="SlidePilot" customModuleProvider="target">
+                                                                <rect key="frame" x="220" y="47" width="166" height="85"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="85" id="vnc-Hp-eJ9"/>
+                                                                </constraints>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Label" id="Dvc-Nd-8iL">
+                                                                    <font key="font" metaFont="systemLight" size="70"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="TbN-u6-wpl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tLk-sB-UgV" secondAttribute="leading" constant="50" id="2BF-I3-crv"/>
+                                                            <constraint firstItem="TbN-u6-wpl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tLk-sB-UgV" secondAttribute="top" constant="20" id="GfT-bA-ZOc"/>
+                                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="TbN-u6-wpl" secondAttribute="bottom" constant="20" id="Lk0-Xg-eDK"/>
+                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="TbN-u6-wpl" secondAttribute="trailing" constant="50" id="UtV-Yo-R0t"/>
+                                                            <constraint firstItem="TbN-u6-wpl" firstAttribute="centerY" secondItem="tLk-sB-UgV" secondAttribute="centerY" id="djW-5K-pbM"/>
+                                                            <constraint firstItem="TbN-u6-wpl" firstAttribute="centerX" secondItem="tLk-sB-UgV" secondAttribute="centerX" id="uKH-VJ-Jn2"/>
+                                                        </constraints>
+                                                    </customView>
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="IVP-vn-KwH">
+                                                        <rect key="frame" x="605" y="0.0" width="605" height="180"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="SlidePilot" customModuleProvider="target">
+                                                                <rect key="frame" x="220" y="47" width="166" height="85"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="85" id="dOp-qt-xnl"/>
+                                                                </constraints>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Label" id="KO4-ee-5js">
+                                                                    <font key="font" metaFont="systemLight" size="70"/>
+                                                                    <color key="textColor" name="ClockColor"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="b2E-Pb-ePI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IVP-vn-KwH" secondAttribute="leading" constant="50" id="Mbf-B2-NCV"/>
+                                                            <constraint firstItem="b2E-Pb-ePI" firstAttribute="centerY" secondItem="IVP-vn-KwH" secondAttribute="centerY" id="Mie-lV-U2K"/>
+                                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="b2E-Pb-ePI" secondAttribute="bottom" constant="20" id="NW6-ZH-2oE"/>
+                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="b2E-Pb-ePI" secondAttribute="trailing" constant="50" id="atN-Td-rvf"/>
+                                                            <constraint firstItem="b2E-Pb-ePI" firstAttribute="centerX" secondItem="IVP-vn-KwH" secondAttribute="centerX" id="eJ6-5j-YqM"/>
+                                                            <constraint firstItem="b2E-Pb-ePI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IVP-vn-KwH" secondAttribute="top" constant="20" id="vuO-g9-Ihy"/>
+                                                        </constraints>
+                                                    </customView>
+                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="85" id="dOp-qt-xnl"/>
+                                                    <constraint firstAttribute="trailing" secondItem="IVP-vn-KwH" secondAttribute="trailing" id="5NK-oc-TIE"/>
+                                                    <constraint firstAttribute="bottom" secondItem="tLk-sB-UgV" secondAttribute="bottom" id="IWR-js-A3F"/>
+                                                    <constraint firstItem="tLk-sB-UgV" firstAttribute="top" secondItem="bi8-QE-Aey" secondAttribute="top" id="SaK-yd-ToQ"/>
+                                                    <constraint firstItem="tLk-sB-UgV" firstAttribute="leading" secondItem="bi8-QE-Aey" secondAttribute="leading" id="YNT-zV-Ugi"/>
+                                                    <constraint firstItem="IVP-vn-KwH" firstAttribute="top" secondItem="bi8-QE-Aey" secondAttribute="top" id="ZLL-lc-VZZ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="IVP-vn-KwH" secondAttribute="bottom" id="m6T-Z8-81G"/>
+                                                    <constraint firstItem="tLk-sB-UgV" firstAttribute="width" secondItem="bi8-QE-Aey" secondAttribute="width" multiplier="0.5" id="mvP-Uo-roq"/>
+                                                    <constraint firstItem="IVP-vn-KwH" firstAttribute="leading" secondItem="tLk-sB-UgV" secondAttribute="trailing" id="yVR-Zd-hyF"/>
                                                 </constraints>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Label" id="KO4-ee-5js">
-                                                    <font key="font" metaFont="systemLight" size="70"/>
-                                                    <color key="textColor" name="ClockColor"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
+                                            </customView>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="KBY-3V-F6W" customClass="SlideArrangementView" customModule="SlidePilot" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="1210" height="720"/>
+                                            </customView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="b2E-Pb-ePI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IVP-vn-KwH" secondAttribute="leading" constant="50" id="Mbf-B2-NCV"/>
-                                            <constraint firstItem="b2E-Pb-ePI" firstAttribute="centerY" secondItem="IVP-vn-KwH" secondAttribute="centerY" id="Mie-lV-U2K"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="b2E-Pb-ePI" secondAttribute="bottom" constant="20" id="NW6-ZH-2oE"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="b2E-Pb-ePI" secondAttribute="trailing" constant="50" id="atN-Td-rvf"/>
-                                            <constraint firstItem="b2E-Pb-ePI" firstAttribute="centerX" secondItem="IVP-vn-KwH" secondAttribute="centerX" id="eJ6-5j-YqM"/>
-                                            <constraint firstItem="b2E-Pb-ePI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IVP-vn-KwH" secondAttribute="top" constant="20" id="vuO-g9-Ihy"/>
+                                            <constraint firstItem="KBY-3V-F6W" firstAttribute="top" secondItem="bi8-QE-Aey" secondAttribute="bottom" id="1mN-Pa-SK9"/>
+                                            <constraint firstItem="bi8-QE-Aey" firstAttribute="top" secondItem="zsc-Z1-zdm" secondAttribute="top" id="8KY-tV-Qte"/>
+                                            <constraint firstItem="bi8-QE-Aey" firstAttribute="height" secondItem="zsc-Z1-zdm" secondAttribute="height" multiplier="0.2" id="A0G-Kj-IMH"/>
+                                            <constraint firstItem="KBY-3V-F6W" firstAttribute="leading" secondItem="zsc-Z1-zdm" secondAttribute="leading" id="NDW-0c-ZTH"/>
+                                            <constraint firstItem="bi8-QE-Aey" firstAttribute="leading" secondItem="zsc-Z1-zdm" secondAttribute="leading" id="Uu8-6B-RhF"/>
+                                            <constraint firstAttribute="trailing" secondItem="bi8-QE-Aey" secondAttribute="trailing" id="erD-bB-TU7"/>
+                                            <constraint firstAttribute="trailing" secondItem="KBY-3V-F6W" secondAttribute="trailing" id="myy-7I-D6N"/>
+                                            <constraint firstAttribute="bottom" secondItem="KBY-3V-F6W" secondAttribute="bottom" id="zk7-sp-tde"/>
                                         </constraints>
                                     </customView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="IVP-vn-KwH" secondAttribute="trailing" id="5NK-oc-TIE"/>
-                                    <constraint firstAttribute="bottom" secondItem="tLk-sB-UgV" secondAttribute="bottom" id="IWR-js-A3F"/>
-                                    <constraint firstItem="tLk-sB-UgV" firstAttribute="top" secondItem="bi8-QE-Aey" secondAttribute="top" id="SaK-yd-ToQ"/>
-                                    <constraint firstItem="tLk-sB-UgV" firstAttribute="leading" secondItem="bi8-QE-Aey" secondAttribute="leading" id="YNT-zV-Ugi"/>
-                                    <constraint firstItem="IVP-vn-KwH" firstAttribute="top" secondItem="bi8-QE-Aey" secondAttribute="top" id="ZLL-lc-VZZ"/>
-                                    <constraint firstAttribute="bottom" secondItem="IVP-vn-KwH" secondAttribute="bottom" id="m6T-Z8-81G"/>
-                                    <constraint firstItem="tLk-sB-UgV" firstAttribute="width" secondItem="bi8-QE-Aey" secondAttribute="width" multiplier="0.5" id="mvP-Uo-roq"/>
-                                    <constraint firstItem="IVP-vn-KwH" firstAttribute="leading" secondItem="tLk-sB-UgV" secondAttribute="trailing" id="yVR-Zd-hyF"/>
-                                </constraints>
-                            </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="KBY-3V-F6W" customClass="SlideArrangementView" customModule="SlidePilot" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1400" height="720"/>
-                            </customView>
+                                <holdingPriorities>
+                                    <real value="250"/>
+                                    <real value="250"/>
+                                </holdingPriorities>
+                            </splitView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="bi8-QE-Aey" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="AVf-8K-UmF"/>
-                            <constraint firstItem="bi8-QE-Aey" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" multiplier="0.2" id="BhJ-4S-oma"/>
-                            <constraint firstAttribute="trailing" secondItem="KBY-3V-F6W" secondAttribute="trailing" id="E7w-Dh-wfq"/>
-                            <constraint firstAttribute="trailing" secondItem="bi8-QE-Aey" secondAttribute="trailing" id="GaA-bD-Q22"/>
-                            <constraint firstItem="KBY-3V-F6W" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="arV-JW-CVI"/>
-                            <constraint firstAttribute="bottom" secondItem="KBY-3V-F6W" secondAttribute="bottom" id="jHV-44-lO9"/>
-                            <constraint firstItem="KBY-3V-F6W" firstAttribute="top" secondItem="bi8-QE-Aey" secondAttribute="bottom" id="oju-SC-Gn8"/>
-                            <constraint firstItem="bi8-QE-Aey" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="wMD-Bq-SMB"/>
+                            <constraint firstAttribute="trailing" secondItem="yoC-eJ-q6a" secondAttribute="trailing" id="I0p-59-uZY"/>
+                            <constraint firstItem="yoC-eJ-q6a" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="I2l-jx-I0V"/>
+                            <constraint firstItem="yoC-eJ-q6a" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="Ntf-WC-OG1"/>
+                            <constraint firstAttribute="bottom" secondItem="yoC-eJ-q6a" secondAttribute="bottom" id="Q1f-xf-vBn"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="clockLabel" destination="b2E-Pb-ePI" id="khv-hd-4dx"/>
+                        <outlet property="navigator" destination="NaZ-oj-eiU" id="IPW-WN-2Ch"/>
+                        <outlet property="navigatorMinWidthConstraint" destination="uKd-rs-ko4" id="HHV-Dl-MUy"/>
+                        <outlet property="navigatorSplitView" destination="yoC-eJ-q6a" id="AJX-z1-pzI"/>
                         <outlet property="slideArrangement" destination="KBY-3V-F6W" id="lZU-Rv-clF"/>
                         <outlet property="timingControl" destination="TbN-u6-wpl" id="Vfw-Pb-bgV"/>
                     </connections>

@@ -315,7 +315,7 @@ extension ThumbnailNavigation: NSTableViewDelegate {
             // Calculate row height for specific page
             if let document = DocumentController.document,
                 let pageBounds = RenderCache.shared.getPage(at: 0, for: document, mode: DisplayController.notesPosition.displayModeForPresentation(), priority: .background)?.size {
-                let tableWidth: CGFloat = PresenterViewController.navigationWidth-20.0
+                let tableWidth: CGFloat = PresenterViewController.previousNavigatorWidth - 20.0
                 return pageBounds.height * (tableWidth / pageBounds.width)
             } else {
                 return 120.0

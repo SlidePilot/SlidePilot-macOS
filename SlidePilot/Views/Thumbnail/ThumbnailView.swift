@@ -86,6 +86,15 @@ class ThumbnailView: ClipfreeView {
         borderView?.layer?.borderColor = borderColor.cgColor
         borderView?.layer?.cornerRadius = 3.0
         
+        // Set correct border style
+        if selectedPrimary {
+            borderView?.layer?.borderWidth = selectionPrimaryBorderWidth
+            borderView?.layer?.borderColor = selectionPrimaryBorderColor.cgColor
+        } else if selectedSecondary {
+            borderView?.layer?.borderWidth = selectionSecondaryBorderWidth
+            borderView?.layer?.borderColor = selectionSecondaryBorderColor.cgColor
+        }
+        
         self.addSubview(borderView!)
     }
     
@@ -94,12 +103,9 @@ class ThumbnailView: ClipfreeView {
     var selectionPrimaryBorderWidth: CGFloat = 3.0
     var selectedPrimary = false
     func selectPrimary() {
-        updateBorder()
-        borderView?.layer?.borderWidth = selectionPrimaryBorderWidth
-        borderView?.layer?.borderColor = selectionPrimaryBorderColor.cgColor
-        
         selectedPrimary = true
         selectedSecondary = false
+        updateBorder()
     }
     
     
@@ -107,27 +113,24 @@ class ThumbnailView: ClipfreeView {
     var selectionSecondaryBorderWidth: CGFloat = 3.0
     var selectedSecondary = false
     func selectSecondary() {
-        updateBorder()
-        borderView?.layer?.borderWidth = selectionSecondaryBorderWidth
-        borderView?.layer?.borderColor = selectionSecondaryBorderColor.cgColor
-        
         selectedSecondary = true
         selectedPrimary = false
+        updateBorder()
     }
     
     
     func deselectPrimary() {
         if selectedPrimary {
-            updateBorder()
             selectedPrimary = false
+            updateBorder()
         }
     }
     
     
     func deselectSecondary() {
         if selectedSecondary {
-            updateBorder()
             selectedSecondary = false
+            updateBorder()
         }
     }
 }

@@ -33,14 +33,16 @@ class PresenterViewController: NSViewController {
     @IBOutlet weak var timingControl: TimingControl!
     @IBOutlet weak var slideArrangement: SlideArrangementView!
     
-    var navigation: ThumbnailNavigation?
-    var navigationLeft: NSLayoutConstraint?
-    static let navigationWidth: CGFloat = 180.0
-    let navigationWidth: CGFloat = PresenterViewController.navigationWidth
+    @IBOutlet weak var navigatorSplitView: NSSplitView!
+    @IBOutlet weak var navigator: ThumbnailNavigation!
+    @IBOutlet var navigatorMinWidthConstraint: NSLayoutConstraint!
+    static var previousNavigatorWidth: CGFloat = 180.0
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigatorSplitView.delegate = self
         
         // Setup default configuration
         
@@ -94,7 +96,7 @@ class PresenterViewController: NSViewController {
     // MARK: - Control Handlers
     
     @objc func documentDidChange(_ notification: Notification) {
-        hideNavigation(animated: false)
+        hideNavigation()
         DisplayController.setDisplayNavigator(false, sender: self)
     }
     
@@ -127,7 +129,7 @@ class PresenterViewController: NSViewController {
         if DisplayController.isNavigatorDisplayed {
             showNavigation()
         } else {
-            hideNavigation(animated: true)
+            hideNavigation()
         }
     }
     
@@ -245,54 +247,21 @@ class PresenterViewController: NSViewController {
     
     // MARK: - Navigation
     
-    func setupNavigation() {
-        guard navigation == nil else { return }
-        navigation = ThumbnailNavigation(frame: .zero)
-        navigation!.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.view.addSubview(navigation!)
-        navigationLeft = NSLayoutConstraint(item: navigation!, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1.0, constant: -navigationWidth)
-        self.view.addConstraints([navigationLeft!,
-                             NSLayoutConstraint(item: navigation!, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1.0, constant: 0.0),
-                             NSLayoutConstraint(item: navigation!, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1.0, constant: 0.0),
-                             NSLayoutConstraint(item: navigation!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: navigationWidth)])
-    }
-    
-    
-    /** Shows the ThumbnailNavigation view. */
     func showNavigation() {
-        setupNavigation()
-        guard navigation != nil, navigationLeft != nil else { return }
+        navigator.isHidden = false
+        navigatorSplitView.setPosition(PresenterViewController.previousNavigatorWidth, ofDividerAt: 0)
+        self.navigatorMinWidthConstraint.isActive = true
         
         DispatchQueue.main.async {
-            self.navigation?.selectThumbnail(at: PageController.currentPage, scrollVisible: true)
+            self.navigator.selectThumbnail(at: PageController.currentPage, scrollVisible: true)
         }
-        navigationLeft!.constant = 0.0
-        self.view.updateConstraints()
-        navigation?.searchField.becomeFirstResponder()
+        self.navigator.searchField.becomeFirstResponder()
     }
     
     
-    /** Hides the ThumbnailNavigation view. */
-    func hideNavigation(animated: Bool) {
-        guard navigation != nil, navigationLeft != nil else { return }
-        navigationLeft!.constant = -navigationWidth
-        endEditing()
-        
-        if animated {
-            NSAnimationContext.runAnimationGroup({ (context) in
-                context.duration = 0.25
-                context.allowsImplicitAnimation = true
-                context.timingFunction = CAMediaTimingFunction(name: .easeIn)
-                self.view.updateConstraints()
-                self.view.layoutSubtreeIfNeeded()
-            }) {
-                self.navigation?.removeFromSuperview()
-                self.navigation = nil
-            }
-        } else {
-            self.view.updateConstraints()
-        }
+    func hideNavigation() {
+        PresenterViewController.previousNavigatorWidth = navigator.frame.width
+        navigator.isHidden = true
     }
     
     
@@ -349,5 +318,15 @@ extension PresenterViewController: SlideTrackingDelegate {
                                       y: positionInImage.y / imageFrame.height)
         
         return relativeInImage
+    }
+}
+
+
+
+
+extension PresenterViewController: NSSplitViewDelegate {
+    
+    func splitView(_ splitView: NSSplitView, shouldHideDividerAt dividerIndex: Int) -> Bool {
+        return true
     }
 }

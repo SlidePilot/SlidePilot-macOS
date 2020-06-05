@@ -31,6 +31,7 @@
 		5070AA5A24619C400025B8C5 /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5070AA5924619C400025B8C5 /* TimeController.swift */; };
 		5077493B247A8C4000316F0B /* PresenterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50774939247A8C4000316F0B /* PresenterWindow.swift */; };
 		5077493C247A8C4000316F0B /* NavigationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5077493A247A8C4000316F0B /* NavigationWindow.swift */; };
+		50842D47248AE01300F80D87 /* NavigatorSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50842D46248AE01300F80D87 /* NavigatorSplitView.swift */; };
 		50849E7D247D3D0C00548712 /* TextFormatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50849E7C247D3D0C00548712 /* TextFormatController.swift */; };
 		508BBD622460591800F81FFF /* UserNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BBD612460591800F81FFF /* UserNotice.swift */; };
 		508BBD642460966800F81FFF /* CAKeyframeAnimation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BBD632460966800F81FFF /* CAKeyframeAnimation+Extension.swift */; };
@@ -111,6 +112,7 @@
 		5070AA5924619C400025B8C5 /* TimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
 		50774939247A8C4000316F0B /* PresenterWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterWindow.swift; sourceTree = "<group>"; };
 		5077493A247A8C4000316F0B /* NavigationWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationWindow.swift; sourceTree = "<group>"; };
+		50842D46248AE01300F80D87 /* NavigatorSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorSplitView.swift; sourceTree = "<group>"; };
 		50849E7C247D3D0C00548712 /* TextFormatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatController.swift; sourceTree = "<group>"; };
 		508BBD612460591800F81FFF /* UserNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotice.swift; sourceTree = "<group>"; };
 		508BBD632460966800F81FFF /* CAKeyframeAnimation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAKeyframeAnimation+Extension.swift"; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			children = (
 				50440BB6243357F5000C0C9E /* ThumbnailNavigation.swift */,
 				50440BB2243357AA000C0C9E /* ThumbnailView.swift */,
+				50842D46248AE01300F80D87 /* NavigatorSplitView.swift */,
 			);
 			path = Thumbnail;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */,
 				50026AD02430EED80049387E /* String+Extension.swift in Sources */,
 				50E2E5EC247AB84C00CE6FDA /* NotesDocument.swift in Sources */,
+				50842D47248AE01300F80D87 /* NavigatorSplitView.swift in Sources */,
 				50B1441724803E5C00532A8B /* SlideInfoLabel.swift in Sources */,
 				509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */,
 				50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */,
