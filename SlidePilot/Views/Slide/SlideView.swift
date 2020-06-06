@@ -110,7 +110,13 @@ class SlideView: NSView {
         
         // Create new tracking area
         guard let imageRect = page?.imageRect().insetBy(dx: -10, dy: -10) else { return }
-        trackingArea = NSTrackingArea(rect: imageRect, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
+        
+        // Translate imageRect with PDFPageView's origin
+        let trackingRect = NSRect(x: container.frame.minX + page.frame.minX + imageRect.minX,
+                                  y: container.frame.minY + page.frame.minY + imageRect.minY,
+                                  width: imageRect.width,
+                                  height: imageRect.height)
+        trackingArea = NSTrackingArea(rect: trackingRect, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         
         // Add tracking area
         self.addTrackingArea(trackingArea!)

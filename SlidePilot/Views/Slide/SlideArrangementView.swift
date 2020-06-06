@@ -137,9 +137,7 @@ class SlideArrangementView: NSView {
     
     
     @objc func notesPositionDidChange(_ notification: Notification) {
-        notesSlideView?.page?.setDisplayMode(DisplayController.notesPosition.displayModeForNotes())
-        currentSlideView?.page?.setDisplayMode(DisplayController.notesPosition.displayModeForPresentation())
-        nextSlideView?.page?.setDisplayMode(DisplayController.notesPosition.displayModeForPresentation())
+        updateView()
     }
     
     

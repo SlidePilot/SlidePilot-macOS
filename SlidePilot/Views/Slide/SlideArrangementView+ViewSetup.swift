@@ -194,6 +194,7 @@ extension SlideArrangementView {
     
     func setupSlideView(in container: NSView) -> SlideView {
         let slideView = SlideView(frame: .zero)
+        slideView.delegate = self
         slideView.page.setDocument(DocumentController.document)
         slideView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(slideView)
