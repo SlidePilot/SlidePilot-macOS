@@ -688,7 +688,9 @@
                     <connections>
                         <outlet property="clockLabel" destination="b2E-Pb-ePI" id="khv-hd-4dx"/>
                         <outlet property="slideArrangement" destination="KBY-3V-F6W" id="lZU-Rv-clF"/>
+                        <outlet property="slidesLeftConst" destination="arV-JW-CVI" id="VRC-RQ-jS0"/>
                         <outlet property="timingControl" destination="TbN-u6-wpl" id="Vfw-Pb-bgV"/>
+                        <outlet property="timingLeftConst" destination="wMD-Bq-SMB" id="mW8-9U-Qy9"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
