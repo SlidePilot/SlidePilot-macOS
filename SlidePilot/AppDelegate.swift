@@ -243,16 +243,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Open document
         DocumentController.setDocument(pdfDocument, sender: self)
         
-        // Open the notes document if it can be found
-        if let notesURL = searchNotesDocument() {
-            let notesDocument = NotesDocument(contentsOf: notesURL, pageCount: DocumentController.document?.pageCount ?? 0)
-            DocumentController.didOpenNotes(document: notesDocument, sender: self)
-        }
-        // Create new document otherwise
-        else {
-            DocumentController.createNewNotesDocument(sender: self)
-        }
-        
         // Reset page
         PageController.selectPage(at: 0, sender: self)
         
@@ -267,6 +257,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Reset property, that timer should start when chaning slide
         shouldStartTimerOnSlideChange = true
+        
+        // Open the notes document if it can be found
+        if let notesURL = searchNotesDocument() {
+            let notesDocument = NotesDocument(contentsOf: notesURL, pageCount: DocumentController.document?.pageCount ?? 0)
+            DocumentController.didOpenNotes(document: notesDocument, sender: self)
+            DisplayController.setDisplayNotes(true, sender: self)
+        }
+        // Create new document otherwise
+        else {
+            DocumentController.createNewNotesDocument(sender: self)
+        }
     }
     
     
