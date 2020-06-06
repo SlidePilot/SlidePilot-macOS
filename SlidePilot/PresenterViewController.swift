@@ -35,6 +35,8 @@ class PresenterViewController: NSViewController {
     
     var navigation: ThumbnailNavigation?
     var navigationLeft: NSLayoutConstraint?
+    @IBOutlet weak var timingLeftConst: NSLayoutConstraint!
+    @IBOutlet weak var slidesLeftConst: NSLayoutConstraint!
     static let navigationWidth: CGFloat = 180.0
     let navigationWidth: CGFloat = PresenterViewController.navigationWidth
     
@@ -127,7 +129,7 @@ class PresenterViewController: NSViewController {
         if DisplayController.isNavigatorDisplayed {
             showNavigation()
         } else {
-            hideNavigation(animated: true)
+            hideNavigation(animated: false)
         }
     }
     
@@ -268,6 +270,8 @@ class PresenterViewController: NSViewController {
             self.navigation?.selectThumbnail(at: PageController.currentPage, scrollVisible: true)
         }
         navigationLeft!.constant = 0.0
+        timingLeftConst.constant = navigationWidth
+        slidesLeftConst.constant = navigationWidth
         self.view.updateConstraints()
         navigation?.searchField.becomeFirstResponder()
     }
@@ -277,6 +281,8 @@ class PresenterViewController: NSViewController {
     func hideNavigation(animated: Bool) {
         guard navigation != nil, navigationLeft != nil else { return }
         navigationLeft!.constant = -navigationWidth
+        timingLeftConst.constant = 0.0
+        slidesLeftConst.constant = 0.0
         endEditing()
         
         if animated {
