@@ -22,9 +22,6 @@ class ColorSwatchButton: NSControl {
             // Only animate if value did change
             if self.state != oldValue {
                 animateSelection()
-                
-                // Call target.action
-                _ = target?.perform(action, with: self)
             }
         }
     }
@@ -127,8 +124,8 @@ class ColorSwatchButton: NSControl {
         if isMouseInside {
             isMouseInside = false
             
-            // Toggle state
-            state = state == .on ? .off : .on
+            // Call target.action
+            _ = target?.perform(action, with: self)
         }
     }
     
