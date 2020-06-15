@@ -520,6 +520,7 @@
                         <outlet property="displayWhiteCurtainItem" destination="E0b-Yv-pqH" id="SEd-Ly-9Bk"/>
                         <outlet property="drawItem" destination="bOy-zp-CYT" id="cDe-gx-WG5"/>
                         <outlet property="nextSlideItem" destination="s0G-5Y-hRb" id="p7X-83-KEz"/>
+                        <outlet property="notesMenu" destination="eeB-A4-p01" id="w26-AJ-ska"/>
                         <outlet property="notesModeMenu" destination="hqc-Um-UGA" id="ynB-4W-PuA"/>
                         <outlet property="notesModeSplitItem" destination="OMC-wK-B8t" id="1Vn-Pl-SVb"/>
                         <outlet property="notesModeTextItem" destination="hxO-Rn-nAO" id="nfD-ji-Pvs"/>

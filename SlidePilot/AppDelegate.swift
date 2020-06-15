@@ -35,6 +35,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var pointerAppearanceTargetItem: NSMenuItem!
     @IBOutlet weak var pointerAppearanceTargetColorItem: NSMenuItem!
     
+    @IBOutlet weak var notesMenu: NSMenu!
+    
     @IBOutlet weak var notesModeMenu: NSMenu!
     @IBOutlet weak var notesModeTextItem: NSMenuItem!
     @IBOutlet weak var notesModeSplitItem: NSMenuItem!
@@ -813,7 +815,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func didChangeLayoutChangesEnabled(_ notification: Notification) {
         // Enable/Disable menu items
-        showNotesItem.isEnabled = DisplayController.areLayoutChangesEnabled
+        notesMenu.items.forEach({ $0.isEnabled = DisplayController.areLayoutChangesEnabled })
         previewNextSlideItem.isEnabled = DisplayController.areLayoutChangesEnabled
         showNavigatorItem.isEnabled = DisplayController.areLayoutChangesEnabled
     }
