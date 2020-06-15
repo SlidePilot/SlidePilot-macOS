@@ -24,7 +24,7 @@ class CanvasController: NSObject {
     /** Sends a notification, that the drawing color was changed increased. */
     public static func setDrawingColor(to newColor: NSColor, sender: Any?) {
         self.drawingColor = newColor
-        NotificationCenter.default.post(name: .didChangeDrawing, object: sender)
+        NotificationCenter.default.post(name: .didChangeDrawingColor, object: sender)
     }
     
     

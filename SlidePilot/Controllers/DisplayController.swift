@@ -241,6 +241,8 @@ class DisplayController {
         enableLayoutChanges(!areDrawingToolsDisplayed, sender: self)
         PageController.enablePageSwitching(!areDrawingToolsDisplayed, sender: self)
         
+        CanvasController.clearCanvas(sender: self)
+        
         NotificationCenter.default.post(name: .didChangeDisplayDrawingTools, object: sender)
     }
     
