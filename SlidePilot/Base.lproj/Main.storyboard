@@ -288,6 +288,24 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="A3e-R8-0Hj"/>
+                                        <menuItem title="Draw" keyEquivalent="d" id="bOy-zp-CYT">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showDrawTools:" target="Ady-hI-5gd" id="aCh-f4-rl2"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Clear Drawings" keyEquivalent="c" id="b9e-Ma-o1Q">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                            <connections>
+                                                <action selector="clearCanvas:" target="Ady-hI-5gd" id="Hbu-uv-YDF"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Canvas Mode" keyEquivalent="k" id="O1m-6g-Uld">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                            <connections>
+                                                <action selector="blankCanvas:" target="Ady-hI-5gd" id="2BS-iZ-iM8"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -496,8 +514,12 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SlidePilot" customModuleProvider="target">
                     <connections>
+                        <outlet property="blankCanvasItem" destination="O1m-6g-Uld" id="kXt-jo-QRC"/>
+                        <outlet property="clearCanvasItem" destination="b9e-Ma-o1Q" id="ESW-Iq-TDI"/>
                         <outlet property="displayBlackCurtainItem" destination="Wsl-Lh-Rzy" id="7mA-Hq-uva"/>
                         <outlet property="displayWhiteCurtainItem" destination="E0b-Yv-pqH" id="SEd-Ly-9Bk"/>
+                        <outlet property="drawItem" destination="bOy-zp-CYT" id="cDe-gx-WG5"/>
+                        <outlet property="nextSlideItem" destination="s0G-5Y-hRb" id="p7X-83-KEz"/>
                         <outlet property="notesModeMenu" destination="hqc-Um-UGA" id="ynB-4W-PuA"/>
                         <outlet property="notesModeSplitItem" destination="OMC-wK-B8t" id="1Vn-Pl-SVb"/>
                         <outlet property="notesModeTextItem" destination="hxO-Rn-nAO" id="nfD-ji-Pvs"/>
@@ -514,6 +536,7 @@
                         <outlet property="pointerAppearanceTargetColorItem" destination="UYT-sb-cqr" id="I6y-rg-13D"/>
                         <outlet property="pointerAppearanceTargetItem" destination="YH8-Ja-Yo4" id="MIO-hN-XUi"/>
                         <outlet property="previewNextSlideItem" destination="Atm-A9-uUk" id="nUt-4P-7zY"/>
+                        <outlet property="previousSlideItem" destination="gcL-Jw-1Oj" id="WCe-nO-wii"/>
                         <outlet property="setTimerItem" destination="GyA-9h-Aoe" id="4aw-Cy-cL1"/>
                         <outlet property="showNavigatorItem" destination="zx2-Yz-Rxn" id="h3m-To-UaI"/>
                         <outlet property="showNotesItem" destination="fS9-YP-QfR" id="eB2-IZ-Yjq"/>

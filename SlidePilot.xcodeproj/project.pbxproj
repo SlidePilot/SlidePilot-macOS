@@ -16,6 +16,7 @@
 		50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50208BA42429028000444E73 /* NSColor+Extension.swift */; };
 		5025C9B02490EBA0001898D1 /* DrawingToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5025C9AF2490EBA0001898D1 /* DrawingToolbar.swift */; };
 		5028D31D245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */; };
+		5033EBB824913A0800B05094 /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5033EBB724913A0800B05094 /* CanvasController.swift */; };
 		5036BD8A2435F8CD0007AF6F /* AppStartTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5036BD892435F8CD0007AF6F /* AppStartTracker.swift */; };
 		503834552434721600E73E43 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503834542434721600E73E43 /* Sparkle.framework */; };
 		503834572434723A00E73E43 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 503834542434721600E73E43 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -97,6 +98,7 @@
 		50208BA42429028000444E73 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
 		5025C9AF2490EBA0001898D1 /* DrawingToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingToolbar.swift; sourceTree = "<group>"; };
 		5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SlideArrangementView+ViewSetup.swift"; sourceTree = "<group>"; };
+		5033EBB724913A0800B05094 /* CanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasController.swift; sourceTree = "<group>"; };
 		5036BD892435F8CD0007AF6F /* AppStartTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStartTracker.swift; sourceTree = "<group>"; };
 		503834542434721600E73E43 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		5038345924349E8F00E73E43 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
@@ -345,6 +347,7 @@
 				5070AA5924619C400025B8C5 /* TimeController.swift */,
 				50EF741324539A3E0028DB06 /* DisplayController.swift */,
 				50849E7C247D3D0C00548712 /* TextFormatController.swift */,
+				5033EBB724913A0800B05094 /* CanvasController.swift */,
 				50C46F78247E76AD001602EA /* CompletionStatus.swift */,
 			);
 			path = Controllers;
@@ -472,6 +475,7 @@
 				50026AA22430AC0B0049387E /* SplitView.swift in Sources */,
 				50440BB5243357C1000C0C9E /* Clipfree.swift in Sources */,
 				509B971F2428B6A10076B8B4 /* ClockLabel.swift in Sources */,
+				5033EBB824913A0800B05094 /* CanvasController.swift in Sources */,
 				508BBD622460591800F81FFF /* UserNotice.swift in Sources */,
 				505243B72445AF650050AB98 /* RenderCache.swift in Sources */,
 				509B970A2428A6FD0076B8B4 /* TimeView.swift in Sources */,

@@ -18,6 +18,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     // MARK: - Menu Outlets
+    @IBOutlet weak var previousSlideItem: NSMenuItem!
+    @IBOutlet weak var nextSlideItem: NSMenuItem!
+    
     @IBOutlet weak var showNavigatorItem: NSMenuItem!
     @IBOutlet weak var previewNextSlideItem: NSMenuItem!
     @IBOutlet weak var displayBlackCurtainItem: NSMenuItem!
@@ -47,6 +50,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var stopwatchModeItem: NSMenuItem!
     @IBOutlet weak var timerModeItem: NSMenuItem!
     @IBOutlet weak var setTimerItem: NSMenuItem!
+    
+    @IBOutlet weak var drawItem: NSMenuItem!
+    @IBOutlet weak var clearCanvasItem: NSMenuItem!
+    @IBOutlet weak var blankCanvasItem: NSMenuItem!
     
     
     // MARK: - Identifiers
@@ -78,9 +85,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
         DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
         DisplayController.subscribeNotesMode(target: self, action: #selector(notesModeDidChange(_:)))
+        DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
+        DisplayController.subscribeLayoutChangesEnabled(target: self, action: #selector(didChangeLayoutChangesEnabled(_:)))
         
         // Set default display options
         DisplayController.setPointerAppearance(.cursor, sender: self)
+        
+        // Subscribe to page controller changes
+        PageController.subscribePageSwitchingEnabled(target: self, action: #selector(didChangePageSwitchingEnabled(_:)))
         
         // Subscribe to notes file changes
         DocumentController.subscribeRequestOpenNotes(target: self, action: #selector(didRequestOpenNotes(_:)))
@@ -95,6 +107,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Set default time options
         TimeController.setTimeMode(mode: .stopwatch, sender: self)
+        
+        // Subscribe to canvas changes
+        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(didChangeCanvasBackground(_:)))
         
         startup()
     }
@@ -251,6 +266,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.setNotesPosition(.none, sender: self)
         DisplayController.setDisplayNotes(false, sender: self)
         DisplayController.setNotesMode(.text, sender: self)
+        DisplayController.setDisplayDrawingTools(false, sender: self)
+        DisplayController.enableLayoutChanges(true, sender: self)
+        PageController.enablePageSwitching(true, sender: self)
         
         // Reset stopwatch/timer
         TimeController.resetTime(sender: self)
@@ -542,6 +560,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func showDrawTools(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayDrawingTools(sender: sender)
+    }
+    
+    
+    @IBAction func clearCanvas(_ sender: NSMenuItem) {
+        CanvasController.clearCanvas(sender: sender)
+    }
+    
+    
+    @IBAction func blankCanvas(_ sender: NSMenuItem) {
+        CanvasController.switchTransparentCanvas(sender: sender)
+    }
+    
+    
     
     
     // MARK: - Control Handlers
@@ -760,5 +793,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         TimeController.resetTime(sender: self)
+    }
+    
+    
+    @objc func displayDrawingToolsDidChange(_ notification: Notification) {
+        drawItem.state = DisplayController.areDrawingToolsDisplayed ? .on : .off
+        
+        // Enable/Disable corresponding menu items
+        clearCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
+        blankCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
+    }
+    
+    
+    @objc func didChangeCanvasBackground(_ notification: Notification) {
+        blankCanvasItem.state = CanvasController.isCanvasBackgroundTransparent ? .off : .on
+    }
+    
+    
+    @objc func didChangeLayoutChangesEnabled(_ notification: Notification) {
+        // Enable/Disable menu items
+        showNotesItem.isEnabled = DisplayController.areLayoutChangesEnabled
+        previewNextSlideItem.isEnabled = DisplayController.areLayoutChangesEnabled
+        showNavigatorItem.isEnabled = DisplayController.areLayoutChangesEnabled
+    }
+    
+    
+    @objc func didChangePageSwitchingEnabled(_ notification: Notification) {
+        // Enable/Disable menu items
+        previousSlideItem.isEnabled = PageController.isPageSwitchingEnabled
+        nextSlideItem.isEnabled = PageController.isPageSwitchingEnabled
     }
 }
