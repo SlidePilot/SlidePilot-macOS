@@ -262,13 +262,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         PageController.selectPage(at: 0, sender: self)
         
         // Reset display options
+        DisplayController.setDisplayDrawingTools(false, sender: self)
+        DisplayController.enableLayoutChanges(true, sender: self)
+        PageController.enablePageSwitching(true, sender: self)
+        
         DisplayController.setDisplayNextSlidePreview(true, sender: self)
         DisplayController.setNotesPosition(.none, sender: self)
         DisplayController.setDisplayNotes(false, sender: self)
         DisplayController.setNotesMode(.text, sender: self)
-        DisplayController.setDisplayDrawingTools(false, sender: self)
-        DisplayController.enableLayoutChanges(true, sender: self)
-        PageController.enablePageSwitching(true, sender: self)
         
         // Reset stopwatch/timer
         TimeController.resetTime(sender: self)
