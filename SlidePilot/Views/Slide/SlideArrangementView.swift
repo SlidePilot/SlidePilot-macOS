@@ -54,6 +54,7 @@ class SlideArrangementView: NSView {
         DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChange(_:)))
         DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
         DisplayController.subscribeNotesMode(target: self, action: #selector(notesModeDidChange(_:)))
+        DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
         
         setupSplitView()
         
@@ -152,6 +153,11 @@ class SlideArrangementView: NSView {
     
     
     @objc func notesModeDidChange(_ notification: Notification) {
+        updateView()
+    }
+    
+    
+    @objc func displayDrawingToolsDidChange(_ notification: Notification) {
         updateView()
     }
     

@@ -14,8 +14,16 @@ extension SlideArrangementView {
     func setupLayout(displayNext: Bool, displayNotes: Bool, notesMode: DisplayController.NotesMode) {
         willSwitchLayout()
         
+        let displayDrawing = DisplayController.areDrawingToolsDisplayed
+        let displayNext = DisplayController.isNextSlidePreviewDisplayed
+        let displayNotes = DisplayController.areNotesDisplayed
+        let notesMode = DisplayController.notesMode
+        
         clearView()
-        if displayNext == false, displayNotes == false {
+        
+        if displayDrawing == true {
+            setupSlidesLayoutCurrentDrawing()
+        } else if displayNext == false, displayNotes == false {
             setupSlidesLayoutCurrent()
         } else if displayNext == true, displayNotes == false {
             setupSlidesLayoutCurrentNext()
@@ -78,6 +86,24 @@ extension SlideArrangementView {
         rightContainer!.addConstraint(NSLayoutConstraint(item: rightContainer!, attribute: .width, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 300.0))
         
         splitView!.adjustSubviews()
+    }
+    
+    
+    private func setupSlidesLayoutCurrentDrawing() {
+        splitView?.isHidden = true
+        
+        currentSlideView = setupSlideView(in: self)
+        
+        // Setup Canvas
+        let canvas = CanvasView(frame: .zero)
+        canvas.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(canvas)
+        self.addConstraints([
+            NSLayoutConstraint(item: canvas, attribute: .left, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas, attribute: .right, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas, attribute: .top, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas, attribute: .bottom, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
     }
     
     

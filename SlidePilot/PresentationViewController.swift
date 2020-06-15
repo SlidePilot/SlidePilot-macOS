@@ -31,6 +31,35 @@ class PresentationViewController: NSViewController {
         DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
         DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
+        DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
+    }
+    
+    
+    
+    
+    // MARK: - Canvas
+    
+    var canvas: CanvasView?
+    
+    func showCanvas() {
+        if canvas == nil {
+            canvas = CanvasView(frame: .zero)
+            canvas!.translatesAutoresizingMaskIntoConstraints = false
+            canvas!.allowsDrawing = false
+            self.view.addSubview(canvas!)
+            self.view.addConstraints([
+                NSLayoutConstraint(item: canvas!, attribute: .left, relatedBy: .equal, toItem: pageView, attribute: .left, multiplier: 1.0, constant: 0.0),
+                NSLayoutConstraint(item: canvas!, attribute: .right, relatedBy: .equal, toItem: pageView, attribute: .right, multiplier: 1.0, constant: 0.0),
+                NSLayoutConstraint(item: canvas!, attribute: .top, relatedBy: .equal, toItem: pageView, attribute: .top, multiplier: 1.0, constant: 0.0),
+                NSLayoutConstraint(item: canvas!, attribute: .bottom, relatedBy: .equal, toItem: pageView, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+        }
+        
+        canvas?.isHidden = false
+    }
+    
+    
+    func hideCanvas() {
+        canvas?.isHidden = true
     }
     
     
@@ -57,8 +86,10 @@ class PresentationViewController: NSViewController {
         // Un-/Cover screen with black curtain, depending on isWhiteCurtainDisplay
         if DisplayController.isBlackCurtainDisplayed {
             pageView.coverBlack()
+            hideCanvas()
         } else {
             pageView.uncover()
+            if DisplayController.areDrawingToolsDisplayed { showCanvas() }
         }
     }
     
@@ -67,8 +98,10 @@ class PresentationViewController: NSViewController {
         // Un-/Cover screen with white curtain, depending on isWhiteCurtainDisplay
         if DisplayController.isWhiteCurtainDisplayed {
             pageView.coverWhite()
+            hideCanvas()
         } else {
             pageView.uncover()
+            if DisplayController.areDrawingToolsDisplayed { showCanvas() }
         }
     }
     
@@ -85,6 +118,15 @@ class PresentationViewController: NSViewController {
             pointer?.type = .target
         case .targetColor:
             pointer?.type = .targetColor
+        }
+    }
+    
+    
+    @objc func displayDrawingToolsDidChange(_ notification: Notification) {
+        if DisplayController.areDrawingToolsDisplayed {
+            showCanvas()
+        } else {
+            hideCanvas()
         }
     }
 }
