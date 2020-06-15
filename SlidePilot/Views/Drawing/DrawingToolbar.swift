@@ -142,21 +142,19 @@ class DrawingToolbar: NSView {
             .filter({ $0 != sender })
             .forEach({ $0.state = .off })
         sender.state = .on
-        // Set current color to swatch color
-        // sharedColor = sender.color
-        // TODO: Send notification that a new color was selected
+        
+        // Set current drawing color to swatch color
+        CanvasController.setDrawingColor(to: sender.color, sender: self)
     }
     
     
     @objc func clearPressed(_ sender: NSButton) {
-        print("clear")
-        // TODO: Clear current page in CanvasController
+        CanvasController.clearCanvas(sender: self)
     }
     
     
     @objc func closePressed(_ sender: NSButton) {
-        print("close")
-        // TODO: Set display drawing thingys in DisplayController to false
+        DisplayController.setDisplayDrawingTools(false, sender: self)
     }
     
     
@@ -170,6 +168,11 @@ class DrawingToolbar: NSView {
      Shows the drawing toolbar.
      */
     func show(in parentView: NSView) {
+        // Select swatch for current drawing color
+        if let swatchForCurrentDrawingColor = swatches.first(where: { $0.color == CanvasController.drawingColor }) {
+            swatchPressed(swatchForCurrentDrawingColor)
+        }
+        
         // If hide animation is currently running:
         // Remove hide animation and remove from superview
         if isHideAnimationRunning() {
