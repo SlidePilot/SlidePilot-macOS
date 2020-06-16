@@ -10,22 +10,34 @@ import Cocoa
 
 class IconButton: NSControl {
 
+    /** The image do be displayed in the button*/
     var image: NSImage? {
         didSet {
             setupImageLayer()
         }
     }
     
+    /**
+     The color of the buttons background layer. Behavior differs based on `isToggle` property.
+     
+     - If `isToggle == false`: Then this is the color of the highlight layer for the button.
+     - If `isToggle == true`: Then this is the background color of the button when `state == .on`.
+     */
     var backgroundColor: NSColor = .black {
         didSet {
             backgroundLayer?.backgroundColor = backgroundColor.cgColor
         }
     }
     
+    /**
+     The color of the buttons. Only needed when `isToggle == true`. Then this is the color of the highlight layer for the button
+    */
     var highlightColor: NSColor? = nil
     
+    /** Determines if the button is a toggle or a push down button. */
     var isToggle: Bool = false
     
+    /** The buttons state*/
     var state: StateValue = .off {
         didSet {
             // Only animate if value did change
@@ -77,7 +89,7 @@ class IconButton: NSControl {
     }
     
     
-    func setup() {
+    private func setup() {
         // Setup view
         self.translatesAutoresizingMaskIntoConstraints = false
         self.wantsLayer = true
@@ -98,7 +110,7 @@ class IconButton: NSControl {
     }
     
     
-    func setupImageLayer() {
+    private func setupImageLayer() {
         guard let image = self.image else { return }
         
         imageLayer?.removeFromSuperlayer()
@@ -144,7 +156,7 @@ class IconButton: NSControl {
     }
     
     
-    func animateSelection() {
+    private func animateSelection() {
         if state == .on {
             backgroundLayer?.backgroundColor = backgroundColor.cgColor
             backgroundLayer?.opacity = 1.0
@@ -154,7 +166,7 @@ class IconButton: NSControl {
     }
     
     
-    func animateHighlight() {
+    private func animateHighlight() {
         if isToggle {
             if highlightColor == nil {
                 if #available(OSX 10.14, *) {
@@ -170,7 +182,7 @@ class IconButton: NSControl {
     }
     
     
-    func animateDehighlight() {
+    private func animateDehighlight() {
         backgroundLayer?.opacity = 0.0
     }
     
