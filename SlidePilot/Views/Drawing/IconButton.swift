@@ -22,6 +22,8 @@ class IconButton: NSControl {
         }
     }
     
+    var highlightColor: NSColor? = nil
+    
     var isToggle: Bool = false
     
     var state: StateValue = .off {
@@ -87,7 +89,7 @@ class IconButton: NSControl {
         backgroundLayer = CALayer()
         backgroundLayer?.backgroundColor = NSColor.blue.cgColor
         backgroundLayer?.frame = self.bounds
-        backgroundLayer?.cornerRadius = 10.0
+        backgroundLayer?.cornerRadius = 7.0
         backgroundLayer?.opacity = 0.0
         self.layer?.addSublayer(backgroundLayer!)
         
@@ -154,13 +156,15 @@ class IconButton: NSControl {
     
     func animateHighlight() {
         if isToggle {
-            let highlightColor: NSColor?
-            if #available(OSX 10.14, *) {
-                highlightColor = backgroundColor.withSystemEffect(.pressed)
-            } else {
-                highlightColor = backgroundColor.blended(withFraction: 0.15, of: .black)
+            if highlightColor == nil {
+                if #available(OSX 10.14, *) {
+                    highlightColor = backgroundColor.withSystemEffect(.pressed)
+                } else {
+                    highlightColor = backgroundColor.blended(withFraction: 0.15, of: .black)
+                }
             }
-            backgroundLayer?.backgroundColor = highlightColor?.blended(withFraction: 0.15, of: .black)?.cgColor
+            
+            backgroundLayer?.backgroundColor = highlightColor!.cgColor
         }
         backgroundLayer?.opacity = 1.0
     }

@@ -102,6 +102,7 @@ class DrawingToolbar: NSView {
         clearButton = createButton(with: NSImage(named: "Eraser")!, action: #selector(clearPressed(_:)))
         canvasButton = createButton(with: NSImage(named: "Canvas")!, action: #selector(canvasPressed(_:)))
         canvasButton.isToggle = true
+        canvasButton.highlightColor = NSColor(white: 0.45, alpha: 1.0)
         closeButton = createButton(with: NSImage(named: "Close")!, action: #selector(closePressed(_:)))
         
         // Add buttons to container
