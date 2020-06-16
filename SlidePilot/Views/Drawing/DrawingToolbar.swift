@@ -38,6 +38,7 @@ class DrawingToolbar: NSView {
     
     // Buttons
     var clearButton: IconButton!
+    var canvasButton: IconButton!
     var closeButton: IconButton!
     
     let verticalPadding: CGFloat = 20.0
@@ -99,20 +100,24 @@ class DrawingToolbar: NSView {
         
         // Create buttons
         clearButton = createButton(with: NSImage(named: "Eraser")!, action: #selector(clearPressed(_:)))
+        canvasButton = createButton(with: NSImage(named: "Canvas")!, action: #selector(canvasPressed(_:)))
+        canvasButton.isToggle = true
         closeButton = createButton(with: NSImage(named: "Close")!, action: #selector(closePressed(_:)))
         
         // Add buttons to container
-        let container = NSStackView(views: [blackSwatch, whiteSwatch, blueSwatch, greenSwatch, magentaSwatch, yellowSwatch, clearButton, closeButton])
+        let container = NSStackView(views: [blackSwatch, whiteSwatch, blueSwatch, greenSwatch, magentaSwatch, yellowSwatch, clearButton, canvasButton, closeButton])
         container.translatesAutoresizingMaskIntoConstraints = false
         container.orientation = .horizontal
         container.spacing = buttonPadding
-        container.setCustomSpacing(buttonPadding + 20.0, after: clearButton)
+        container.setCustomSpacing(buttonPadding + 20.0, after: canvasButton)
         self.addSubview(container)
         self.addConstraints([
             NSLayoutConstraint(item: container, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: horizontalPadding),
             NSLayoutConstraint(item: self, attribute: .right, relatedBy: .equal, toItem: container, attribute: .right, multiplier: 1.0, constant: horizontalPadding),
             NSLayoutConstraint(item: container, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: verticalPadding),
             NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: container, attribute: .bottom, multiplier: 1.0, constant: verticalPadding + (layer?.cornerRadius ?? 20.0) + 10.0)])
+        
+        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(canvasBackgroundDidChange(_:)))
     }
     
     
@@ -146,12 +151,17 @@ class DrawingToolbar: NSView {
     }
     
     
-    @objc func clearPressed(_ sender: NSButton) {
+    @objc func clearPressed(_ sender: IconButton) {
         CanvasController.clearCanvas(sender: self)
     }
     
     
-    @objc func closePressed(_ sender: NSButton) {
+    @objc func canvasPressed(_ sender: IconButton) {
+        CanvasController.setTransparentCanvasBackground(sender.state == .off, sender: sender)
+    }
+    
+    
+    @objc func closePressed(_ sender: IconButton) {
         DisplayController.setDisplayDrawingTools(false, sender: self)
     }
     
@@ -245,5 +255,14 @@ class DrawingToolbar: NSView {
     
     func isHideAnimationRunning() -> Bool {
         return self.layer?.animation(forKey: hideAnimationKey) != nil
+    }
+    
+    
+    
+    
+    // MARK: - Control Handlers
+    
+    @objc func canvasBackgroundDidChange(_ notification: Notification) {
+        canvasButton.state = CanvasController.isCanvasBackgroundTransparent ? .off : .on
     }
 }
