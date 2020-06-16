@@ -1,0 +1,203 @@
+//
+//  IconButton.swift
+//  SlidePilot
+//
+//  Created by Pascal Braband on 16.06.20.
+//  Copyright © 2020 Pascal Braband. All rights reserved.
+//
+
+import Cocoa
+
+class IconButton: NSControl {
+
+    var image: NSImage? {
+        didSet {
+            setupImageLayer()
+        }
+    }
+    
+    var backgroundColor: NSColor = .black {
+        didSet {
+            backgroundLayer?.backgroundColor = backgroundColor.cgColor
+        }
+    }
+    
+    var isToggle: Bool = false
+    
+    var state: StateValue = .off {
+        didSet {
+            // Only animate if value did change
+            if self.state != oldValue {
+                animateSelection()
+                
+                // Call target.action
+                _ = target?.perform(action, with: self)
+            }
+        }
+    }
+    
+    private var isMouseInside = false {
+        didSet {
+            // Only animate if value did change
+            if self.isMouseInside != oldValue {
+                if isMouseInside {
+                    // Highlight if mouse entered
+                    animateHighlight()
+                } else {
+                    // Remove highlight if mouse exited
+                    animateDehighlight()
+                }
+            }
+        }
+    }
+    
+    // Layers
+    private var imageLayer: CALayer?
+    private var backgroundLayer: CALayer?
+    
+    
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        setup()
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+    
+    
+    init(frame frameRect: NSRect, image: NSImage) {
+        self.image = image
+        super.init(frame: .zero)
+        setup()
+    }
+    
+    
+    func setup() {
+        // Setup view
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.wantsLayer = true
+        
+        // Setup layer
+        self.layer?.masksToBounds = false
+        
+        // Setup background layer
+        backgroundLayer = CALayer()
+        backgroundLayer?.backgroundColor = NSColor.blue.cgColor
+        backgroundLayer?.frame = self.bounds
+        backgroundLayer?.cornerRadius = 10.0
+        backgroundLayer?.opacity = 0.0
+        self.layer?.addSublayer(backgroundLayer!)
+        
+        // Setup image layer
+        setupImageLayer()
+    }
+    
+    
+    func setupImageLayer() {
+        guard let image = self.image else { return }
+        
+        imageLayer?.removeFromSuperlayer()
+        imageLayer = CALayer()
+        var imageRect = NSRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        let imageRef = image.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
+        imageLayer?.contents = imageRef
+        imageLayer?.frame = imageRect
+        
+        imageLayer?.position = NSPoint(x: self.bounds.width/2, y: self.bounds.width/2)
+        
+        self.layer?.addSublayer(imageLayer!)
+    }
+    
+    
+    override func mouseDown(with event: NSEvent) {
+        isMouseInside = true
+    }
+    
+    
+    override func mouseUp(with event: NSEvent) {
+        if isMouseInside {
+            isMouseInside = false
+            
+            // Toggle state
+            if isToggle {
+                state = state == .on ? .off : .on
+            } else {
+                // Call target action
+                _ = target?.perform(action, with: self)
+            }
+        }
+    }
+    
+    
+    override func mouseDragged(with event: NSEvent) {
+        let mouseLocationInView = self.window?.contentView?.convert(event.locationInWindow, to: self)
+        if self.bounds.contains(mouseLocationInView ?? .zero) {
+            isMouseInside = true
+        } else {
+            isMouseInside = false
+        }
+    }
+    
+    
+    func animateSelection() {
+        if state == .on {
+            backgroundLayer?.backgroundColor = backgroundColor.cgColor
+            backgroundLayer?.opacity = 1.0
+        } else {
+            animateDehighlight()
+        }
+    }
+    
+    
+    func animateHighlight() {
+        if isToggle {
+            let highlightColor: NSColor?
+            if #available(OSX 10.14, *) {
+                highlightColor = backgroundColor.withSystemEffect(.pressed)
+            } else {
+                highlightColor = backgroundColor.blended(withFraction: 0.15, of: .black)
+            }
+            backgroundLayer?.backgroundColor = highlightColor?.blended(withFraction: 0.15, of: .black)?.cgColor
+        }
+        backgroundLayer?.opacity = 1.0
+    }
+    
+    
+    func animateDehighlight() {
+        backgroundLayer?.opacity = 0.0
+    }
+    
+    
+    override func updateLayer() {
+        super.updateLayer()
+        
+        setupImageLayer()
+        backgroundLayer?.frame = self.bounds
+    }
+    
+    
+    var trackingArea: NSTrackingArea?
+    
+    func addTrackingArea() {
+        // Remove old tracking area
+        if trackingArea != nil {
+            self.removeTrackingArea(trackingArea!)
+            trackingArea = nil
+        }
+        
+        trackingArea = NSTrackingArea(rect: self.bounds, options: [.mouseEnteredAndExited, .activeInKeyWindow], owner: self, userInfo: nil)
+        
+        // Add tracking area
+        self.addTrackingArea(trackingArea!)
+    }
+    
+    override func updateTrackingAreas() {
+        super.updateTrackingAreas()
+        addTrackingArea()
+    }
+    
+}
+

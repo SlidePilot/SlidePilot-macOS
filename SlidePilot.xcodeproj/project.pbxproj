@@ -64,6 +64,7 @@
 		50EF741224538F690028DB06 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741124538F690028DB06 /* DocumentController.swift */; };
 		50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741324539A3E0028DB06 /* DisplayController.swift */; };
 		50FA6B98245356F000EDEFC6 /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA6B97245356F000EDEFC6 /* PageController.swift */; };
+		50FA9A782498B13E0046E2C0 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA9A772498B13E0046E2C0 /* IconButton.swift */; };
 		50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */; };
 /* End PBXBuildFile section */
 
@@ -156,6 +157,7 @@
 		50EF741124538F690028DB06 /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		50EF741324539A3E0028DB06 /* DisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
 		50FA6B97245356F000EDEFC6 /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
+		50FA9A772498B13E0046E2C0 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,6 +203,7 @@
 				5025C9AF2490EBA0001898D1 /* DrawingToolbar.swift */,
 				50B3C3022497F5DB006D5E48 /* Drawing.swift */,
 				50B3C3042497F6D4006D5E48 /* CanvasView.swift */,
+				50FA9A772498B13E0046E2C0 /* IconButton.swift */,
 			);
 			path = Drawing;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */,
 				503FFE02242A195300B6F438 /* PresentationViewController.swift in Sources */,
 				5070AA5A24619C400025B8C5 /* TimeController.swift in Sources */,
+				50FA9A782498B13E0046E2C0 /* IconButton.swift in Sources */,
 				5036BD8A2435F8CD0007AF6F /* AppStartTracker.swift in Sources */,
 				50DD8B2D2458DCED00E83784 /* PointerAppearanceTouchBar.swift in Sources */,
 			);

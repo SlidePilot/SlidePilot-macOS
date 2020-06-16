@@ -37,8 +37,8 @@ class DrawingToolbar: NSView {
     var swatches: [ColorSwatchButton]!
     
     // Buttons
-    var clearButton: NSButton!
-    var closeButton: NSButton!
+    var clearButton: IconButton!
+    var closeButton: IconButton!
     
     let verticalPadding: CGFloat = 20.0
     let horizontalPadding: CGFloat = 40.0
@@ -116,17 +116,15 @@ class DrawingToolbar: NSView {
     }
     
     
-    private func createButton(with image: NSImage, action: Selector) -> NSButton {
-        let imageButton = NSButton()
-        imageButton.translatesAutoresizingMaskIntoConstraints = false
+    private func createButton(with image: NSImage, action: Selector) -> IconButton {
+        
+        let imageButton = IconButton()
         imageButton.image = image
-        imageButton.bezelStyle = .shadowlessSquare
-        imageButton.isBordered = false
-        imageButton.imagePosition = .imageOnly
+        imageButton.backgroundColor = NSColor(white: 0.35, alpha: 1.0)
         imageButton.target = self
         imageButton.action = action
         imageButton.addConstraints([
-            NSLayoutConstraint(item: imageButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25.0),
+            NSLayoutConstraint(item: imageButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 35.0),
             NSLayoutConstraint(item: imageButton, attribute: .height, relatedBy: .equal, toItem: imageButton, attribute: .width, multiplier: 1.0, constant: 0.0)])
         return imageButton
     }
