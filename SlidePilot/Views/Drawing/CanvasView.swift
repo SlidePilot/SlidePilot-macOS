@@ -91,7 +91,8 @@ class CanvasView: NSView {
     
     
     private func updateCanvas() {
-        self.drawing = CanvasController.drawing
+        guard let drawing = CanvasController.drawing else { return }
+        self.drawing = drawing
         self.needsDisplay = true
     }
     
@@ -99,6 +100,14 @@ class CanvasView: NSView {
     
     
     // MARK: Control Handlers
+    
+    override func removeFromSuperview() {
+        if !DisplayController.areDrawingToolsDisplayed {
+            self.undoManager?.removeAllActions()
+        }
+        super.removeFromSuperview()
+    }
+    
     
     @objc func didChangeDrawing(_ notification: Notification) {
         updateCanvas()
