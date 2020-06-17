@@ -13,9 +13,20 @@ extension PresenterWindowController: NSTouchBarDelegate {
     
     override func makeTouchBar() -> NSTouchBar? {
         // Create TouchBar and assign delegate
-        let touchBar = NSTouchBar()
+        var touchBar = NSTouchBar()
         touchBar.delegate = self
         
+        if DisplayController.areDrawingToolsDisplayed {
+            setupDrawingTouchBar(&touchBar)
+        } else {
+            setupDefaultTouchBar(&touchBar)
+        }
+        
+        return touchBar
+    }
+    
+    
+    func setupDefaultTouchBar(_ touchBar: inout NSTouchBar) {
         touchBar.defaultItemIdentifiers = [.blackCurtainItem, .whiteCurtainItem, .notesItem, .navigatorItem, .previewNextSlideItem, .fixedSpaceLarge, .pointerItem, .pointerAppearancePopover]
         
         // Subscribe to display changes
@@ -25,8 +36,14 @@ extension PresenterWindowController: NSTouchBarDelegate {
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChangeTouchBar(_:)))
         DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChangeTouchBar(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChangeTouchBar(_:)))
+    }
+    
+    
+    func setupDrawingTouchBar(_ touchBar: inout NSTouchBar) {
+        touchBar.defaultItemIdentifiers = [.drawingColorItem, .eraserItem, .canvasItem, .fixedSpaceLarge, .closeItem]
         
-        return touchBar
+        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(canvasBackgroundDidChangeTouchBar(_:)))
+        CanvasController.subscribeDrawingColorChanged(target: self, action: #selector(drawingColorDidChangeTouchBar(_:)))
     }
     
     
@@ -118,6 +135,41 @@ extension PresenterWindowController: NSTouchBarDelegate {
             
             return appearancePopover
             
+        case .drawingColorItem:
+            let colorPicker = NSColorPickerTouchBarItem(identifier: identifier)
+            colorPicker.colorList = DrawingToolbar.availableColorList
+            colorPicker.color = CanvasController.drawingColor
+            colorPicker.target = self
+            colorPicker.action = #selector(touchBarDrawingColorSelected(_:))
+            return colorPicker
+            
+        case .eraserItem:
+            let item = NSCustomTouchBarItem(identifier: identifier)
+            let button = NSButton(
+                image: NSImage(named: "EraserTB")!,
+                target: self, action: #selector(touchBarEraserPressed(_:)))
+            item.view = button
+            return item
+            
+        case .canvasItem:
+            let item = NSCustomTouchBarItem(identifier: identifier)
+            let button = NSSegmentedControl(
+                images: [NSImage(named: "CanvasTB")!],
+                trackingMode: .selectAny,
+                target: self,
+                action: #selector(touchBarCanvasPressed(_:)))
+            setSelected(button: button, !CanvasController.isCanvasBackgroundTransparent)
+            item.view = button
+            return item
+            
+        case .closeItem:
+            let item = NSCustomTouchBarItem(identifier: identifier)
+            let button = NSButton(
+                image: NSImage(named: "CloseTB")!,
+                target: self, action: #selector(touchBarCloseDrawingToolsPressed(_:)))
+            item.view = button
+            return item
+            
         default:
             return nil
         }
@@ -151,6 +203,26 @@ extension PresenterWindowController: NSTouchBarDelegate {
     
     @objc func touchBarPointerPressed(_ sender: NSSegmentedControl) {
         DisplayController.switchDisplayPointer(sender: sender)
+    }
+    
+    
+    @objc func touchBarDrawingColorSelected(_ sender: NSColorPickerTouchBarItem) {
+        CanvasController.setDrawingColor(to: sender.color, sender: self)
+    }
+    
+    
+    @objc func touchBarEraserPressed(_ sender: NSButton) {
+        CanvasController.clearCanvas(sender: sender)
+    }
+    
+    
+    @objc func touchBarCanvasPressed(_ sender: NSSegmentedControl) {
+        CanvasController.switchTransparentCanvas(sender: sender)
+    }
+    
+    
+    @objc func touchBarCloseDrawingToolsPressed(_ sender: NSButton) {
+        DisplayController.setDisplayDrawingTools(false, sender: sender)
     }
     
     
@@ -208,6 +280,20 @@ extension PresenterWindowController: NSTouchBarDelegate {
         guard let pointerButton = pointerItem.view as? NSSegmentedControl else { return }
         
         setSelected(button: pointerButton, DisplayController.isPointerDisplayed)
+    }
+    
+    
+    @objc func canvasBackgroundDidChangeTouchBar(_ notification: Notification) {
+        guard let canvasItem = self.touchBar?.item(forIdentifier: .canvasItem) else { return }
+        guard let canvasButton = canvasItem.view as? NSSegmentedControl else { return }
+        
+        setSelected(button: canvasButton, !CanvasController.isCanvasBackgroundTransparent)
+    }
+    
+    
+    @objc func drawingColorDidChangeTouchBar(_ notification: Notification) {
+        guard let colorPicker = self.touchBar?.item(forIdentifier: .drawingColorItem) as? NSColorPickerTouchBarItem else { return }
+        colorPicker.color = CanvasController.drawingColor
     }
     
     

@@ -167,6 +167,10 @@ class PresenterViewController: NSViewController {
         } else {
             hideDrawingToolbar()
         }
+        
+        if #available(OSX 10.12.2, *) {
+            self.view.window?.windowController?.touchBar = nil
+        }
     }
     
     
