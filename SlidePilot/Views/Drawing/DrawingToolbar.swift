@@ -20,10 +20,22 @@ class DrawingToolbar: NSView {
     let hideAnimationKey = "hide-animation"
     
     // Colors
-    let lineBlueColor = NSColor(red: 0.07, green: 0.55, blue: 0.82, alpha: 1.0)
-    let lineGreenColor = NSColor(red: 0.18, green: 0.76, blue: 0.12, alpha: 1.0)
-    let lineMagentaColor = NSColor(red: 0.72, green: 0.18, blue: 0.45, alpha: 1.0)
-    let lineYellowColor = NSColor(red: 1.0, green: 0.67, blue: 0.0, alpha: 1.0)
+    static let lineBlueColor = NSColor(red: 0.07, green: 0.55, blue: 0.82, alpha: 1.0)
+    static let lineGreenColor = NSColor(red: 0.18, green: 0.76, blue: 0.12, alpha: 1.0)
+    static let lineMagentaColor = NSColor(red: 0.72, green: 0.18, blue: 0.45, alpha: 1.0)
+    static let lineOrangeColor = NSColor(red: 1.0, green: 0.67, blue: 0.0, alpha: 1.0)
+    
+    static let availableColors: [NSColor] = [.black, .white, lineBlueColor, lineGreenColor, lineMagentaColor, lineOrangeColor]
+    static var availableColorList: NSColorList {
+        let colorList = NSColorList(name: NSColorList.Name("de.pascalbraband.DrawingColors"))
+        colorList.insertColor(availableColors[0], key: NSColor.Name("de.pascalbraband.DrawingColors.Black"), at: 0)
+        colorList.insertColor(availableColors[1], key: NSColor.Name("de.pascalbraband.DrawingColors.White"), at: 1)
+        colorList.insertColor(availableColors[2], key: NSColor.Name("de.pascalbraband.DrawingColors.Blue"), at: 2)
+        colorList.insertColor(availableColors[3], key: NSColor.Name("de.pascalbraband.DrawingColors.Green"), at: 3)
+        colorList.insertColor(availableColors[4], key: NSColor.Name("de.pascalbraband.DrawingColors.Magenta"), at: 4)
+        colorList.insertColor(availableColors[5], key: NSColor.Name("de.pascalbraband.DrawingColors.Orange"), at: 5)
+        return colorList
+    }
     
     // UI Elements
     
@@ -76,27 +88,14 @@ class DrawingToolbar: NSView {
         self.layer?.shadowRadius = 20
         
         // Create swatches
-        blackSwatch = ColorSwatchButton(color: .black, size: swatchSize, ringWidth: swatchRingWidth)
-        whiteSwatch = ColorSwatchButton(color: .white, size: swatchSize, ringWidth: swatchRingWidth)
-        blueSwatch = ColorSwatchButton(color: lineBlueColor, size: swatchSize, ringWidth: swatchRingWidth)
-        greenSwatch = ColorSwatchButton(color: lineGreenColor, size: swatchSize, ringWidth: swatchRingWidth)
-        magentaSwatch = ColorSwatchButton(color: lineMagentaColor, size: swatchSize, ringWidth: swatchRingWidth)
-        yellowSwatch = ColorSwatchButton(color: lineYellowColor, size: swatchSize, ringWidth: swatchRingWidth)
-        
-        swatches = [blackSwatch, whiteSwatch, blueSwatch, greenSwatch, magentaSwatch, yellowSwatch]
-        
-        blackSwatch.target = self
-        blackSwatch.action = #selector(swatchPressed)
-        whiteSwatch.target = self
-        whiteSwatch.action = #selector(swatchPressed)
-        blueSwatch.target = self
-        blueSwatch.action = #selector(swatchPressed)
-        greenSwatch.target = self
-        greenSwatch.action = #selector(swatchPressed)
-        magentaSwatch.target = self
-        magentaSwatch.action = #selector(swatchPressed)
-        yellowSwatch.target = self
-        yellowSwatch.action = #selector(swatchPressed)
+        swatches = [ColorSwatchButton]()
+        for color in DrawingToolbar.availableColors {
+            let swatch = ColorSwatchButton(color: color, size: swatchSize, ringWidth: swatchRingWidth)
+            swatch.target = self
+            swatch.action = #selector(swatchPressed(_:))
+            
+            swatches.append(swatch)
+        }
         
         // Create buttons
         clearButton = createButton(with: NSImage(named: "Eraser")!, action: #selector(clearPressed(_:)))
@@ -106,7 +105,7 @@ class DrawingToolbar: NSView {
         closeButton = createButton(with: NSImage(named: "Close")!, action: #selector(closePressed(_:)))
         
         // Add buttons to container
-        let container = NSStackView(views: [blackSwatch, whiteSwatch, blueSwatch, greenSwatch, magentaSwatch, yellowSwatch, clearButton, canvasButton, closeButton])
+        let container = NSStackView(views: swatches + [clearButton, canvasButton, closeButton])
         container.translatesAutoresizingMaskIntoConstraints = false
         container.orientation = .horizontal
         container.spacing = buttonPadding
@@ -119,6 +118,7 @@ class DrawingToolbar: NSView {
             NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: container, attribute: .bottom, multiplier: 1.0, constant: verticalPadding + (layer?.cornerRadius ?? 20.0) + 10.0)])
         
         CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(canvasBackgroundDidChange(_:)))
+        CanvasController.subscribeDrawingColorChanged(target: self, action: #selector(drawingColorDidChange(_:)))
     }
     
     
@@ -142,11 +142,6 @@ class DrawingToolbar: NSView {
     
     
     @objc func swatchPressed(_ sender: ColorSwatchButton) {
-        swatches
-            .filter({ $0 != sender })
-            .forEach({ $0.state = .off })
-        sender.state = .on
-        
         // Set current drawing color to swatch color
         CanvasController.setDrawingColor(to: sender.color, sender: self)
     }
@@ -265,5 +260,16 @@ class DrawingToolbar: NSView {
     
     @objc func canvasBackgroundDidChange(_ notification: Notification) {
         canvasButton.state = CanvasController.isCanvasBackgroundTransparent ? .off : .on
+    }
+    
+    
+    @objc func drawingColorDidChange(_ notification: Notification) {
+        // Find swatch for color
+        let swatch = swatches.first(where: { $0.color == CanvasController.drawingColor })
+        swatches
+            .filter({ $0 != swatch })
+            .forEach({ $0.state = .off })
+        
+        swatch?.state = .on
     }
 }

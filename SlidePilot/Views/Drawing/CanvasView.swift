@@ -18,7 +18,6 @@ class CanvasView: NSView {
     }
     
     private var currentLine: Line?
-    var drawingColor: NSColor = .black
     
     
     override init(frame frameRect: NSRect) {
@@ -73,7 +72,7 @@ class CanvasView: NSView {
         guard allowsDrawing else { super.mouseUp(with: event); return }
         
         // Add a new line
-        currentLine = Line(color: drawingColor, frame: self.frame)
+        currentLine = Line(color: CanvasController.drawingColor, frame: self.frame)
         guard let newPoint = self.window?.contentView?.convert(event.locationInWindow, to: self) else { return }
         currentLine?.add(newPoint)
         drawing.add(line: currentLine!)
@@ -118,7 +117,6 @@ class CanvasView: NSView {
     
     
     @objc func didChangeDrawingColor(_ notification: Notification) {
-        self.drawingColor = CanvasController.drawingColor
     }
     
     
