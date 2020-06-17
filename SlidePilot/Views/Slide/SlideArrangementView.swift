@@ -23,7 +23,7 @@ class SlideArrangementView: NSView {
     var notesSlideView: SlideView?
     var notesEditor: NotesEditor?
     
-    let padding: CGFloat = 40.0
+    let padding: CGFloat = 30.0
     let distributionRatio: CGFloat = 0.6
     
     
