@@ -11,6 +11,21 @@ import Cocoa
 @available(OSX 10.12.2, *)
 extension PresenterWindowController: NSTouchBarDelegate {
     
+    func setupTouchBar() {
+        // Subscribe to display changes
+        DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChangeTouchBar(_:)))
+        DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChangeTouchBar(_:)))
+        DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChangeTouchBar(_:)))
+        DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChangeTouchBar(_:)))
+        DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChangeTouchBar(_:)))
+        DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChangeTouchBar(_:)))
+        
+        // Subscribe to canvas changes
+        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(canvasBackgroundDidChangeTouchBar(_:)))
+        CanvasController.subscribeDrawingColorChanged(target: self, action: #selector(drawingColorDidChangeTouchBar(_:)))
+    }
+    
+    
     override func makeTouchBar() -> NSTouchBar? {
         // Create TouchBar and assign delegate
         var touchBar = NSTouchBar()
@@ -28,22 +43,11 @@ extension PresenterWindowController: NSTouchBarDelegate {
     
     func setupDefaultTouchBar(_ touchBar: inout NSTouchBar) {
         touchBar.defaultItemIdentifiers = [.blackCurtainItem, .whiteCurtainItem, .notesItem, .navigatorItem, .previewNextSlideItem, .fixedSpaceLarge, .pointerItem, .pointerAppearancePopover]
-        
-        // Subscribe to display changes
-        DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChangeTouchBar(_:)))
-        DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChangeTouchBar(_:)))
-        DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChangeTouchBar(_:)))
-        DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChangeTouchBar(_:)))
-        DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChangeTouchBar(_:)))
-        DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChangeTouchBar(_:)))
     }
     
     
     func setupDrawingTouchBar(_ touchBar: inout NSTouchBar) {
         touchBar.defaultItemIdentifiers = [.drawingColorItem, .eraserItem, .canvasItem, .fixedSpaceLarge, .closeItem]
-        
-        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(canvasBackgroundDidChangeTouchBar(_:)))
-        CanvasController.subscribeDrawingColorChanged(target: self, action: #selector(drawingColorDidChangeTouchBar(_:)))
     }
     
     

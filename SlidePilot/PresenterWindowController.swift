@@ -17,6 +17,11 @@ class PresenterWindowController: NSWindowController {
         self.window?.center()
         
         self.window?.backgroundColor = NSColor(white: 0.07, alpha: 1.0)
+        
+        
+        if #available(OSX 10.12.2, *) {
+            setupTouchBar()
+        }
     }
     
     
