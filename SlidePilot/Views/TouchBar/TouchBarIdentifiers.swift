@@ -17,6 +17,7 @@ extension NSTouchBarItem.Identifier {
     static let pointerItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerItem")
     static let pointerAppearancePopover = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearancePopover")
     static let previewNextSlideItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.previewNextSlideItem")
+    static let drawItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.drawItem")
     static let drawingColorItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.drawingColorItem")
     static let eraserItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.eraserItem")
     static let canvasItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.canvasItem")

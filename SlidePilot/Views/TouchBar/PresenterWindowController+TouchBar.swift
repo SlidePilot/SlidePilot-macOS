@@ -42,7 +42,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
     
     
     func setupDefaultTouchBar(_ touchBar: inout NSTouchBar) {
-        touchBar.defaultItemIdentifiers = [.blackCurtainItem, .whiteCurtainItem, .notesItem, .navigatorItem, .previewNextSlideItem, .fixedSpaceLarge, .pointerItem, .pointerAppearancePopover]
+        touchBar.defaultItemIdentifiers = [.blackCurtainItem, .whiteCurtainItem, .notesItem, .navigatorItem, .previewNextSlideItem, .drawItem, .fixedSpaceLarge, .pointerItem, .pointerAppearancePopover]
     }
     
     
@@ -113,6 +113,14 @@ extension PresenterWindowController: NSTouchBarDelegate {
         item.view = button
         item.customizationLabel = NSLocalizedString("PreviewNextSlideTBLabel", comment: "The customization label for preview next slide Touch Bar item.")
         return item
+            
+        case .drawItem:
+            let item = NSCustomTouchBarItem(identifier: identifier)
+            let button = NSButton(
+                image: NSImage(named: "Draw")!,
+                target: self, action: #selector(touchBarDrawPressed(_:)))
+            item.view = button
+            return item
             
         case .pointerItem:
             // Setup show/hide pointer button
@@ -202,6 +210,11 @@ extension PresenterWindowController: NSTouchBarDelegate {
     
     @objc func touchBarPreviewNextSlidePressed(_ sender: NSSegmentedControl) {
         DisplayController.switchDisplayNextSlidePreview(sender: sender)
+    }
+    
+    
+    @objc func touchBarDrawPressed(_ sender: NSButton) {
+        DisplayController.switchDisplayDrawingTools(sender: sender)
     }
     
     
