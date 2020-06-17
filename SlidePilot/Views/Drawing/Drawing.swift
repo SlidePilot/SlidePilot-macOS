@@ -52,6 +52,8 @@ class Drawing: NSObject {
      Clears the drawing. This means all lines are deleted. Registers change in UndoManager
      */
     @objc func clear() {
+        // Only clear if not already empty
+        guard lines.count > 0 else { return }
         setLines(to: [Line]())
     }
     

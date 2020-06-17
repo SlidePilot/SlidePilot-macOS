@@ -10,9 +10,9 @@ import Cocoa
 
 class CanvasController: NSObject {
     
-    public private(set) static var drawing: Drawing?
+    public private(set) static var drawing: Drawing = Drawing()
     public private(set) static var drawingColor: NSColor = .black
-    public static var canvasBackgroundColor: NSColor? { return drawing?.backgroundColor }
+    public static var canvasBackgroundColor: NSColor { return drawing.backgroundColor }
     
     public static var isCanvasBackgroundTransparent: Bool {
         return canvasBackgroundColor == .clear
@@ -30,7 +30,7 @@ class CanvasController: NSObject {
     
     /** Sends a notification, that the canvas was cleared. */
     public static func clearCanvas(sender: Any?) {
-        drawing?.clear()
+        drawing.clear()
         NotificationCenter.default.post(name: .didClearCurrentCanvas, object: sender)
     }
     
@@ -46,7 +46,7 @@ class CanvasController: NSObject {
         // Only continue if background color changed
         guard canvasBackgroundColor != color else { return }
         
-        drawing?.setBackgroundColor(to: color, shouldClearLines: true)
+        drawing.setBackgroundColor(to: color, shouldClearLines: true)
     }
     
     

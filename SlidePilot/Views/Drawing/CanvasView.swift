@@ -91,8 +91,7 @@ class CanvasView: NSView {
     
     
     private func updateCanvas() {
-        guard let drawing = CanvasController.drawing else { return }
-        self.drawing = drawing
+        self.drawing = CanvasController.drawing
         self.needsDisplay = true
     }
     
