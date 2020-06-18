@@ -191,7 +191,7 @@ extension PresentationViewController: MousePointerDelegate {
     
     
     func calculateAbsolutePosition(for position: NSPoint, in view: NSImageView) -> NSPoint {
-        let imageViewOrigin = view.convert(view.frame.origin, to: self.view)
+        let imageViewOrigin = view.frame.origin
         let imageFrame = view.imageRect()
         let imageOrigin = imageFrame.origin
         
