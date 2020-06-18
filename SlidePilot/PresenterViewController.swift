@@ -333,6 +333,7 @@ class PresenterViewController: NSViewController {
     
     override func cancelOperation(_ sender: Any?) {
         DisplayController.setDisplayNavigator(false, sender: self)
+        DisplayController.setDisplayDrawingTools(false, sender: self)
     }
     
     

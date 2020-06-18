@@ -104,6 +104,8 @@ extension SlideArrangementView {
             NSLayoutConstraint(item: canvas, attribute: .right, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .right, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: canvas, attribute: .top, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .top, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: canvas, attribute: .bottom, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+        
+        self.window?.makeFirstResponder(canvas)
     }
     
     

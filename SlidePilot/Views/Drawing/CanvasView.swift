@@ -67,8 +67,6 @@ class CanvasView: NSView {
     
     
     override func mouseDown(with event: NSEvent) {
-        super.mouseDown(with: event)
-        
         guard allowsDrawing else { super.mouseUp(with: event); return }
         
         // Add a new line
