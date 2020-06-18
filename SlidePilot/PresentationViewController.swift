@@ -10,7 +10,7 @@ import Cocoa
 
 class PresentationViewController: NSViewController {
 
-    @IBOutlet weak var pageView: PDFPageView!
+    var pageView: PDFPageView!
     var pointer: PointerView?
     var isPointerShown: Bool = false
     
@@ -19,6 +19,39 @@ class PresentationViewController: NSViewController {
         
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = NSColor.black.cgColor
+        
+        // Setup pageView
+        pageView = PDFPageView(frame: .zero)
+        pageView.translatesAutoresizingMaskIntoConstraints = false
+        pageView.isAutoAspectRatioConstraintEnabled = true
+        self.view.addSubview(pageView)
+        self.view.addConstraints([
+            NSLayoutConstraint(item: pageView!, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: pageView!, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: pageView!, attribute: .left, relatedBy: .greaterThanOrEqual, toItem: self.view, attribute: .left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: self.view, attribute: .right, relatedBy: .greaterThanOrEqual, toItem: pageView, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: pageView!, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: self.view, attribute: .top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: self.view, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: pageView, attribute: .bottom, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: pageView!, attribute: .width, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 200.0),
+            NSLayoutConstraint(item: pageView!, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 200.0)])
+        
+        let leftC = NSLayoutConstraint(item: pageView!, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1.0, constant: 0.0)
+        leftC.priority = NSLayoutConstraint.Priority.defaultLow
+        let rightC = NSLayoutConstraint(item: self.view, attribute: .right, relatedBy: .equal, toItem: pageView, attribute: .right, multiplier: 1.0, constant: 0.0)
+        rightC.priority = NSLayoutConstraint.Priority.defaultLow
+        let topC = NSLayoutConstraint(item: pageView!, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1.0, constant: 0.0)
+        topC.priority = NSLayoutConstraint.Priority.defaultLow
+        let bottomC = NSLayoutConstraint(item: self.view, attribute: .bottom, relatedBy: .equal, toItem: pageView, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        bottomC.priority = NSLayoutConstraint.Priority.defaultLow
+        let widthC = NSLayoutConstraint(item: pageView!, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1.0, constant: 0.0)
+        widthC.priority = NSLayoutConstraint.Priority.defaultLow
+        let heightC = NSLayoutConstraint(item: pageView!, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 1.0, constant: 0.0)
+        heightC.priority = NSLayoutConstraint.Priority.defaultLow
+        self.view.addConstraints([leftC, rightC, topC, bottomC, widthC, heightC])
+        
+        pageView.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .horizontal)
+        pageView.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .vertical)
+        
         
         // Subscribe to page changes
         PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))

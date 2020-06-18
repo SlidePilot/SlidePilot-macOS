@@ -602,22 +602,7 @@
                     <view key="view" id="fPV-BC-LaP">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0gX-s2-K8M" customClass="PDFPageView" customModule="SlidePilot" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="BQ7-Gf-9ME"/>
-                            </imageView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="0gX-s2-K8M" secondAttribute="trailing" id="J6x-Oc-gZm"/>
-                            <constraint firstAttribute="bottom" secondItem="0gX-s2-K8M" secondAttribute="bottom" id="Lr0-W0-05i"/>
-                            <constraint firstItem="0gX-s2-K8M" firstAttribute="leading" secondItem="fPV-BC-LaP" secondAttribute="leading" id="RPW-kF-9iq"/>
-                            <constraint firstItem="0gX-s2-K8M" firstAttribute="top" secondItem="fPV-BC-LaP" secondAttribute="top" id="pbH-F6-R5z"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="pageView" destination="0gX-s2-K8M" id="Nne-VL-UA8"/>
-                    </connections>
                 </viewController>
                 <customObject id="iSU-dO-f6F" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
