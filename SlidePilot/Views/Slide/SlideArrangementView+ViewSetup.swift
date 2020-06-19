@@ -92,7 +92,7 @@ extension SlideArrangementView {
     private func setupSlidesLayoutCurrentDrawing() {
         splitView?.isHidden = true
         
-        currentSlideView = setupSlideView(in: self, topPadding: 0, bottomPadding: padding + 60)
+        currentSlideView = setupSlideView(in: self, setDelegate: true, topPadding: 0, bottomPadding: padding + 60)
         
         // Setup Canvas
         let canvas = CanvasView(frame: .zero)
@@ -112,7 +112,7 @@ extension SlideArrangementView {
     private func setupSlidesLayoutCurrent() {
         splitView?.isHidden = true
         
-        currentSlideView = setupSlideView(in: self, topPadding: 10)
+        currentSlideView = setupSlideView(in: self, setDelegate: true, topPadding: 10)
     }
     
     
@@ -121,7 +121,7 @@ extension SlideArrangementView {
         splitView?.isHidden = false
         
         // Left container: Setup current
-        currentSlideView = setupSlideView(in: leftContainer!)
+        currentSlideView = setupSlideView(in: leftContainer!, setDelegate: true)
         
         // Right container: Setup next
         nextSlideView = setupSlideView(in: rightContainer!)
@@ -140,7 +140,7 @@ extension SlideArrangementView {
         
         
         // Right container: Setup current
-        currentSlideView = setupSlideView(in: rightContainer!)
+        currentSlideView = setupSlideView(in: rightContainer!, setDelegate: true)
         
         splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
         splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
@@ -155,7 +155,7 @@ extension SlideArrangementView {
         setupNotesTextView(in: leftContainer!)
         
         // Right container: Setup current
-        currentSlideView = setupSlideView(in: rightContainer!)
+        currentSlideView = setupSlideView(in: rightContainer!, setDelegate: true)
         
         splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
         splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
@@ -171,7 +171,7 @@ extension SlideArrangementView {
         
         // Right container: Setup current and next
         let (topContainer, bottomContainer) = createVerticallyStackedViews(in: rightContainer!)
-        currentSlideView = setupSlideView(in: topContainer, bottomPadding: padding/2)
+        currentSlideView = setupSlideView(in: topContainer, setDelegate: true, bottomPadding: padding/2)
         nextSlideView = setupSlideView(in: bottomContainer, topPadding: padding/2)
     }
     
@@ -185,7 +185,7 @@ extension SlideArrangementView {
         
         // Right container: Setup current and next
         let (topContainer, bottomContainer) = createVerticallyStackedViews(in: rightContainer!)
-        currentSlideView = setupSlideView(in: topContainer, bottomPadding: padding/2)
+        currentSlideView = setupSlideView(in: topContainer, setDelegate: true, bottomPadding: padding/2)
         nextSlideView = setupSlideView(in: bottomContainer, topPadding: padding/2)
     }
     
@@ -227,6 +227,7 @@ extension SlideArrangementView {
      
      - parameters:
          - container: The superview, where the `SlideView` should be embedded in.
+         - setDelegate: Determines, whether `self` should be set as delegate for this `SlideView`.
          - padding: The overall padding, applied to the constraints on all four side.
          - verticalPadding: The padding applied to constraints on the vertical axis (top, bottom).
          - horizontalPadding: The padding applied to constraints on the horizontal axis (left, right).
@@ -235,9 +236,8 @@ extension SlideArrangementView {
          - leftPadding: The padding applied to the left constraint.
          - rightPadding: The padding applied to the right constraint.
      */
-    func setupSlideView(in container: NSView, padding: CGFloat? = nil, verticalPadding: CGFloat? = nil, horizontalPadding: CGFloat? = nil, topPadding: CGFloat? = nil, bottomPadding: CGFloat? = nil, leftPadding: CGFloat? = nil, rightPadding: CGFloat? = nil) -> SlideView {
+    func setupSlideView(in container: NSView, setDelegate: Bool = false, padding: CGFloat? = nil, verticalPadding: CGFloat? = nil, horizontalPadding: CGFloat? = nil, topPadding: CGFloat? = nil, bottomPadding: CGFloat? = nil, leftPadding: CGFloat? = nil, rightPadding: CGFloat? = nil) -> SlideView {
         let slideView = SlideView(frame: .zero)
-        slideView.delegate = self
         slideView.page.setDocument(DocumentController.document)
         slideView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(slideView)
@@ -246,6 +246,10 @@ extension SlideArrangementView {
             NSLayoutConstraint(item: container, attribute: .right, relatedBy: .equal, toItem: slideView, attribute: .right, multiplier: 1.0, constant: (rightPadding ?? horizontalPadding ?? padding ?? self.padding)),
             NSLayoutConstraint(item: slideView, attribute: .top, relatedBy: .equal, toItem: container, attribute: .top, multiplier: 1.0, constant: (topPadding ?? verticalPadding ?? padding ?? self.padding)),
             NSLayoutConstraint(item: container, attribute: .bottom, relatedBy: .equal, toItem: slideView, attribute: .bottom, multiplier: 1.0, constant: (bottomPadding ?? verticalPadding ?? padding ?? self.padding))])
+        
+        if setDelegate {
+            slideView.delegate = self
+        }
         
         return slideView
     }
