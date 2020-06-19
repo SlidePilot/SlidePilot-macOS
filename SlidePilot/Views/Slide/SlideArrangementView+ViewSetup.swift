@@ -14,8 +14,16 @@ extension SlideArrangementView {
     func setupLayout(displayNext: Bool, displayNotes: Bool, notesMode: DisplayController.NotesMode) {
         willSwitchLayout()
         
+        let displayDrawing = DisplayController.areDrawingToolsDisplayed
+        let displayNext = DisplayController.isNextSlidePreviewDisplayed
+        let displayNotes = DisplayController.areNotesDisplayed
+        let notesMode = DisplayController.notesMode
+        
         clearView()
-        if displayNext == false, displayNotes == false {
+        
+        if displayDrawing == true {
+            setupSlidesLayoutCurrentDrawing()
+        } else if displayNext == false, displayNotes == false {
             setupSlidesLayoutCurrent()
         } else if displayNext == true, displayNotes == false {
             setupSlidesLayoutCurrentNext()
@@ -81,10 +89,30 @@ extension SlideArrangementView {
     }
     
     
+    private func setupSlidesLayoutCurrentDrawing() {
+        splitView?.isHidden = true
+        
+        currentSlideView = setupSlideView(in: self, topPadding: 0, bottomPadding: padding + 60)
+        
+        // Setup Canvas
+        let canvas = CanvasView(frame: .zero)
+        canvas.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(canvas)
+        self.addConstraints([
+            NSLayoutConstraint(item: canvas, attribute: .left, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas, attribute: .right, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas, attribute: .top, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas, attribute: .bottom, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+        
+        self.window?.makeFirstResponder(canvas)
+    }
+    
+    
     private func setupSlidesLayoutCurrent() {
         splitView?.isHidden = true
         
-        currentSlideView = setupSlideView(in: self)
+        currentSlideView = setupSlideView(in: self, topPadding: 10)
     }
     
     
@@ -143,8 +171,8 @@ extension SlideArrangementView {
         
         // Right container: Setup current and next
         let (topContainer, bottomContainer) = createVerticallyStackedViews(in: rightContainer!)
-        currentSlideView = setupSlideView(in: topContainer)
-        nextSlideView = setupSlideView(in: bottomContainer)
+        currentSlideView = setupSlideView(in: topContainer, bottomPadding: padding/2)
+        nextSlideView = setupSlideView(in: bottomContainer, topPadding: padding/2)
     }
     
     
@@ -157,8 +185,8 @@ extension SlideArrangementView {
         
         // Right container: Setup current and next
         let (topContainer, bottomContainer) = createVerticallyStackedViews(in: rightContainer!)
-        currentSlideView = setupSlideView(in: topContainer)
-        nextSlideView = setupSlideView(in: bottomContainer)
+        currentSlideView = setupSlideView(in: topContainer, bottomPadding: padding/2)
+        nextSlideView = setupSlideView(in: bottomContainer, topPadding: padding/2)
     }
     
     
@@ -192,17 +220,32 @@ extension SlideArrangementView {
     }
     
     
-    func setupSlideView(in container: NSView) -> SlideView {
+    /**
+     Add a `SlideView` in a given container, setting up the required constraints. There are several options for padding.
+     
+     If there is no padding given for a constraint, this method will fallback on the default padding. This method will first look at the most specified padding (left, right, top, bottom), then on the paddings defined for the axis (vertical, horizontal), then for the overall padding and finally fallback on the default padding.
+     
+     - parameters:
+         - container: The superview, where the `SlideView` should be embedded in.
+         - padding: The overall padding, applied to the constraints on all four side.
+         - verticalPadding: The padding applied to constraints on the vertical axis (top, bottom).
+         - horizontalPadding: The padding applied to constraints on the horizontal axis (left, right).
+         - topPadding: The padding applied to the top constraint.
+         - bottomPadding: The padding applied to the bottom constraint.
+         - leftPadding: The padding applied to the left constraint.
+         - rightPadding: The padding applied to the right constraint.
+     */
+    func setupSlideView(in container: NSView, padding: CGFloat? = nil, verticalPadding: CGFloat? = nil, horizontalPadding: CGFloat? = nil, topPadding: CGFloat? = nil, bottomPadding: CGFloat? = nil, leftPadding: CGFloat? = nil, rightPadding: CGFloat? = nil) -> SlideView {
         let slideView = SlideView(frame: .zero)
         slideView.delegate = self
         slideView.page.setDocument(DocumentController.document)
         slideView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(slideView)
         container.addConstraints([
-            NSLayoutConstraint(item: slideView, attribute: .left, relatedBy: .equal, toItem: container, attribute: .left, multiplier: 1.0, constant: padding),
-            NSLayoutConstraint(item: slideView, attribute: .right, relatedBy: .equal, toItem: container, attribute: .right, multiplier: 1.0, constant: -padding),
-            NSLayoutConstraint(item: slideView, attribute: .top, relatedBy: .equal, toItem: container, attribute: .top, multiplier: 1.0, constant: padding),
-            NSLayoutConstraint(item: container, attribute: .bottom, relatedBy: .equal, toItem: slideView, attribute: .bottom, multiplier: 1.0, constant: padding)])
+            NSLayoutConstraint(item: slideView, attribute: .left, relatedBy: .equal, toItem: container, attribute: .left, multiplier: 1.0, constant: (leftPadding ?? horizontalPadding ?? padding ?? self.padding)),
+            NSLayoutConstraint(item: container, attribute: .right, relatedBy: .equal, toItem: slideView, attribute: .right, multiplier: 1.0, constant: (rightPadding ?? horizontalPadding ?? padding ?? self.padding)),
+            NSLayoutConstraint(item: slideView, attribute: .top, relatedBy: .equal, toItem: container, attribute: .top, multiplier: 1.0, constant: (topPadding ?? verticalPadding ?? padding ?? self.padding)),
+            NSLayoutConstraint(item: container, attribute: .bottom, relatedBy: .equal, toItem: slideView, attribute: .bottom, multiplier: 1.0, constant: (bottomPadding ?? verticalPadding ?? padding ?? self.padding))])
         
         return slideView
     }

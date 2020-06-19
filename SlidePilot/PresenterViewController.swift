@@ -40,6 +40,8 @@ class PresenterViewController: NSViewController {
     static let navigationWidth: CGFloat = 180.0
     let navigationWidth: CGFloat = PresenterViewController.navigationWidth
     
+    var drawingToolbar: DrawingToolbar?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,7 @@ class PresenterViewController: NSViewController {
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
         DisplayController.subscribeDisplayCurtain(target: self, action: #selector(displayCurtainDidChange(_:)))
+        DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
         
         // Subscribe to time changes
         TimeController.subscribeIsRunning(target: self, action: #selector(timeIsRunningDidChange(_:)))
@@ -158,6 +161,19 @@ class PresenterViewController: NSViewController {
     }
     
     
+    @objc func displayDrawingToolsDidChange(_ notification: Notification) {
+        if DisplayController.areDrawingToolsDisplayed {
+            showDrawingToolbar()
+        } else {
+            hideDrawingToolbar()
+        }
+        
+        if #available(OSX 10.12.2, *) {
+            self.view.window?.windowController?.touchBar = nil
+        }
+    }
+    
+    
     @objc func timeIsRunningDidChange(_ notification: Notification) {
         // Start/Stop timingControl depending on isRunning from TimeController
         if TimeController.isRunning {
@@ -240,6 +256,19 @@ class PresenterViewController: NSViewController {
         alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
         alert.runModal()
     }
+    
+    
+    func showDrawingToolbar() {
+        if drawingToolbar == nil {
+            drawingToolbar = DrawingToolbar()
+        }
+        drawingToolbar?.show(in: self.view)
+    }
+    
+    
+    func hideDrawingToolbar() {
+        drawingToolbar?.hide()
+    }
 
     
     
@@ -304,6 +333,7 @@ class PresenterViewController: NSViewController {
     
     override func cancelOperation(_ sender: Any?) {
         DisplayController.setDisplayNavigator(false, sender: self)
+        DisplayController.setDisplayDrawingTools(false, sender: self)
     }
     
     

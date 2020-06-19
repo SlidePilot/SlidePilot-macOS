@@ -100,6 +100,9 @@
 /* Class = "NSMenuItem"; title = "Save Notes"; ObjectID = "Nrq-4X-0EL"; */
 "Nrq-4X-0EL.title" = "Enregistrer les notes";
 
+/* Class = "NSMenuItem"; title = "Blank Canvas"; ObjectID = "O1m-6g-Uld"; */
+"O1m-6g-Uld.title" = "Mode canevas";
+
 /* Class = "NSMenu"; title = "Moderator"; ObjectID = "O4y-2K-zDw"; */
 "O4y-2K-zDw.title" = "Modérateur";
 
@@ -169,8 +172,14 @@
 /* Class = "NSMenuItem"; title = "Dot"; ObjectID = "akh-gx-hr7"; */
 "akh-gx-hr7.title" = "Point";
 
+/* Class = "NSMenuItem"; title = "Clear Canvas"; ObjectID = "b9e-Ma-o1Q"; */
+"b9e-Ma-o1Q.title" = "Supprimer le dessin";
+
 /* Class = "NSMenuItem"; title = "Start/Stop Time"; ObjectID = "bL3-yv-j1V"; */
 "bL3-yv-j1V.title" = "Démarrer/Arrêter le temps";
+
+/* Class = "NSMenuItem"; title = "Draw"; ObjectID = "bOy-zp-CYT"; */
+"bOy-zp-CYT.title" = "Dessiner";
 
 /* Class = "NSMenuItem"; title = "Left"; ObjectID = "bSo-dU-i8i"; */
 "bSo-dU-i8i.title" = "À gauche";

@@ -10,10 +10,13 @@
 		50026AA22430AC0B0049387E /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50026AA12430AC0B0049387E /* SplitView.swift */; };
 		50026AD02430EED80049387E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50026ACF2430EED80049387E /* String+Extension.swift */; };
 		50026AD22430F02F0049387E /* PDFPage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50026AD12430F02F0049387E /* PDFPage+Extension.swift */; };
+		5004C800248FEB110075E02D /* ColorSwatchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5004C7FF248FEB110075E02D /* ColorSwatchButton.swift */; };
 		500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */; };
 		500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A49242B8D9900EFE246 /* PointerView.swift */; };
 		50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50208BA42429028000444E73 /* NSColor+Extension.swift */; };
+		5025C9B02490EBA0001898D1 /* DrawingToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5025C9AF2490EBA0001898D1 /* DrawingToolbar.swift */; };
 		5028D31D245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */; };
+		5033EBB824913A0800B05094 /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5033EBB724913A0800B05094 /* CanvasController.swift */; };
 		5036BD8A2435F8CD0007AF6F /* AppStartTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5036BD892435F8CD0007AF6F /* AppStartTracker.swift */; };
 		503834552434721600E73E43 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503834542434721600E73E43 /* Sparkle.framework */; };
 		503834572434723A00E73E43 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 503834542434721600E73E43 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -48,6 +51,8 @@
 		509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B972E2428D74E0076B8B4 /* SlideView.swift */; };
 		50B14415248037F700532A8B /* NotesEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B14414248037F700532A8B /* NotesEditor.swift */; };
 		50B1441724803E5C00532A8B /* SlideInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1441624803E5C00532A8B /* SlideInfoLabel.swift */; };
+		50B3C3032497F5DB006D5E48 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3C3022497F5DB006D5E48 /* Drawing.swift */; };
+		50B3C3052497F6D4006D5E48 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3C3042497F6D4006D5E48 /* CanvasView.swift */; };
 		50C46F79247E76AD001602EA /* CompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C46F78247E76AD001602EA /* CompletionStatus.swift */; };
 		50C77F39242CD32500066752 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50C77F3B242CD32500066752 /* Localizable.strings */; };
 		50DD8B292458819600E83784 /* PresenterWindowController+TouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B282458819600E83784 /* PresenterWindowController+TouchBar.swift */; };
@@ -59,6 +64,7 @@
 		50EF741224538F690028DB06 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741124538F690028DB06 /* DocumentController.swift */; };
 		50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741324539A3E0028DB06 /* DisplayController.swift */; };
 		50FA6B98245356F000EDEFC6 /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA6B97245356F000EDEFC6 /* PageController.swift */; };
+		50FA9A782498B13E0046E2C0 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA9A772498B13E0046E2C0 /* IconButton.swift */; };
 		50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,10 +95,13 @@
 		50026AA12430AC0B0049387E /* SplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
 		50026ACF2430EED80049387E /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		50026AD12430F02F0049387E /* PDFPage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFPage+Extension.swift"; sourceTree = "<group>"; };
+		5004C7FF248FEB110075E02D /* ColorSwatchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSwatchButton.swift; sourceTree = "<group>"; };
 		500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImageView+Extension.swift"; sourceTree = "<group>"; };
 		500A5A49242B8D9900EFE246 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		50208BA42429028000444E73 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
+		5025C9AF2490EBA0001898D1 /* DrawingToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingToolbar.swift; sourceTree = "<group>"; };
 		5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SlideArrangementView+ViewSetup.swift"; sourceTree = "<group>"; };
+		5033EBB724913A0800B05094 /* CanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasController.swift; sourceTree = "<group>"; };
 		5036BD892435F8CD0007AF6F /* AppStartTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStartTracker.swift; sourceTree = "<group>"; };
 		503834542434721600E73E43 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		5038345924349E8F00E73E43 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
@@ -133,6 +142,8 @@
 		509B972E2428D74E0076B8B4 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
 		50B14414248037F700532A8B /* NotesEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesEditor.swift; sourceTree = "<group>"; };
 		50B1441624803E5C00532A8B /* SlideInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInfoLabel.swift; sourceTree = "<group>"; };
+		50B3C3022497F5DB006D5E48 /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
+		50B3C3042497F6D4006D5E48 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		50C46F78247E76AD001602EA /* CompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionStatus.swift; sourceTree = "<group>"; };
 		50C77F2F242CCCC800066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		50C77F3A242CD32500066752 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -146,6 +157,7 @@
 		50EF741124538F690028DB06 /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		50EF741324539A3E0028DB06 /* DisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
 		50FA6B97245356F000EDEFC6 /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
+		50FA9A772498B13E0046E2C0 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,6 +194,18 @@
 				50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		5004C7FC248FE9E70075E02D /* Drawing */ = {
+			isa = PBXGroup;
+			children = (
+				5004C7FF248FEB110075E02D /* ColorSwatchButton.swift */,
+				5025C9AF2490EBA0001898D1 /* DrawingToolbar.swift */,
+				50B3C3022497F5DB006D5E48 /* Drawing.swift */,
+				50B3C3042497F6D4006D5E48 /* CanvasView.swift */,
+				50FA9A772498B13E0046E2C0 /* IconButton.swift */,
+			);
+			path = Drawing;
 			sourceTree = "<group>";
 		};
 		5038345824349E8F00E73E43 /* Frameworks */ = {
@@ -256,6 +280,7 @@
 		509B97062428A3C40076B8B4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5004C7FC248FE9E70075E02D /* Drawing */,
 				50E2E5E6247AA11300CE6FDA /* Notes */,
 				50DD8B2724587FC600E83784 /* TouchBar */,
 				509B97272428CBA20076B8B4 /* Slide */,
@@ -331,6 +356,7 @@
 				5070AA5924619C400025B8C5 /* TimeController.swift */,
 				50EF741324539A3E0028DB06 /* DisplayController.swift */,
 				50849E7C247D3D0C00548712 /* TextFormatController.swift */,
+				5033EBB724913A0800B05094 /* CanvasController.swift */,
 				50C46F78247E76AD001602EA /* CompletionStatus.swift */,
 			);
 			path = Controllers;
@@ -442,6 +468,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				50B14415248037F700532A8B /* NotesEditor.swift in Sources */,
+				50B3C3032497F5DB006D5E48 /* Drawing.swift in Sources */,
+				50B3C3052497F6D4006D5E48 /* CanvasView.swift in Sources */,
 				5028D31D245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift in Sources */,
 				50C46F79247E76AD001602EA /* CompletionStatus.swift in Sources */,
 				509B97082428A3DD0076B8B4 /* PDFPageView.swift in Sources */,
@@ -458,6 +486,7 @@
 				50026AA22430AC0B0049387E /* SplitView.swift in Sources */,
 				50440BB5243357C1000C0C9E /* Clipfree.swift in Sources */,
 				509B971F2428B6A10076B8B4 /* ClockLabel.swift in Sources */,
+				5033EBB824913A0800B05094 /* CanvasController.swift in Sources */,
 				508BBD622460591800F81FFF /* UserNotice.swift in Sources */,
 				505243B72445AF650050AB98 /* RenderCache.swift in Sources */,
 				509B970A2428A6FD0076B8B4 /* TimeView.swift in Sources */,
@@ -472,6 +501,7 @@
 				50440BB3243357AA000C0C9E /* ThumbnailView.swift in Sources */,
 				503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */,
 				500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */,
+				5025C9B02490EBA0001898D1 /* DrawingToolbar.swift in Sources */,
 				509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */,
 				509B970E2428B0A90076B8B4 /* TimeInterval+Extension.swift in Sources */,
 				50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */,
@@ -481,9 +511,11 @@
 				50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */,
 				50440BB7243357F5000C0C9E /* ThumbnailNavigation.swift in Sources */,
 				50026AD22430F02F0049387E /* PDFPage+Extension.swift in Sources */,
+				5004C800248FEB110075E02D /* ColorSwatchButton.swift in Sources */,
 				500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */,
 				503FFE02242A195300B6F438 /* PresentationViewController.swift in Sources */,
 				5070AA5A24619C400025B8C5 /* TimeController.swift in Sources */,
+				50FA9A782498B13E0046E2C0 /* IconButton.swift in Sources */,
 				5036BD8A2435F8CD0007AF6F /* AppStartTracker.swift in Sources */,
 				50DD8B2D2458DCED00E83784 /* PointerAppearanceTouchBar.swift in Sources */,
 			);
