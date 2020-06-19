@@ -138,4 +138,10 @@ class SlideView: NSView {
         super.mouseDragged(with: event)
         delegate?.mouseMoved(to: event.locationInWindow, in: page)
     }
+    
+    
+    override func mouseExited(with event: NSEvent) {
+        super.mouseExited(with: event)
+        delegate?.mouseMoved(to: event.locationInWindow, in: page)
+    }
 }
