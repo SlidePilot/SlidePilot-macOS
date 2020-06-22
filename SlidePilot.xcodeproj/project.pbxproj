@@ -13,6 +13,7 @@
 		5004C800248FEB110075E02D /* ColorSwatchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5004C7FF248FEB110075E02D /* ColorSwatchButton.swift */; };
 		500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */; };
 		500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500A5A49242B8D9900EFE246 /* PointerView.swift */; };
+		500ECC9E24A15C050053F2EC /* PointerDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500ECC9D24A15C050053F2EC /* PointerDisplayView.swift */; };
 		50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50208BA42429028000444E73 /* NSColor+Extension.swift */; };
 		5025C9B02490EBA0001898D1 /* DrawingToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5025C9AF2490EBA0001898D1 /* DrawingToolbar.swift */; };
 		5028D31D245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */; };
@@ -98,6 +99,7 @@
 		5004C7FF248FEB110075E02D /* ColorSwatchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSwatchButton.swift; sourceTree = "<group>"; };
 		500A5A47242B52D100EFE246 /* NSImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImageView+Extension.swift"; sourceTree = "<group>"; };
 		500A5A49242B8D9900EFE246 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
+		500ECC9D24A15C050053F2EC /* PointerDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerDisplayView.swift; sourceTree = "<group>"; };
 		50208BA42429028000444E73 /* NSColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Extension.swift"; sourceTree = "<group>"; };
 		5025C9AF2490EBA0001898D1 /* DrawingToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingToolbar.swift; sourceTree = "<group>"; };
 		5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SlideArrangementView+ViewSetup.swift"; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 		50440BB02433574D000C0C9E /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				500ECC9D24A15C050053F2EC /* PointerDisplayView.swift */,
 				500A5A49242B8D9900EFE246 /* PointerView.swift */,
 			);
 			path = Presentation;
@@ -480,6 +483,7 @@
 				50E2E5EC247AB84C00CE6FDA /* NotesDocument.swift in Sources */,
 				50B1441724803E5C00532A8B /* SlideInfoLabel.swift in Sources */,
 				509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */,
+				500ECC9E24A15C050053F2EC /* PointerDisplayView.swift in Sources */,
 				50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */,
 				503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */,
 				5077493C247A8C4000316F0B /* NavigationWindow.swift in Sources */,

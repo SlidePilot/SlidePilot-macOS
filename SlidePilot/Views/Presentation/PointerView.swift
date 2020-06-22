@@ -42,24 +42,7 @@ class PointerView: NSImageView {
     }
     
     
-    private func resetAppearance() {
-        self.image = nil
-        
-        self.layer?.cornerRadius = 0
-        self.layer?.backgroundColor = .clear
-        self.layer?.borderWidth = 0
-        self.layer?.borderColor = .clear
-
-        self.shadow = nil
-        self.layer?.shadowOpacity = 0
-        self.layer?.shadowColor = .clear
-        self.layer?.shadowOffset = NSMakeSize(0, 0)
-        self.layer?.shadowRadius = 0.0
-    }
-    
-    
     private func setup(type: PointerType) {
-        resetAppearance()
         switch type {
         case .cursor:
             setupCursor()
@@ -83,36 +66,14 @@ class PointerView: NSImageView {
     
     
     private func setupDot() {
-        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 10.0, height: 10.0)
-            
-        self.wantsLayer = true
-        self.layer?.cornerRadius = min(self.frame.width, self.frame.height) / 2
-        self.layer?.backgroundColor = .black
-        self.layer?.borderWidth = 2.0
-        self.layer?.borderColor = .white
-
-        self.shadow = NSShadow()
-        self.layer?.shadowOpacity = 0.6
-        self.layer?.shadowColor = .black
-        self.layer?.shadowOffset = NSMakeSize(0, 0)
-        self.layer?.shadowRadius = 5.0
+        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 40.0, height: 40.0)
+        self.image = NSImage(named: "DotPointer")!
     }
     
     
     private func setupCircle() {
-        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 20.0, height: 20.0)
-        
-        self.wantsLayer = true
-        self.layer?.cornerRadius = min(self.frame.width, self.frame.height) / 2
-        self.layer?.backgroundColor = .clear
-        self.layer?.borderWidth = 3
-        self.layer?.borderColor = .white
-
-        self.shadow = NSShadow()
-        self.layer?.shadowOpacity = 0.6
-        self.layer?.shadowColor = .black
-        self.layer?.shadowOffset = NSMakeSize(0, 0)
-        self.layer?.shadowRadius = 5.0
+        self.frame = NSRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 40.0, height: 40.0)
+        self.image = NSImage(named: "CirclePointer")!
     }
     
     
