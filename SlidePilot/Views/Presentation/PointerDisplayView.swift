@@ -26,7 +26,7 @@ class PointerDisplayView: ClipfreeView {
     }
     
     
-    func setup() {
+    private func setup() {
         DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
     }
@@ -43,6 +43,7 @@ class PointerDisplayView: ClipfreeView {
     /** Adds cursor rect for where clickable annotations are. */
     private func addPointerRect() {
         guard DisplayController.isPointerDisplayed else { return }
+        
         var cursor: NSCursor!
         switch DisplayController.pointerAppearance {
         case .cursor:
@@ -67,7 +68,7 @@ class PointerDisplayView: ClipfreeView {
     
     var trackingArea: NSTrackingArea?
        
-    func addTrackingArea() {
+    private func addTrackingArea() {
         // Remove old tracking area
         if trackingArea != nil {
             self.removeTrackingArea(trackingArea!)
