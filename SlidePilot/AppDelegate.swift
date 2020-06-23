@@ -125,6 +125,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Clean document preferences
         ConfigurationController.cleanUpDocumentConfigurations()
         
+        // Apply default preferences
+        PreferencesController.applyDefaults()
+        
         startup()
     }
     
