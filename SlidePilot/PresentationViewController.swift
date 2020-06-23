@@ -11,7 +11,7 @@ import Cocoa
 class PresentationViewController: NSViewController {
 
     var pageView: PDFPageView!
-    var pointer: PointerView?
+    var pointer: PointerDisplayView?
     var isPointerShown: Bool = false
     
     override func viewDidLoad() {
@@ -53,6 +53,15 @@ class PresentationViewController: NSViewController {
         pageView.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .vertical)
         
         
+        pointer = PointerDisplayView()
+        pointer?.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(pointer!)
+        self.view.addConstraints([
+            NSLayoutConstraint(item: pointer!, attribute: .left, relatedBy: .equal, toItem: pageView!, attribute: .left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: pointer!, attribute: .right, relatedBy: .equal, toItem: pageView!, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: pointer!, attribute: .top, relatedBy: .equal, toItem: pageView!, attribute: .top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: pointer!, attribute: .bottom, relatedBy: .equal, toItem: pageView!, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+        
         // Subscribe to page changes
         PageController.subscribe(target: self, action: #selector(pageDidChange(_:)))
         
@@ -63,7 +72,6 @@ class PresentationViewController: NSViewController {
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
         DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
-        DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
         DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
     }
     
@@ -139,22 +147,6 @@ class PresentationViewController: NSViewController {
     }
     
     
-    @objc func pointerAppearanceDidChange(_ notification: Notification) {
-        switch DisplayController.pointerAppearance {
-        case .cursor:
-            pointer?.type = .cursor
-        case .dot:
-            pointer?.type = .dot
-        case .circle:
-            pointer?.type = .circle
-        case .target:
-            pointer?.type = .target
-        case .targetColor:
-            pointer?.type = .targetColor
-        }
-    }
-    
-    
     @objc func displayDrawingToolsDidChange(_ notification: Notification) {
         if DisplayController.areDrawingToolsDisplayed {
             showCanvas()
@@ -170,23 +162,17 @@ class PresentationViewController: NSViewController {
 extension PresentationViewController: MousePointerDelegate {
     
     func showPointer() {
-        if pointer == nil {
-            pointer = PointerView(origin: NSPoint(x: self.view.frame.midX, y: self.view.frame.midY), type: DisplayController.pointerAppearance)
-            self.view.addSubview(pointer!)
-        }
-        isPointerShown = true
+        pointer?.showPointer()
     }
     
     
     func hidePointer() {
-        pointer?.removeFromSuperview()
-        pointer = nil
-        isPointerShown = false
+        pointer?.hidePointer()
     }
     
     
     func pointerMoved(to position: NSPoint) {
-        pointer?.setPosition(calculateAbsolutePosition(for: position, in: pageView))
+        pointer?.setPointerPosition(to: position)
     }
     
     
