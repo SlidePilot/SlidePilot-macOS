@@ -10,7 +10,7 @@ import Cocoa
 
 class PointerView: NSImageView {
     
-    enum PointerType {
+    enum PointerType: Int, Codable {
         case cursor, dot, circle, target, targetColor
     }
     
