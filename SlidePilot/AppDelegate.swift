@@ -8,6 +8,7 @@
 
 import Cocoa
 import PDFKit
+import Preferences
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -61,6 +62,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Identifiers
     private let presenterWindowIdentifier = NSUserInterfaceItemIdentifier("PresenterWindowID")
     private let presentationWindowIdentifier = NSUserInterfaceItemIdentifier("PresentationWindowID")
+    
+
+    lazy var preferencesWindowController = PreferencesWindowController(
+        preferencePanes: [
+            GeneralPreferencesViewController()
+        ],
+        hidesToolbarForSingleItem: false
+    )
     
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -405,6 +414,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     // MARK: - Menu Item Actions
+    
+    @IBAction
+    func showPreferences(_ sender: NSMenuItem) {
+        preferencesWindowController.show()
+    }
+    
     
     @IBAction func increaseFontSize(_ sender: NSMenuItem) {
         TextFormatController.increaseFontSize(sender: sender)

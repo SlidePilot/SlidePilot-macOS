@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -65,6 +65,10 @@
 		50E2E5EE247AC05500CE6FDA /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */; };
 		50EF741224538F690028DB06 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741124538F690028DB06 /* DocumentController.swift */; };
 		50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741324539A3E0028DB06 /* DisplayController.swift */; };
+		50F925D924A25A2F00F8C10B /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 50F925D824A25A2F00F8C10B /* Preferences */; };
+		50F925DC24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F925DB24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift */; };
+		50F925DE24A25BAB00F8C10B /* GeneralPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F925DD24A25BAB00F8C10B /* GeneralPreferencesViewController.swift */; };
+		50F925E024A25BEB00F8C10B /* GeneralPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50F925DF24A25BEB00F8C10B /* GeneralPreferences.xib */; };
 		50FA6B98245356F000EDEFC6 /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA6B97245356F000EDEFC6 /* PageController.swift */; };
 		50FA9A782498B13E0046E2C0 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA9A772498B13E0046E2C0 /* IconButton.swift */; };
 		50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */; };
@@ -160,6 +164,9 @@
 		50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		50EF741124538F690028DB06 /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		50EF741324539A3E0028DB06 /* DisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
+		50F925DB24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preferences+PaneIdentifiers.swift"; sourceTree = "<group>"; };
+		50F925DD24A25BAB00F8C10B /* GeneralPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferencesViewController.swift; sourceTree = "<group>"; };
+		50F925DF24A25BEB00F8C10B /* GeneralPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralPreferences.xib; sourceTree = "<group>"; };
 		50FA6B97245356F000EDEFC6 /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
 		50FA9A772498B13E0046E2C0 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationWindow.swift; sourceTree = "<group>"; };
@@ -171,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5038345A24349E8F00E73E43 /* PDFKit.framework in Frameworks */,
+				50F925D924A25A2F00F8C10B /* Preferences in Frameworks */,
 				503834552434721600E73E43 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,6 +300,7 @@
 				50440BB124335787000C0C9E /* Thumbnail */,
 				509B970F2428B1530076B8B4 /* Time */,
 				50440BB02433574D000C0C9E /* Presentation */,
+				50F925DA24A25B4F00F8C10B /* Preferences */,
 				50440BB4243357C1000C0C9E /* Clipfree.swift */,
 				508BBD612460591800F81FFF /* UserNotice.swift */,
 				50B1441624803E5C00532A8B /* SlideInfoLabel.swift */,
@@ -353,6 +362,16 @@
 			path = Notes;
 			sourceTree = "<group>";
 		};
+		50F925DA24A25B4F00F8C10B /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				50F925DB24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift */,
+				50F925DD24A25BAB00F8C10B /* GeneralPreferencesViewController.swift */,
+				50F925DF24A25BEB00F8C10B /* GeneralPreferences.xib */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
 		50FA6B992453606600EDEFC6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,6 +404,9 @@
 			dependencies = (
 			);
 			name = SlidePilot;
+			packageProductDependencies = (
+				50F925D824A25A2F00F8C10B /* Preferences */,
+			);
 			productName = Slidejar;
 			productReference = 509B96F32428A3AC0076B8B4 /* SlidePilot.app */;
 			productType = "com.apple.product-type.application";
@@ -437,6 +459,9 @@
 				fr,
 			);
 			mainGroup = 509B96EA2428A3AC0076B8B4;
+			packageReferences = (
+				50F925D724A25A2F00F8C10B /* XCRemoteSwiftPackageReference "Preferences" */,
+			);
 			productRefGroup = 509B96F42428A3AC0076B8B4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -453,6 +478,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */,
+				50F925E024A25BEB00F8C10B /* GeneralPreferences.xib in Resources */,
 				50C77F39242CD32500066752 /* Localizable.strings in Resources */,
 				50440BB924339CEA000C0C9E /* README.md in Resources */,
 				509B96FE2428A3AE0076B8B4 /* Main.storyboard in Resources */,
@@ -481,6 +507,7 @@
 				5015A6C424A2375F00BD4999 /* PreferencesController.swift in Sources */,
 				509B97082428A3DD0076B8B4 /* PDFPageView.swift in Sources */,
 				509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */,
+				50F925DE24A25BAB00F8C10B /* GeneralPreferencesViewController.swift in Sources */,
 				50EF741224538F690028DB06 /* DocumentController.swift in Sources */,
 				50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */,
 				50026AD02430EED80049387E /* String+Extension.swift in Sources */,
@@ -506,6 +533,7 @@
 				508BBD642460966800F81FFF /* CAKeyframeAnimation+Extension.swift in Sources */,
 				509B970C2428AA2F0076B8B4 /* TimingControl.swift in Sources */,
 				50E2E5E8247AA12800CE6FDA /* NotesTextView.swift in Sources */,
+				50F925DC24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift in Sources */,
 				50440BB3243357AA000C0C9E /* ThumbnailView.swift in Sources */,
 				503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */,
 				500A5A4A242B8D9900EFE246 /* PointerView.swift in Sources */,
@@ -815,6 +843,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		50F925D724A25A2F00F8C10B /* XCRemoteSwiftPackageReference "Preferences" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Preferences";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		50F925D824A25A2F00F8C10B /* Preferences */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50F925D724A25A2F00F8C10B /* XCRemoteSwiftPackageReference "Preferences" */;
+			productName = Preferences;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 509B96EB2428A3AC0076B8B4 /* Project object */;
 }
