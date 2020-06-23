@@ -123,7 +123,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(didChangeCanvasBackground(_:)))
         
         // Clean document preferences
-        PreferencesController.cleanUpDocumentPreferences()
+        ConfigurationController.cleanUpDocumentConfigurations()
         
         startup()
     }
@@ -140,7 +140,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func applicationWillTerminate(_ notification: Notification) {
-        DisplayController.savePreferences()
+        DisplayController.saveConfiguration()
     }
     
     
@@ -277,7 +277,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /** Opens the PDF document at the given `URL` in both presenter and presentation window. */
     func openFile(url: URL) {
         // Save preferences for current document
-        DisplayController.savePreferences()
+        DisplayController.saveConfiguration()
         
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
         guard let pdfDocument = PDFDocument(url: url) else { return }
@@ -316,7 +316,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         // Load display options from preferences. This may override the reset behavior done before
-        DisplayController.loadPreferences()
+        DisplayController.loadConfiguration()
     }
     
     
