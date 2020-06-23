@@ -168,13 +168,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         
         guard let presenterWindowCtrl = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresenterWindow")) as? PresenterWindowController else { return }
-        guard let presenterWindow = presenterWindowCtrl.window else { return }
+        guard let presenterWindow = presenterWindowCtrl.window as? PresenterWindow else { return }
         guard let presenterDisplay = presenterWindowCtrl.contentViewController as? PresenterViewController else { return }
         
         guard let presentationWindowCtrl = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresentationWindow")) as?
             PresentationWindowController else { return }
-        guard let presentationWindow = presentationWindowCtrl.window else { return }
+        guard let presentationWindow = presentationWindowCtrl.window as? PresentationWindow else { return }
         guard let presentationView = presentationWindowCtrl.contentViewController as? PresentationViewController else { return }
+        
+        // Temporarily disable canBecomeKey so that presentationWindow opens on second screen
+        presentationWindow.setCanBecomeKey(false)
         
         // Set window identifiers
         presenterWindow.identifier = presenterWindowIdentifier
@@ -198,6 +201,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Open Presenter Display
         presenterWindow.makeKeyAndOrderFront(nil)
+        
+        presentationWindow.setCanBecomeKey(true)
         
         // Set properties
         self.presenterWindowCtrl = presenterWindowCtrl

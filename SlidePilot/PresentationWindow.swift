@@ -11,6 +11,13 @@ import Cocoa
 class PresentationWindow: NavigationWindow {
 
     override var canBecomeKey: Bool {
-        return false
+        return canBecomeKeyPrivate
+    }
+    
+    private var canBecomeKeyPrivate: Bool = false
+    
+    
+    public func setCanBecomeKey(_ newValue: Bool) {
+        canBecomeKeyPrivate = newValue
     }
 }
