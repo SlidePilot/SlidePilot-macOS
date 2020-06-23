@@ -10,7 +10,7 @@ import Foundation
 
 class DisplayController {
     
-    enum NotesPosition {
+    enum NotesPosition: Int, Codable {
         case none, right, left, bottom, top
         
         func displayModeForNotes() -> PDFPageView.DisplayMode {
@@ -50,7 +50,7 @@ class DisplayController {
     }
     
     
-    enum NotesMode {
+    enum NotesMode: Int, Codable {
         case text, split
     }
     
@@ -372,4 +372,75 @@ extension Notification.Name {
     static let didChangeNotesMode = Notification.Name("didChangeNotesMode")
     static let didChangeDisplayDrawingTools = Notification.Name("didChangeDisplayDrawingTools")
     static let didChangeLayoutChangesEnabled = Notification.Name("didChangeLayoutChangesEnabled")
+}
+
+
+
+
+extension DisplayController {
+    public struct Preferences: Codable {
+        var notesPosition: DisplayController.NotesPosition
+        var notesMode: DisplayController.NotesMode
+        var areNotesDisplayed: Bool
+        var isNavigatorDisplayed: Bool
+        var isNextSlidePreviewDisplayed: Bool
+        var isPointerDisplayed: Bool
+        var pointerAppearance: PointerView.PointerType
+        
+        var lastUpdated: Date
+    }
+    
+    
+    /**
+     Creates a snapshot of the current options in `DisplayController` and returns them as `Preferences` object.
+     */
+    public static func getCurrentPreferences() -> Preferences {
+        return Preferences(
+            notesPosition: notesPosition,
+            notesMode: notesMode,
+            areNotesDisplayed: areNotesDisplayed,
+            isNavigatorDisplayed: isNavigatorDisplayed,
+            isNextSlidePreviewDisplayed: isNextSlidePreviewDisplayed,
+            isPointerDisplayed: isPointerDisplayed,
+            pointerAppearance: pointerAppearance,
+            lastUpdated: Date())
+    }
+    
+    
+    /**
+     Calls the correct method to set everything in `DisplayController` according to the given `Preferences`.
+     */
+    public static func load(preferences: Preferences) {
+        setNotesPosition(preferences.notesPosition, sender: self)
+        setNotesMode(preferences.notesMode, sender: self)
+        setDisplayNotes(preferences.areNotesDisplayed, sender: self)
+        setDisplayNavigator(preferences.isNavigatorDisplayed, sender: self)
+        setDisplayNextSlidePreview(preferences.isNextSlidePreviewDisplayed, sender: self)
+        setDisplayPointer(preferences.isPointerDisplayed, sender: self)
+        setPointerAppearance(preferences.pointerAppearance, sender: self)
+    }
+    
+    
+    /**
+     Convenience method which saves the `DisplayController`'s preferences and saves them directly with `PreferencesController`. Takes the filepath directly from `DocumentController` as the key.
+     */
+    public static func savePreferences() {
+        if let documentURL = DocumentController.document?.documentURL {
+            PreferencesController.save(preferences: getCurrentPreferences(), for: documentURL.absoluteString)
+        }
+    }
+    
+    
+    /**
+     Convenience method which gets directly from the `PreferencesController` and loads them into `DisplayController`. Takes the filepath directly from `DocumentController` as the key.
+     */
+    public static func loadPreferences() {
+        if let documentURL = DocumentController.document?.documentURL,
+            let preferences = PreferencesController.getDocumentPreferences(for: documentURL.absoluteString) {
+            load(preferences: preferences)
+        }
+    }
+    
+    
+    
 }
