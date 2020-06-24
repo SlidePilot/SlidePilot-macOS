@@ -8,6 +8,7 @@
 
 import Cocoa
 import PDFKit
+import Preferences
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -63,6 +64,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let presentationWindowIdentifier = NSUserInterfaceItemIdentifier("PresentationWindowID")
     
 
+    lazy var preferencesWindowController = PreferencesWindowController(
+        preferencePanes: [
+            GeneralPreferencesViewController()
+        ],
+        hidesToolbarForSingleItem: false
+    )
+    
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Disable Tabs
         if #available(OSX 10.12, *) {
@@ -114,7 +123,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(didChangeCanvasBackground(_:)))
         
         // Clean document preferences
-        PreferencesController.cleanUpDocumentPreferences()
+        ConfigurationController.cleanUpDocumentConfigurations()
+        
+        // Apply default preferences
+        PreferencesController.applyDefaults()
         
         startup()
     }
@@ -131,7 +143,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func applicationWillTerminate(_ notification: Notification) {
-        DisplayController.savePreferences()
+        DisplayController.saveConfiguration()
     }
     
     
@@ -268,7 +280,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /** Opens the PDF document at the given `URL` in both presenter and presentation window. */
     func openFile(url: URL) {
         // Save preferences for current document
-        DisplayController.savePreferences()
+        DisplayController.saveConfiguration()
         
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
         guard let pdfDocument = PDFDocument(url: url) else { return }
@@ -307,7 +319,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         // Load display options from preferences. This may override the reset behavior done before
-        DisplayController.loadPreferences()
+        DisplayController.loadConfiguration()
     }
     
     
@@ -405,6 +417,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     // MARK: - Menu Item Actions
+    
+    @IBAction
+    func showPreferences(_ sender: NSMenuItem) {
+        preferencesWindowController.show()
+    }
+    
     
     @IBAction func increaseFontSize(_ sender: NSMenuItem) {
         TextFormatController.increaseFontSize(sender: sender)

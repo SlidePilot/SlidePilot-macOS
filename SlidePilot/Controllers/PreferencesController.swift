@@ -8,52 +8,59 @@
 
 import Cocoa
 
-class PreferencesController: NSObject {
+class PreferencesController {
     
-    // User Default
-    private static let documentPreferencesSuiteName = (Bundle.main.bundleIdentifier ?? "de.pascalbraband.SlidePilot") + ".document-preferences"
-    private static let documentPreferences = UserDefaults.init(suiteName: documentPreferencesSuiteName)!
-
-    // 4 weeks
-    private static let documentPreferencesLifetime: TimeInterval = 2419200
-    
-    /**
-     This method removes preferences saved for a document, if their `last opening date < current date - documentPreferencesLifetime`
-     */
-    public static func cleanUpDocumentPreferences() {
-        // Remove every preference, which is older than the documentPreferencesLifetime.
-        for (key, value) in documentPreferences.dictionaryRepresentation() {
-            guard let prefData = value as? Data else { continue }
-            guard let pref = try? PropertyListDecoder().decode(DisplayController.Preferences.self, from: prefData) else { continue }
-            if pref.lastUpdated < Date() - documentPreferencesLifetime {
-                documentPreferences.removeObject(forKey: key)
-            }
-        }
-        documentPreferences.synchronize()
+    private enum Keys: String {
+        case isSleepDisabled = "isSleepDisabled"
     }
     
     
     /**
-     Saves the given `Preferences` for a given key `filePath` to the UserDefaults.
+     This method applies the default preferences (from `UserDefaults`). This method should be called on app start.
      */
-    public static func save(preferences: DisplayController.Preferences, for filePath: String) {
-        // Gather DocumentPreferences from DisplayController and save them
-        guard let preferencesData = try? PropertyListEncoder().encode(preferences) else { return }
-        documentPreferences.set(preferencesData, forKey: filePath)
-        documentPreferences.synchronize()
+    public static func applyDefaults() {
+        applySleep()
+    }
+    
+    
+    
+    // MARK: - Sleeping
+    
+    private static let awakeManager = AwakeManager()
+    public static var isSleepDisabled: Bool {
+        return UserDefaults.standard.bool(forKey: Keys.isSleepDisabled.rawValue)
     }
     
     
     /**
-     Returns the preferences for a given key `filePath` from the UserDefaults.
+     Applies the default value for disabling sleep.
      */
-    public static func getDocumentPreferences(for filePath: String) -> DisplayController.Preferences? {
-        // TODO: Get DocPrefs and return them
-        if let preferencesData = documentPreferences.object(forKey: filePath) as? Data,
-            let preferences = try? PropertyListDecoder().decode(DisplayController.Preferences.self, from: preferencesData) {
-            return preferences
+    public static func applySleep() {
+        if isSleepDisabled {
+            disableSleep()
         } else {
-            return nil
+            enableSleep()
         }
     }
+    
+    
+    /**
+     Prevents the Mac from falling asleep.
+     */
+    public static func disableSleep() {
+        guard awakeManager.disableScreenSleep() ?? false else { return }
+        UserDefaults.standard.set(true, forKey: Keys.isSleepDisabled.rawValue)
+        print("disabled sleep")
+    }
+    
+    
+    /**
+     Allows the Mac to fall asleep.
+     */
+    public static func enableSleep() {
+        guard awakeManager.enableScreenSleep() else { return }
+        UserDefaults.standard.set(false, forKey: Keys.isSleepDisabled.rawValue)
+        print("enabled sleep")
+    }
+
 }

@@ -1,0 +1,6 @@
+
+/* Class = "NSButtonCell"; title = "Prevent Mac from falling asleep while presenting"; ObjectID = "6HU-O3-C8C"; */
+"6HU-O3-C8C.title" = "Verhindert den Ruhezustand beim Präsentieren";
+
+/* Class = "NSTextFieldCell"; title = "Keep Awake:"; ObjectID = "hZZ-0c-y9B"; */
+"hZZ-0c-y9B.title" = "Wach bleiben:";
