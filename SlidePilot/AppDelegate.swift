@@ -144,6 +144,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationWillTerminate(_ notification: Notification) {
         DisplayController.saveConfiguration()
+        PreferencesController.tearDown()
     }
     
     

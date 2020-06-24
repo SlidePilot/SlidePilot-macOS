@@ -20,6 +20,7 @@ class GeneralPreferencesViewController: NSViewController, PreferencePane {
     
     // MARK: - UI Elements
     @IBOutlet weak var awakeCheckBox: NSButton!
+    @IBOutlet weak var dndCheckBox: NSButton!
     
     
     override func viewDidLoad() {
@@ -27,6 +28,7 @@ class GeneralPreferencesViewController: NSViewController, PreferencePane {
 
         // UI Elements with preferences
         awakeCheckBox.state = PreferencesController.isSleepDisabled ? .on : .off
+        dndCheckBox.state = PreferencesController.isDoNotDisturbEnabled ? .on : .off
     }
     
     
@@ -39,5 +41,12 @@ class GeneralPreferencesViewController: NSViewController, PreferencePane {
     }
     
     
+    @IBAction func dndCheckBoxPressed(_ sender: NSButton) {
+        if sender.state == .on {
+            PreferencesController.enableDoNotDisturb()
+        } else {
+            PreferencesController.disableDoNotDisturb()
+        }
+    }
     
 }
