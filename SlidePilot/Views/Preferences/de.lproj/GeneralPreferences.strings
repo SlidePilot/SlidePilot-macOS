@@ -2,5 +2,11 @@
 /* Class = "NSButtonCell"; title = "Prevent Mac from falling asleep while presenting"; ObjectID = "6HU-O3-C8C"; */
 "6HU-O3-C8C.title" = "Verhindert den Ruhezustand beim Präsentieren";
 
+/* Class = "NSButtonCell"; title = "Enable \"Do Not Disturb\" while presenting"; ObjectID = "EC0-k8-Qi0"; */
+"EC0-k8-Qi0.title" = "Aktiviere \"Nicht stören\" beim Präsentieren";
+
+/* Class = "NSTextFieldCell"; title = "Do Not Disturb:"; ObjectID = "dGz-7n-KUE"; */
+"dGz-7n-KUE.title" = "Nicht stören:";
+
 /* Class = "NSTextFieldCell"; title = "Keep Awake:"; ObjectID = "hZZ-0c-y9B"; */
 "hZZ-0c-y9B.title" = "Wach bleiben:";
