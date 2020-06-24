@@ -34,6 +34,7 @@
 		50440BB924339CEA000C0C9E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 50440BB824339CEA000C0C9E /* README.md */; };
 		505243B72445AF650050AB98 /* RenderCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505243B62445AF650050AB98 /* RenderCache.swift */; };
 		5070AA5A24619C400025B8C5 /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5070AA5924619C400025B8C5 /* TimeController.swift */; };
+		5074A88024A34FD5005CFDEF /* GeneralPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5074A88224A34FD5005CFDEF /* GeneralPreferences.xib */; };
 		5077493B247A8C4000316F0B /* PresenterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50774939247A8C4000316F0B /* PresenterWindow.swift */; };
 		5077493C247A8C4000316F0B /* NavigationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5077493A247A8C4000316F0B /* NavigationWindow.swift */; };
 		50849E7D247D3D0C00548712 /* TextFormatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50849E7C247D3D0C00548712 /* TextFormatController.swift */; };
@@ -68,7 +69,6 @@
 		50F925D924A25A2F00F8C10B /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 50F925D824A25A2F00F8C10B /* Preferences */; };
 		50F925DC24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F925DB24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift */; };
 		50F925DE24A25BAB00F8C10B /* GeneralPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F925DD24A25BAB00F8C10B /* GeneralPreferencesViewController.swift */; };
-		50F925E024A25BEB00F8C10B /* GeneralPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50F925DF24A25BEB00F8C10B /* GeneralPreferences.xib */; };
 		50F925E224A2A9F900F8C10B /* AwakeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F925E124A2A9F900F8C10B /* AwakeManager.swift */; };
 		50F925E424A2ABFE00F8C10B /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F925E324A2ABFE00F8C10B /* PreferencesController.swift */; };
 		50FA6B98245356F000EDEFC6 /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA6B97245356F000EDEFC6 /* PageController.swift */; };
@@ -128,6 +128,9 @@
 		504450A1245ADFB900330984 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		505243B62445AF650050AB98 /* RenderCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderCache.swift; sourceTree = "<group>"; };
 		5070AA5924619C400025B8C5 /* TimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
+		5074A88124A34FD5005CFDEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GeneralPreferences.xib; sourceTree = "<group>"; };
+		5074A88424A34FDA005CFDEF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/GeneralPreferences.strings; sourceTree = "<group>"; };
+		5074A88624A34FDA005CFDEF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/GeneralPreferences.strings; sourceTree = "<group>"; };
 		50774939247A8C4000316F0B /* PresenterWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterWindow.swift; sourceTree = "<group>"; };
 		5077493A247A8C4000316F0B /* NavigationWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationWindow.swift; sourceTree = "<group>"; };
 		50849E7C247D3D0C00548712 /* TextFormatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatController.swift; sourceTree = "<group>"; };
@@ -168,7 +171,6 @@
 		50EF741324539A3E0028DB06 /* DisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
 		50F925DB24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preferences+PaneIdentifiers.swift"; sourceTree = "<group>"; };
 		50F925DD24A25BAB00F8C10B /* GeneralPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferencesViewController.swift; sourceTree = "<group>"; };
-		50F925DF24A25BEB00F8C10B /* GeneralPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralPreferences.xib; sourceTree = "<group>"; };
 		50F925E124A2A9F900F8C10B /* AwakeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwakeManager.swift; sourceTree = "<group>"; };
 		50F925E324A2ABFE00F8C10B /* PreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
 		50FA6B97245356F000EDEFC6 /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
@@ -372,7 +374,7 @@
 			children = (
 				50F925DB24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift */,
 				50F925DD24A25BAB00F8C10B /* GeneralPreferencesViewController.swift */,
-				50F925DF24A25BEB00F8C10B /* GeneralPreferences.xib */,
+				5074A88224A34FD5005CFDEF /* GeneralPreferences.xib */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -484,7 +486,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */,
-				50F925E024A25BEB00F8C10B /* GeneralPreferences.xib in Resources */,
+				5074A88024A34FD5005CFDEF /* GeneralPreferences.xib in Resources */,
 				50C77F39242CD32500066752 /* Localizable.strings in Resources */,
 				50440BB924339CEA000C0C9E /* README.md in Resources */,
 				509B96FE2428A3AE0076B8B4 /* Main.storyboard in Resources */,
@@ -584,6 +586,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		5074A88224A34FD5005CFDEF /* GeneralPreferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5074A88124A34FD5005CFDEF /* Base */,
+				5074A88424A34FDA005CFDEF /* fr */,
+				5074A88624A34FDA005CFDEF /* de */,
+			);
+			name = GeneralPreferences.xib;
+			sourceTree = "<group>";
+		};
 		509B96FC2428A3AE0076B8B4 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

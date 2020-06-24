@@ -16,11 +16,28 @@ class GeneralPreferencesViewController: NSViewController, PreferencePane {
     let toolbarItemIcon = NSImage(named: NSImage.preferencesGeneralName)!
 
     override var nibName: NSNib.Name? { "GeneralPreferences" }
-
+    
+    
+    // MARK: - UI Elements
+    @IBOutlet weak var awakeCheckBox: NSButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Setup stuff here
+        // UI Elements with preferences
+        awakeCheckBox.state = PreferencesController.isSleepDisabled ? .on : .off
     }
+    
+    
+    @IBAction func awakeCheckBoxPressed(_ sender: NSButton) {
+        if sender.state == .on {
+            PreferencesController.disableSleep()
+        } else {
+            PreferencesController.enableSleep()
+        }
+    }
+    
+    
     
 }

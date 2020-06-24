@@ -50,6 +50,7 @@ class PreferencesController {
     public static func disableSleep() {
         guard awakeManager.disableScreenSleep() ?? false else { return }
         UserDefaults.standard.set(true, forKey: Keys.isSleepDisabled.rawValue)
+        print("disabled sleep")
     }
     
     
@@ -59,6 +60,7 @@ class PreferencesController {
     public static func enableSleep() {
         guard awakeManager.enableScreenSleep() else { return }
         UserDefaults.standard.set(false, forKey: Keys.isSleepDisabled.rawValue)
+        print("enabled sleep")
     }
 
 }
