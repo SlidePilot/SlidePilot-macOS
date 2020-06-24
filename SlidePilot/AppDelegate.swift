@@ -301,6 +301,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.setDisplayNotes(false, sender: self)
         DisplayController.setNotesMode(.text, sender: self)
         
+        // Get notes position from document meta data
+        if let metaNotesPosition = pdfDocument.notesPosition() {
+            DisplayController.setNotesPosition(metaNotesPosition, sender: self)
+        }
+        
         // Reset stopwatch/timer
         TimeController.resetTime(sender: self)
         

@@ -56,6 +56,7 @@
 		50B1441724803E5C00532A8B /* SlideInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1441624803E5C00532A8B /* SlideInfoLabel.swift */; };
 		50B3C3032497F5DB006D5E48 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3C3022497F5DB006D5E48 /* Drawing.swift */; };
 		50B3C3052497F6D4006D5E48 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3C3042497F6D4006D5E48 /* CanvasView.swift */; };
+		50BA4EB724A37C1D00E91DFA /* PDFDocument+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BA4EB624A37C1D00E91DFA /* PDFDocument+Extension.swift */; };
 		50C46F79247E76AD001602EA /* CompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C46F78247E76AD001602EA /* CompletionStatus.swift */; };
 		50C77F39242CD32500066752 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50C77F3B242CD32500066752 /* Localizable.strings */; };
 		50DD8B292458819600E83784 /* PresenterWindowController+TouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD8B282458819600E83784 /* PresenterWindowController+TouchBar.swift */; };
@@ -157,6 +158,7 @@
 		50B1441624803E5C00532A8B /* SlideInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInfoLabel.swift; sourceTree = "<group>"; };
 		50B3C3022497F5DB006D5E48 /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
 		50B3C3042497F6D4006D5E48 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		50BA4EB624A37C1D00E91DFA /* PDFDocument+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFDocument+Extension.swift"; sourceTree = "<group>"; };
 		50C46F78247E76AD001602EA /* CompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionStatus.swift; sourceTree = "<group>"; };
 		50C77F2F242CCCC800066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		50C77F3A242CD32500066752 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				508BBD632460966800F81FFF /* CAKeyframeAnimation+Extension.swift */,
 				50E2E5EB247AB84C00CE6FDA /* NotesDocument.swift */,
 				50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */,
+				50BA4EB624A37C1D00E91DFA /* PDFDocument+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */,
 				5038345C24349F4B00E73E43 /* Colors.swift in Sources */,
 				503FFDFF242A193500B6F438 /* PresentationWindowController.swift in Sources */,
+				50BA4EB724A37C1D00E91DFA /* PDFDocument+Extension.swift in Sources */,
 				508BBD642460966800F81FFF /* CAKeyframeAnimation+Extension.swift in Sources */,
 				509B970C2428AA2F0076B8B4 /* TimingControl.swift in Sources */,
 				50F925E224A2A9F900F8C10B /* AwakeManager.swift in Sources */,
