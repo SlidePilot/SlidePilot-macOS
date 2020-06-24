@@ -22,7 +22,9 @@ class ConfigurationController: NSObject {
      */
     public static func cleanUpDocumentConfigurations() {
         // Remove every configuration, which is older than the documentConfigurationLifetime.
-        for (key, value) in documentConfigurations.dictionaryRepresentation() {
+        guard let configurations = UserDefaults.standard.persistentDomain(forName: documentConfigurationSuiteName) else { return }
+        print(configurations)
+        for (key, value) in configurations {
             guard let configurationData = value as? Data else { continue }
             guard let configuration = try? PropertyListDecoder().decode(DisplayController.Configuration.self, from: configurationData) else { continue }
             if configuration.lastUpdated < Date() - documentConfigurationLifetime {
