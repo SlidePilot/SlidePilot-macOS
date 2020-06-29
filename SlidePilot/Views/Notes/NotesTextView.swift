@@ -58,8 +58,10 @@ class NotesTextView: NSTextView {
     
     
     func reloadContent() {
-        // Reload the contents in the textview with the current page and the current notes document
+        // Reset undo manager
+        self.undoManager?.removeAllActions()
         
+        // Reload the contents in the textview with the current page and the current notes document
         // Restore font color and size
         let previousColor = self.textColor
         //let previousFont = self.font

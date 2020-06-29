@@ -56,9 +56,6 @@ extension SlideArrangementView {
         // Remove all subviews from split view containers
         leftContainer!.subviews.forEach({ $0.removeFromSuperview() })
         rightContainer!.subviews.forEach({ $0.removeFromSuperview() })
-        
-        // Remove references to views
-        notesEditor = nil
     }
     
     
@@ -258,7 +255,9 @@ extension SlideArrangementView {
     
     func setupNotesTextView(in container: NSView) {
         // Notes Editor setup
-        notesEditor = NotesEditor(frame: .zero)
+        if notesEditor == nil {
+            notesEditor = NotesEditor(frame: .zero)
+        }
         notesEditor!.translatesAutoresizingMaskIntoConstraints = false
         
         container.addSubview(notesEditor!)
