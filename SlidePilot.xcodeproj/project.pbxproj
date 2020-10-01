@@ -52,6 +52,7 @@
 		509B971F2428B6A10076B8B4 /* ClockLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B971E2428B6A10076B8B4 /* ClockLabel.swift */; };
 		509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */; };
 		509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B972E2428D74E0076B8B4 /* SlideView.swift */; };
+		50AF62B72525F3C600315A4A /* ConnectedPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF62B62525F3C600315A4A /* ConnectedPlayer.swift */; };
 		50B14415248037F700532A8B /* NotesEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B14414248037F700532A8B /* NotesEditor.swift */; };
 		50B1441724803E5C00532A8B /* SlideInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1441624803E5C00532A8B /* SlideInfoLabel.swift */; };
 		50B3C3032497F5DB006D5E48 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3C3022497F5DB006D5E48 /* Drawing.swift */; };
@@ -154,6 +155,7 @@
 		509B971E2428B6A10076B8B4 /* ClockLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockLabel.swift; sourceTree = "<group>"; };
 		509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideArrangementView.swift; sourceTree = "<group>"; };
 		509B972E2428D74E0076B8B4 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
+		50AF62B62525F3C600315A4A /* ConnectedPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedPlayer.swift; sourceTree = "<group>"; };
 		50B14414248037F700532A8B /* NotesEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesEditor.swift; sourceTree = "<group>"; };
 		50B1441624803E5C00532A8B /* SlideInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInfoLabel.swift; sourceTree = "<group>"; };
 		50B3C3022497F5DB006D5E48 /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				509B97072428A3DD0076B8B4 /* PDFPageView.swift */,
+				50AF62B62525F3C600315A4A /* ConnectedPlayer.swift */,
 				509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */,
 				5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */,
 				509B972E2428D74E0076B8B4 /* SlideView.swift */,
@@ -545,6 +548,7 @@
 				508BBD642460966800F81FFF /* CAKeyframeAnimation+Extension.swift in Sources */,
 				509B970C2428AA2F0076B8B4 /* TimingControl.swift in Sources */,
 				50F925E224A2A9F900F8C10B /* AwakeManager.swift in Sources */,
+				50AF62B72525F3C600315A4A /* ConnectedPlayer.swift in Sources */,
 				50E2E5E8247AA12800CE6FDA /* NotesTextView.swift in Sources */,
 				50F925DC24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift in Sources */,
 				50440BB3243357AA000C0C9E /* ThumbnailView.swift in Sources */,

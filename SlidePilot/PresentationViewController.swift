@@ -52,6 +52,9 @@ class PresentationViewController: NSViewController {
         pageView.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .horizontal)
         pageView.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .vertical)
         
+        // Video Player settings
+        pageView.areVideoPlayerControlsEnabled = false
+        
         
         pointer = PointerDisplayView()
         pointer?.translatesAutoresizingMaskIntoConstraints = false

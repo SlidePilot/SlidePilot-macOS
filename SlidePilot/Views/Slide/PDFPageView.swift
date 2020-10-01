@@ -8,9 +8,15 @@
 
 import Cocoa
 import PDFKit
+import AVKit
+import AVFoundation
 
 
 class PDFPageView: NSImageView {
+    
+    var player: AVPlayer?
+    var playerView: ConnectedPlayer?
+    var areVideoPlayerControlsEnabled: Bool = true
     
     
     enum DisplayMode {
@@ -133,7 +139,56 @@ class PDFPageView: NSImageView {
         
         // Update cursor rects
         self.window?.invalidateCursorRects(for: self)
+        
+        // Show videos
+        embedVideo()
     }
+    
+    
+    private func embedVideo() {
+        // Remove previous video if needed
+        player?.pause()
+        playerView?.removeFromSuperview()
+        playerView = nil
+        
+        // Search for video annotation
+        guard #available(macOS 10.13, *) else { return }
+        guard let page = pdfDocument?.page(at: currentPage) else { return }
+        guard let annotation = page.annotations.first(where: { $0.type == "Movie" }) else { return }
+        guard let movieValues = annotation.annotationKeyValues["/Movie"] as? [AnyHashable: Any] else { return }
+        guard let fileName = movieValues.values.first as? String else { return }
+        
+        // Create URL
+        guard let movieURL = URL(string: fileName, relativeTo: pdfDocument?.documentURL) else { return }
+                
+        player = AVPlayer(url: movieURL)
+        playerView = ConnectedPlayer()
+        playerView?.translatesAutoresizingMaskIntoConstraints = false
+        playerView?.areControlsEnabled = areVideoPlayerControlsEnabled
+        self.addSubview(playerView!)
+        
+        // TODO: TranslateBounds
+        guard let pageSize = self.image?.size else { return }
+        let relativeFrame = NSRect(x: annotation.bounds.minX / pageSize.width,
+                                   y: annotation.bounds.minY / pageSize.height,
+                                   width: annotation.bounds.width / pageSize.width,
+                                   height: annotation.bounds.height / pageSize.height)
+        let playerFrame = NSRect(x: relativeFrame.minX * self.frame.width,
+                                 y: relativeFrame.minY * self.frame.height,
+                                 width: relativeFrame.width * self.frame.width,
+                                 height: relativeFrame.height * self.frame.height)
+        
+        playerView?.player = player
+        playerView?.frame = playerFrame
+        self.addConstraints([
+            NSLayoutConstraint(item: playerView!, attribute: .left, relatedBy: .equal, toItem: self, attribute: .right, multiplier: relativeFrame.minX, constant: 0),
+            NSLayoutConstraint(item: playerView!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0-relativeFrame.minY, constant: 0),
+            NSLayoutConstraint(item: playerView!, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: relativeFrame.width, constant: 0),
+            NSLayoutConstraint(item: playerView!, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: relativeFrame.height, constant: 0)
+        ])
+    }
+    
+    
     
     
     private func updateAspectRatio() {
