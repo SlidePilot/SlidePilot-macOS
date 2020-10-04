@@ -316,6 +316,7 @@
 				50440BB4243357C1000C0C9E /* Clipfree.swift */,
 				508BBD612460591800F81FFF /* UserNotice.swift */,
 				50B1441624803E5C00532A8B /* SlideInfoLabel.swift */,
+				50AF62B62525F3C600315A4A /* ConnectedPlayer.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -344,7 +345,6 @@
 			isa = PBXGroup;
 			children = (
 				509B97072428A3DD0076B8B4 /* PDFPageView.swift */,
-				50AF62B62525F3C600315A4A /* ConnectedPlayer.swift */,
 				509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */,
 				5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */,
 				509B972E2428D74E0076B8B4 /* SlideView.swift */,

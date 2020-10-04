@@ -11,6 +11,22 @@ import AVKit
 
 class ConnectedPlayer: AVPlayerView {
     
+    static var sharedPlayers: [AVPlayer]?
+    
+    var connectToSharedPlayer: Bool = false {
+        didSet {
+            if connectToSharedPlayer {
+                // Replace own player with one of the shared players, if they have the same url
+                guard let sharedPlayerCounterpart = ConnectedPlayer.sharedPlayers?.first(where: {
+                    guard let sharedPlayerURL = ($0.currentItem?.asset as? AVURLAsset)?.url else { return false }
+                    guard let ownPlayerURL = (self.player?.currentItem?.asset as? AVURLAsset)?.url else { return false }
+                    return sharedPlayerURL == ownPlayerURL
+                }) else { return }
+                self.player = sharedPlayerCounterpart
+            }
+        }
+    }
+    
     var areControlsEnabled = true {
         didSet {
             if areControlsEnabled == false {
