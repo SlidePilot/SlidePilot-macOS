@@ -31,6 +31,60 @@ class PDFPageView: NSImageView {
         static func displayModeForPresentation(with position: NotesPosition) -> DisplayMode {
             return position.displayModeForPresentation()
         }
+        
+        /**
+         Returns correct bounds for `DisplayMode`.
+         */
+        func getBounds(for page: PDFPage) -> CGRect {
+            let rotation = page.rotation
+            let isRotatedClock = rotation == 90
+            let isRotatedCounterClock = rotation == 270
+            let isFlipped = rotation == 180
+            switch self {
+            case .full:
+                return page.bounds(for: .mediaBox)
+            case .leftHalf:
+                if isRotatedCounterClock {
+                    return CGRect(x: 0, y: page.bounds(for: .mediaBox).height/2, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                } else if isRotatedClock {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                } else if isFlipped {
+                    return CGRect(x: page.bounds(for: .mediaBox).width/2, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                } else {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                }
+            case .rightHalf:
+                if isRotatedCounterClock {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                } else if isRotatedClock {
+                    return CGRect(x: 0, y: page.bounds(for: .mediaBox).height/2, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                } else if isFlipped {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                } else {
+                    return CGRect(x: page.bounds(for: .mediaBox).width/2, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                }
+            case .topHalf:
+                if isRotatedCounterClock {
+                    return CGRect(x: page.bounds(for: .mediaBox).width/2, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                } else if isRotatedClock {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                } else if isFlipped {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                } else {
+                    return CGRect(x: 0, y: page.bounds(for: .mediaBox).height/2, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                }
+            case .bottomHalf:
+                if isRotatedCounterClock {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                } else if isRotatedClock {
+                    return CGRect(x: page.bounds(for: .mediaBox).width/2, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                } else if isFlipped {
+                    return CGRect(x: 0, y: page.bounds(for: .mediaBox).height/2, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                } else {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                }
+            }
+        }
     }
     
     
@@ -165,6 +219,19 @@ class PDFPageView: NSImageView {
             
             // Create URL
             guard let movieURL = URL(string: fileName, relativeTo: pdfDocument?.documentURL) else { return }
+            
+            // Translate bounds according to display mode
+            let pageFrame = self.displayMode.getBounds(for: page)
+            let annotationFrame = NSRect(x: annotation.bounds.minX - pageFrame.minX,
+                                         y: annotation.bounds.minY - pageFrame.minY,
+                                         width: annotation.bounds.width,
+                                         height: annotation.bounds.height)
+            
+            // Check if player is in visible frame of page (regarding display mode)
+            guard annotationFrame.maxX > pageFrame.minX ||
+                  annotationFrame.minX < pageFrame.maxX ||
+                  annotationFrame.maxY > pageFrame.minY ||
+                  annotationFrame.minY < pageFrame.maxY else { return }
                     
             let player = AVPlayer(url: movieURL)
             let playerView = ConnectedPlayer()
@@ -175,10 +242,13 @@ class PDFPageView: NSImageView {
             
             // TODO: TranslateBounds
             guard let pageSize = self.image?.size else { return }
-            let relativeFrame = NSRect(x: annotation.bounds.minX / pageSize.width,
-                                       y: annotation.bounds.minY / pageSize.height,
-                                       width: annotation.bounds.width / pageSize.width,
-                                       height: annotation.bounds.height / pageSize.height)
+            let relativeFrame = NSRect(x: annotationFrame.minX / pageSize.width,
+                                       y: annotationFrame.minY / pageSize.height,
+                                       width: annotationFrame.width / pageSize.width,
+                                       height: annotationFrame.height / pageSize.height)
+            
+            
+            
             
             self.addConstraints([
                 NSLayoutConstraint(item: playerView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .right, multiplier: relativeFrame.minX, constant: 0),
