@@ -177,14 +177,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func startup() {
-        presentOpenFileDialog { (fileUrl) in
-            setupWindows()
-            openFile(url: fileUrl)
+        // Show open file dialog if no document is opened
+        if DocumentController.document == nil {
+            presentOpenFileDialog { (fileUrl) in
+                openFile(url: fileUrl)
+            }
         }
     }
     
     
     func setupWindows() {
+        guard self.presenterWindowCtrl == nil,
+              self.presenterWindow == nil,
+              self.presenterDisplay == nil,
+              self.presentationWindowCtrl == nil,
+              self.presentationWindow == nil,
+              self.presentationView == nil else { return }
+        
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         
         guard let presenterWindowCtrl = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresenterWindow")) as? PresenterWindowController else { return }
@@ -279,6 +288,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     /** Opens the PDF document at the given `URL` in both presenter and presentation window. */
     func openFile(url: URL) {
+        setupWindows()
+        
         // Save preferences for current document
         DisplayController.saveConfiguration()
         
