@@ -21,6 +21,8 @@ class DocumentController {
         return document?.pageCount ?? 0
     }
     
+    private static var documentObserver: FileObserver?
+    
     
     
     // MARK: - Setters
@@ -29,6 +31,14 @@ class DocumentController {
     public static func setDocument(_ document: PDFDocument, sender: Any) {
         self.document = document
         NotificationCenter.default.post(name: .didOpenDocument, object: sender)
+        
+        // Track document changes and update if needed
+        guard let documentURL = document.documentURL else { return }
+        documentObserver = FileObserver.init(URL: documentURL) {
+            DispatchQueue.main.async {
+                reloadDocument()
+            }
+        }
     }
     
     
@@ -152,6 +162,18 @@ class DocumentController {
         NotificationCenter.default.removeObserver(target, name: .didSaveNotes, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didEditNotes, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didOpenNotes, object: nil)
+    }
+    
+    
+    
+    
+    // MARK: Helpers
+    
+    private static func reloadDocument() {
+        guard let documentURL = document?.documentURL else { return }
+        guard let pdfDocument = PDFDocument(url: documentURL) else { return }
+        setDocument(pdfDocument, sender: self)
+        PageController.selectPage(at: PageController.currentPage, sender: self)
     }
 }
 
