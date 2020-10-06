@@ -11,18 +11,23 @@ import AVKit
 
 class ConnectedPlayer: AVPlayerView {
     
-    static var sharedPlayers: [AVPlayer]?
+    static let sharedPlayersChangedNotification = Notification.Name(rawValue: "sharedPlayersChangedNotification")
+    static var sharedPlayers: [AVPlayer]? {
+        didSet {
+            // Send notification, that sharedPlayers changed
+            NotificationCenter.default.post(name: sharedPlayersChangedNotification, object: nil)
+        }
+    }
     
     var connectToSharedPlayer: Bool = false {
         didSet {
+            connect()
+            
+            // Subscribe to changes on sharedPlayers variable
             if connectToSharedPlayer {
-                // Replace own player with one of the shared players, if they have the same url
-                guard let sharedPlayerCounterpart = ConnectedPlayer.sharedPlayers?.first(where: {
-                    guard let sharedPlayerURL = ($0.currentItem?.asset as? AVURLAsset)?.url else { return false }
-                    guard let ownPlayerURL = (self.player?.currentItem?.asset as? AVURLAsset)?.url else { return false }
-                    return sharedPlayerURL == ownPlayerURL
-                }) else { return }
-                self.player = sharedPlayerCounterpart
+                subscribeSharedPlayers()
+            } else {
+                unsubscribeSharedPlayers()
             }
         }
     }
@@ -36,12 +41,9 @@ class ConnectedPlayer: AVPlayerView {
             }
         }
     }
-
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-
-        // Drawing code here.
-    }
+    
+    
+    
     
     override func keyDown(with event: NSEvent) {
         // Forward key events to window
@@ -52,5 +54,29 @@ class ConnectedPlayer: AVPlayerView {
     
     override var acceptsFirstResponder: Bool {
         return areControlsEnabled
+    }
+    
+    
+    @objc private func connect() {
+        if connectToSharedPlayer {
+            // Replace own player with one of the shared players, if they have the same url
+            guard let sharedPlayerCounterpart = ConnectedPlayer.sharedPlayers?.first(where: {
+                guard let sharedPlayerURL = ($0.currentItem?.asset as? AVURLAsset)?.url else { return false }
+                guard let ownPlayerURL = (self.player?.currentItem?.asset as? AVURLAsset)?.url else { return false }
+                return sharedPlayerURL == ownPlayerURL
+            }) else { return }
+            self.player = sharedPlayerCounterpart
+        }
+    }
+    
+    
+    private func subscribeSharedPlayers() {
+        // When shared player changed, update the connection
+        NotificationCenter.default.addObserver(self, selector: #selector(connect), name: Self.sharedPlayersChangedNotification, object: nil)
+    }
+    
+    
+    private func unsubscribeSharedPlayers() {
+        NotificationCenter.default.removeObserver(self, name: Self.sharedPlayersChangedNotification, object: nil)
     }
 }
