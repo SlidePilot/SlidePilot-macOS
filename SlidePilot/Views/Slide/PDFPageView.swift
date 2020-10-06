@@ -263,7 +263,14 @@ class PDFPageView: NSImageView {
             playerViews.append(playerView)
         }
         
-        if self.currentPage == PageController.currentPage && connectToCurrentPlayer == false {
+        // Check if this PDFPageView is showing the current page &
+        // if it's not a connected player (which means it should not connect to the shared players) &
+        // if this page view present the presentation part of the page &
+        // if there were any movie annotations found on the page
+        if self.currentPage == PageController.currentPage,
+           connectToCurrentPlayer == false,
+           DisplayController.notesPosition.displayModeForPresentation() == self.displayMode,
+           movieAnnoations.count > 0 {
             ConnectedPlayer.sharedPlayers = players
         }
     }
