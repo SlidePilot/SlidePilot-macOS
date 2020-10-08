@@ -20,9 +20,9 @@ class RemoteController {
         service.delegate = self
         
         // Subscribe to page changes
-        PageController.subscribe(target: self, action: #selector(sendUpdates(_:)))
-        DocumentController.subscribeDidOpenDocument(target: self, action: #selector(sendUpdates(_:)))
-        DisplayController.subscribeNotesPosition(target: self, action: #selector(sendUpdates(_:)))
+        PageController.subscribe(target: self, action: #selector(sendUpdates))
+        DocumentController.subscribeDidOpenDocument(target: self, action: #selector(sendUpdates))
+        DisplayController.subscribeNotesPosition(target: self, action: #selector(sendUpdates))
         
     }
     
@@ -32,7 +32,7 @@ class RemoteController {
     
     
     /** Sends updates to the remote controller. */
-    @objc func sendUpdates(_ notification: Notification) {
+    @objc func sendUpdates() {
         guard let document = DocumentController.document else { return }
         let pageIndex: Int = PageController.currentPage
         
@@ -127,17 +127,18 @@ class RemoteController {
 
 extension RemoteController: RemoteServiceDelegate {
     func peersChanged() {
-        print("peersChanged")
+        // Send updates, if at least one peer is connected (this could be a new peer, which needs the current data)
+        if service.peers.contains(where: { $0.state == .connected }) {
+            sendUpdates()
+        }
         NotificationCenter.default.post(name: .remotePeersChanged, object: nil)
     }
     
     func browsingFailed(_ error: Error) {
-        print("browsingFailed")
         NotificationCenter.default.post(name: .remoteBrowsingFailed, object: nil, userInfo: ["error": error])
     }
     
     func didSendVerfication(code: String, to peer: MCPeerID) {
-        print("didSendVerfication")
         NotificationCenter.default.post(name: .remoteDidSendVerification, object: nil, userInfo: ["code": code, "peer": peer])
     }
     
