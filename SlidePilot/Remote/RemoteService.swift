@@ -152,7 +152,6 @@ class RemoteService: NSObject {
     func connect(to peerID: MCPeerID) {
         serviceBrowser.invitePeer(peerID, to: session, withContext: nil, timeout: 10)
         add(peer: peerID, state: .pending)
-        peersChanged()
     }
     
     
@@ -217,18 +216,21 @@ class RemoteService: NSObject {
                 peers.append(Connection(peer: peer, state: .connected))
             }
         }
+        peersChanged()
     }
     
     
     private func remove(peer: MCPeerID) {
         guard let index = peers.firstIndex(where: { $0.peer == peer }) else { return }
         peers.remove(at: index)
+        peersChanged()
     }
     
     
     private func changeState(for peer: MCPeerID, to newState: Connection.PeerState) {
         guard let index = peers.firstIndex(where: { $0.peer == peer }) else { return }
         peers[index].state = newState
+        peersChanged()
     }
     
     
@@ -271,7 +273,6 @@ extension RemoteService: MCNearbyServiceBrowserDelegate {
         } else {
             // Add available peer
             add(peer: peerID, state: .available)
-            peersChanged()
         }
     }
     
@@ -280,8 +281,6 @@ extension RemoteService: MCNearbyServiceBrowserDelegate {
         
         // Remove peer from available peers
         remove(peer: peerID)
-        
-        peersChanged()
     }
 }
 
@@ -323,8 +322,6 @@ extension RemoteService: MCSessionDelegate {
             remove(peer: peerID)
             add(peer: peerID, state: .available)
         }
-        
-        peersChanged()
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
