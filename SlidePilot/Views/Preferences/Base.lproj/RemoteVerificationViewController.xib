@@ -8,9 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="RemoteVerificationViewController" customModule="SlidePilot" customModuleProvider="target">
             <connections>
-                <outlet property="codeLabel" destination="nWN-II-xep" id="Mzk-bs-XFU"/>
-                <outlet property="descriptionLabel" destination="puN-Xe-Fd9" id="7aj-xt-v4I"/>
-                <outlet property="infoLabel" destination="lCm-8G-yTL" id="0ch-1l-O9s"/>
+                <outlet property="codeLabel" destination="nWN-II-xep" id="7DR-hD-ldW"/>
+                <outlet property="descriptionLabel" destination="puN-Xe-Fd9" id="oXT-w3-ing"/>
+                <outlet property="titleLabel" destination="lCm-8G-yTL" id="YR1-Km-ZYu"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>

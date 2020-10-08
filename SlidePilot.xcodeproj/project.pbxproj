@@ -78,7 +78,6 @@
 		50F862E1252F3DC000699583 /* NSImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F862E0252F3DC000699583 /* NSImage+Extension.swift */; };
 		50F862E5252F421700699583 /* RemoteVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F862E3252F421700699583 /* RemoteVerificationViewController.swift */; };
 		50F862E8252F456400699583 /* RemoteVerificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50F862EA252F456400699583 /* RemoteVerificationViewController.xib */; };
-		50F862F2252F475800699583 /* RemotePreferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50F862F1252F475800699583 /* RemotePreferences.storyboard */; };
 		50F925D924A25A2F00F8C10B /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 50F925D824A25A2F00F8C10B /* Preferences */; };
 		50F925DC24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F925DB24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift */; };
 		50F925DE24A25BAB00F8C10B /* GeneralPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F925DD24A25BAB00F8C10B /* GeneralPreferencesViewController.swift */; };
@@ -198,7 +197,6 @@
 		50F862E9252F456400699583 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RemoteVerificationViewController.xib; sourceTree = "<group>"; };
 		50F862ED252F456900699583 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/RemoteVerificationViewController.strings; sourceTree = "<group>"; };
 		50F862EF252F456D00699583 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/RemoteVerificationViewController.strings; sourceTree = "<group>"; };
-		50F862F1252F475800699583 /* RemotePreferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RemotePreferences.storyboard; sourceTree = "<group>"; };
 		50F925DB24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preferences+PaneIdentifiers.swift"; sourceTree = "<group>"; };
 		50F925DD24A25BAB00F8C10B /* GeneralPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferencesViewController.swift; sourceTree = "<group>"; };
 		50F925E124A2A9F900F8C10B /* AwakeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwakeManager.swift; sourceTree = "<group>"; };
@@ -425,7 +423,6 @@
 				50BA174C252E228600397D8E /* RemotePreferences.xib */,
 				50F862E3252F421700699583 /* RemoteVerificationViewController.swift */,
 				50F862EA252F456400699583 /* RemoteVerificationViewController.xib */,
-				50F862F1252F475800699583 /* RemotePreferences.storyboard */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -537,7 +534,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */,
-				50F862F2252F475800699583 /* RemotePreferences.storyboard in Resources */,
 				50BA174A252E228600397D8E /* RemotePreferences.xib in Resources */,
 				5074A88024A34FD5005CFDEF /* GeneralPreferences.xib in Resources */,
 				50C77F39242CD32500066752 /* Localizable.strings in Resources */,

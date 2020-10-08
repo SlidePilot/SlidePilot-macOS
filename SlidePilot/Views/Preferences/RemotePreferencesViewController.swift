@@ -64,20 +64,21 @@ class RemotePreferencesViewController: NSViewController, PreferencePane {
         guard let code = notification.userInfo?["code"] as? String else { return }
         guard let peer = notification.userInfo?["peer"] as? MCPeerID else { return }
         
-        let alert = NSAlert()
-        alert.messageText = "Verify Connection"
-        alert.informativeText = "Confirm that this code is shown on the \(peer.displayName).\n\n\(code)"
-        alert.alertStyle = .informational
-        
-        alert.addButton(withTitle: "Confirm")
-        alert.addButton(withTitle: "Cancel")
-        
-        let res = alert.runModal()
-        if res == .alertFirstButtonReturn {
-            service.verifyConenction(to: peer)
-        } else {
-            service.disconnect(from: peer)
+        // Show verification view
+        let remoteVerificationVC = RemoteVerificationViewController()
+        remoteVerificationVC.code = code
+        remoteVerificationVC.deviceName = peer.displayName
+        remoteVerificationVC.completiton = { isVerified in
+            if isVerified {
+                print("### Verify")
+                self.service.verifyConenction(to: peer)
+            } else {
+                print("### No trust")
+                self.service.disconnect(from: peer)
+            }
         }
+        
+        presentAsSheet(remoteVerificationVC)
     }
 }
 
