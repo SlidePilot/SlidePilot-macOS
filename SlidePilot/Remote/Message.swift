@@ -35,6 +35,9 @@
     - command: noteSlide
       payload: Image of the related slide
  
+    - command: meta
+      payload: Dictionary [String: Any] containing meta information. Possible keys: currentSlideNumber, slideCount
+ 
  */
 
 import Foundation
@@ -47,7 +50,7 @@ struct Message {
     enum Command: Int, Codable {
         case disconnect, code, connectionAccepted,
              showNextSlide, showPreviousSlide, showBlackScreen, showWhiteScreen,
-             currentSlide, nextSlide, noteSlide
+             currentSlide, nextSlide, noteSlide, meta
     }
     
     

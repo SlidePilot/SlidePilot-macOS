@@ -106,13 +106,19 @@ class RemoteService: NSObject {
     
     public func send(nextSlide slideImage: NSImage) {
         guard let imageData = slideImage.compressed() else { return }
-        send(message: Message(command: .currentSlide, payload: imageData))
+        send(message: Message(command: .nextSlide, payload: imageData))
     }
     
     
     public func send(notesSlide slideImage: NSImage) {
         guard let imageData = slideImage.compressed() else { return }
-        send(message: Message(command: .currentSlide, payload: imageData))
+        send(message: Message(command: .noteSlide, payload: imageData))
+    }
+    
+    
+    public func send(meta: [String: Any]) {
+        guard let metaData = try? JSONSerialization.data(withJSONObject: meta, options: []) else { return }
+        send(message: Message(command: .meta, payload: metaData))
     }
     
     

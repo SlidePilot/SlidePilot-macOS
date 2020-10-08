@@ -54,6 +54,10 @@ class RemoteController {
         service.send(currentSlide: currentSlide)
         service.send(nextSlide: nextSlide)
         service.send(notesSlide: notesSlide)
+        
+        let metaInfo = ["currentSlideNumber": PageController.currentPage+1,
+                        "slideCount": document.pageCount]
+        service.send(meta: metaInfo)
     }
     
     
