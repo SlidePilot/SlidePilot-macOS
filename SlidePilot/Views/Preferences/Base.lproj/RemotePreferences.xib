@@ -96,9 +96,6 @@ Make sure both Mac and iPhone are in the same WiFi.</string>
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
-                                                        <connections>
-                                                            <action selector="connectPeer:" target="-2" id="FEp-jt-sGS"/>
-                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -130,9 +127,6 @@ Make sure both Mac and iPhone are in the same WiFi.</string>
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
-                                                        <connections>
-                                                            <action selector="disconnectPeer:" target="-2" id="aJV-sc-Bmz"/>
-                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
