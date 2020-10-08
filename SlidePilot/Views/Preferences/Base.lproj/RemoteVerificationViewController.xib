@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="RemoteVerificationViewController" customModule="SlidePilot" customModuleProvider="target">
+            <connections>
+                <outlet property="codeLabel" destination="nWN-II-xep" id="Mzk-bs-XFU"/>
+                <outlet property="descriptionLabel" destination="puN-Xe-Fd9" id="7aj-xt-v4I"/>
+                <outlet property="infoLabel" destination="lCm-8G-yTL" id="0ch-1l-O9s"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="257"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lCm-8G-yTL">
+                    <rect key="frame" x="149" y="206" width="182" height="21"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Connecting to Device" id="Re1-7X-QeT">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="puN-Xe-Fd9">
+                    <rect key="frame" x="67" y="170" width="346" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Confirm that the following code is shown on the Device." id="4c1-jX-qTS">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="exF-OE-Dbu">
+                    <rect key="frame" x="144" y="30" width="192" height="21"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Jw-Ps-Yjl">
+                            <rect key="frame" x="-6" y="-7" width="82" height="32"/>
+                            <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="g2x-ug-Nok">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                            </buttonCell>
+                            <connections>
+                                <action selector="cancel:" target="-2" id="mxU-Em-Vr8"/>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xEx-FO-DHK">
+                            <rect key="frame" x="109" y="-7" width="89" height="32"/>
+                            <buttonCell key="cell" type="push" title="Confirm" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="x5w-lV-JU1">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                            </buttonCell>
+                            <connections>
+                                <action selector="confirm:" target="-2" id="m2f-Tb-wVi"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="xEx-FO-DHK" secondAttribute="trailing" id="4Ix-JM-QUp"/>
+                        <constraint firstItem="6Jw-Ps-Yjl" firstAttribute="leading" secondItem="exF-OE-Dbu" secondAttribute="leading" id="LDa-rO-wLv"/>
+                        <constraint firstItem="xEx-FO-DHK" firstAttribute="top" secondItem="exF-OE-Dbu" secondAttribute="top" id="Y0o-nK-Heq"/>
+                        <constraint firstAttribute="bottom" secondItem="6Jw-Ps-Yjl" secondAttribute="bottom" id="d37-pl-Y3v"/>
+                        <constraint firstItem="6Jw-Ps-Yjl" firstAttribute="top" secondItem="exF-OE-Dbu" secondAttribute="top" id="joQ-RR-81m"/>
+                        <constraint firstAttribute="bottom" secondItem="xEx-FO-DHK" secondAttribute="bottom" id="skm-e6-Kod"/>
+                    </constraints>
+                </customView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nWN-II-xep">
+                    <rect key="frame" x="18" y="81" width="444" height="59"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="1234" id="h6B-US-Svr">
+                        <font key="font" metaFont="system" size="50"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="nWN-II-xep" secondAttribute="trailing" constant="20" id="808-mb-W13"/>
+                <constraint firstItem="exF-OE-Dbu" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="9GK-1x-IUl"/>
+                <constraint firstItem="nWN-II-xep" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="YXo-US-ONh"/>
+                <constraint firstItem="nWN-II-xep" firstAttribute="top" secondItem="puN-Xe-Fd9" secondAttribute="bottom" constant="30" id="b9W-5I-Dlo"/>
+                <constraint firstItem="puN-Xe-Fd9" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="cBr-TW-LrS"/>
+                <constraint firstItem="exF-OE-Dbu" firstAttribute="width" secondItem="Hz6-mo-xeY" secondAttribute="width" multiplier="0.4" id="cgI-SG-Dys"/>
+                <constraint firstItem="exF-OE-Dbu" firstAttribute="top" secondItem="nWN-II-xep" secondAttribute="bottom" constant="30" id="dG6-MC-z2W"/>
+                <constraint firstItem="lCm-8G-yTL" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="fEw-2L-kLC"/>
+                <constraint firstAttribute="bottom" secondItem="exF-OE-Dbu" secondAttribute="bottom" constant="30" id="kmH-Hv-fHg"/>
+                <constraint firstItem="lCm-8G-yTL" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="30" id="p0C-Fz-lvt"/>
+                <constraint firstItem="puN-Xe-Fd9" firstAttribute="top" secondItem="lCm-8G-yTL" secondAttribute="bottom" constant="20" id="wih-yg-DzG"/>
+            </constraints>
+            <point key="canvasLocation" x="-259" y="188.5"/>
+        </customView>
+    </objects>
+</document>
