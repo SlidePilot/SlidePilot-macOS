@@ -281,6 +281,7 @@
 				507098A6252F134300938927 /* RemoteService.swift */,
 				507098AA252F136A00938927 /* Message.swift */,
 				5052D604252F273300AB26EB /* Archiving.swift */,
+				507098A3252F120F00938927 /* RemoteController.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -427,7 +428,6 @@
 				50C46F78247E76AD001602EA /* CompletionStatus.swift */,
 				5015A6C324A2375F00BD4999 /* ConfigurationController.swift */,
 				50F925E324A2ABFE00F8C10B /* PreferencesController.swift */,
-				507098A3252F120F00938927 /* RemoteController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

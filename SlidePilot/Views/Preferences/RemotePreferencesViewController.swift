@@ -8,6 +8,7 @@
 
 import Cocoa
 import Preferences
+import MultipeerConnectivity
 
 class RemotePreferencesViewController: NSViewController, PreferencePane {
     
@@ -19,11 +20,110 @@ class RemotePreferencesViewController: NSViewController, PreferencePane {
     
     
     // MARK: - UI Elements
+    @IBOutlet var peerTable: NSTableView!
+    
+    
+    let service: RemoteService = RemoteController.shared.service
+        
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        peerTable.delegate = self
+        peerTable.dataSource = self
+        
+        // Subscribe to remote controller events
+        RemoteController.shared.subscribeRemotePeersChanged(target: self, action: #selector(peersChanged(_:)))
+        RemoteController.shared.subscribeRemoteDidSendVerification(target: self, action: #selector(didSendVerfication(_:)))
+    }
+    
+    
+    @IBAction func connectPeer(_ sender: NSButton) {
+        guard let cellView = sender.superview else { return }
+        let index = peerTable.row(for: cellView)
+        
+        service.connect(to: service.peers[index].peer)
+    }
+    
+    
+    @IBAction func disconnectPeer(_ sender: NSButton) {
+        guard let cellView = sender.superview else { return }
+        let index = peerTable.row(for: cellView)
+        
+        service.disconnect(from: service.peers[index].peer)
+    }
+    
+    
+    @objc func peersChanged(_ notification: Notification) {
+        peerTable.reloadData()
+    }
+    
+    
+    @objc func didSendVerfication(_ notification: Notification) {
+        guard let code = notification.userInfo?["code"] as? String else { return }
+        guard let peer = notification.userInfo?["peer"] as? MCPeerID else { return }
+        
+        let alert = NSAlert()
+        alert.messageText = "Verify Connection"
+        alert.informativeText = "Confirm that this code is shown on the \(peer.displayName).\n\n\(code)"
+        alert.alertStyle = .informational
+        
+        alert.addButton(withTitle: "Confirm")
+        alert.addButton(withTitle: "Cancel")
+        
+        let res = alert.runModal()
+        if res == .alertFirstButtonReturn {
+            service.verifyConenction(to: peer)
+        } else {
+            service.disconnect(from: peer)
+        }
     }
 }
 
 
+
+
+extension RemotePreferencesViewController: NSTableViewDelegate {
+    
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let connection = service.peers[row]
+        
+        var cellIdentifierString = ""
+        switch connection.state {
+        case .available: cellIdentifierString = "AvailableDeviceCell"
+        case .pending: cellIdentifierString = "PendingDeviceCell"
+        case .connected: cellIdentifierString = "ConnectedDeviceCell"
+        }
+        
+        let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: cellIdentifierString)
+        guard let cellView = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTableCellView else { return nil }
+        cellView.textField?.stringValue = connection.peer.displayName
+        
+        // Start spinner if available
+        if let spinner = cellView.subviews.first(where: { $0 is NSProgressIndicator }) as? NSProgressIndicator {
+            spinner.startAnimation(self)
+        }
+        
+        if let button = cellView.subviews.first(where: { $0 is NSButton }) as? NSButton {
+            button.target = self
+            if button.identifier == NSUserInterfaceItemIdentifier("ConnectButton") {
+                button.action = #selector(connectPeer(_:))
+            } else if button.identifier == NSUserInterfaceItemIdentifier("DisconnectButton") {
+                button.action = #selector(disconnectPeer(_:))
+            }
+        }
+        
+        return cellView
+    }
+}
+
+
+
+
+extension RemotePreferencesViewController: NSTableViewDataSource {
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return service.peers.count
+    }
+}
