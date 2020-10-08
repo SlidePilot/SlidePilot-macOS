@@ -33,7 +33,11 @@
 		50440BB7243357F5000C0C9E /* ThumbnailNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50440BB6243357F5000C0C9E /* ThumbnailNavigation.swift */; };
 		50440BB924339CEA000C0C9E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 50440BB824339CEA000C0C9E /* README.md */; };
 		505243B72445AF650050AB98 /* RenderCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505243B62445AF650050AB98 /* RenderCache.swift */; };
+		5052D605252F273300AB26EB /* Archiving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5052D604252F273300AB26EB /* Archiving.swift */; };
 		505E9C94252B1DDC00EAB106 /* FileObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E9C93252B1DDC00EAB106 /* FileObserver.swift */; };
+		507098A4252F120F00938927 /* RemoteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507098A3252F120F00938927 /* RemoteController.swift */; };
+		507098A7252F134300938927 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507098A6252F134300938927 /* RemoteService.swift */; };
+		507098AB252F136A00938927 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507098AA252F136A00938927 /* Message.swift */; };
 		5070AA5A24619C400025B8C5 /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5070AA5924619C400025B8C5 /* TimeController.swift */; };
 		5074A88024A34FD5005CFDEF /* GeneralPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5074A88224A34FD5005CFDEF /* GeneralPreferences.xib */; };
 		5077493B247A8C4000316F0B /* PresenterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50774939247A8C4000316F0B /* PresenterWindow.swift */; };
@@ -132,7 +136,11 @@
 		504450A0245ADFB900330984 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		504450A1245ADFB900330984 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		505243B62445AF650050AB98 /* RenderCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderCache.swift; sourceTree = "<group>"; };
+		5052D604252F273300AB26EB /* Archiving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archiving.swift; sourceTree = "<group>"; };
 		505E9C93252B1DDC00EAB106 /* FileObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileObserver.swift; sourceTree = "<group>"; };
+		507098A3252F120F00938927 /* RemoteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteController.swift; sourceTree = "<group>"; };
+		507098A6252F134300938927 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
+		507098AA252F136A00938927 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5070AA5924619C400025B8C5 /* TimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
 		5074A88124A34FD5005CFDEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GeneralPreferences.xib; sourceTree = "<group>"; };
 		5074A88424A34FDA005CFDEF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/GeneralPreferences.strings; sourceTree = "<group>"; };
@@ -267,6 +275,16 @@
 			path = Thumbnail;
 			sourceTree = "<group>";
 		};
+		507098A9252F135C00938927 /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				507098A6252F134300938927 /* RemoteService.swift */,
+				507098AA252F136A00938927 /* Message.swift */,
+				5052D604252F273300AB26EB /* Archiving.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
 		509B96EA2428A3AC0076B8B4 = {
 			isa = PBXGroup;
 			children = (
@@ -303,6 +321,7 @@
 				50C77F3B242CD32500066752 /* Localizable.strings */,
 				509B97062428A3C40076B8B4 /* Views */,
 				50026AD32430F0CC0049387E /* Helpers */,
+				507098A9252F135C00938927 /* Remote */,
 				50FA6B992453606600EDEFC6 /* Controllers */,
 				509B96FA2428A3AE0076B8B4 /* Assets.xcassets */,
 				509B96FF2428A3AE0076B8B4 /* Info.plist */,
@@ -408,6 +427,7 @@
 				50C46F78247E76AD001602EA /* CompletionStatus.swift */,
 				5015A6C324A2375F00BD4999 /* ConfigurationController.swift */,
 				50F925E324A2ABFE00F8C10B /* PreferencesController.swift */,
+				507098A3252F120F00938927 /* RemoteController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -552,6 +572,7 @@
 				508BBD622460591800F81FFF /* UserNotice.swift in Sources */,
 				505243B72445AF650050AB98 /* RenderCache.swift in Sources */,
 				509B970A2428A6FD0076B8B4 /* TimeView.swift in Sources */,
+				5052D605252F273300AB26EB /* Archiving.swift in Sources */,
 				50FA6B98245356F000EDEFC6 /* PageController.swift in Sources */,
 				50DD8B292458819600E83784 /* PresenterWindowController+TouchBar.swift in Sources */,
 				509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */,
@@ -570,8 +591,11 @@
 				5025C9B02490EBA0001898D1 /* DrawingToolbar.swift in Sources */,
 				509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */,
 				509B970E2428B0A90076B8B4 /* TimeInterval+Extension.swift in Sources */,
+				507098AB252F136A00938927 /* Message.swift in Sources */,
 				50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */,
+				507098A7252F134300938927 /* RemoteService.swift in Sources */,
 				50BA1747252E226F00397D8E /* RemotePreferencesViewController.swift in Sources */,
+				507098A4252F120F00938927 /* RemoteController.swift in Sources */,
 				5077493B247A8C4000316F0B /* PresenterWindow.swift in Sources */,
 				50E2E5EE247AC05500CE6FDA /* NSAttributedString+Extension.swift in Sources */,
 				50849E7D247D3D0C00548712 /* TextFormatController.swift in Sources */,
