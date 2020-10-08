@@ -34,28 +34,38 @@ class RemoteController {
     /** Sends updates to the remote controller. */
     @objc func sendUpdates(_ notification: Notification) {
         guard let document = DocumentController.document else { return }
+        let pageIndex: Int = PageController.currentPage
         
         guard let currentSlide = RenderCache.shared.getPage(
-                at: PageController.currentPage,
+                at: pageIndex,
                 for: document,
                 mode: DisplayController.notesPosition.displayModeForPresentation(),
                 priority: .fast) else { return }
-        guard let nextSlide = RenderCache.shared.getPage(
-                at: PageController.currentPage+1,
-                for: document,
-                mode: DisplayController.notesPosition.displayModeForPresentation(),
-                priority: .fast) else { return }
+        
         guard let notesSlide = RenderCache.shared.getPage(
-                at: PageController.currentPage,
+                at: pageIndex,
                 for: document,
                 mode: DisplayController.notesPosition.displayModeForNotes(),
                 priority: .fast) else { return }
+        
+        // Special handling of next slide (send black slide when at the end of presentation)
+        var nextSlide: NSImage!
+        if pageIndex+1 < DocumentController.pageCount {
+            guard let nextSlideImage = RenderCache.shared.getPage(
+                    at: pageIndex+1,
+                    for: document,
+                    mode: DisplayController.notesPosition.displayModeForPresentation(),
+                    priority: .fast) else { return }
+            nextSlide = nextSlideImage
+        } else {
+            nextSlide = NSColor.black.image(of: (document.page(at: 0)?.bounds(for: .cropBox).size ?? NSSize(width: 1.0, height: 1.0)))
+        }
         
         service.send(currentSlide: currentSlide)
         service.send(nextSlide: nextSlide)
         service.send(notesSlide: notesSlide)
         
-        let metaInfo = ["currentSlideNumber": PageController.currentPage+1,
+        let metaInfo = ["currentSlideNumber": pageIndex+1,
                         "slideCount": document.pageCount]
         service.send(meta: metaInfo)
     }
