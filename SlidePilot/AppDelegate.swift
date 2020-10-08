@@ -129,6 +129,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Apply default preferences
         PreferencesController.applyDefaults()
         
+        // Startup RemoteService
+        RemoteController.shared.setup()
+        
         startup()
     }
     

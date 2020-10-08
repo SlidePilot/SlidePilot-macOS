@@ -99,19 +99,19 @@ class RemoteService: NSObject {
     
     
     public func send(currentSlide slideImage: NSImage) {
-        guard let imageData = slideImage.tiffRepresentation else { return }
+        guard let imageData = slideImage.compressed() else { return }
         send(message: Message(command: .currentSlide, payload: imageData))
     }
     
     
     public func send(nextSlide slideImage: NSImage) {
-        guard let imageData = slideImage.tiffRepresentation else { return }
+        guard let imageData = slideImage.compressed() else { return }
         send(message: Message(command: .currentSlide, payload: imageData))
     }
     
     
     public func send(notesSlide slideImage: NSImage) {
-        guard let imageData = slideImage.tiffRepresentation else { return }
+        guard let imageData = slideImage.compressed() else { return }
         send(message: Message(command: .currentSlide, payload: imageData))
     }
     

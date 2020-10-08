@@ -75,6 +75,7 @@
 		50E2E5EE247AC05500CE6FDA /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */; };
 		50EF741224538F690028DB06 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741124538F690028DB06 /* DocumentController.swift */; };
 		50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741324539A3E0028DB06 /* DisplayController.swift */; };
+		50F862E1252F3DC000699583 /* NSImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F862E0252F3DC000699583 /* NSImage+Extension.swift */; };
 		50F925D924A25A2F00F8C10B /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 50F925D824A25A2F00F8C10B /* Preferences */; };
 		50F925DC24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F925DB24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift */; };
 		50F925DE24A25BAB00F8C10B /* GeneralPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F925DD24A25BAB00F8C10B /* GeneralPreferencesViewController.swift */; };
@@ -189,6 +190,7 @@
 		50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		50EF741124538F690028DB06 /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		50EF741324539A3E0028DB06 /* DisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
+		50F862E0252F3DC000699583 /* NSImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Extension.swift"; sourceTree = "<group>"; };
 		50F925DB24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preferences+PaneIdentifiers.swift"; sourceTree = "<group>"; };
 		50F925DD24A25BAB00F8C10B /* GeneralPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferencesViewController.swift; sourceTree = "<group>"; };
 		50F925E124A2A9F900F8C10B /* AwakeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwakeManager.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				50E2E5EB247AB84C00CE6FDA /* NotesDocument.swift */,
 				50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */,
 				50BA4EB624A37C1D00E91DFA /* PDFDocument+Extension.swift */,
+				50F862E0252F3DC000699583 /* NSImage+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -595,6 +598,7 @@
 				50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */,
 				507098A7252F134300938927 /* RemoteService.swift in Sources */,
 				50BA1747252E226F00397D8E /* RemotePreferencesViewController.swift in Sources */,
+				50F862E1252F3DC000699583 /* NSImage+Extension.swift in Sources */,
 				507098A4252F120F00938927 /* RemoteController.swift in Sources */,
 				5077493B247A8C4000316F0B /* PresenterWindow.swift in Sources */,
 				50E2E5EE247AC05500CE6FDA /* NSAttributedString+Extension.swift in Sources */,

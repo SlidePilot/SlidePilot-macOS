@@ -18,6 +18,42 @@ class RemoteController {
     
     init() {
         service.delegate = self
+        
+        // Subscribe to page changes
+        PageController.subscribe(target: self, action: #selector(sendUpdates(_:)))
+        DocumentController.subscribeDidOpenDocument(target: self, action: #selector(sendUpdates(_:)))
+        DisplayController.subscribeNotesPosition(target: self, action: #selector(sendUpdates(_:)))
+        
+    }
+    
+    
+    /** This is a dummy method, which should be called on app start, to initialize the shared instance of RemoteController, which again initializes the RemoteService, which then starts searching for remote controllers. */
+    func setup() { }
+    
+    
+    /** Sends updates to the remote controller. */
+    @objc func sendUpdates(_ notification: Notification) {
+        guard let document = DocumentController.document else { return }
+        
+        guard let currentSlide = RenderCache.shared.getPage(
+                at: PageController.currentPage,
+                for: document,
+                mode: DisplayController.notesPosition.displayModeForPresentation(),
+                priority: .fast) else { return }
+        guard let nextSlide = RenderCache.shared.getPage(
+                at: PageController.currentPage+1,
+                for: document,
+                mode: DisplayController.notesPosition.displayModeForPresentation(),
+                priority: .fast) else { return }
+        guard let notesSlide = RenderCache.shared.getPage(
+                at: PageController.currentPage,
+                for: document,
+                mode: DisplayController.notesPosition.displayModeForNotes(),
+                priority: .fast) else { return }
+        
+        service.send(currentSlide: currentSlide)
+        service.send(nextSlide: nextSlide)
+        service.send(notesSlide: notesSlide)
     }
     
     
@@ -77,30 +113,37 @@ class RemoteController {
 
 extension RemoteController: RemoteServiceDelegate {
     func peersChanged() {
+        print("peersChanged")
         NotificationCenter.default.post(name: .remotePeersChanged, object: nil)
     }
     
     func browsingFailed(_ error: Error) {
+        print("browsingFailed")
         NotificationCenter.default.post(name: .remoteBrowsingFailed, object: nil, userInfo: ["error": error])
     }
     
     func didSendVerfication(code: String, to peer: MCPeerID) {
+        print("didSendVerfication")
         NotificationCenter.default.post(name: .remoteDidSendVerification, object: nil, userInfo: ["code": code, "peer": peer])
     }
     
     func shouldShowNextSlide() {
+        PageController.nextPage(sender: self)
         NotificationCenter.default.post(name: .remoteShowNextSlide, object: nil)
     }
     
     func shouldShowPreviousSlide() {
+        PageController.previousPage(sender: self)
         NotificationCenter.default.post(name: .remoteShowPreviousSlide, object: nil)
     }
     
     func shouldShowBlackScreen() {
+        DisplayController.switchDisplayBlackCurtain(sender: self)
         NotificationCenter.default.post(name: .remoteShowBlackScreen, object: nil)
     }
     
     func shouldShowWhiteScreen() {
+        DisplayController.switchDisplayWhiteCurtain(sender: self)
         NotificationCenter.default.post(name: .remoteShowWhiteScreen, object: nil)
     }
     
