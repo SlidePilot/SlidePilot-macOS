@@ -66,7 +66,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     lazy var preferencesWindowController = PreferencesWindowController(
         preferencePanes: [
-            GeneralPreferencesViewController()
+            GeneralPreferencesViewController(),
+            RemotePreferencesViewController()
         ],
         hidesToolbarForSingleItem: false
     )

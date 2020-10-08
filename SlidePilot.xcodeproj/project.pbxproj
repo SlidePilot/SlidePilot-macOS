@@ -58,6 +58,8 @@
 		50B1441724803E5C00532A8B /* SlideInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1441624803E5C00532A8B /* SlideInfoLabel.swift */; };
 		50B3C3032497F5DB006D5E48 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3C3022497F5DB006D5E48 /* Drawing.swift */; };
 		50B3C3052497F6D4006D5E48 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3C3042497F6D4006D5E48 /* CanvasView.swift */; };
+		50BA1747252E226F00397D8E /* RemotePreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BA1745252E226F00397D8E /* RemotePreferencesViewController.swift */; };
+		50BA174A252E228600397D8E /* RemotePreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50BA174C252E228600397D8E /* RemotePreferences.xib */; };
 		50BA4EB724A37C1D00E91DFA /* PDFDocument+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BA4EB624A37C1D00E91DFA /* PDFDocument+Extension.swift */; };
 		50C46F79247E76AD001602EA /* CompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C46F78247E76AD001602EA /* CompletionStatus.swift */; };
 		50C77F39242CD32500066752 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50C77F3B242CD32500066752 /* Localizable.strings */; };
@@ -162,6 +164,10 @@
 		50B1441624803E5C00532A8B /* SlideInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInfoLabel.swift; sourceTree = "<group>"; };
 		50B3C3022497F5DB006D5E48 /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
 		50B3C3042497F6D4006D5E48 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		50BA1745252E226F00397D8E /* RemotePreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePreferencesViewController.swift; sourceTree = "<group>"; };
+		50BA174B252E228600397D8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RemotePreferences.xib; sourceTree = "<group>"; };
+		50BA174F252E228B00397D8E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/RemotePreferences.strings; sourceTree = "<group>"; };
+		50BA1751252E228B00397D8E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/RemotePreferences.strings; sourceTree = "<group>"; };
 		50BA4EB624A37C1D00E91DFA /* PDFDocument+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFDocument+Extension.swift"; sourceTree = "<group>"; };
 		50C46F78247E76AD001602EA /* CompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionStatus.swift; sourceTree = "<group>"; };
 		50C77F2F242CCCC800066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
@@ -384,6 +390,8 @@
 				50F925DB24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift */,
 				50F925DD24A25BAB00F8C10B /* GeneralPreferencesViewController.swift */,
 				5074A88224A34FD5005CFDEF /* GeneralPreferences.xib */,
+				50BA1745252E226F00397D8E /* RemotePreferencesViewController.swift */,
+				50BA174C252E228600397D8E /* RemotePreferences.xib */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -495,6 +503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				509B96FB2428A3AE0076B8B4 /* Assets.xcassets in Resources */,
+				50BA174A252E228600397D8E /* RemotePreferences.xib in Resources */,
 				5074A88024A34FD5005CFDEF /* GeneralPreferences.xib in Resources */,
 				50C77F39242CD32500066752 /* Localizable.strings in Resources */,
 				50440BB924339CEA000C0C9E /* README.md in Resources */,
@@ -562,6 +571,7 @@
 				509B96F72428A3AC0076B8B4 /* AppDelegate.swift in Sources */,
 				509B970E2428B0A90076B8B4 /* TimeInterval+Extension.swift in Sources */,
 				50FF8D9E242CC32C00B0389B /* PresentationWindow.swift in Sources */,
+				50BA1747252E226F00397D8E /* RemotePreferencesViewController.swift in Sources */,
 				5077493B247A8C4000316F0B /* PresenterWindow.swift in Sources */,
 				50E2E5EE247AC05500CE6FDA /* NSAttributedString+Extension.swift in Sources */,
 				50849E7D247D3D0C00548712 /* TextFormatController.swift in Sources */,
@@ -616,6 +626,16 @@
 				504450A0245ADFB900330984 /* fr */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		50BA174C252E228600397D8E /* RemotePreferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				50BA174B252E228600397D8E /* Base */,
+				50BA174F252E228B00397D8E /* fr */,
+				50BA1751252E228B00397D8E /* de */,
+			);
+			name = RemotePreferences.xib;
 			sourceTree = "<group>";
 		};
 		50C77F3B242CD32500066752 /* Localizable.strings */ = {
