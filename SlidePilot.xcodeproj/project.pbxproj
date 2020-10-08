@@ -177,8 +177,6 @@
 		50B3C3042497F6D4006D5E48 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		50BA1745252E226F00397D8E /* RemotePreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePreferencesViewController.swift; sourceTree = "<group>"; };
 		50BA174B252E228600397D8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RemotePreferences.xib; sourceTree = "<group>"; };
-		50BA174F252E228B00397D8E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/RemotePreferences.strings; sourceTree = "<group>"; };
-		50BA1751252E228B00397D8E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/RemotePreferences.strings; sourceTree = "<group>"; };
 		50BA4EB624A37C1D00E91DFA /* PDFDocument+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFDocument+Extension.swift"; sourceTree = "<group>"; };
 		50C46F78247E76AD001602EA /* CompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionStatus.swift; sourceTree = "<group>"; };
 		50C77F2F242CCCC800066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
@@ -197,6 +195,8 @@
 		50F862E9252F456400699583 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RemoteVerificationViewController.xib; sourceTree = "<group>"; };
 		50F862ED252F456900699583 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/RemoteVerificationViewController.strings; sourceTree = "<group>"; };
 		50F862EF252F456D00699583 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/RemoteVerificationViewController.strings; sourceTree = "<group>"; };
+		50F862F8252F4FA900699583 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/RemotePreferences.strings; sourceTree = "<group>"; };
+		50F862FA252F4FAD00699583 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/RemotePreferences.strings; sourceTree = "<group>"; };
 		50F925DB24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preferences+PaneIdentifiers.swift"; sourceTree = "<group>"; };
 		50F925DD24A25BAB00F8C10B /* GeneralPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferencesViewController.swift; sourceTree = "<group>"; };
 		50F925E124A2A9F900F8C10B /* AwakeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwakeManager.swift; sourceTree = "<group>"; };
@@ -670,8 +670,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				50BA174B252E228600397D8E /* Base */,
-				50BA174F252E228B00397D8E /* fr */,
-				50BA1751252E228B00397D8E /* de */,
+				50F862F8252F4FA900699583 /* fr */,
+				50F862FA252F4FAD00699583 /* de */,
 			);
 			name = RemotePreferences.xib;
 			sourceTree = "<group>";
