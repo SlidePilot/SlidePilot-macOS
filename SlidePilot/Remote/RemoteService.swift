@@ -169,6 +169,9 @@ class RemoteService: NSObject {
     
     
     func verifyConenction(to peerID: MCPeerID) {
+        // Only continue if peer is still connected
+        guard session.connectedPeers.contains(peerID) else { return }
+        
         // Add peer as connected
         add(peer: peerID, state: .connected)
         
