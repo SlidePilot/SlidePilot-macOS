@@ -23,7 +23,7 @@ class RemoteController {
         PageController.subscribe(target: self, action: #selector(sendUpdates))
         DocumentController.subscribeDidOpenDocument(target: self, action: #selector(sendUpdates))
         DisplayController.subscribeNotesPosition(target: self, action: #selector(sendUpdates))
-        
+        DisplayController.subscribeDisplayCurtain(target: self, action: #selector(sendMetaUpdates))
     }
     
     
@@ -65,10 +65,20 @@ class RemoteController {
         service.send(nextSlide: nextSlide)
         service.send(notesSlide: notesSlide)
         
-        let metaInfo = ["currentSlideNumber": pageIndex+1,
-                        "slideCount": document.pageCount]
+        sendMetaUpdates()
+    }
+    
+    
+    @objc func sendMetaUpdates() {
+        guard let document = DocumentController.document else { return }
+        let metaInfo: [String: Any] = ["currentSlideNumber": PageController.currentPage+1,
+                                       "slideCount": document.pageCount,
+                                       "isBlackCurtainDisplayed": DisplayController.isBlackCurtainDisplayed,
+                                       "isWhiteCurtainDisplayed": DisplayController.isWhiteCurtainDisplayed]
         service.send(meta: metaInfo)
     }
+    
+    
     
     
     // MARK: - Subscribe
