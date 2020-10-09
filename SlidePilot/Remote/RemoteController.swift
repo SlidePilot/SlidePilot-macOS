@@ -24,6 +24,7 @@ class RemoteController {
         DocumentController.subscribeDidOpenDocument(target: self, action: #selector(sendUpdates))
         DisplayController.subscribeNotesPosition(target: self, action: #selector(sendUpdates))
         DisplayController.subscribeDisplayCurtain(target: self, action: #selector(sendMetaUpdates))
+        DocumentController.subscribeDidEditNotes(target: self, action: #selector(sendNotesUpdates))
     }
     
     
@@ -66,6 +67,7 @@ class RemoteController {
         service.send(notesSlide: notesSlide)
         
         sendMetaUpdates()
+        sendNotesUpdates()
     }
     
     
@@ -76,6 +78,12 @@ class RemoteController {
                                        "isBlackCurtainDisplayed": DisplayController.isBlackCurtainDisplayed,
                                        "isWhiteCurtainDisplayed": DisplayController.isWhiteCurtainDisplayed]
         service.send(meta: metaInfo)
+    }
+    
+    
+    @objc func sendNotesUpdates() {
+        guard let notes = DocumentController.notesDocument else { return }
+        service.send(notesText: notes.contents[PageController.currentPage])
     }
     
     

@@ -122,6 +122,13 @@ class RemoteService: NSObject {
     }
     
     
+    public func send(notesText: NSAttributedString) {
+        guard let textData = try? notesText.data(from: NSRange(location: 0, length: notesText.length),
+                                                 documentAttributes: [.documentType: NSAttributedString.DocumentType.rtf]) else { return }
+        send(message: Message(command: .notesText, payload: textData))
+    }
+    
+    
     
     
     // MARK: - Message Processing

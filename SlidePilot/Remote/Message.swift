@@ -35,6 +35,9 @@
     - command: noteSlide
       payload: Image of the related slide
  
+    - command: notesText
+      payload: NSAttributedString of notes text for current slide
+ 
     - command: meta
       payload: Dictionary [String: Any] containing meta information. Possible keys: currentSlideNumber, slideCount
  
@@ -50,7 +53,7 @@ struct Message {
     enum Command: Int, Codable {
         case disconnect, code, connectionAccepted,
              showNextSlide, showPreviousSlide, showBlackScreen, showWhiteScreen,
-             currentSlide, nextSlide, noteSlide, meta
+             currentSlide, nextSlide, noteSlide, notesText, meta
     }
     
     
