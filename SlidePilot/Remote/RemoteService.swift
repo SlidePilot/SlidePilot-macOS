@@ -152,6 +152,9 @@ class RemoteService: NSObject {
         case .showWhiteScreen:
             DispatchQueue.main.async { self.delegate?.shouldShowWhiteScreen() }
             
+        case .hideCurtain:
+            DispatchQueue.main.async { self.delegate?.shouldHideCutrain() }
+            
         default:
             return
         }
@@ -366,4 +369,5 @@ protocol RemoteServiceDelegate {
     func shouldShowPreviousSlide()
     func shouldShowBlackScreen()
     func shouldShowWhiteScreen()
+    func shouldHideCutrain()
 }

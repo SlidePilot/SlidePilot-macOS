@@ -126,6 +126,11 @@ class RemoteController {
         NotificationCenter.default.addObserver(target, selector: action, name: .remoteShowWhiteScreen, object: nil)
     }
     
+    /** Subscribes a target to all `.remoteHideCurtain` notifications sent by `RemoteController`. */
+    public func subscribeRemoteHideCurtain(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .remoteHideCurtain, object: nil)
+    }
+    
    
     
     /** Unsubscribes a target from all notifications sent by `RemoteController`. */
@@ -137,6 +142,7 @@ class RemoteController {
         NotificationCenter.default.removeObserver(target, name: .remoteShowPreviousSlide, object: nil)
         NotificationCenter.default.removeObserver(target, name: .remoteShowBlackScreen, object: nil)
         NotificationCenter.default.removeObserver(target, name: .remoteShowWhiteScreen, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .remoteHideCurtain, object: nil)
     }
 }
 
@@ -171,16 +177,19 @@ extension RemoteController: RemoteServiceDelegate {
     }
     
     func shouldShowBlackScreen() {
-        DisplayController.switchDisplayBlackCurtain(sender: self)
+        DisplayController.setDisplayCurtain(.black, sender: self)
         NotificationCenter.default.post(name: .remoteShowBlackScreen, object: nil)
     }
     
     func shouldShowWhiteScreen() {
-        DisplayController.switchDisplayWhiteCurtain(sender: self)
+        DisplayController.setDisplayCurtain(.white, sender: self)
         NotificationCenter.default.post(name: .remoteShowWhiteScreen, object: nil)
     }
     
-    
+    func shouldHideCutrain() {
+        DisplayController.setDisplayCurtain(.none, sender: self)
+        NotificationCenter.default.post(name: .remoteHideCurtain, object: nil)
+    }
 }
 
 
@@ -194,4 +203,5 @@ extension Notification.Name {
     static let remoteShowPreviousSlide = Notification.Name("remoteShowPreviousSlide")
     static let remoteShowBlackScreen = Notification.Name("remoteShowBlackScreen")
     static let remoteShowWhiteScreen = Notification.Name("remoteShowWhiteScreen")
+    static let remoteHideCurtain = Notification.Name("remoteHideCurtain")
 }

@@ -26,6 +26,9 @@
     - command: showWhiteScreen
       payload: nil
  
+    - command: hideCurtain
+      payload: nil
+ 
     - command: currentSlide
       payload: Image of the related slide
  
@@ -52,7 +55,7 @@ struct Message {
     
     enum Command: Int, Codable {
         case disconnect, code, connectionAccepted,
-             showNextSlide, showPreviousSlide, showBlackScreen, showWhiteScreen,
+             showNextSlide, showPreviousSlide, showBlackScreen, showWhiteScreen, hideCurtain,
              currentSlide, nextSlide, noteSlide, notesText, meta
     }
     
