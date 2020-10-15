@@ -21,6 +21,7 @@ class PointerCCView: NSView {
         var color: NSColor = .black
         var borderWidth: CGFloat = 0.0
         var borderColor: NSColor = .black
+        var shadowWidth: CGFloat = 0.0
     }
     
     var shape: Shape = .target {
@@ -35,9 +36,11 @@ class PointerCCView: NSView {
         didSet { self.needsDisplay = true } }
     var borderColor: NSColor = .black {
         didSet { self.needsDisplay = true } }
+    var shadowWidth: CGFloat = 0.0 {
+        didSet { self.needsDisplay = true } }
     
     var configuration: Configuration {
-        return Configuration(shape: shape, size: size, thickness: thickness, color: color, borderWidth: borderWidth, borderColor: borderColor)
+        return Configuration(shape: shape, size: size, thickness: thickness, color: color, borderWidth: borderWidth, borderColor: borderColor, shadowWidth: shadowWidth)
     }
     
     
@@ -48,6 +51,7 @@ class PointerCCView: NSView {
         self.color = configuration.color
         self.borderWidth = configuration.borderWidth
         self.borderColor = configuration.borderColor
+        self.shadowWidth = configuration.shadowWidth
     }
     
     
@@ -113,6 +117,8 @@ class PointerCCView: NSView {
         self.layer?.addSublayer(centerCircle)
         self.layer?.addSublayer(outerCircleBorder)
         self.layer?.addSublayer(outerCircle)
+        
+        drawShaddow()
     }
     
     
@@ -133,6 +139,8 @@ class PointerCCView: NSView {
         
         if borderWidth != 0 { self.layer?.addSublayer(dotBorder) }
         self.layer?.addSublayer(dot)
+        
+        drawShaddow()
     }
     
     
@@ -159,6 +167,8 @@ class PointerCCView: NSView {
         
         self.layer?.addSublayer(circleBorder)
         self.layer?.addSublayer(circle)
+        
+        drawShaddow()
     }
     
     
@@ -190,6 +200,8 @@ class PointerCCView: NSView {
         if borderWidth != 0 { self.layer?.addSublayer(horizontalBarBorder) }
         self.layer?.addSublayer(verticalBar)
         self.layer?.addSublayer(horizontalBar)
+        
+        drawShaddow()
     }
     
     
@@ -228,6 +240,8 @@ class PointerCCView: NSView {
         crossLayer.transform = CATransform3DRotate(CATransform3DIdentity, 45.0/180.0*CGFloat.pi, 0, 0, 1)
         
         self.layer?.addSublayer(crossLayer)
+        
+        drawShaddow()
     }
     
     
@@ -248,6 +262,20 @@ class PointerCCView: NSView {
         
         if borderWidth != 0 { self.layer?.addSublayer(squareBorder) }
         self.layer?.addSublayer(square)
+        
+        drawShaddow()
+    }
+    
+    
+    func drawShaddow() {
+        if shadowWidth > 0 {
+            self.layer?.shadowOpacity = 1.0
+            self.layer?.shadowColor = .black
+            self.layer?.shadowOffset = NSMakeSize(0, 0)
+            self.layer?.shadowRadius = shadowWidth
+        } else {
+            self.layer?.shadowOpacity = 0.0
+        }
     }
     
 }

@@ -636,14 +636,14 @@
             <objects>
                 <viewController id="BfQ-YE-Skr" customClass="PointerEditorViewController" customModule="SlidePilot" customModuleProvider="target" sceneMemberID="viewController">
                     <customView key="view" id="TwP-cz-AUv">
-                        <rect key="frame" x="0.0" y="0.0" width="776" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="776" height="368"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="PV0-fR-aYx">
-                                <rect key="frame" x="0.0" y="0.0" width="259" height="320"/>
+                                <rect key="frame" x="0.0" y="0.0" width="259" height="368"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="4jI-lo-dOl">
-                                        <rect key="frame" x="20" y="20" width="219" height="280"/>
+                                        <rect key="frame" x="20" y="20" width="219" height="328"/>
                                     </customView>
                                 </subviews>
                                 <constraints>
@@ -654,13 +654,13 @@
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="nFj-JT-fPL">
-                                <rect key="frame" x="259" y="0.0" width="517" height="320"/>
+                                <rect key="frame" x="259" y="0.0" width="517" height="368"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jhx-EN-3SX">
-                                        <rect key="frame" x="20" y="20" width="477" height="280"/>
+                                        <rect key="frame" x="20" y="20" width="477" height="328"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="LKX-2x-Mgc">
-                                                <rect key="frame" x="0.0" y="240" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="288" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Acw-oV-9cH">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -721,7 +721,7 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="TCt-iU-CIx">
-                                                <rect key="frame" x="0.0" y="192" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="240" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="n2P-Zl-DPr">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -747,7 +747,7 @@
                                                         <subviews>
                                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wyH-Jc-ViJ">
                                                                 <rect key="frame" x="-2" y="7" width="351" height="24"/>
-                                                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="dvq-IE-zR1"/>
+                                                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="dvq-IE-zR1"/>
                                                                 <connections>
                                                                     <action selector="sizeSliderChanged:" target="BfQ-YE-Skr" id="wkw-ow-04P"/>
                                                                 </connections>
@@ -772,7 +772,7 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="nEG-ON-3DK">
-                                                <rect key="frame" x="0.0" y="144" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="192" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="zXb-dW-Ryb">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -798,7 +798,7 @@
                                                         <subviews>
                                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nku-r7-TmR">
                                                                 <rect key="frame" x="-2" y="7" width="351" height="24"/>
-                                                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="SnM-Yp-3Vc"/>
+                                                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="SnM-Yp-3Vc"/>
                                                                 <connections>
                                                                     <action selector="thicknessSliderChanged:" target="BfQ-YE-Skr" id="1vu-uw-XNz"/>
                                                                 </connections>
@@ -823,7 +823,7 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="R7m-MY-INr">
-                                                <rect key="frame" x="0.0" y="96" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="144" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="j5W-Kr-eBK">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -877,7 +877,7 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="CXA-8S-EQV">
-                                                <rect key="frame" x="0.0" y="48" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="96" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="qYH-m4-hxR">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -903,7 +903,7 @@
                                                         <subviews>
                                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SZD-sa-mEK">
                                                                 <rect key="frame" x="-2" y="7" width="351" height="24"/>
-                                                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="jva-UR-gii"/>
+                                                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="jva-UR-gii"/>
                                                                 <connections>
                                                                     <action selector="borderSliderChanged:" target="BfQ-YE-Skr" id="FNU-7f-5jP"/>
                                                                 </connections>
@@ -928,7 +928,7 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="5Gp-GW-OXp">
-                                                <rect key="frame" x="0.0" y="0.0" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="48" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="wvw-02-WSr">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -981,6 +981,57 @@
                                                     <constraint firstItem="wvw-02-WSr" firstAttribute="leading" secondItem="5Gp-GW-OXp" secondAttribute="leading" id="uhM-ND-NVZ"/>
                                                 </constraints>
                                             </customView>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="5fH-K5-CVq">
+                                                <rect key="frame" x="0.0" y="0.0" width="477" height="40"/>
+                                                <subviews>
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="9Ub-fG-IzQ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f88-tt-GwE">
+                                                                <rect key="frame" x="-2" y="12" width="124" height="16"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Shadow:" id="vDr-ck-eYg">
+                                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="f88-tt-GwE" firstAttribute="leading" secondItem="9Ub-fG-IzQ" secondAttribute="leading" id="0q0-Fg-L2f"/>
+                                                            <constraint firstItem="f88-tt-GwE" firstAttribute="centerY" secondItem="9Ub-fG-IzQ" secondAttribute="centerY" id="1Id-dI-ttR"/>
+                                                            <constraint firstAttribute="width" constant="120" id="IUy-cD-0Hq"/>
+                                                            <constraint firstAttribute="trailing" secondItem="f88-tt-GwE" secondAttribute="trailing" id="Ktl-gK-bwY"/>
+                                                        </constraints>
+                                                    </customView>
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="O6B-su-Cqg">
+                                                        <rect key="frame" x="130" y="0.0" width="347" height="40"/>
+                                                        <subviews>
+                                                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3iu-J7-saV">
+                                                                <rect key="frame" x="-2" y="7" width="351" height="24"/>
+                                                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="9QI-k5-4z5"/>
+                                                                <connections>
+                                                                    <action selector="shadowSliderChanged:" target="BfQ-YE-Skr" id="gly-r1-wTF"/>
+                                                                </connections>
+                                                            </slider>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="3iu-J7-saV" firstAttribute="centerY" secondItem="O6B-su-Cqg" secondAttribute="centerY" id="gK8-Dy-cbx"/>
+                                                            <constraint firstItem="3iu-J7-saV" firstAttribute="leading" secondItem="O6B-su-Cqg" secondAttribute="leading" id="h3t-4Q-2WP"/>
+                                                            <constraint firstAttribute="trailing" secondItem="3iu-J7-saV" secondAttribute="trailing" id="jJ9-Yb-AyH"/>
+                                                        </constraints>
+                                                    </customView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="9Ub-fG-IzQ" secondAttribute="bottom" id="JsI-3Q-3Xq"/>
+                                                    <constraint firstItem="O6B-su-Cqg" firstAttribute="leading" secondItem="9Ub-fG-IzQ" secondAttribute="trailing" constant="10" id="VwV-c3-z6L"/>
+                                                    <constraint firstAttribute="trailing" secondItem="O6B-su-Cqg" secondAttribute="trailing" id="WEK-9z-3wO"/>
+                                                    <constraint firstAttribute="height" constant="40" id="WOX-s8-Fb7"/>
+                                                    <constraint firstAttribute="bottom" secondItem="O6B-su-Cqg" secondAttribute="bottom" id="a0h-zn-v3A"/>
+                                                    <constraint firstItem="9Ub-fG-IzQ" firstAttribute="top" secondItem="5fH-K5-CVq" secondAttribute="top" id="bpq-m6-OsW"/>
+                                                    <constraint firstItem="O6B-su-Cqg" firstAttribute="top" secondItem="5fH-K5-CVq" secondAttribute="top" id="f2n-TY-HDa"/>
+                                                    <constraint firstItem="9Ub-fG-IzQ" firstAttribute="leading" secondItem="5fH-K5-CVq" secondAttribute="leading" id="mA5-4U-u07"/>
+                                                </constraints>
+                                            </customView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="LKX-2x-Mgc" firstAttribute="width" secondItem="Jhx-EN-3SX" secondAttribute="width" id="XSm-U6-G7s"/>
@@ -992,8 +1043,10 @@
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
@@ -1027,6 +1080,7 @@
                         <outlet property="borderWidthSlider" destination="SZD-sa-mEK" id="jEX-zd-fOi"/>
                         <outlet property="colorPicker" destination="Hx5-TI-qmc" id="07Q-rx-JAv"/>
                         <outlet property="pointerViewContainer" destination="4jI-lo-dOl" id="dRf-bl-zet"/>
+                        <outlet property="shadowWidthSlider" destination="3iu-J7-saV" id="TCC-1l-LQZ"/>
                         <outlet property="shapeSelectionBox" destination="LUH-Sv-hKx" id="Swd-Fn-5xl"/>
                         <outlet property="sizeSlider" destination="wyH-Jc-ViJ" id="acj-0h-gqC"/>
                         <outlet property="stackView" destination="Jhx-EN-3SX" id="yDl-9t-TWN"/>
