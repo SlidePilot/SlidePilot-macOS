@@ -93,6 +93,9 @@ class PointerCCView: NSView {
     var shadowWidth: CGFloat = 0.0 {
         didSet { self.needsDisplay = true } }
     
+    /** Padding for shadow (both sides is shadowWidth x 2) + a little more buffer (1.75) -> 2 x 1.75 = 3.5 */
+    var shadowPadding: CGFloat { return shadowWidth * 3.5 }
+    
     var configuration: Configuration {
         return Configuration(shape: shape, size: size, thickness: thickness, color: color, borderWidth: borderWidth, borderColor: borderColor, shadowWidth: shadowWidth)
     }
@@ -171,7 +174,7 @@ class PointerCCView: NSView {
     
     private func drawTarget() {
         // Calculate frame size
-        self.frame.size = CGSize(width: size+thickness+borderWidth, height: size+thickness+borderWidth)
+        self.frame.size = CGSize(width: size+thickness+borderWidth+shadowPadding, height: size+thickness+borderWidth+shadowPadding)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         hotspotShift = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
@@ -188,7 +191,7 @@ class PointerCCView: NSView {
         centerCircleBorder.fillColor = borderColor.cgColor
         
         let outerCircle = CAShapeLayer()
-        let padding = borderWidth + thickness/2
+        let padding = borderWidth + (thickness + shadowPadding)/2
         let outerCircleFrame = CGRect(x: padding, y: padding, width: self.frame.width-padding*2, height: self.frame.height-padding*2)
         outerCircle.path = CGPath(ellipseIn: outerCircleFrame, transform: nil)
         outerCircle.fillColor = NSColor.clear.cgColor
@@ -196,7 +199,7 @@ class PointerCCView: NSView {
         outerCircle.lineWidth = thickness
         
         let outerCircleBorder = CAShapeLayer()
-        let borderPadding = borderWidth/2
+        let borderPadding = (borderWidth + shadowPadding)/2
         let outerCircleBorderFrame = CGRect(x: borderPadding, y: borderPadding, width: self.frame.width-borderPadding*2, height: self.frame.height-borderPadding*2)
         outerCircleBorder.path = CGPath(ellipseIn: outerCircleBorderFrame, transform: nil)
         outerCircleBorder.fillColor = NSColor.clear.cgColor
@@ -216,18 +219,18 @@ class PointerCCView: NSView {
     
     private func drawDot() {
         // Calculate frame size
-        self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
+        self.frame.size = CGSize(width: size+borderWidth+shadowPadding, height: size+borderWidth+shadowPadding)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         hotspotShift = hotspot
         
         let dot = CAShapeLayer()
-        let dotFrame = CGRect(x: borderWidth/2, y: borderWidth/2, width: size, height: size)
+        let dotFrame = CGRect(x: (borderWidth+shadowPadding)/2, y: (borderWidth+shadowPadding)/2, width: size, height: size)
         dot.path = CGPath(ellipseIn: dotFrame, transform: nil)
         dot.fillColor = color.cgColor
         
         let dotBorder = CAShapeLayer()
-        let dotBorderFrame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        let dotBorderFrame = CGRect(x: shadowPadding/2, y: shadowPadding/2, width: self.frame.width-shadowPadding, height: self.frame.height-shadowPadding)
         dotBorder.path = CGPath(ellipseIn: dotBorderFrame, transform: nil)
         dotBorder.fillColor = borderColor.cgColor
         
@@ -242,13 +245,13 @@ class PointerCCView: NSView {
     
     private func drawCircle() {
         // Calculate frame size
-        self.frame.size = CGSize(width: size+thickness+borderWidth, height: size+thickness+borderWidth)
+        self.frame.size = CGSize(width: size+thickness+borderWidth+shadowPadding, height: size+thickness+borderWidth+shadowPadding)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         hotspotShift = hotspot
         
         let circle = CAShapeLayer()
-        let padding = borderWidth + thickness/2
+        let padding = borderWidth + (thickness + shadowPadding)/2
         let circleFrame = CGRect(x: padding, y: padding, width: self.frame.width-padding*2, height: self.frame.height-padding*2)
         circle.path = CGPath(ellipseIn: circleFrame, transform: nil)
         circle.fillColor = NSColor.clear.cgColor
@@ -256,7 +259,7 @@ class PointerCCView: NSView {
         circle.lineWidth = thickness
         
         let circleBorder = CAShapeLayer()
-        let borderPadding = borderWidth/2
+        let borderPadding = (borderWidth + shadowPadding)/2
         let circleBorderFrame = CGRect(x: borderPadding, y: borderPadding, width: self.frame.width-borderPadding*2, height: self.frame.height-borderPadding*2)
         circleBorder.path = CGPath(ellipseIn: circleBorderFrame, transform: nil)
         circleBorder.fillColor = NSColor.clear.cgColor
@@ -273,28 +276,28 @@ class PointerCCView: NSView {
     
     
     private func drawPlus() {
-        self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
+        self.frame.size = CGSize(width: size+borderWidth+shadowPadding, height: size+borderWidth+shadowPadding)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         hotspotShift = hotspot
         
         let verticalBar = CAShapeLayer()
-        let verticalBarFrame = CGRect(x: (self.frame.width-thickness)/2, y: borderWidth/2, width: thickness, height: self.frame.height-borderWidth)
+        let verticalBarFrame = CGRect(x: (self.frame.width-thickness)/2, y: (borderWidth+shadowPadding)/2, width: thickness, height: self.frame.height-borderWidth-shadowPadding)
         verticalBar.path = CGPath(rect: verticalBarFrame, transform: nil)
         verticalBar.fillColor = color.cgColor
         
         let verticalBarBorder = CAShapeLayer()
-        let verticalBarBorderFrame = CGRect(x: (self.frame.width-thickness-borderWidth)/2, y: 0, width: thickness+borderWidth, height: self.frame.height)
+        let verticalBarBorderFrame = CGRect(x: (self.frame.width-thickness-borderWidth)/2, y: shadowPadding/2, width: thickness+borderWidth, height: self.frame.height-shadowPadding)
         verticalBarBorder.path = CGPath(rect: verticalBarBorderFrame, transform: nil)
         verticalBarBorder.fillColor = borderColor.cgColor
         
         let horizontalBar = CAShapeLayer()
-        let horizontalBarFrame = CGRect(x: borderWidth/2, y: (self.frame.height-thickness)/2, width: self.frame.width-borderWidth, height: thickness)
+        let horizontalBarFrame = CGRect(x: (borderWidth+shadowPadding)/2, y: (self.frame.height-thickness)/2, width: self.frame.width-borderWidth-shadowPadding, height: thickness)
         horizontalBar.path = CGPath(rect: horizontalBarFrame, transform: nil)
         horizontalBar.fillColor = color.cgColor
         
         let horizontalBarBorder = CAShapeLayer()
-        let horizontalBarBorderFrame = CGRect(x: 0, y: (self.frame.height-thickness-borderWidth)/2, width: self.frame.width, height: thickness+borderWidth)
+        let horizontalBarBorderFrame = CGRect(x: shadowPadding/2, y: (self.frame.height-thickness-borderWidth)/2, width: self.frame.width-shadowPadding, height: thickness+borderWidth)
         horizontalBarBorder.path = CGPath(rect: horizontalBarBorderFrame, transform: nil)
         horizontalBarBorder.fillColor = borderColor.cgColor
         
@@ -310,28 +313,28 @@ class PointerCCView: NSView {
     
     
     private func drawCross() {
-        self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
+        self.frame.size = CGSize(width: size+borderWidth+shadowPadding, height: size+borderWidth+shadowPadding)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         hotspotShift = hotspot
         
         let verticalBar = CAShapeLayer()
-        let verticalBarFrame = CGRect(x: (self.frame.width-thickness)/2, y: borderWidth/2, width: thickness, height: self.frame.height-borderWidth)
+        let verticalBarFrame = CGRect(x: (self.frame.width-thickness)/2, y: (borderWidth+shadowPadding)/2, width: thickness, height: self.frame.height-borderWidth-shadowPadding)
         verticalBar.path = CGPath(rect: verticalBarFrame, transform: nil)
         verticalBar.fillColor = color.cgColor
         
         let verticalBarBorder = CAShapeLayer()
-        let verticalBarBorderFrame = CGRect(x: (self.frame.width-thickness-borderWidth)/2, y: 0, width: thickness+borderWidth, height: self.frame.height)
+        let verticalBarBorderFrame = CGRect(x: (self.frame.width-thickness-borderWidth)/2, y: shadowPadding/2, width: thickness+borderWidth, height: self.frame.height-shadowPadding)
         verticalBarBorder.path = CGPath(rect: verticalBarBorderFrame, transform: nil)
         verticalBarBorder.fillColor = borderColor.cgColor
         
         let horizontalBar = CAShapeLayer()
-        let horizontalBarFrame = CGRect(x: borderWidth/2, y: (self.frame.height-thickness)/2, width: self.frame.width-borderWidth, height: thickness)
+        let horizontalBarFrame = CGRect(x: (borderWidth+shadowPadding)/2, y: (self.frame.height-thickness)/2, width: self.frame.width-borderWidth-shadowPadding, height: thickness)
         horizontalBar.path = CGPath(rect: horizontalBarFrame, transform: nil)
         horizontalBar.fillColor = color.cgColor
         
         let horizontalBarBorder = CAShapeLayer()
-        let horizontalBarBorderFrame = CGRect(x: 0, y: (self.frame.height-thickness-borderWidth)/2, width: self.frame.width, height: thickness+borderWidth)
+        let horizontalBarBorderFrame = CGRect(x: shadowPadding/2, y: (self.frame.height-thickness-borderWidth)/2, width: self.frame.width-shadowPadding, height: thickness+borderWidth)
         horizontalBarBorder.path = CGPath(rect: horizontalBarBorderFrame, transform: nil)
         horizontalBarBorder.fillColor = borderColor.cgColor
         
@@ -353,18 +356,18 @@ class PointerCCView: NSView {
     
     private func drawSquare() {
         // Calculate frame size
-        self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
+        self.frame.size = CGSize(width: size+borderWidth+shadowPadding, height: size+borderWidth+shadowPadding)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         hotspotShift = hotspot
         
         let square = CAShapeLayer()
-        let squareFrame = CGRect(x: borderWidth/2, y: borderWidth/2, width: size, height: size)
+        let squareFrame = CGRect(x: (borderWidth+shadowPadding)/2, y: (borderWidth+shadowPadding)/2, width: size, height: size)
         square.path = CGPath(rect: squareFrame, transform: nil)
         square.fillColor = color.cgColor
         
         let squareBorder = CAShapeLayer()
-        let squareBorderFrame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        let squareBorderFrame = CGRect(x: shadowPadding/2, y: shadowPadding/2, width: self.frame.width-shadowPadding, height: self.frame.height-shadowPadding)
         squareBorder.path = CGPath(rect: squareBorderFrame, transform: nil)
         squareBorder.fillColor = borderColor.cgColor
         
