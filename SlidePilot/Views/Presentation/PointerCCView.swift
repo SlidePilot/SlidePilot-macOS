@@ -44,7 +44,27 @@ class PointerCCView: NSView {
     }
     
     
-    func load(_ configuration: Configuration) {
+    
+    
+    // MARK: - Initializer
+    
+    init(configuration: Configuration) {
+        super.init(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        load(configuration)
+    }
+    
+    
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    
+    public func load(_ configuration: Configuration) {
         self.shape = configuration.shape
         self.size = configuration.size
         self.thickness = configuration.thickness
@@ -54,6 +74,10 @@ class PointerCCView: NSView {
         self.shadowWidth = configuration.shadowWidth
     }
     
+    
+    
+    
+    // MARK: Drawing
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -283,17 +307,17 @@ class PointerCCView: NSView {
     }
     
     
-    func drawCursor() {
+    private func drawCursor() {
         draw(with: NSCursor.arrow.image)
     }
     
     
-    func drawHand() {
+    private func drawHand() {
         draw(with: NSCursor.pointingHand.image)
     }
     
     
-    func draw(with image: NSImage) {
+    private func draw(with image: NSImage) {
         self.frame.size = image.size
         self.layer?.frame = self.frame
         
