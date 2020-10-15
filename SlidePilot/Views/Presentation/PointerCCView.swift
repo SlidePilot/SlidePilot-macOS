@@ -5,24 +5,78 @@
 //  Created by Pascal Braband on 15.10.20.
 //  Copyright © 2020 Pascal Braband. All rights reserved.
 //
+//  Every Pointer is drawn in a separate container layer, so that it can be easily removed
 
 import Cocoa
 
 class PointerCCView: NSView {
     
-    enum Shape {
+    enum Shape: Int, Codable {
         case target, dot, circle, plus, cross, square, cursor, hand
     }
     
-    struct Configuration {
+    struct Configuration: Codable, Equatable {
         var shape: Shape
-        var size: CGFloat = 0.0
-        var thickness: CGFloat = 0.0
-        var color: NSColor = .black
-        var borderWidth: CGFloat = 0.0
-        var borderColor: NSColor = .black
-        var shadowWidth: CGFloat = 0.0
+        var size: CGFloat?
+        var thickness: CGFloat?
+        var color: NSColor?
+        var borderWidth: CGFloat?
+        var borderColor: NSColor?
+        var shadowWidth: CGFloat?
+        
+        enum CodingKeys: String, CodingKey {
+            case shape, size, thickness, color, borderWidth, borderColor, shadowWidth
+        }
+        
+        init(shape: Shape, size: CGFloat? = nil, thickness: CGFloat? = nil, color: NSColor? = nil, borderWidth: CGFloat? = nil, borderColor: NSColor? = nil, shadowWidth: CGFloat? = nil) {
+            self.shape = shape
+            self.size = size
+            self.thickness = thickness
+            self.color = color
+            self.borderWidth = borderWidth
+            self.borderColor = borderColor
+            self.shadowWidth = shadowWidth
+        }
+        
+        init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            shape = try values.decode(Shape.self, forKey: .shape)
+            size = try values.decode(CGFloat?.self, forKey: .size)
+            thickness = try values.decode(CGFloat?.self, forKey: .thickness)
+            borderWidth = try values.decode(CGFloat?.self, forKey: .borderWidth)
+            shadowWidth = try values.decode(CGFloat?.self, forKey: .shadowWidth)
+            
+            // Decode Colors
+            if let colorData = try values.decode(Data?.self, forKey: .color) {
+                color = NSKeyedUnarchiver.unarchive(data: colorData, of: NSColor.self)
+            }
+            if let borderColorData = try values.decode(Data?.self, forKey: .borderColor) {
+                borderColor = NSKeyedUnarchiver.unarchive(data: borderColorData, of: NSColor.self)
+            }
+        }
+        
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(shape, forKey: .shape)
+            try container.encode(size, forKey: .size)
+            try container.encode(thickness, forKey: .thickness)
+            try container.encode(borderWidth, forKey: .borderWidth)
+            try container.encode(shadowWidth, forKey: .shadowWidth)
+            
+            let colorData = NSKeyedArchiver.archive(object: color)
+            try container.encode(colorData, forKey: .color)
+            let borderColorData = NSKeyedArchiver.archive(object: borderColor)
+            try container.encode(borderColorData, forKey: .borderColor)
+        }
     }
+    
+    // Default configurations
+    static let cursor = Configuration(shape: .cursor)
+    static let hand = Configuration(shape: .hand)
+    static let target = Configuration(shape: .target, size: 44, thickness: 3, color: .black, borderWidth: 2, borderColor: .white, shadowWidth: 0)
+    static let targetColor = Configuration(shape: .target, size: 44, thickness: 3, color: .systemRed, shadowWidth: 0)
+    static let circle = Configuration(shape: .circle, size: 20, thickness: 3, color: .white, shadowWidth: 10)
+    static let dot = Configuration(shape: .dot, size: 10, color: .black, borderWidth: 5, borderColor: .white, shadowWidth: 10)
     
     var shape: Shape = .target {
         didSet { self.needsDisplay = true } }
@@ -45,6 +99,9 @@ class PointerCCView: NSView {
     
     /** The position of the pointers hotspot (the spot where interactions are taken). */
     var hotspot: CGPoint = CGPoint(x: 0, y: 0)
+    
+    /** The position, that the pointer needs to be shifted to be centered at hotspot*/
+    var hotspotShift: CGPoint = CGPoint(x: 0, y: 0)
     
     
     
@@ -69,12 +126,12 @@ class PointerCCView: NSView {
     
     public func load(_ configuration: Configuration) {
         self.shape = configuration.shape
-        self.size = configuration.size
-        self.thickness = configuration.thickness
-        self.color = configuration.color
-        self.borderWidth = configuration.borderWidth
-        self.borderColor = configuration.borderColor
-        self.shadowWidth = configuration.shadowWidth
+        self.size = configuration.size ?? 0.0
+        self.thickness = configuration.thickness ?? 0.0
+        self.color = configuration.color ?? .black
+        self.borderWidth = configuration.borderWidth ?? 0.0
+        self.borderColor = configuration.borderColor ?? .black
+        self.shadowWidth = configuration.shadowWidth ?? 0.0
     }
     
     
@@ -117,6 +174,7 @@ class PointerCCView: NSView {
         self.frame.size = CGSize(width: size+thickness+borderWidth, height: size+thickness+borderWidth)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+        hotspotShift = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         
         let centerCircle = CAShapeLayer()
         let centerCircleSize = thickness*1.4
@@ -145,12 +203,14 @@ class PointerCCView: NSView {
         outerCircleBorder.strokeColor = borderColor.cgColor
         outerCircleBorder.lineWidth = borderWidth
         
-        if borderWidth != 0 { self.layer?.addSublayer(centerCircleBorder) }
-        self.layer?.addSublayer(centerCircle)
-        self.layer?.addSublayer(outerCircleBorder)
-        self.layer?.addSublayer(outerCircle)
+        let containerLayer = CALayer()
+        if borderWidth != 0 { containerLayer.addSublayer(centerCircleBorder) }
+        containerLayer.addSublayer(centerCircle)
+        containerLayer.addSublayer(outerCircleBorder)
+        containerLayer.addSublayer(outerCircle)
+        self.layer?.addSublayer(containerLayer)
         
-        drawShaddow()
+        drawShaddow(on: containerLayer)
     }
     
     
@@ -159,6 +219,7 @@ class PointerCCView: NSView {
         self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+        hotspotShift = hotspot
         
         let dot = CAShapeLayer()
         let dotFrame = CGRect(x: borderWidth/2, y: borderWidth/2, width: size, height: size)
@@ -170,10 +231,12 @@ class PointerCCView: NSView {
         dotBorder.path = CGPath(ellipseIn: dotBorderFrame, transform: nil)
         dotBorder.fillColor = borderColor.cgColor
         
-        if borderWidth != 0 { self.layer?.addSublayer(dotBorder) }
-        self.layer?.addSublayer(dot)
+        let containerLayer = CALayer()
+        if borderWidth != 0 { containerLayer.addSublayer(dotBorder) }
+        containerLayer.addSublayer(dot)
+        self.layer?.addSublayer(containerLayer)
         
-        drawShaddow()
+        drawShaddow(on: containerLayer)
     }
     
     
@@ -182,6 +245,7 @@ class PointerCCView: NSView {
         self.frame.size = CGSize(width: size+thickness+borderWidth, height: size+thickness+borderWidth)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+        hotspotShift = hotspot
         
         let circle = CAShapeLayer()
         let padding = borderWidth + thickness/2
@@ -199,10 +263,12 @@ class PointerCCView: NSView {
         circleBorder.strokeColor = borderColor.cgColor
         circleBorder.lineWidth = borderWidth
         
-        self.layer?.addSublayer(circleBorder)
-        self.layer?.addSublayer(circle)
+        let containerLayer = CALayer()
+        containerLayer.addSublayer(circleBorder)
+        containerLayer.addSublayer(circle)
+        self.layer?.addSublayer(containerLayer)
         
-        drawShaddow()
+        drawShaddow(on: containerLayer)
     }
     
     
@@ -210,6 +276,7 @@ class PointerCCView: NSView {
         self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+        hotspotShift = hotspot
         
         let verticalBar = CAShapeLayer()
         let verticalBarFrame = CGRect(x: (self.frame.width-thickness)/2, y: borderWidth/2, width: thickness, height: self.frame.height-borderWidth)
@@ -231,12 +298,14 @@ class PointerCCView: NSView {
         horizontalBarBorder.path = CGPath(rect: horizontalBarBorderFrame, transform: nil)
         horizontalBarBorder.fillColor = borderColor.cgColor
         
-        if borderWidth != 0 { self.layer?.addSublayer(verticalBarBorder) }
-        if borderWidth != 0 { self.layer?.addSublayer(horizontalBarBorder) }
-        self.layer?.addSublayer(verticalBar)
-        self.layer?.addSublayer(horizontalBar)
+        let containerLayer = CALayer()
+        if borderWidth != 0 { containerLayer.addSublayer(verticalBarBorder) }
+        if borderWidth != 0 { containerLayer.addSublayer(horizontalBarBorder) }
+        containerLayer.addSublayer(verticalBar)
+        containerLayer.addSublayer(horizontalBar)
+        self.layer?.addSublayer(containerLayer)
         
-        drawShaddow()
+        drawShaddow(on: containerLayer)
     }
     
     
@@ -244,6 +313,7 @@ class PointerCCView: NSView {
         self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+        hotspotShift = hotspot
         
         let verticalBar = CAShapeLayer()
         let verticalBarFrame = CGRect(x: (self.frame.width-thickness)/2, y: borderWidth/2, width: thickness, height: self.frame.height-borderWidth)
@@ -265,19 +335,19 @@ class PointerCCView: NSView {
         horizontalBarBorder.path = CGPath(rect: horizontalBarBorderFrame, transform: nil)
         horizontalBarBorder.fillColor = borderColor.cgColor
         
-        let crossLayer = CALayer()
-        crossLayer.frame = self.bounds
-        if borderWidth != 0 { crossLayer.addSublayer(verticalBarBorder) }
-        if borderWidth != 0 { crossLayer.addSublayer(horizontalBarBorder) }
-        crossLayer.addSublayer(verticalBar)
-        crossLayer.addSublayer(horizontalBar)
+        let containerLayer = CALayer()
+        containerLayer.frame = self.bounds
+        if borderWidth != 0 { containerLayer.addSublayer(verticalBarBorder) }
+        if borderWidth != 0 { containerLayer.addSublayer(horizontalBarBorder) }
+        containerLayer.addSublayer(verticalBar)
+        containerLayer.addSublayer(horizontalBar)
         
-        crossLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        crossLayer.transform = CATransform3DRotate(CATransform3DIdentity, 45.0/180.0*CGFloat.pi, 0, 0, 1)
+        containerLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        containerLayer.transform = CATransform3DRotate(CATransform3DIdentity, 45.0/180.0*CGFloat.pi, 0, 0, 1)
         
-        self.layer?.addSublayer(crossLayer)
+        self.layer?.addSublayer(containerLayer)
         
-        drawShaddow()
+        drawShaddow(on: containerLayer)
     }
     
     
@@ -286,6 +356,7 @@ class PointerCCView: NSView {
         self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+        hotspotShift = hotspot
         
         let square = CAShapeLayer()
         let squareFrame = CGRect(x: borderWidth/2, y: borderWidth/2, width: size, height: size)
@@ -297,21 +368,23 @@ class PointerCCView: NSView {
         squareBorder.path = CGPath(rect: squareBorderFrame, transform: nil)
         squareBorder.fillColor = borderColor.cgColor
         
-        if borderWidth != 0 { self.layer?.addSublayer(squareBorder) }
-        self.layer?.addSublayer(square)
+        let containerLayer = CALayer()
+        if borderWidth != 0 { containerLayer.addSublayer(squareBorder) }
+        containerLayer.addSublayer(square)
+        self.layer?.addSublayer(containerLayer)
         
-        drawShaddow()
+        drawShaddow(on: containerLayer)
     }
     
     
-    private func drawShaddow() {
+    private func drawShaddow(on layer: CALayer) {
         if shadowWidth > 0 {
-            self.layer?.shadowOpacity = 1.0
-            self.layer?.shadowColor = .black
-            self.layer?.shadowOffset = NSMakeSize(0, 0)
-            self.layer?.shadowRadius = shadowWidth
+            layer.shadowOpacity = 1.0
+            layer.shadowColor = .black
+            layer.shadowOffset = NSMakeSize(0, 0)
+            layer.shadowRadius = shadowWidth
         } else {
-            self.layer?.shadowOpacity = 0.0
+            layer.shadowOpacity = 0.0
         }
     }
     
@@ -319,12 +392,14 @@ class PointerCCView: NSView {
     private func drawCursor() {
         draw(with: NSCursor.arrow.image)
         hotspot = NSCursor.arrow.hotSpot
+        hotspotShift = NSPoint(x: 4, y: NSCursor.arrow.image.size.height-4)
     }
     
     
     private func drawHand() {
         draw(with: NSCursor.pointingHand.image)
         hotspot = NSCursor.pointingHand.hotSpot
+        hotspotShift = NSPoint(x: 4, y: NSCursor.pointingHand.image.size.height-4)
     }
     
     
@@ -338,4 +413,20 @@ class PointerCCView: NSView {
         self.layer?.addSublayer(imageLayer)
     }
     
+    
+    
+    
+    // MARK: - Misc
+    
+    public func setPosition(_ position: NSPoint) {
+        self.frame.origin = NSPoint(x: position.x-self.hotspot.x,
+                                    y: position.y-self.hotspot.y)
+    }
+    
+    
+    public func image() -> NSImage {
+        let imageRepresentation = bitmapImageRepForCachingDisplay(in: bounds)!
+        cacheDisplay(in: bounds, to: imageRepresentation)
+        return NSImage(cgImage: imageRepresentation.cgImage!, size: bounds.size)
+    }
 }
