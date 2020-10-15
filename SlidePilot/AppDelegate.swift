@@ -596,6 +596,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let pointerEditorCtrl = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: .init(stringLiteral: "PointerEditorWindow")) as?
             NSWindowController else { return }
         guard let pointerEditorWindow = pointerEditorCtrl.window else { return }
+        pointerEditorWindow.title = NSLocalizedString("Pointer Editor", comment: "Window name for the pointer editor.")
 //        guard let pointerEditorView = pointerEditorCtrl.contentViewController as? PresentationViewController else { return }
         pointerEditorWindow.makeKeyAndOrderFront(nil)
     }
