@@ -66,7 +66,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     lazy var preferencesWindowController = PreferencesWindowController(
         preferencePanes: [
-            GeneralPreferencesViewController()
+            GeneralPreferencesViewController(),
+            RemotePreferencesViewController()
         ],
         hidesToolbarForSingleItem: false
     )
@@ -127,6 +128,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Apply default preferences
         PreferencesController.applyDefaults()
+        
+        // Startup RemoteService
+        RemoteController.shared.setup()
         
         startup()
     }
