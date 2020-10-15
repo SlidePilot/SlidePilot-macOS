@@ -663,10 +663,10 @@
                                                 <rect key="frame" x="0.0" y="240" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Acw-oV-9cH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="143" height="40"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UtP-DK-rpx">
-                                                                <rect key="frame" x="-2" y="12" width="147" height="16"/>
+                                                                <rect key="frame" x="-2" y="12" width="124" height="16"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Shape:" id="AsJ-oq-Swq">
                                                                     <font key="font" usesAppearanceFont="YES"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -675,16 +675,17 @@
                                                             </textField>
                                                         </subviews>
                                                         <constraints>
+                                                            <constraint firstAttribute="width" constant="120" id="CLP-d4-P3P"/>
                                                             <constraint firstAttribute="trailing" secondItem="UtP-DK-rpx" secondAttribute="trailing" id="Lc7-c3-Tua"/>
                                                             <constraint firstItem="UtP-DK-rpx" firstAttribute="leading" secondItem="Acw-oV-9cH" secondAttribute="leading" id="TTY-2C-pHO"/>
                                                             <constraint firstItem="UtP-DK-rpx" firstAttribute="centerY" secondItem="Acw-oV-9cH" secondAttribute="centerY" id="g0p-q7-zHL"/>
                                                         </constraints>
                                                     </customView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="YS5-Ou-IWX">
-                                                        <rect key="frame" x="153" y="0.0" width="324" height="40"/>
+                                                        <rect key="frame" x="130" y="0.0" width="347" height="40"/>
                                                         <subviews>
                                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LUH-Sv-hKx">
-                                                                <rect key="frame" x="-2" y="7" width="329" height="25"/>
+                                                                <rect key="frame" x="-2" y="7" width="352" height="25"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="zoI-D6-3Ia" id="3rq-o8-OYZ">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                     <font key="font" metaFont="menu"/>
@@ -712,7 +713,6 @@
                                                     <constraint firstItem="Acw-oV-9cH" firstAttribute="leading" secondItem="LKX-2x-Mgc" secondAttribute="leading" id="0zD-0W-eb2"/>
                                                     <constraint firstItem="YS5-Ou-IWX" firstAttribute="top" secondItem="LKX-2x-Mgc" secondAttribute="top" id="AU2-Zp-PI5"/>
                                                     <constraint firstItem="YS5-Ou-IWX" firstAttribute="leading" secondItem="Acw-oV-9cH" secondAttribute="trailing" constant="10" id="AaS-bI-jwc"/>
-                                                    <constraint firstItem="Acw-oV-9cH" firstAttribute="width" secondItem="LKX-2x-Mgc" secondAttribute="width" multiplier="0.3" id="F2m-f7-jQV"/>
                                                     <constraint firstAttribute="height" constant="40" id="JJX-Al-JDD"/>
                                                     <constraint firstAttribute="bottom" secondItem="Acw-oV-9cH" secondAttribute="bottom" id="e4y-T6-4xm"/>
                                                     <constraint firstAttribute="trailing" secondItem="YS5-Ou-IWX" secondAttribute="trailing" id="i6a-om-AzT"/>
@@ -724,10 +724,10 @@
                                                 <rect key="frame" x="0.0" y="192" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="n2P-Zl-DPr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="143" height="40"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ip5-ho-ePN">
-                                                                <rect key="frame" x="-2" y="12" width="147" height="16"/>
+                                                                <rect key="frame" x="-2" y="12" width="124" height="16"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Size:" id="RLJ-7C-mDU">
                                                                     <font key="font" usesAppearanceFont="YES"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -737,15 +737,16 @@
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="Ip5-ho-ePN" secondAttribute="trailing" id="9BO-vY-mw9"/>
+                                                            <constraint firstAttribute="width" constant="120" id="OQs-AB-cNO"/>
                                                             <constraint firstItem="Ip5-ho-ePN" firstAttribute="leading" secondItem="n2P-Zl-DPr" secondAttribute="leading" id="s1Q-tC-cbL"/>
                                                             <constraint firstItem="Ip5-ho-ePN" firstAttribute="centerY" secondItem="n2P-Zl-DPr" secondAttribute="centerY" id="sYl-bz-3ca"/>
                                                         </constraints>
                                                     </customView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="tuU-80-pLG">
-                                                        <rect key="frame" x="153" y="0.0" width="324" height="40"/>
+                                                        <rect key="frame" x="130" y="0.0" width="347" height="40"/>
                                                         <subviews>
                                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wyH-Jc-ViJ">
-                                                                <rect key="frame" x="-2" y="7" width="328" height="24"/>
+                                                                <rect key="frame" x="-2" y="7" width="351" height="24"/>
                                                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="dvq-IE-zR1"/>
                                                                 <connections>
                                                                     <action selector="sizeSliderChanged:" target="BfQ-YE-Skr" id="wkw-ow-04P"/>
@@ -763,7 +764,6 @@
                                                     <constraint firstAttribute="height" constant="40" id="4CA-pd-7eE"/>
                                                     <constraint firstItem="tuU-80-pLG" firstAttribute="leading" secondItem="n2P-Zl-DPr" secondAttribute="trailing" constant="10" id="7UL-Nj-0DW"/>
                                                     <constraint firstAttribute="bottom" secondItem="n2P-Zl-DPr" secondAttribute="bottom" id="8iR-ZO-e2C"/>
-                                                    <constraint firstItem="n2P-Zl-DPr" firstAttribute="width" secondItem="TCt-iU-CIx" secondAttribute="width" multiplier="0.3" id="9yD-bP-KUJ"/>
                                                     <constraint firstAttribute="trailing" secondItem="tuU-80-pLG" secondAttribute="trailing" id="EFG-u2-jzA"/>
                                                     <constraint firstItem="n2P-Zl-DPr" firstAttribute="top" secondItem="TCt-iU-CIx" secondAttribute="top" id="Zxg-7q-xnQ"/>
                                                     <constraint firstItem="tuU-80-pLG" firstAttribute="top" secondItem="TCt-iU-CIx" secondAttribute="top" id="bFf-0j-4N2"/>
@@ -775,10 +775,10 @@
                                                 <rect key="frame" x="0.0" y="144" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="zXb-dW-Ryb">
-                                                        <rect key="frame" x="0.0" y="0.0" width="143" height="40"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aZH-km-bjK">
-                                                                <rect key="frame" x="-2" y="12" width="147" height="16"/>
+                                                                <rect key="frame" x="-2" y="12" width="124" height="16"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Thickness:" id="ivp-8p-UGA">
                                                                     <font key="font" usesAppearanceFont="YES"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -790,13 +790,14 @@
                                                             <constraint firstItem="aZH-km-bjK" firstAttribute="centerY" secondItem="zXb-dW-Ryb" secondAttribute="centerY" id="AUC-YW-hSW"/>
                                                             <constraint firstAttribute="trailing" secondItem="aZH-km-bjK" secondAttribute="trailing" id="OEJ-R1-y2C"/>
                                                             <constraint firstItem="aZH-km-bjK" firstAttribute="leading" secondItem="zXb-dW-Ryb" secondAttribute="leading" id="hSV-h5-f9C"/>
+                                                            <constraint firstAttribute="width" constant="120" id="pJg-Yn-UlB"/>
                                                         </constraints>
                                                     </customView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="pRZ-8J-Ke6">
-                                                        <rect key="frame" x="153" y="0.0" width="324" height="40"/>
+                                                        <rect key="frame" x="130" y="0.0" width="347" height="40"/>
                                                         <subviews>
                                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nku-r7-TmR">
-                                                                <rect key="frame" x="-2" y="7" width="328" height="24"/>
+                                                                <rect key="frame" x="-2" y="7" width="351" height="24"/>
                                                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="SnM-Yp-3Vc"/>
                                                                 <connections>
                                                                     <action selector="thicknessSliderChanged:" target="BfQ-YE-Skr" id="1vu-uw-XNz"/>
@@ -816,7 +817,6 @@
                                                     <constraint firstAttribute="bottom" secondItem="zXb-dW-Ryb" secondAttribute="bottom" id="DtS-Kk-IVY"/>
                                                     <constraint firstAttribute="height" constant="40" id="HBG-17-pNq"/>
                                                     <constraint firstItem="zXb-dW-Ryb" firstAttribute="leading" secondItem="nEG-ON-3DK" secondAttribute="leading" id="PRc-Ko-q9G"/>
-                                                    <constraint firstItem="zXb-dW-Ryb" firstAttribute="width" secondItem="nEG-ON-3DK" secondAttribute="width" multiplier="0.3" id="RwQ-56-OIW"/>
                                                     <constraint firstItem="pRZ-8J-Ke6" firstAttribute="leading" secondItem="zXb-dW-Ryb" secondAttribute="trailing" constant="10" id="fms-zs-Mau"/>
                                                     <constraint firstItem="pRZ-8J-Ke6" firstAttribute="top" secondItem="nEG-ON-3DK" secondAttribute="top" id="kPl-nv-zdh"/>
                                                     <constraint firstItem="zXb-dW-Ryb" firstAttribute="top" secondItem="nEG-ON-3DK" secondAttribute="top" id="wEC-ue-aWs"/>
@@ -826,10 +826,10 @@
                                                 <rect key="frame" x="0.0" y="96" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="j5W-Kr-eBK">
-                                                        <rect key="frame" x="0.0" y="0.0" width="143" height="40"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dll-Hq-55l">
-                                                                <rect key="frame" x="-2" y="12" width="147" height="16"/>
+                                                                <rect key="frame" x="-2" y="12" width="124" height="16"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Color:" id="Nxa-D0-Znh">
                                                                     <font key="font" usesAppearanceFont="YES"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -840,14 +840,15 @@
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="Dll-Hq-55l" secondAttribute="trailing" id="3ik-2y-5ze"/>
                                                             <constraint firstItem="Dll-Hq-55l" firstAttribute="leading" secondItem="j5W-Kr-eBK" secondAttribute="leading" id="VVW-se-ha2"/>
+                                                            <constraint firstAttribute="width" constant="120" id="ZbO-mU-bqS"/>
                                                             <constraint firstItem="Dll-Hq-55l" firstAttribute="centerY" secondItem="j5W-Kr-eBK" secondAttribute="centerY" id="gnh-LR-Z4C"/>
                                                         </constraints>
                                                     </customView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="63U-ei-1MY">
-                                                        <rect key="frame" x="153" y="0.0" width="324" height="40"/>
+                                                        <rect key="frame" x="130" y="0.0" width="347" height="40"/>
                                                         <subviews>
                                                             <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="Hx5-TI-qmc">
-                                                                <rect key="frame" x="0.0" y="9" width="324" height="23"/>
+                                                                <rect key="frame" x="0.0" y="9" width="347" height="23"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="23" id="44h-oc-Joj"/>
                                                                 </constraints>
@@ -868,7 +869,6 @@
                                                     <constraint firstItem="j5W-Kr-eBK" firstAttribute="top" secondItem="R7m-MY-INr" secondAttribute="top" id="5P2-Bv-CHp"/>
                                                     <constraint firstItem="63U-ei-1MY" firstAttribute="top" secondItem="R7m-MY-INr" secondAttribute="top" id="Ga2-cW-K1v"/>
                                                     <constraint firstAttribute="trailing" secondItem="63U-ei-1MY" secondAttribute="trailing" id="SSd-IL-DMB"/>
-                                                    <constraint firstItem="j5W-Kr-eBK" firstAttribute="width" secondItem="R7m-MY-INr" secondAttribute="width" multiplier="0.3" id="V6a-VC-M9g"/>
                                                     <constraint firstAttribute="bottom" secondItem="63U-ei-1MY" secondAttribute="bottom" id="VQE-lH-IPq"/>
                                                     <constraint firstItem="63U-ei-1MY" firstAttribute="leading" secondItem="j5W-Kr-eBK" secondAttribute="trailing" constant="10" id="Ze5-u7-uef"/>
                                                     <constraint firstItem="j5W-Kr-eBK" firstAttribute="leading" secondItem="R7m-MY-INr" secondAttribute="leading" id="axi-ip-5ve"/>
@@ -880,10 +880,10 @@
                                                 <rect key="frame" x="0.0" y="48" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="qYH-m4-hxR">
-                                                        <rect key="frame" x="0.0" y="0.0" width="143" height="40"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E8d-pB-ewK">
-                                                                <rect key="frame" x="-2" y="12" width="147" height="16"/>
+                                                                <rect key="frame" x="-2" y="12" width="124" height="16"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Border:" id="3WV-gB-6Cg">
                                                                     <font key="font" usesAppearanceFont="YES"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -895,13 +895,14 @@
                                                             <constraint firstAttribute="trailing" secondItem="E8d-pB-ewK" secondAttribute="trailing" id="GDQ-1L-XfL"/>
                                                             <constraint firstItem="E8d-pB-ewK" firstAttribute="leading" secondItem="qYH-m4-hxR" secondAttribute="leading" id="K70-ct-m32"/>
                                                             <constraint firstItem="E8d-pB-ewK" firstAttribute="centerY" secondItem="qYH-m4-hxR" secondAttribute="centerY" id="bDS-n3-fPU"/>
+                                                            <constraint firstAttribute="width" constant="120" id="hhO-rt-AvM"/>
                                                         </constraints>
                                                     </customView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="mSD-Ik-6jP">
-                                                        <rect key="frame" x="153" y="0.0" width="324" height="40"/>
+                                                        <rect key="frame" x="130" y="0.0" width="347" height="40"/>
                                                         <subviews>
                                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SZD-sa-mEK">
-                                                                <rect key="frame" x="-2" y="7" width="328" height="24"/>
+                                                                <rect key="frame" x="-2" y="7" width="351" height="24"/>
                                                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="5" sliderType="linear" id="jva-UR-gii"/>
                                                                 <connections>
                                                                     <action selector="borderSliderChanged:" target="BfQ-YE-Skr" id="FNU-7f-5jP"/>
@@ -920,7 +921,6 @@
                                                     <constraint firstItem="mSD-Ik-6jP" firstAttribute="top" secondItem="CXA-8S-EQV" secondAttribute="top" id="7WY-Nu-BnT"/>
                                                     <constraint firstAttribute="height" constant="40" id="P4j-O9-Uqf"/>
                                                     <constraint firstAttribute="bottom" secondItem="mSD-Ik-6jP" secondAttribute="bottom" id="Tf9-lg-OuH"/>
-                                                    <constraint firstItem="qYH-m4-hxR" firstAttribute="width" secondItem="CXA-8S-EQV" secondAttribute="width" multiplier="0.3" id="kez-wX-lsk"/>
                                                     <constraint firstAttribute="trailing" secondItem="mSD-Ik-6jP" secondAttribute="trailing" id="mYL-cu-g2C"/>
                                                     <constraint firstItem="qYH-m4-hxR" firstAttribute="top" secondItem="CXA-8S-EQV" secondAttribute="top" id="tNo-F7-4tg"/>
                                                     <constraint firstItem="qYH-m4-hxR" firstAttribute="leading" secondItem="CXA-8S-EQV" secondAttribute="leading" id="v77-vj-0Ma"/>
@@ -931,10 +931,10 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="wvw-02-WSr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="143" height="40"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
                                                         <subviews>
                                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hi0-we-Hum">
-                                                                <rect key="frame" x="-2" y="12" width="147" height="16"/>
+                                                                <rect key="frame" x="-2" y="12" width="124" height="16"/>
                                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Border Color:" id="EmW-da-fd7">
                                                                     <font key="font" usesAppearanceFont="YES"/>
                                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -944,15 +944,16 @@
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="hi0-we-Hum" firstAttribute="leading" secondItem="wvw-02-WSr" secondAttribute="leading" id="Mtx-fL-PQg"/>
+                                                            <constraint firstAttribute="width" constant="120" id="PbP-RN-gpn"/>
                                                             <constraint firstItem="hi0-we-Hum" firstAttribute="centerY" secondItem="wvw-02-WSr" secondAttribute="centerY" id="Sgw-xq-267"/>
                                                             <constraint firstAttribute="trailing" secondItem="hi0-we-Hum" secondAttribute="trailing" id="pGc-W2-Kk8"/>
                                                         </constraints>
                                                     </customView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="ACD-go-090">
-                                                        <rect key="frame" x="153" y="0.0" width="324" height="40"/>
+                                                        <rect key="frame" x="130" y="0.0" width="347" height="40"/>
                                                         <subviews>
                                                             <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="pzd-Mb-F9N">
-                                                                <rect key="frame" x="0.0" y="9" width="324" height="23"/>
+                                                                <rect key="frame" x="0.0" y="9" width="347" height="23"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="23" id="e6A-Hd-h1e"/>
                                                                 </constraints>
@@ -974,7 +975,6 @@
                                                     <constraint firstItem="ACD-go-090" firstAttribute="leading" secondItem="wvw-02-WSr" secondAttribute="trailing" constant="10" id="A04-oi-CF3"/>
                                                     <constraint firstAttribute="bottom" secondItem="wvw-02-WSr" secondAttribute="bottom" id="GTz-au-EeU"/>
                                                     <constraint firstItem="wvw-02-WSr" firstAttribute="top" secondItem="5Gp-GW-OXp" secondAttribute="top" id="TQQ-oi-F2B"/>
-                                                    <constraint firstItem="wvw-02-WSr" firstAttribute="width" secondItem="5Gp-GW-OXp" secondAttribute="width" multiplier="0.3" id="YAp-VW-DXT"/>
                                                     <constraint firstAttribute="bottom" secondItem="ACD-go-090" secondAttribute="bottom" id="cBt-26-CUS"/>
                                                     <constraint firstItem="ACD-go-090" firstAttribute="top" secondItem="5Gp-GW-OXp" secondAttribute="top" id="ctJ-wr-1oW"/>
                                                     <constraint firstAttribute="trailing" secondItem="ACD-go-090" secondAttribute="trailing" id="dfS-6s-N93"/>

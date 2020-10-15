@@ -84,14 +84,23 @@ class PointerEditorViewController: NSViewController {
         
         // Setup pointer (preview)
         pointerView = PointerCCView(frame: NSRect(x: 0, y: 0, width: 10.0, height: 10.0))
-        pointerView.delegate = self
         pointerViewContainer.addSubview(pointerView)
         pointerViewContainer.wantsLayer = true
         pointerViewContainer.layer?.backgroundColor = NSColor.black.withAlphaComponent(0.2).cgColor
         pointerViewContainer.layer?.cornerRadius = 10.0
         
+        pointerView.postsFrameChangedNotifications = true
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangePointerFrame), name: NSView.frameDidChangeNotification, object: nil)
+        
         // Setup default configuration
         setup(editorConfiguration: editorConfigurations[.target]!)
+    }
+    
+    
+    @objc func didChangePointerFrame() {
+        // Center pointer view in preview container
+        pointerView.frame.origin = CGPoint(x: (pointerViewContainer.frame.width-pointerView.frame.width)/2,
+                                           y: (pointerViewContainer.frame.height-pointerView.frame.height)/2)
     }
     
     
@@ -158,17 +167,5 @@ class PointerEditorViewController: NSViewController {
     
     @IBAction func borderColorChanged(_ sender: NSColorWell) {
         pointerView.borderColor = sender.color
-    }
-}
-
-
-
-
-extension PointerEditorViewController: PointerViewChangesDelegate {
-    
-    func didChange(frame newFrame: CGRect) {
-        // Center pointer view in preview container
-        pointerView.frame.origin = CGPoint(x: (pointerViewContainer.frame.width-newFrame.width)/2,
-                                           y: (pointerViewContainer.frame.height-newFrame.height)/2)
     }
 }

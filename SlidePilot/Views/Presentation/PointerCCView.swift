@@ -40,8 +40,6 @@ class PointerCCView: NSView {
         return Configuration(shape: shape, size: size, thickness: thickness, color: color, borderWidth: borderWidth, borderColor: borderColor)
     }
     
-    var delegate: PointerViewChangesDelegate?
-    
     
     func load(_ configuration: Configuration) {
         self.shape = configuration.shape
@@ -56,6 +54,8 @@ class PointerCCView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         self.layer?.masksToBounds = false
+        
+        self.layer?.autoresizingMask = CAAutoresizingMask(arrayLiteral: [.layerWidthSizable, .layerHeightSizable])
 
         // Remove all layer
         self.layer?.sublayers?.forEach({ $0.removeFromSuperlayer() })
@@ -80,7 +80,7 @@ class PointerCCView: NSView {
     private func drawTarget() {
         // Calculate frame size
         self.frame.size = CGSize(width: size+thickness+borderWidth, height: size+thickness+borderWidth)
-        delegate?.didChange(frame: self.frame)
+        self.layer?.frame = self.frame
         
         let centerCircle = CAShapeLayer()
         let centerCircleSize = thickness*1.4
@@ -119,7 +119,7 @@ class PointerCCView: NSView {
     private func drawDot() {
         // Calculate frame size
         self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
-        delegate?.didChange(frame: self.frame)
+        self.layer?.frame = self.frame
         
         let dot = CAShapeLayer()
         let dotFrame = CGRect(x: borderWidth/2, y: borderWidth/2, width: size, height: size)
@@ -139,7 +139,7 @@ class PointerCCView: NSView {
     private func drawCircle() {
         // Calculate frame size
         self.frame.size = CGSize(width: size+thickness+borderWidth, height: size+thickness+borderWidth)
-        delegate?.didChange(frame: self.frame)
+        self.layer?.frame = self.frame
         
         let circle = CAShapeLayer()
         let padding = borderWidth + thickness/2
@@ -164,7 +164,7 @@ class PointerCCView: NSView {
     
     private func drawPlus() {
         self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
-        delegate?.didChange(frame: self.frame)
+        self.layer?.frame = self.frame
         
         let verticalBar = CAShapeLayer()
         let verticalBarFrame = CGRect(x: (self.frame.width-thickness)/2, y: borderWidth/2, width: thickness, height: self.frame.height-borderWidth)
@@ -195,7 +195,7 @@ class PointerCCView: NSView {
     
     private func drawCross() {
         self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
-        delegate?.didChange(frame: self.frame)
+        self.layer?.frame = self.frame
         
         let verticalBar = CAShapeLayer()
         let verticalBarFrame = CGRect(x: (self.frame.width-thickness)/2, y: borderWidth/2, width: thickness, height: self.frame.height-borderWidth)
@@ -234,7 +234,7 @@ class PointerCCView: NSView {
     private func drawSquare() {
         // Calculate frame size
         self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
-        delegate?.didChange(frame: self.frame)
+        self.layer?.frame = self.frame
         
         let square = CAShapeLayer()
         let squareFrame = CGRect(x: borderWidth/2, y: borderWidth/2, width: size, height: size)
@@ -250,11 +250,4 @@ class PointerCCView: NSView {
         self.layer?.addSublayer(square)
     }
     
-}
-
-
-
-
-protocol PointerViewChangesDelegate {
-    func didChange(frame newFrame: CGRect)
 }
