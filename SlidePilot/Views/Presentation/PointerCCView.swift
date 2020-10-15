@@ -43,6 +43,9 @@ class PointerCCView: NSView {
         return Configuration(shape: shape, size: size, thickness: thickness, color: color, borderWidth: borderWidth, borderColor: borderColor, shadowWidth: shadowWidth)
     }
     
+    /** The position of the pointers hotspot (the spot where interactions are taken). */
+    var hotspot: CGPoint = CGPoint(x: 0, y: 0)
+    
     
     
     
@@ -113,6 +116,7 @@ class PointerCCView: NSView {
         // Calculate frame size
         self.frame.size = CGSize(width: size+thickness+borderWidth, height: size+thickness+borderWidth)
         self.layer?.frame = self.frame
+        hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         
         let centerCircle = CAShapeLayer()
         let centerCircleSize = thickness*1.4
@@ -154,6 +158,7 @@ class PointerCCView: NSView {
         // Calculate frame size
         self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
         self.layer?.frame = self.frame
+        hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         
         let dot = CAShapeLayer()
         let dotFrame = CGRect(x: borderWidth/2, y: borderWidth/2, width: size, height: size)
@@ -176,6 +181,7 @@ class PointerCCView: NSView {
         // Calculate frame size
         self.frame.size = CGSize(width: size+thickness+borderWidth, height: size+thickness+borderWidth)
         self.layer?.frame = self.frame
+        hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         
         let circle = CAShapeLayer()
         let padding = borderWidth + thickness/2
@@ -203,6 +209,7 @@ class PointerCCView: NSView {
     private func drawPlus() {
         self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
         self.layer?.frame = self.frame
+        hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         
         let verticalBar = CAShapeLayer()
         let verticalBarFrame = CGRect(x: (self.frame.width-thickness)/2, y: borderWidth/2, width: thickness, height: self.frame.height-borderWidth)
@@ -236,6 +243,7 @@ class PointerCCView: NSView {
     private func drawCross() {
         self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
         self.layer?.frame = self.frame
+        hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         
         let verticalBar = CAShapeLayer()
         let verticalBarFrame = CGRect(x: (self.frame.width-thickness)/2, y: borderWidth/2, width: thickness, height: self.frame.height-borderWidth)
@@ -277,6 +285,7 @@ class PointerCCView: NSView {
         // Calculate frame size
         self.frame.size = CGSize(width: size+borderWidth, height: size+borderWidth)
         self.layer?.frame = self.frame
+        hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         
         let square = CAShapeLayer()
         let squareFrame = CGRect(x: borderWidth/2, y: borderWidth/2, width: size, height: size)
@@ -295,7 +304,7 @@ class PointerCCView: NSView {
     }
     
     
-    func drawShaddow() {
+    private func drawShaddow() {
         if shadowWidth > 0 {
             self.layer?.shadowOpacity = 1.0
             self.layer?.shadowColor = .black
@@ -309,11 +318,13 @@ class PointerCCView: NSView {
     
     private func drawCursor() {
         draw(with: NSCursor.arrow.image)
+        hotspot = NSCursor.arrow.hotSpot
     }
     
     
     private func drawHand() {
         draw(with: NSCursor.pointingHand.image)
+        hotspot = NSCursor.pointingHand.hotSpot
     }
     
     
