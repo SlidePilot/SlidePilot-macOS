@@ -75,7 +75,7 @@ class DisplayController {
         return DisplayController.isBlackCurtainDisplayed || DisplayController.isWhiteCurtainDisplayed
     }
     
-    public private(set) static var pointerAppearance: PointerView.PointerType = .cursor
+    public private(set) static var pointerAppearance: PointerCCView.Configuration = PointerCCView.cursor
     
     
     
@@ -219,8 +219,8 @@ class DisplayController {
     
     
     /** Sends a notification, that the pointer appearance property was changed. */
-    public static func setPointerAppearance(_ type: PointerView.PointerType, sender: Any) {
-        pointerAppearance = type
+    public static func setPointerAppearance(_ configuration: PointerCCView.Configuration, sender: Any) {
+        pointerAppearance = configuration
         NotificationCenter.default.post(name: .didChangePointerAppearance, object: sender)
     }
     
@@ -385,7 +385,7 @@ extension DisplayController {
         var isNavigatorDisplayed: Bool
         var isNextSlidePreviewDisplayed: Bool
         var isPointerDisplayed: Bool
-        var pointerAppearance: PointerView.PointerType
+        var pointerAppearance: PointerCCView.Configuration
         
         var lastUpdated: Date
     }

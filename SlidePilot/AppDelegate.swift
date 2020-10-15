@@ -101,7 +101,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.subscribeLayoutChangesEnabled(target: self, action: #selector(didChangeLayoutChangesEnabled(_:)))
         
         // Set default display options
-        DisplayController.setPointerAppearance(.cursor, sender: self)
+        DisplayController.setPointerAppearance(PointerCCView.cursor, sender: self)
         
         // Subscribe to page controller changes
         PageController.subscribePageSwitchingEnabled(target: self, action: #selector(didChangePageSwitchingEnabled(_:)))
@@ -569,28 +569,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func selectPointerAppearanceCursor(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.cursor, sender: sender)
+        DisplayController.setPointerAppearance(PointerCCView.cursor, sender: sender)
     }
     
     
     @IBAction func selectPointerAppearanceDot(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.dot, sender: sender)
+        DisplayController.setPointerAppearance(PointerCCView.dot, sender: sender)
     }
     
     
     @IBAction func selectPointerAppearanceCircle(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.circle, sender: sender)
+        DisplayController.setPointerAppearance(PointerCCView.circle, sender: sender)
     }
     
     
     @IBAction func selectPointerAppearanceTarget(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.target, sender: sender)
+        DisplayController.setPointerAppearance(PointerCCView.target, sender: sender)
     }
     
     
     @IBAction func selectPointerAppearanceTargetColor(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.targetColor, sender: sender)
+        DisplayController.setPointerAppearance(PointerCCView.targetColor, sender: sender)
     }
+    
+    
+    @IBAction func selectPointerAppearanceIndividual(_ sender: NSMenuItem) {
+        // TODO: Wire up with menu item, individual config must be stored somewhere
+        DisplayController.setPointerAppearance(PointerCCView.targetColor, sender: sender)
+    }
+    
     
     @IBAction func openPointerEditor(_ sender: NSMenuItem) {
         guard let pointerEditorCtrl = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: .init(stringLiteral: "PointerEditorWindow")) as?
@@ -832,16 +839,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Select correct menu item for notes position
         switch DisplayController.pointerAppearance {
-        case .cursor:
+        case PointerCCView.cursor:
             pointerAppearanceCursorItem.state = .on
-        case .dot:
+        case PointerCCView.dot:
             pointerAppearanceDotItem.state = .on
-        case .circle:
+        case PointerCCView.circle:
             pointerAppearanceCircleItem.state = .on
-        case .target:
+        case PointerCCView.target:
             pointerAppearanceTargetItem.state = .on
-        case .targetColor:
+        case PointerCCView.targetColor:
             pointerAppearanceTargetColorItem.state = .on
+        default:
+            break
+            // TODO: Select custom pointer menu item
+            //pointerAppearanceIndividual.state = .on
         }
     }
     
