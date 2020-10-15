@@ -592,6 +592,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.setPointerAppearance(.targetColor, sender: sender)
     }
     
+    @IBAction func openPointerEditor(_ sender: NSMenuItem) {
+        guard let pointerEditorCtrl = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: .init(stringLiteral: "PointerEditorWindow")) as?
+            NSWindowController else { return }
+        guard let pointerEditorWindow = pointerEditorCtrl.window else { return }
+//        guard let pointerEditorView = pointerEditorCtrl.contentViewController as? PresentationViewController else { return }
+        pointerEditorWindow.makeKeyAndOrderFront(nil)
+    }
+    
     @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
         TimeController.setTimeMode(mode: .stopwatch, sender: self)
     }
