@@ -11,7 +11,7 @@ import Cocoa
 class PointerCCView: NSView {
     
     enum Shape {
-        case target, dot, circle, plus, cross, square
+        case target, dot, circle, plus, cross, square, cursor, hand
     }
     
     struct Configuration {
@@ -77,6 +77,10 @@ class PointerCCView: NSView {
             drawCross()
         case .square:
             drawSquare()
+        case .cursor:
+            drawCursor()
+        case .hand:
+            drawHand()
         }
     }
     
@@ -276,6 +280,27 @@ class PointerCCView: NSView {
         } else {
             self.layer?.shadowOpacity = 0.0
         }
+    }
+    
+    
+    func drawCursor() {
+        draw(with: NSCursor.arrow.image)
+    }
+    
+    
+    func drawHand() {
+        draw(with: NSCursor.pointingHand.image)
+    }
+    
+    
+    func draw(with image: NSImage) {
+        self.frame.size = image.size
+        self.layer?.frame = self.frame
+        
+        let imageLayer = CALayer()
+        imageLayer.frame = self.bounds
+        imageLayer.contents = image
+        self.layer?.addSublayer(imageLayer)
     }
     
 }
