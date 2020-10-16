@@ -56,17 +56,20 @@ class PointerAppearanceTouchBar: NSTouchBar, NSTouchBarDelegate {
         
         // Select the correct item based on the current pointer appearance
         switch DisplayController.pointerAppearance {
-        case PointerCCView.cursor:
+        case .cursor:
             setSelected(button: cursorButton, true)
-        case PointerCCView.dot:
+        case .hand:
+            // TODO: Implement hand
+            break
+        case .dot:
             setSelected(button: dotButton, true)
-        case PointerCCView.circle:
+        case .circle:
             setSelected(button: circleButton, true)
-        case PointerCCView.target:
+        case .target:
             setSelected(button: targetButton, true)
-        case PointerCCView.targetColor:
+        case .targetColor:
             setSelected(button: targetColorButton, true)
-        default:
+        case .individual:
             break
             // TODO: Select individual pointer
             //setSelected(button: individualButton, true)
@@ -138,29 +141,28 @@ class PointerAppearanceTouchBar: NSTouchBar, NSTouchBarDelegate {
     
     
     @objc func touchBarPointerAppearanceCursorPressed(_ sender: NSSegmentedControl) {
-        DisplayController.setPointerAppearance(PointerCCView.cursor, sender: self)
+        DisplayController.setPointerAppearance(.cursor, configuration: PointerCCView.cursor, sender: self)
     }
     
     
     @objc func touchBarPointerAppearanceDotPressed(_ sender: NSSegmentedControl) {
-        DisplayController.setPointerAppearance(PointerCCView.dot, sender: self)
+        DisplayController.setPointerAppearance(.dot, configuration: PointerCCView.dot, sender: self)
     }
     
     @objc func touchBarPointerAppearanceCirclePressed(_ sender: NSSegmentedControl) {
-        DisplayController.setPointerAppearance(PointerCCView.circle, sender: self)
+        DisplayController.setPointerAppearance(.circle, configuration: PointerCCView.circle, sender: self)
     }
     
     @objc func touchBarPointerAppearanceTargetPressed(_ sender: NSSegmentedControl) {
-        DisplayController.setPointerAppearance(PointerCCView.target, sender: self)
+        DisplayController.setPointerAppearance(.target, configuration: PointerCCView.target, sender: self)
     }
     
     @objc func touchBarPointerAppearanceTargetColorPressed(_ sender: NSSegmentedControl) {
-        DisplayController.setPointerAppearance(PointerCCView.targetColor, sender: self)
+        DisplayController.setPointerAppearance(.targetColor, configuration: PointerCCView.targetColor, sender: self)
     }
     
     @objc func touchBarPointerAppearanceIndividualPressed(_ sender: NSSegmentedControl) {
-        // TODO: Implement
-        //DisplayController.setPointerAppearance(individual, sender: self)
+        DisplayController.setPointerAppearance(.individual, configuration: DisplayController.individualPointer, sender: self)
     }
     
     

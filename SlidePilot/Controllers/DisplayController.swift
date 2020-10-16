@@ -55,6 +55,11 @@ class DisplayController {
     }
     
     
+    enum PointerAppearance: Int, Codable {
+        case cursor, hand, target, targetColor, circle, dot, individual
+    }
+    
+    
     
     
     // MARK: - Variables (Getters)
@@ -75,7 +80,26 @@ class DisplayController {
         return DisplayController.isBlackCurtainDisplayed || DisplayController.isWhiteCurtainDisplayed
     }
     
-    public private(set) static var pointerAppearance: PointerCCView.Configuration = PointerCCView.cursor
+    public private(set) static var pointerAppearance: PointerAppearance = .cursor
+    public private(set) static var pointerAppearanceConfiguration: PointerCCView.Configuration = PointerCCView.cursor
+    
+    private static let individualPointerKey = "individualPointerKey"
+    public private(set) static var individualPointer: PointerCCView.Configuration {
+        get {
+            if let configData = UserDefaults.standard.object(forKey: individualPointerKey) as? Data {
+                if let config = try? JSONDecoder().decode(PointerCCView.Configuration.self, from: configData) {
+                    return config
+                }
+            }
+            // Returns target pointer as default, when no UserDefaults object is found
+            return PointerCCView.target
+        }
+        set {
+            if let encoded = try? JSONEncoder().encode(newValue) {
+                UserDefaults.standard.set(encoded, forKey: individualPointerKey)
+            }
+        }
+    }
     
     
     
@@ -219,9 +243,20 @@ class DisplayController {
     
     
     /** Sends a notification, that the pointer appearance property was changed. */
-    public static func setPointerAppearance(_ configuration: PointerCCView.Configuration, sender: Any) {
-        pointerAppearance = configuration
+    public static func setPointerAppearance(_ type: PointerAppearance, configuration: PointerCCView.Configuration, sender: Any) {
+        pointerAppearance = type
+        pointerAppearanceConfiguration = configuration
         NotificationCenter.default.post(name: .didChangePointerAppearance, object: sender)
+    }
+    
+    
+    /** Updates the individual pointer and possibly sends a message, that pointer appearance was changed. */
+    public static func setIndividualPointer(_ configuration: PointerCCView.Configuration, sender: Any) {
+        individualPointer = configuration
+        // Also set pointer appearance, if it is set to individual
+        if pointerAppearance == .individual {
+            setPointerAppearance(.individual, configuration: individualPointer, sender: sender)
+        }
     }
     
     
@@ -385,7 +420,8 @@ extension DisplayController {
         var isNavigatorDisplayed: Bool
         var isNextSlidePreviewDisplayed: Bool
         var isPointerDisplayed: Bool
-        var pointerAppearance: PointerCCView.Configuration
+        var pointerAppearance: PointerAppearance
+        var pointerAppearanceConfiguration: PointerCCView.Configuration
         
         var lastUpdated: Date
     }
@@ -403,6 +439,7 @@ extension DisplayController {
             isNextSlidePreviewDisplayed: isNextSlidePreviewDisplayed,
             isPointerDisplayed: isPointerDisplayed,
             pointerAppearance: pointerAppearance,
+            pointerAppearanceConfiguration: pointerAppearanceConfiguration,
             lastUpdated: Date())
     }
     
@@ -417,7 +454,7 @@ extension DisplayController {
         setDisplayNavigator(configuration.isNavigatorDisplayed, sender: self)
         setDisplayNextSlidePreview(configuration.isNextSlidePreviewDisplayed, sender: self)
         setDisplayPointer(configuration.isPointerDisplayed, sender: self)
-        setPointerAppearance(configuration.pointerAppearance, sender: self)
+        setPointerAppearance(configuration.pointerAppearance, configuration: configuration.pointerAppearanceConfiguration, sender: self)
     }
     
     

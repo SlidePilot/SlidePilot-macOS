@@ -45,7 +45,7 @@ class PointerDisplayView: ClipfreeView {
         guard DisplayController.isPointerDisplayed else { return }
         
         if pointer == nil {
-            pointer = PointerCCView(configuration: DisplayController.pointerAppearance)
+            pointer = PointerCCView(configuration: DisplayController.pointerAppearanceConfiguration)
         }
         pointer?.wantsLayer = true
         pointer?.draw(CGRect(x: 0, y: 0, width: 10, height: 10))
@@ -100,7 +100,7 @@ class PointerDisplayView: ClipfreeView {
     
     func showPointer() {
         if pointer == nil {
-            pointer = PointerCCView(configuration: DisplayController.pointerAppearance)
+            pointer = PointerCCView(configuration: DisplayController.pointerAppearanceConfiguration)
             pointer?.setPosition(NSPoint(x: self.frame.midX, y: self.frame.midY))
             self.addSubview(pointer!)
         }
@@ -119,13 +119,13 @@ class PointerDisplayView: ClipfreeView {
     
     @objc func pointerAppearanceDidChange(_ notification: Notification) {
         self.window?.invalidateCursorRects(for: self)
-        pointer?.load(DisplayController.pointerAppearance)
+        pointer?.load(DisplayController.pointerAppearanceConfiguration)
     }
     
     
     @objc func displayPointerDidChange(_ notification: Notification) {
         self.window?.invalidateCursorRects(for: self)
-        pointer?.load(DisplayController.pointerAppearance)
+        pointer?.load(DisplayController.pointerAppearanceConfiguration)
     }
     
 }

@@ -191,4 +191,17 @@ class PointerEditorViewController: NSViewController {
     @IBAction func shadowSliderChanged(_ sender: NSSlider) {
         pointerView.shadowWidth = CGFloat(sender.floatValue)
     }
+    
+    
+    @IBAction func finishPressed(_ sender: NSButton) {
+        // Store pointer and close window
+        DisplayController.setIndividualPointer(pointerView.configuration, sender: self)
+        self.view.window?.close()
+    }
+    
+    
+    @IBAction func cancelPressed(_ sender: NSButton) {
+        // Close window
+        self.view.window?.close()
+    }
 }

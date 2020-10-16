@@ -493,6 +493,11 @@
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="3OG-CU-ehu"/>
+                                                    <menuItem title="Individual" keyEquivalent="6" id="rTi-ec-8YY">
+                                                        <connections>
+                                                            <action selector="selectPointerAppearanceIndividual:" target="Voe-Tx-rLC" id="8qe-5p-RNU"/>
+                                                        </connections>
+                                                    </menuItem>
                                                     <menuItem title="Pointer Editor" id="VRs-AV-sKD">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
@@ -544,6 +549,7 @@
                         <outlet property="pointerAppearanceCircleItem" destination="KeP-a7-ltS" id="Uw9-xu-cuL"/>
                         <outlet property="pointerAppearanceCursorItem" destination="Auy-Z6-pIV" id="YXR-VY-B6z"/>
                         <outlet property="pointerAppearanceDotItem" destination="akh-gx-hr7" id="W68-MN-b4s"/>
+                        <outlet property="pointerAppearanceIndividualItem" destination="rTi-ec-8YY" id="1BD-Zz-Zla"/>
                         <outlet property="pointerAppearanceMenu" destination="Fg3-Dc-rDB" id="Lc7-rB-8Fb"/>
                         <outlet property="pointerAppearanceTargetColorItem" destination="UYT-sb-cqr" id="I6y-rg-13D"/>
                         <outlet property="pointerAppearanceTargetItem" destination="YH8-Ja-Yo4" id="MIO-hN-XUi"/>
@@ -636,14 +642,14 @@
             <objects>
                 <viewController id="BfQ-YE-Skr" customClass="PointerEditorViewController" customModule="SlidePilot" customModuleProvider="target" sceneMemberID="viewController">
                     <customView key="view" id="TwP-cz-AUv">
-                        <rect key="frame" x="0.0" y="0.0" width="776" height="368"/>
+                        <rect key="frame" x="0.0" y="0.0" width="776" height="416"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="PV0-fR-aYx">
-                                <rect key="frame" x="0.0" y="0.0" width="259" height="368"/>
+                                <rect key="frame" x="0.0" y="0.0" width="259" height="416"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="4jI-lo-dOl">
-                                        <rect key="frame" x="20" y="20" width="219" height="328"/>
+                                        <rect key="frame" x="20" y="20" width="219" height="376"/>
                                     </customView>
                                 </subviews>
                                 <constraints>
@@ -654,13 +660,13 @@
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="nFj-JT-fPL">
-                                <rect key="frame" x="259" y="0.0" width="517" height="368"/>
+                                <rect key="frame" x="259" y="0.0" width="517" height="416"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jhx-EN-3SX">
-                                        <rect key="frame" x="20" y="20" width="477" height="328"/>
+                                        <rect key="frame" x="20" y="20" width="477" height="376"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="LKX-2x-Mgc">
-                                                <rect key="frame" x="0.0" y="288" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="336" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Acw-oV-9cH">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -721,7 +727,7 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="TCt-iU-CIx">
-                                                <rect key="frame" x="0.0" y="240" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="288" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="n2P-Zl-DPr">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -772,7 +778,7 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="nEG-ON-3DK">
-                                                <rect key="frame" x="0.0" y="192" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="240" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="zXb-dW-Ryb">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -823,7 +829,7 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="R7m-MY-INr">
-                                                <rect key="frame" x="0.0" y="144" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="192" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="j5W-Kr-eBK">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -877,7 +883,7 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="CXA-8S-EQV">
-                                                <rect key="frame" x="0.0" y="96" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="144" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="qYH-m4-hxR">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -928,7 +934,7 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="5Gp-GW-OXp">
-                                                <rect key="frame" x="0.0" y="48" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="96" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="wvw-02-WSr">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -982,7 +988,7 @@
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="5fH-K5-CVq">
-                                                <rect key="frame" x="0.0" y="0.0" width="477" height="40"/>
+                                                <rect key="frame" x="0.0" y="48" width="477" height="40"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="9Ub-fG-IzQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
@@ -1032,6 +1038,45 @@
                                                     <constraint firstItem="9Ub-fG-IzQ" firstAttribute="leading" secondItem="5fH-K5-CVq" secondAttribute="leading" id="mA5-4U-u07"/>
                                                 </constraints>
                                             </customView>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="FjW-j8-WeV">
+                                                <rect key="frame" x="0.0" y="0.0" width="477" height="40"/>
+                                                <subviews>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SCp-HL-UlG">
+                                                        <rect key="frame" x="317" y="3" width="82" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Q1z-hE-ZVl">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="cancelPressed:" target="BfQ-YE-Skr" id="NIc-W9-bNJ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aHH-ts-Nng">
+                                                        <rect key="frame" x="407" y="3" width="76" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="Finish" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Sdh-B4-AdM">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="finishPressed:" target="BfQ-YE-Skr" id="wKu-KW-MZE"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="aHH-ts-Nng" firstAttribute="leading" secondItem="SCp-HL-UlG" secondAttribute="trailing" constant="20" id="BaV-Va-LIK"/>
+                                                    <constraint firstItem="aHH-ts-Nng" firstAttribute="centerY" secondItem="FjW-j8-WeV" secondAttribute="centerY" id="Mcs-PG-0Rp"/>
+                                                    <constraint firstAttribute="height" constant="40" id="aug-z7-WKZ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="aHH-ts-Nng" secondAttribute="trailing" id="xnd-3f-BkY"/>
+                                                    <constraint firstItem="SCp-HL-UlG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FjW-j8-WeV" secondAttribute="leading" constant="20" id="yPM-Rc-KqW"/>
+                                                    <constraint firstItem="SCp-HL-UlG" firstAttribute="centerY" secondItem="FjW-j8-WeV" secondAttribute="centerY" id="zKB-uU-ypf"/>
+                                                </constraints>
+                                            </customView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="LKX-2x-Mgc" firstAttribute="width" secondItem="Jhx-EN-3SX" secondAttribute="width" id="XSm-U6-G7s"/>
@@ -1044,8 +1089,10 @@
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
