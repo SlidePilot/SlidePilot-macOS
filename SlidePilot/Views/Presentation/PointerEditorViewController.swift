@@ -39,6 +39,7 @@ class PointerEditorViewController: NSViewController {
     
     // MARK: - Editor Configuration
     struct EditorConfiguration {
+        var shape: PointerCCView.Shape
         var showSize: Bool = true
         var showThickness: Bool = true
         var showColor: Bool = true
@@ -64,12 +65,12 @@ class PointerEditorViewController: NSViewController {
     }
     
     let editorConfigurations: [PointerCCView.Shape: EditorConfiguration] = [
-        .target: EditorConfiguration(minSize: 35, maxSize: 150, defaultSize: 44, minThickness: 2, maxThickness: 50, defaultThickness: 3, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
-        .dot: EditorConfiguration(showThickness: false, minSize: 5, maxSize: 100, defaultSize: 10, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
-        .circle: EditorConfiguration(minSize: 5, maxSize: 100, defaultSize: 20, minThickness: 2, maxThickness: 50, defaultThickness: 3, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
-        .plus: EditorConfiguration(minSize: 5, maxSize: 100, defaultSize: 20, minThickness: 2, maxThickness: 50, defaultThickness: 3, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
-        .cross: EditorConfiguration(minSize: 5, maxSize: 100, defaultSize: 20, minThickness: 2, maxThickness: 50, defaultThickness: 3, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
-        .square: EditorConfiguration(showThickness: false, minSize: 5, maxSize: 100, defaultSize: 10, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0)]
+        .target: EditorConfiguration(shape: .target, minSize: 35, maxSize: 150, defaultSize: 44, minThickness: 2, maxThickness: 50, defaultThickness: 3, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
+        .dot: EditorConfiguration(shape: .dot, showThickness: false, minSize: 5, maxSize: 100, defaultSize: 10, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
+        .circle: EditorConfiguration(shape: .circle, minSize: 5, maxSize: 100, defaultSize: 20, minThickness: 2, maxThickness: 50, defaultThickness: 3, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
+        .plus: EditorConfiguration(shape: .plus, minSize: 5, maxSize: 100, defaultSize: 20, minThickness: 2, maxThickness: 50, defaultThickness: 3, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
+        .cross: EditorConfiguration(shape: .cross, minSize: 5, maxSize: 100, defaultSize: 20, minThickness: 2, maxThickness: 50, defaultThickness: 3, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
+        .square: EditorConfiguration(shape: .square, showThickness: false, minSize: 5, maxSize: 100, defaultSize: 10, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0)]
     
     
     
@@ -99,8 +100,10 @@ class PointerEditorViewController: NSViewController {
         pointerView.postsFrameChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(didChangePointerFrame), name: NSView.frameDidChangeNotification, object: nil)
         
-        // Setup default configuration
-        setup(editorConfiguration: editorConfigurations[.target]!)
+        // Setup configuration
+        let loadedPointer = DisplayController.individualPointer
+        setup(editorConfiguration: editorConfigurations[loadedPointer.shape]!)
+        pointerView.load(loadedPointer)
     }
     
     
@@ -112,6 +115,9 @@ class PointerEditorViewController: NSViewController {
     
     
     func setup(editorConfiguration conf: EditorConfiguration) {
+        let selectedItemIndex = shapeMap.firstIndex(where: { $0.0 == conf.shape }) ?? 0
+        shapeSelectionBox.selectItem(at: selectedItemIndex)
+        
         sizeSlider.isEnabled = conf.showSize
         thicknessSlider.isEnabled = conf.showThickness
         colorPicker.isEnabled = conf.showColor
