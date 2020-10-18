@@ -457,15 +457,15 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="SKb-ny-ddI"/>
-                                        <menuItem title="Show Cursor" keyEquivalent="c" id="iHL-eH-XtE">
+                                        <menuItem title="Show Pointer" keyEquivalent="c" id="iHL-eH-XtE">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showPointer:" target="Ady-hI-5gd" id="p1W-9V-QV8"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Cursor Appearance" id="HNs-Tl-r53">
+                                        <menuItem title="Pointer Appearance" id="HNs-Tl-r53">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" id="Fg3-Dc-rDB">
+                                            <menu key="submenu" title="Pointer Appearance" id="Fg3-Dc-rDB">
                                                 <items>
                                                     <menuItem title="Cursor" keyEquivalent="1" id="Auy-Z6-pIV">
                                                         <connections>
@@ -503,7 +503,7 @@
                                                             <action selector="selectPointerAppearanceIndividual:" target="Voe-Tx-rLC" id="8qe-5p-RNU"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Pointer Editor" keyEquivalent="c" id="VRs-AV-sKD">
+                                                    <menuItem title="Edit Pointer" keyEquivalent="c" id="VRs-AV-sKD">
                                                         <modifierMask key="keyEquivalentModifierMask" control="YES" option="YES"/>
                                                         <connections>
                                                             <action selector="openPointerEditor:" target="Voe-Tx-rLC" id="FHP-67-lAj"/>
@@ -622,7 +622,7 @@
         <scene sceneID="TLK-BD-osu">
             <objects>
                 <windowController storyboardIdentifier="PointerEditorWindow" id="2qi-vK-mGz" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="b03-II-4kw">
+                    <window key="window" title="Pointer Editor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="b03-II-4kw">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="425" y="470" width="480" height="270"/>
@@ -698,16 +698,10 @@
                                                         <subviews>
                                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LUH-Sv-hKx">
                                                                 <rect key="frame" x="-2" y="7" width="352" height="25"/>
-                                                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="zoI-D6-3Ia" id="3rq-o8-OYZ">
+                                                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="3rq-o8-OYZ">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                     <font key="font" metaFont="menu"/>
-                                                                    <menu key="menu" id="6qJ-zx-N6J">
-                                                                        <items>
-                                                                            <menuItem title="Item 1" state="on" id="zoI-D6-3Ia"/>
-                                                                            <menuItem title="Item 2" id="myT-S4-qJP"/>
-                                                                            <menuItem title="Item 3" id="ztt-Y4-bjp"/>
-                                                                        </items>
-                                                                    </menu>
+                                                                    <menu key="menu" id="6qJ-zx-N6J"/>
                                                                 </popUpButtonCell>
                                                                 <connections>
                                                                     <action selector="shapeSelected:" target="BfQ-YE-Skr" id="nvU-zj-8n6"/>
