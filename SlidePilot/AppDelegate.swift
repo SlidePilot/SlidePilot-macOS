@@ -30,11 +30,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var showNotesItem: NSMenuItem!
     
     @IBOutlet weak var pointerAppearanceMenu: NSMenu!
+    @IBOutlet weak var pointerAppearanceHandItem: NSMenuItem!
     @IBOutlet weak var pointerAppearanceCursorItem: NSMenuItem!
     @IBOutlet weak var pointerAppearanceDotItem: NSMenuItem!
     @IBOutlet weak var pointerAppearanceCircleItem: NSMenuItem!
     @IBOutlet weak var pointerAppearanceTargetItem: NSMenuItem!
     @IBOutlet weak var pointerAppearanceTargetColorItem: NSMenuItem!
+    @IBOutlet weak var pointerAppearanceIndividualItem: NSMenuItem!
     
     @IBOutlet weak var notesMenu: NSMenu!
     
@@ -101,7 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.subscribeLayoutChangesEnabled(target: self, action: #selector(didChangeLayoutChangesEnabled(_:)))
         
         // Set default display options
-        DisplayController.setPointerAppearance(.cursor, sender: self)
+        DisplayController.setPointerAppearance(.cursor, configuration: PointerView.cursor, sender: self)
         
         // Subscribe to page controller changes
         PageController.subscribePageSwitchingEnabled(target: self, action: #selector(didChangePageSwitchingEnabled(_:)))
@@ -569,27 +571,45 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func selectPointerAppearanceCursor(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.cursor, sender: sender)
+        DisplayController.setPointerAppearance(.cursor, configuration: PointerView.cursor, sender: sender)
+    }
+    
+    @IBAction func selectPointerAppearanceHand(_ sender: NSMenuItem) {
+        DisplayController.setPointerAppearance(.hand, configuration: PointerView.hand, sender: sender)
     }
     
     
     @IBAction func selectPointerAppearanceDot(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.dot, sender: sender)
+        DisplayController.setPointerAppearance(.dot, configuration: PointerView.dot, sender: sender)
     }
     
     
     @IBAction func selectPointerAppearanceCircle(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.circle, sender: sender)
+        DisplayController.setPointerAppearance(.circle, configuration: PointerView.circle, sender: sender)
     }
     
     
     @IBAction func selectPointerAppearanceTarget(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.target, sender: sender)
+        DisplayController.setPointerAppearance(.target, configuration: PointerView.target, sender: sender)
     }
     
     
     @IBAction func selectPointerAppearanceTargetColor(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.targetColor, sender: sender)
+        DisplayController.setPointerAppearance(.targetColor, configuration: PointerView.targetColor, sender: sender)
+    }
+    
+    
+    @IBAction func selectPointerAppearanceIndividual(_ sender: NSMenuItem) {
+        let pointer = DisplayController.individualPointer
+        DisplayController.setPointerAppearance(.individual, configuration: pointer, sender: sender)
+    }
+    
+    
+    @IBAction func openPointerEditor(_ sender: NSMenuItem) {
+        guard let pointerEditorCtrl = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: .init(stringLiteral: "PointerEditorWindow")) as?
+            NSWindowController else { return }
+        guard let pointerEditorWindow = pointerEditorCtrl.window else { return }
+        pointerEditorWindow.makeKeyAndOrderFront(nil)
     }
     
     @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
@@ -825,6 +845,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         switch DisplayController.pointerAppearance {
         case .cursor:
             pointerAppearanceCursorItem.state = .on
+        case .hand:
+            pointerAppearanceHandItem.state = .on
+        break
         case .dot:
             pointerAppearanceDotItem.state = .on
         case .circle:
@@ -833,6 +856,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             pointerAppearanceTargetItem.state = .on
         case .targetColor:
             pointerAppearanceTargetColorItem.state = .on
+        case .individual:
+            pointerAppearanceIndividualItem.state = .on
         }
     }
     

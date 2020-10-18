@@ -40,27 +40,17 @@ class PointerDisplayView: ClipfreeView {
     }
     
     
-    /** Adds cursor rect for where clickable annotations are. */
+    /** Adds cursor rect for the whole view. When hovering over the view, the corresponding cursor will be displayed. */
     private func addPointerRect() {
         guard DisplayController.isPointerDisplayed else { return }
         
-        var cursor: NSCursor!
-        switch DisplayController.pointerAppearance {
-        case .cursor:
-            cursor = NSCursor.arrow
-        case .circle:
-            let cursorImage = NSImage(named: "CirclePointer")!
-            cursor = NSCursor(image: cursorImage, hotSpot: NSPoint(x: cursorImage.size.width/2, y: cursorImage.size.height/2))
-        case .dot:
-            let cursorImage = NSImage(named: "DotPointer")!
-            cursor = NSCursor(image: cursorImage, hotSpot: NSPoint(x: cursorImage.size.width/2, y: cursorImage.size.height/2))
-        case .target:
-            let cursorImage = NSImage(named: "TargetPointer")!
-            cursor = NSCursor(image: cursorImage, hotSpot: NSPoint(x: cursorImage.size.width/2, y: cursorImage.size.height/2))
-        case .targetColor:
-            let cursorImage = NSImage(named: "TargetPointerColor")!
-            cursor = NSCursor(image: cursorImage, hotSpot: NSPoint(x: cursorImage.size.width/2, y: cursorImage.size.height/2))
+        if pointer == nil {
+            pointer = PointerView(configuration: DisplayController.pointerAppearanceConfiguration)
         }
+        pointer?.wantsLayer = true
+        pointer?.draw(CGRect(x: 0, y: 0, width: 10, height: 10))
+        guard let cursorImage = pointer?.image() else { return }
+        let cursor = NSCursor(image: cursorImage, hotSpot: (pointer?.hotspot ?? NSPoint(x: 0, y: 0)))
         
         addCursorRect(self.bounds, cursor: cursor)
     }
@@ -110,7 +100,8 @@ class PointerDisplayView: ClipfreeView {
     
     func showPointer() {
         if pointer == nil {
-            pointer = PointerView(origin: NSPoint(x: self.frame.midX, y: self.frame.midY), type: DisplayController.pointerAppearance)
+            pointer = PointerView(configuration: DisplayController.pointerAppearanceConfiguration)
+            pointer?.setPosition(NSPoint(x: self.frame.midX, y: self.frame.midY))
             self.addSubview(pointer!)
         }
     }
@@ -128,12 +119,13 @@ class PointerDisplayView: ClipfreeView {
     
     @objc func pointerAppearanceDidChange(_ notification: Notification) {
         self.window?.invalidateCursorRects(for: self)
-        pointer?.type = DisplayController.pointerAppearance
+        pointer?.load(DisplayController.pointerAppearanceConfiguration)
     }
     
     
     @objc func displayPointerDidChange(_ notification: Notification) {
         self.window?.invalidateCursorRects(for: self)
+        pointer?.load(DisplayController.pointerAppearanceConfiguration)
     }
     
 }
