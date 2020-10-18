@@ -100,10 +100,18 @@ class PointerEditorViewController: NSViewController {
         pointerView.postsFrameChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(didChangePointerFrame), name: NSView.frameDidChangeNotification, object: nil)
         
-        // Setup configuration
+        // Setup editor configuration
         let loadedPointer = DisplayController.individualPointer
         setup(editorConfiguration: editorConfigurations[loadedPointer.shape]!)
+        
+        // Setup pointer configuration
         pointerView.load(loadedPointer)
+        sizeSlider.floatValue = Float(loadedPointer.size ?? 0)
+        thicknessSlider.floatValue = Float(loadedPointer.thickness ?? 0)
+        colorPicker.color = loadedPointer.color ?? .black
+        borderWidthSlider.floatValue = Float(loadedPointer.borderWidth ?? 0)
+        borderColorPicker.color = loadedPointer.borderColor ?? .black
+        shadowWidthSlider.floatValue = Float(loadedPointer.shadowWidth ?? 0)
     }
     
     
