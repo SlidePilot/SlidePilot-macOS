@@ -162,27 +162,27 @@ class PointerAppearanceTouchBar: NSTouchBar, NSTouchBarDelegate {
     
     
     @objc func touchBarPointerAppearanceCursorPressed(_ sender: NSSegmentedControl) {
-        DisplayController.setPointerAppearance(.cursor, configuration: PointerCCView.cursor, sender: self)
+        DisplayController.setPointerAppearance(.cursor, configuration: PointerView.cursor, sender: self)
     }
     
     @objc func touchBarPointerAppearanceHandPressed(_ sender: NSSegmentedControl) {
-        DisplayController.setPointerAppearance(.hand, configuration: PointerCCView.hand, sender: self)
+        DisplayController.setPointerAppearance(.hand, configuration: PointerView.hand, sender: self)
     }
     
     @objc func touchBarPointerAppearanceDotPressed(_ sender: NSSegmentedControl) {
-        DisplayController.setPointerAppearance(.dot, configuration: PointerCCView.dot, sender: self)
+        DisplayController.setPointerAppearance(.dot, configuration: PointerView.dot, sender: self)
     }
     
     @objc func touchBarPointerAppearanceCirclePressed(_ sender: NSSegmentedControl) {
-        DisplayController.setPointerAppearance(.circle, configuration: PointerCCView.circle, sender: self)
+        DisplayController.setPointerAppearance(.circle, configuration: PointerView.circle, sender: self)
     }
     
     @objc func touchBarPointerAppearanceTargetPressed(_ sender: NSSegmentedControl) {
-        DisplayController.setPointerAppearance(.target, configuration: PointerCCView.target, sender: self)
+        DisplayController.setPointerAppearance(.target, configuration: PointerView.target, sender: self)
     }
     
     @objc func touchBarPointerAppearanceTargetColorPressed(_ sender: NSSegmentedControl) {
-        DisplayController.setPointerAppearance(.targetColor, configuration: PointerCCView.targetColor, sender: self)
+        DisplayController.setPointerAppearance(.targetColor, configuration: PointerView.targetColor, sender: self)
     }
     
     @objc func touchBarPointerAppearanceIndividualPressed(_ sender: NSSegmentedControl) {

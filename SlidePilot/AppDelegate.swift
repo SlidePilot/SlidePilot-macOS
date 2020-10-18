@@ -103,7 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.subscribeLayoutChangesEnabled(target: self, action: #selector(didChangeLayoutChangesEnabled(_:)))
         
         // Set default display options
-        DisplayController.setPointerAppearance(.cursor, configuration: PointerCCView.cursor, sender: self)
+        DisplayController.setPointerAppearance(.cursor, configuration: PointerView.cursor, sender: self)
         
         // Subscribe to page controller changes
         PageController.subscribePageSwitchingEnabled(target: self, action: #selector(didChangePageSwitchingEnabled(_:)))
@@ -571,31 +571,31 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func selectPointerAppearanceCursor(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.cursor, configuration: PointerCCView.cursor, sender: sender)
+        DisplayController.setPointerAppearance(.cursor, configuration: PointerView.cursor, sender: sender)
     }
     
     @IBAction func selectPointerAppearanceHand(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.hand, configuration: PointerCCView.hand, sender: sender)
+        DisplayController.setPointerAppearance(.hand, configuration: PointerView.hand, sender: sender)
     }
     
     
     @IBAction func selectPointerAppearanceDot(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.dot, configuration: PointerCCView.dot, sender: sender)
+        DisplayController.setPointerAppearance(.dot, configuration: PointerView.dot, sender: sender)
     }
     
     
     @IBAction func selectPointerAppearanceCircle(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.circle, configuration: PointerCCView.circle, sender: sender)
+        DisplayController.setPointerAppearance(.circle, configuration: PointerView.circle, sender: sender)
     }
     
     
     @IBAction func selectPointerAppearanceTarget(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.target, configuration: PointerCCView.target, sender: sender)
+        DisplayController.setPointerAppearance(.target, configuration: PointerView.target, sender: sender)
     }
     
     
     @IBAction func selectPointerAppearanceTargetColor(_ sender: NSMenuItem) {
-        DisplayController.setPointerAppearance(.targetColor, configuration: PointerCCView.targetColor, sender: sender)
+        DisplayController.setPointerAppearance(.targetColor, configuration: PointerView.targetColor, sender: sender)
     }
     
     

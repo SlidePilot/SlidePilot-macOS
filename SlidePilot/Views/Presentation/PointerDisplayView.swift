@@ -11,7 +11,7 @@ import Cocoa
 // This class allows to display the current pointer from DisplayController when hvoering the cursor over this view and also allows braodcasting a cursor, using setPointerPosition
 class PointerDisplayView: ClipfreeView {
     
-    var pointer: PointerCCView?
+    var pointer: PointerView?
     
     
     override init(frame frameRect: NSRect) {
@@ -45,7 +45,7 @@ class PointerDisplayView: ClipfreeView {
         guard DisplayController.isPointerDisplayed else { return }
         
         if pointer == nil {
-            pointer = PointerCCView(configuration: DisplayController.pointerAppearanceConfiguration)
+            pointer = PointerView(configuration: DisplayController.pointerAppearanceConfiguration)
         }
         pointer?.wantsLayer = true
         pointer?.draw(CGRect(x: 0, y: 0, width: 10, height: 10))
@@ -100,7 +100,7 @@ class PointerDisplayView: ClipfreeView {
     
     func showPointer() {
         if pointer == nil {
-            pointer = PointerCCView(configuration: DisplayController.pointerAppearanceConfiguration)
+            pointer = PointerView(configuration: DisplayController.pointerAppearanceConfiguration)
             pointer?.setPosition(NSPoint(x: self.frame.midX, y: self.frame.midY))
             self.addSubview(pointer!)
         }

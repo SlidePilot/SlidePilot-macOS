@@ -22,24 +22,24 @@ class PointerEditorViewController: NSViewController {
     @IBOutlet weak var shadowWidthSlider: NSSlider!
     
     @IBOutlet weak var pointerViewContainer: NSView!
-    var pointerView: PointerCCView!
+    var pointerView: PointerView!
     
     
     // Data
-    let shapeMap: [(PointerCCView.Shape, String)] = [
+    let shapeMap: [(PointerView.Shape, String)] = [
         (.target, NSLocalizedString("Target Shape", comment: "Name for target shape in pointer editor.")),
         (.dot, NSLocalizedString("Dot Shape", comment: "Name for dot shape in pointer editor.")),
         (.circle, NSLocalizedString("Circle Shape", comment: "Name for circle shape in pointer editor.")),
         (.plus, NSLocalizedString("Plus Shape", comment: "Name for plus shape in pointer editor.")),
         (.cross, NSLocalizedString("Cross Shape", comment: "Name for cross shape in pointer editor.")),
         (.square, NSLocalizedString("Square Shape", comment: "Name for square shape in pointer editor."))]
-    var shapeMapShapes: [PointerCCView.Shape]!
+    var shapeMapShapes: [PointerView.Shape]!
     var shapeMapStrings: [String]!
     
     
     // MARK: - Editor Configuration
     struct EditorConfiguration {
-        var shape: PointerCCView.Shape
+        var shape: PointerView.Shape
         var showSize: Bool = true
         var showThickness: Bool = true
         var showColor: Bool = true
@@ -64,7 +64,7 @@ class PointerEditorViewController: NSViewController {
         var defaultShadow: Double?
     }
     
-    let editorConfigurations: [PointerCCView.Shape: EditorConfiguration] = [
+    let editorConfigurations: [PointerView.Shape: EditorConfiguration] = [
         .target: EditorConfiguration(shape: .target, minSize: 35, maxSize: 150, defaultSize: 44, minThickness: 2, maxThickness: 50, defaultThickness: 3, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
         .dot: EditorConfiguration(shape: .dot, showThickness: false, minSize: 5, maxSize: 100, defaultSize: 10, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
         .circle: EditorConfiguration(shape: .circle, minSize: 5, maxSize: 100, defaultSize: 20, minThickness: 2, maxThickness: 50, defaultThickness: 3, minBorder: 0, maxBorder: 50, defaultBorder: 0, minShadow: 0, maxShadow: 50, defaultShadow: 0),
@@ -91,7 +91,7 @@ class PointerEditorViewController: NSViewController {
         borderColorPicker.color = .red
         
         // Setup pointer (preview)
-        pointerView = PointerCCView(frame: NSRect(x: 0, y: 0, width: 10.0, height: 10.0))
+        pointerView = PointerView(frame: NSRect(x: 0, y: 0, width: 10.0, height: 10.0))
         pointerViewContainer.addSubview(pointerView)
         pointerViewContainer.wantsLayer = true
         pointerViewContainer.layer?.backgroundColor = NSColor.black.withAlphaComponent(0.2).cgColor
