@@ -472,34 +472,39 @@
                                                             <action selector="selectPointerAppearanceCursor:" target="Voe-Tx-rLC" id="L30-4o-wCD"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Dot" keyEquivalent="2" id="akh-gx-hr7">
+                                                    <menuItem title="Hand" keyEquivalent="2" id="gqd-uQ-vYn">
+                                                        <connections>
+                                                            <action selector="selectPointerAppearanceHand:" target="Voe-Tx-rLC" id="vcm-tj-9bH"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Dot" keyEquivalent="3" id="akh-gx-hr7">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceDot:" target="Voe-Tx-rLC" id="yAb-B4-aPy"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Circle" keyEquivalent="3" id="KeP-a7-ltS">
+                                                    <menuItem title="Circle" keyEquivalent="4" id="KeP-a7-ltS">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceCircle:" target="Voe-Tx-rLC" id="wSW-XY-aJk"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Target Black" keyEquivalent="4" id="YH8-Ja-Yo4">
+                                                    <menuItem title="Target Black" keyEquivalent="5" id="YH8-Ja-Yo4">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceTarget:" target="Voe-Tx-rLC" id="env-0T-faO"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Target Red" keyEquivalent="5" id="UYT-sb-cqr">
+                                                    <menuItem title="Target Red" keyEquivalent="6" id="UYT-sb-cqr">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceTargetColor:" target="Voe-Tx-rLC" id="JUi-fX-son"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="3OG-CU-ehu"/>
-                                                    <menuItem title="Individual" keyEquivalent="6" id="rTi-ec-8YY">
+                                                    <menuItem title="Individual" keyEquivalent="7" id="rTi-ec-8YY">
                                                         <connections>
                                                             <action selector="selectPointerAppearanceIndividual:" target="Voe-Tx-rLC" id="8qe-5p-RNU"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Pointer Editor" id="VRs-AV-sKD">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Pointer Editor" keyEquivalent="c" id="VRs-AV-sKD">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" option="YES"/>
                                                         <connections>
                                                             <action selector="openPointerEditor:" target="Voe-Tx-rLC" id="FHP-67-lAj"/>
                                                         </connections>
@@ -549,6 +554,7 @@
                         <outlet property="pointerAppearanceCircleItem" destination="KeP-a7-ltS" id="Uw9-xu-cuL"/>
                         <outlet property="pointerAppearanceCursorItem" destination="Auy-Z6-pIV" id="YXR-VY-B6z"/>
                         <outlet property="pointerAppearanceDotItem" destination="akh-gx-hr7" id="W68-MN-b4s"/>
+                        <outlet property="pointerAppearanceHandItem" destination="gqd-uQ-vYn" id="mCD-S5-pEr"/>
                         <outlet property="pointerAppearanceIndividualItem" destination="rTi-ec-8YY" id="1BD-Zz-Zla"/>
                         <outlet property="pointerAppearanceMenu" destination="Fg3-Dc-rDB" id="Lc7-rB-8Fb"/>
                         <outlet property="pointerAppearanceTargetColorItem" destination="UYT-sb-cqr" id="I6y-rg-13D"/>

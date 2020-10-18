@@ -30,6 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var showNotesItem: NSMenuItem!
     
     @IBOutlet weak var pointerAppearanceMenu: NSMenu!
+    @IBOutlet weak var pointerAppearanceHandItem: NSMenuItem!
     @IBOutlet weak var pointerAppearanceCursorItem: NSMenuItem!
     @IBOutlet weak var pointerAppearanceDotItem: NSMenuItem!
     @IBOutlet weak var pointerAppearanceCircleItem: NSMenuItem!
@@ -573,6 +574,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.setPointerAppearance(.cursor, configuration: PointerCCView.cursor, sender: sender)
     }
     
+    @IBAction func selectPointerAppearanceHand(_ sender: NSMenuItem) {
+        DisplayController.setPointerAppearance(.hand, configuration: PointerCCView.hand, sender: sender)
+    }
+    
     
     @IBAction func selectPointerAppearanceDot(_ sender: NSMenuItem) {
         DisplayController.setPointerAppearance(.dot, configuration: PointerCCView.dot, sender: sender)
@@ -605,7 +610,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSWindowController else { return }
         guard let pointerEditorWindow = pointerEditorCtrl.window else { return }
         pointerEditorWindow.title = NSLocalizedString("Pointer Editor", comment: "Window name for the pointer editor.")
-//        guard let pointerEditorView = pointerEditorCtrl.contentViewController as? PresentationViewController else { return }
         pointerEditorWindow.makeKeyAndOrderFront(nil)
     }
     
@@ -843,7 +847,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         case .cursor:
             pointerAppearanceCursorItem.state = .on
         case .hand:
-            // TODO: Implement hand pointer
+            pointerAppearanceHandItem.state = .on
         break
         case .dot:
             pointerAppearanceDotItem.state = .on

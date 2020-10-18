@@ -23,11 +23,13 @@ extension NSTouchBarItem.Identifier {
     static let canvasItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.canvasItem")
     static let closeItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.closeItem")
     
-    static let pointerAppearanceCursorItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearancePopover")
+    static let pointerAppearanceCursorItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearanceCursor")
+    static let pointerAppearanceHandItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearanceHand")
     static let pointerAppearanceDotItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearanceDot")
     static let pointerAppearanceCircleItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearanceCircle")
     static let pointerAppearanceTargetItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearanceTarget")
     static let pointerAppearanceTargetColorItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearanceTargetColor")
+    static let pointerAppearanceIndividualItem = NSTouchBarItem.Identifier("de.pascalbraband.TouchBarItem.pointerAppearanceIndividual")
 }
 
 @available(OSX 10.12.2, *)

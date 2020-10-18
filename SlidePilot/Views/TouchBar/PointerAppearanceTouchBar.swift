@@ -24,7 +24,7 @@ class PointerAppearanceTouchBar: NSTouchBar, NSTouchBarDelegate {
     
     func setupTouchBar() {
         delegate = self
-        defaultItemIdentifiers = [.pointerAppearanceCursorItem, .pointerAppearanceDotItem, .pointerAppearanceCircleItem, .pointerAppearanceTargetItem, .pointerAppearanceTargetColorItem]
+        defaultItemIdentifiers = [.pointerAppearanceCursorItem, .pointerAppearanceHandItem, .pointerAppearanceDotItem, .pointerAppearanceCircleItem, .pointerAppearanceTargetItem, .pointerAppearanceTargetColorItem, .pointerAppearanceIndividualItem]
         DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChangeTouchBar(_:)))
         
         // Setup initial selection
@@ -43,24 +43,27 @@ class PointerAppearanceTouchBar: NSTouchBar, NSTouchBarDelegate {
     func updateButtons() {
         // Deselect all items
         guard let cursorButton = self.item(forIdentifier: .pointerAppearanceCursorItem)?.view as? NSSegmentedControl else { return }
+        guard let handButton = self.item(forIdentifier: .pointerAppearanceHandItem)?.view as? NSSegmentedControl else { return }
         guard let dotButton = self.item(forIdentifier: .pointerAppearanceDotItem)?.view as? NSSegmentedControl else { return }
         guard let circleButton = self.item(forIdentifier: .pointerAppearanceCircleItem)?.view as? NSSegmentedControl else { return }
         guard let targetButton = self.item(forIdentifier: .pointerAppearanceTargetItem)?.view as? NSSegmentedControl else { return }
         guard let targetColorButton = self.item(forIdentifier: .pointerAppearanceTargetColorItem)?.view as? NSSegmentedControl else { return }
+        guard let individualButton = self.item(forIdentifier: .pointerAppearanceIndividualItem)?.view as? NSSegmentedControl else { return }
         
         setSelected(button: cursorButton, false)
+        setSelected(button: handButton, false)
         setSelected(button: dotButton, false)
         setSelected(button: circleButton, false)
         setSelected(button: targetButton, false)
         setSelected(button: targetColorButton, false)
+        setSelected(button: individualButton, false)
         
         // Select the correct item based on the current pointer appearance
         switch DisplayController.pointerAppearance {
         case .cursor:
             setSelected(button: cursorButton, true)
         case .hand:
-            // TODO: Implement hand
-            break
+            setSelected(button: handButton, true)
         case .dot:
             setSelected(button: dotButton, true)
         case .circle:
@@ -70,9 +73,7 @@ class PointerAppearanceTouchBar: NSTouchBar, NSTouchBarDelegate {
         case .targetColor:
             setSelected(button: targetColorButton, true)
         case .individual:
-            break
-            // TODO: Select individual pointer
-            //setSelected(button: individualButton, true)
+            setSelected(button: individualButton, true)
         }
     }
 
@@ -91,6 +92,16 @@ class PointerAppearanceTouchBar: NSTouchBar, NSTouchBarDelegate {
                 trackingMode: .selectAny,
                 target: self,
                 action: #selector(touchBarPointerAppearanceCursorPressed(_:)))
+            item.view = button
+            return item
+            
+        case .pointerAppearanceHandItem:
+            let item = NSCustomTouchBarItem(identifier: identifier)
+            let button = NSSegmentedControl(
+                images: [NSImage(named: "Hand")!],
+                trackingMode: .selectAny,
+                target: self,
+                action: #selector(touchBarPointerAppearanceHandPressed(_:)))
             item.view = button
             return item
             
@@ -134,6 +145,16 @@ class PointerAppearanceTouchBar: NSTouchBar, NSTouchBarDelegate {
             item.view = button
             return item
             
+        case .pointerAppearanceIndividualItem:
+            let item = NSCustomTouchBarItem(identifier: identifier)
+            let button = NSSegmentedControl(
+                images: [NSImage(named: "Individual")!],
+                trackingMode: .selectAny,
+                target: self,
+                action: #selector(touchBarPointerAppearanceIndividualPressed(_:)))
+            item.view = button
+            return item
+            
         default:
             return nil
         }
@@ -144,6 +165,9 @@ class PointerAppearanceTouchBar: NSTouchBar, NSTouchBarDelegate {
         DisplayController.setPointerAppearance(.cursor, configuration: PointerCCView.cursor, sender: self)
     }
     
+    @objc func touchBarPointerAppearanceHandPressed(_ sender: NSSegmentedControl) {
+        DisplayController.setPointerAppearance(.hand, configuration: PointerCCView.hand, sender: self)
+    }
     
     @objc func touchBarPointerAppearanceDotPressed(_ sender: NSSegmentedControl) {
         DisplayController.setPointerAppearance(.dot, configuration: PointerCCView.dot, sender: self)
