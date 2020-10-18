@@ -55,6 +55,13 @@ class RemotePreferencesViewController: NSViewController, PreferencePane {
     }
     
     
+    @IBAction func showTrustedDevices(_ sender: NSButton) {
+        // Show trusted devices view
+        let trustedDevicesVC = TrustedDevicesViewController()
+        presentAsSheet(trustedDevicesVC)
+    }
+    
+    
     @objc func peersChanged(_ notification: Notification) {
         peerTable.reloadData()
     }

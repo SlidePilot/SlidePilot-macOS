@@ -15,10 +15,10 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="540" height="400"/>
+            <rect key="frame" x="0.0" y="0.0" width="540" height="441"/>
             <subviews>
                 <customView horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="hO6-ws-5E6">
-                    <rect key="frame" x="30" y="240" width="480" height="140"/>
+                    <rect key="frame" x="30" y="281" width="480" height="140"/>
                     <subviews>
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ADo-d1-yUj">
                             <rect key="frame" x="0.0" y="20" width="100" height="100"/>
@@ -54,7 +54,7 @@ Make sure both Mac and iPhone are in the same WiFi.</string>
                     </constraints>
                 </customView>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HbD-Zb-JI7">
-                    <rect key="frame" x="30" y="20" width="480" height="200"/>
+                    <rect key="frame" x="30" y="61" width="480" height="200"/>
                     <clipView key="contentView" id="MCC-w8-aYx">
                         <rect key="frame" x="1" y="1" width="478" height="198"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -185,17 +185,30 @@ Make sure both Mac and iPhone are in the same WiFi.</string>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="npS-H0-yiB">
+                    <rect key="frame" x="24" y="13" width="138" height="32"/>
+                    <buttonCell key="cell" type="push" title="Trusted Devices" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="amI-QT-I9W">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="showTrustedDevices:" target="-2" id="SWK-Ng-rfr"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="hO6-ws-5E6" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="7Ua-QF-Vc3"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="npS-H0-yiB" secondAttribute="trailing" constant="20" id="9dl-Hm-je2"/>
                 <constraint firstAttribute="trailing" secondItem="HbD-Zb-JI7" secondAttribute="trailing" constant="30" id="V4d-6w-c4O"/>
+                <constraint firstItem="npS-H0-yiB" firstAttribute="top" secondItem="HbD-Zb-JI7" secondAttribute="bottom" constant="20" id="VhM-JX-pv9"/>
+                <constraint firstItem="npS-H0-yiB" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="30" id="Vhb-w9-4hE"/>
                 <constraint firstAttribute="trailing" secondItem="hO6-ws-5E6" secondAttribute="trailing" constant="30" id="Z93-r7-rug"/>
                 <constraint firstItem="HbD-Zb-JI7" firstAttribute="top" secondItem="hO6-ws-5E6" secondAttribute="bottom" constant="20" id="fRk-JQ-D9H"/>
-                <constraint firstAttribute="bottom" secondItem="HbD-Zb-JI7" secondAttribute="bottom" constant="20" id="iAF-EJ-Vxd"/>
+                <constraint firstAttribute="bottom" secondItem="npS-H0-yiB" secondAttribute="bottom" constant="20" id="mD1-lm-zMG"/>
                 <constraint firstItem="HbD-Zb-JI7" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="30" id="qx0-FU-7Rq"/>
                 <constraint firstItem="hO6-ws-5E6" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="30" id="ynf-Ih-7jq"/>
             </constraints>
-            <point key="canvasLocation" x="-269" y="285"/>
+            <point key="canvasLocation" x="-269" y="308.5"/>
         </customView>
     </objects>
     <resources>

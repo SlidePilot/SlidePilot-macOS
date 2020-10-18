@@ -11,6 +11,9 @@
 /* Class = "NSTextFieldCell"; title = "Device Name"; ObjectID = "ZtW-AN-dJ7"; */
 "ZtW-AN-dJ7.title" = "Gerätename";
 
+/* Class = "NSButtonCell"; title = "Trusted Devices"; ObjectID = "amI-QT-I9W"; */
+"amI-QT-I9W.title" = "Vertrauenswürdige Geräte";
+
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "l5k-jc-zx0"; */
 "l5k-jc-zx0.title" = "Text Cell";
 

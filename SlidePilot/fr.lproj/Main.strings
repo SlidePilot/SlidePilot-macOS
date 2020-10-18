@@ -149,7 +149,7 @@
 "Ruw-6m-B2m.title" = "Tout sélectionner";
 
 /* Class = "NSButtonCell"; title = "Finish"; ObjectID = "Sdh-B4-AdM"; */
-"Sdh-B4-AdM.title" = "Terminé";
+"Sdh-B4-AdM.title" = "OK";
 
 /* Class = "NSMenuItem"; title = "Align Right"; ObjectID = "TWd-Px-sJm"; */
 "TWd-Px-sJm.title" = "Aligner à droite";
