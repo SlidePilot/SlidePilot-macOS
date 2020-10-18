@@ -63,9 +63,9 @@ class PointerView: NSView {
             try container.encode(borderWidth, forKey: .borderWidth)
             try container.encode(shadowWidth, forKey: .shadowWidth)
             
-            let colorData = NSKeyedArchiver.archive(object: color)
+            let colorData = NSKeyedArchiver.archive(object: color as Any)
             try container.encode(colorData, forKey: .color)
-            let borderColorData = NSKeyedArchiver.archive(object: borderColor)
+            let borderColorData = NSKeyedArchiver.archive(object: borderColor as Any)
             try container.encode(borderColorData, forKey: .borderColor)
         }
     }
