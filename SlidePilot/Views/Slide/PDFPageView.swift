@@ -8,9 +8,17 @@
 
 import Cocoa
 import PDFKit
+import AVKit
+import AVFoundation
 
+var currentPlayer: AVPlayer?
 
 class PDFPageView: NSImageView {
+    
+    var players = [AVPlayer]()
+    var playerViews = [ConnectedPlayer]()
+    var areVideoPlayerControlsEnabled: Bool = true
+    var connectToCurrentPlayer: Bool = false
     
     
     enum DisplayMode {
@@ -22,6 +30,60 @@ class PDFPageView: NSImageView {
         
         static func displayModeForPresentation(with position: NotesPosition) -> DisplayMode {
             return position.displayModeForPresentation()
+        }
+        
+        /**
+         Returns correct bounds for `DisplayMode`.
+         */
+        func getBounds(for page: PDFPage) -> CGRect {
+            let rotation = page.rotation
+            let isRotatedClock = rotation == 90
+            let isRotatedCounterClock = rotation == 270
+            let isFlipped = rotation == 180
+            switch self {
+            case .full:
+                return page.bounds(for: .mediaBox)
+            case .leftHalf:
+                if isRotatedCounterClock {
+                    return CGRect(x: 0, y: page.bounds(for: .mediaBox).height/2, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                } else if isRotatedClock {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                } else if isFlipped {
+                    return CGRect(x: page.bounds(for: .mediaBox).width/2, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                } else {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                }
+            case .rightHalf:
+                if isRotatedCounterClock {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                } else if isRotatedClock {
+                    return CGRect(x: 0, y: page.bounds(for: .mediaBox).height/2, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                } else if isFlipped {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                } else {
+                    return CGRect(x: page.bounds(for: .mediaBox).width/2, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                }
+            case .topHalf:
+                if isRotatedCounterClock {
+                    return CGRect(x: page.bounds(for: .mediaBox).width/2, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                } else if isRotatedClock {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                } else if isFlipped {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                } else {
+                    return CGRect(x: 0, y: page.bounds(for: .mediaBox).height/2, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                }
+            case .bottomHalf:
+                if isRotatedCounterClock {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                } else if isRotatedClock {
+                    return CGRect(x: page.bounds(for: .mediaBox).width/2, y: 0, width: page.bounds(for: .mediaBox).width/2, height: page.bounds(for: .mediaBox).height)
+                } else if isFlipped {
+                    return CGRect(x: 0, y: page.bounds(for: .mediaBox).height/2, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                } else {
+                    return CGRect(x: 0, y: 0, width: page.bounds(for: .mediaBox).width, height: page.bounds(for: .mediaBox).height/2)
+                }
+            }
         }
     }
     
@@ -133,7 +195,87 @@ class PDFPageView: NSImageView {
         
         // Update cursor rects
         self.window?.invalidateCursorRects(for: self)
+        
+        // Show videos
+        embedVideo()
     }
+    
+    
+    private func embedVideo() {
+        // Remove previous video if needed
+        players.forEach({ $0.pause() })
+        players.removeAll()
+        playerViews.forEach({ $0.removeFromSuperview() })
+        playerViews.removeAll()
+        
+        // Search for video annotation
+        guard #available(macOS 10.13, *) else { return }
+        guard let page = pdfDocument?.page(at: currentPage) else { return }
+        let movieAnnoations = page.annotations.filter({ $0.type == "Movie" })
+        
+        for annotation in movieAnnoations {
+            guard let movieValues = annotation.annotationKeyValues["/Movie"] as? [AnyHashable: Any] else { return }
+            guard let fileName = movieValues.values.first as? String else { return }
+            
+            // Create URL
+            guard let movieURL = URL(string: fileName, relativeTo: pdfDocument?.documentURL) else { return }
+            
+            // Translate bounds according to display mode
+            let pageFrame = self.displayMode.getBounds(for: page)
+            let annotationFrame = NSRect(x: annotation.bounds.minX - pageFrame.minX,
+                                         y: annotation.bounds.minY - pageFrame.minY,
+                                         width: annotation.bounds.width,
+                                         height: annotation.bounds.height)
+            
+            // Check if player is in visible frame of page (regarding display mode)
+            guard annotationFrame.maxX > pageFrame.minX ||
+                  annotationFrame.minX < pageFrame.maxX ||
+                  annotationFrame.maxY > pageFrame.minY ||
+                  annotationFrame.minY < pageFrame.maxY else { return }
+                    
+            let player = AVPlayer(url: movieURL)
+            let playerView = ConnectedPlayer()
+            playerView.player = player
+            playerView.translatesAutoresizingMaskIntoConstraints = false
+            playerView.areControlsEnabled = areVideoPlayerControlsEnabled
+            self.addSubview(playerView)
+            
+            // TODO: TranslateBounds
+            guard let pageSize = self.image?.size else { return }
+            let relativeFrame = NSRect(x: annotationFrame.minX / pageSize.width,
+                                       y: annotationFrame.minY / pageSize.height,
+                                       width: annotationFrame.width / pageSize.width,
+                                       height: annotationFrame.height / pageSize.height)
+            
+            
+            
+            
+            self.addConstraints([
+                NSLayoutConstraint(item: playerView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .right, multiplier: relativeFrame.minX, constant: 0),
+                NSLayoutConstraint(item: playerView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0-relativeFrame.minY, constant: 0),
+                NSLayoutConstraint(item: playerView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: relativeFrame.width, constant: 0),
+                NSLayoutConstraint(item: playerView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: relativeFrame.height, constant: 0)
+            ])
+            
+            playerView.connectToSharedPlayer = self.connectToCurrentPlayer
+            
+            players.append(player)
+            playerViews.append(playerView)
+        }
+        
+        // Check if this PDFPageView is showing the current page &
+        // if it's not a connected player (which means it should not connect to the shared players) &
+        // if this page view present the presentation part of the page &
+        // if there were any movie annotations found on the page
+        if self.currentPage == PageController.currentPage,
+           connectToCurrentPlayer == false,
+           DisplayController.notesPosition.displayModeForPresentation() == self.displayMode,
+           movieAnnoations.count > 0 {
+            ConnectedPlayer.sharedPlayers = players
+        }
+    }
+    
+    
     
     
     private func updateAspectRatio() {

@@ -33,6 +33,7 @@
 		50440BB7243357F5000C0C9E /* ThumbnailNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50440BB6243357F5000C0C9E /* ThumbnailNavigation.swift */; };
 		50440BB924339CEA000C0C9E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 50440BB824339CEA000C0C9E /* README.md */; };
 		505243B72445AF650050AB98 /* RenderCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505243B62445AF650050AB98 /* RenderCache.swift */; };
+		505E9C94252B1DDC00EAB106 /* FileObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E9C93252B1DDC00EAB106 /* FileObserver.swift */; };
 		5070AA5A24619C400025B8C5 /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5070AA5924619C400025B8C5 /* TimeController.swift */; };
 		5074A88024A34FD5005CFDEF /* GeneralPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5074A88224A34FD5005CFDEF /* GeneralPreferences.xib */; };
 		5077493B247A8C4000316F0B /* PresenterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50774939247A8C4000316F0B /* PresenterWindow.swift */; };
@@ -52,6 +53,7 @@
 		509B971F2428B6A10076B8B4 /* ClockLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B971E2428B6A10076B8B4 /* ClockLabel.swift */; };
 		509B97292428CBBD0076B8B4 /* SlideArrangementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */; };
 		509B972F2428D74E0076B8B4 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B972E2428D74E0076B8B4 /* SlideView.swift */; };
+		50AF62B72525F3C600315A4A /* ConnectedPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF62B62525F3C600315A4A /* ConnectedPlayer.swift */; };
 		50B14415248037F700532A8B /* NotesEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B14414248037F700532A8B /* NotesEditor.swift */; };
 		50B1441724803E5C00532A8B /* SlideInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1441624803E5C00532A8B /* SlideInfoLabel.swift */; };
 		50B3C3032497F5DB006D5E48 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3C3022497F5DB006D5E48 /* Drawing.swift */; };
@@ -128,6 +130,7 @@
 		504450A0245ADFB900330984 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		504450A1245ADFB900330984 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		505243B62445AF650050AB98 /* RenderCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderCache.swift; sourceTree = "<group>"; };
+		505E9C93252B1DDC00EAB106 /* FileObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileObserver.swift; sourceTree = "<group>"; };
 		5070AA5924619C400025B8C5 /* TimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
 		5074A88124A34FD5005CFDEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GeneralPreferences.xib; sourceTree = "<group>"; };
 		5074A88424A34FDA005CFDEF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/GeneralPreferences.strings; sourceTree = "<group>"; };
@@ -154,6 +157,7 @@
 		509B971E2428B6A10076B8B4 /* ClockLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockLabel.swift; sourceTree = "<group>"; };
 		509B97282428CBBD0076B8B4 /* SlideArrangementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideArrangementView.swift; sourceTree = "<group>"; };
 		509B972E2428D74E0076B8B4 /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
+		50AF62B62525F3C600315A4A /* ConnectedPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedPlayer.swift; sourceTree = "<group>"; };
 		50B14414248037F700532A8B /* NotesEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesEditor.swift; sourceTree = "<group>"; };
 		50B1441624803E5C00532A8B /* SlideInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInfoLabel.swift; sourceTree = "<group>"; };
 		50B3C3022497F5DB006D5E48 /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				50026ACF2430EED80049387E /* String+Extension.swift */,
+				505E9C93252B1DDC00EAB106 /* FileObserver.swift */,
 				50F925E124A2A9F900F8C10B /* AwakeManager.swift */,
 				50026AD12430F02F0049387E /* PDFPage+Extension.swift */,
 				5038345B24349F4B00E73E43 /* Colors.swift */,
@@ -314,6 +319,7 @@
 				50440BB4243357C1000C0C9E /* Clipfree.swift */,
 				508BBD612460591800F81FFF /* UserNotice.swift */,
 				50B1441624803E5C00532A8B /* SlideInfoLabel.swift */,
+				50AF62B62525F3C600315A4A /* ConnectedPlayer.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -447,7 +453,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Pascal Braband";
 				TargetAttributes = {
 					509B96F22428A3AC0076B8B4 = {
@@ -521,6 +527,7 @@
 				50F925DE24A25BAB00F8C10B /* GeneralPreferencesViewController.swift in Sources */,
 				50EF741224538F690028DB06 /* DocumentController.swift in Sources */,
 				50208BA52429028000444E73 /* NSColor+Extension.swift in Sources */,
+				505E9C94252B1DDC00EAB106 /* FileObserver.swift in Sources */,
 				50026AD02430EED80049387E /* String+Extension.swift in Sources */,
 				50E2E5EC247AB84C00CE6FDA /* NotesDocument.swift in Sources */,
 				50B1441724803E5C00532A8B /* SlideInfoLabel.swift in Sources */,
@@ -545,6 +552,7 @@
 				508BBD642460966800F81FFF /* CAKeyframeAnimation+Extension.swift in Sources */,
 				509B970C2428AA2F0076B8B4 /* TimingControl.swift in Sources */,
 				50F925E224A2A9F900F8C10B /* AwakeManager.swift in Sources */,
+				50AF62B72525F3C600315A4A /* ConnectedPlayer.swift in Sources */,
 				50E2E5E8247AA12800CE6FDA /* NotesTextView.swift in Sources */,
 				50F925DC24A25B7000F8C10B /* Preferences+PaneIdentifiers.swift in Sources */,
 				50440BB3243357AA000C0C9E /* ThumbnailView.swift in Sources */,
@@ -650,6 +658,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -711,6 +720,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -746,7 +756,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.5.0.3;
+				CURRENT_PROJECT_VERSION = 1.5.1.3;
 				DEVELOPMENT_TEAM = FFSR8KUJW2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -760,7 +770,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pascalbraband.SlidePilot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -775,7 +785,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.5.0.3;
+				CURRENT_PROJECT_VERSION = 1.5.1.3;
 				DEVELOPMENT_TEAM = FFSR8KUJW2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -789,7 +799,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.pascalbraband.SlidePilot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
