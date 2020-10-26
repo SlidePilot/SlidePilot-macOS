@@ -10,7 +10,7 @@ import Foundation
 
 class DisplayController {
     
-    enum NotesPosition {
+    enum NotesPosition: Int, Codable {
         case none, right, left, bottom, top
         
         func displayModeForNotes() -> PDFPageView.DisplayMode {
@@ -50,7 +50,7 @@ class DisplayController {
     }
     
     
-    enum NotesMode {
+    enum NotesMode: Int, Codable {
         case text, split
     }
     
@@ -67,6 +67,9 @@ class DisplayController {
     public private(set) static var isNavigatorDisplayed: Bool = false
     public private(set) static var isPointerDisplayed: Bool = false
     public private(set) static var isNextSlidePreviewDisplayed: Bool = false
+    public private(set) static var areDrawingToolsDisplayed: Bool = false
+    
+    public private(set) static var areLayoutChangesEnabled: Bool = true
     
     public static var isCurtainDisplayed: Bool {
         return DisplayController.isBlackCurtainDisplayed || DisplayController.isWhiteCurtainDisplayed
@@ -94,6 +97,8 @@ class DisplayController {
     
     /** Sends a notification, that the display notes property was changed. */
     public static func setDisplayNotes(_ shouldDisplay: Bool, sender: Any) {
+        guard areLayoutChangesEnabled else { return }
+        
         areNotesDisplayed = shouldDisplay
         NotificationCenter.default.post(name: .didChangeDisplayNotes, object: sender)
     }
@@ -173,6 +178,8 @@ class DisplayController {
     
     /** Sends a notification, that the display navigator property was changed. */
     public static func setDisplayNavigator(_ shouldDisplay: Bool, sender: Any) {
+        guard areLayoutChangesEnabled else { return }
+        
         isNavigatorDisplayed = shouldDisplay
         NotificationCenter.default.post(name: .didChangeDisplayNavigator, object: sender)
     }
@@ -186,6 +193,8 @@ class DisplayController {
     
     /** Sends a notification, that the preview next slide property was changed. */
     public static func setDisplayNextSlidePreview(_ shouldDisplay: Bool, sender: Any) {
+        guard areLayoutChangesEnabled else { return }
+        
         isNextSlidePreviewDisplayed = shouldDisplay
         NotificationCenter.default.post(name: .didChangeDisplayNextSlidePreview, object: sender)
     }
@@ -220,6 +229,34 @@ class DisplayController {
     public static func setNotesMode(_ mode: NotesMode, sender: Any) {
         notesMode = mode
         NotificationCenter.default.post(name: .didChangeNotesMode, object: sender)
+    }
+    
+    
+    /** Sends a notification, that the display drawings property was changed. */
+    public static func setDisplayDrawingTools(_ shouldDisplay: Bool, sender: Any) {
+        areDrawingToolsDisplayed = shouldDisplay
+        CanvasController.setTransparentCanvasBackground(true, sender: sender)
+        
+        // Prevent layout changes and switching slides
+        enableLayoutChanges(!areDrawingToolsDisplayed, sender: self)
+        PageController.enablePageSwitching(!areDrawingToolsDisplayed, sender: self)
+        
+        CanvasController.clearCanvas(sender: self)
+        
+        NotificationCenter.default.post(name: .didChangeDisplayDrawingTools, object: sender)
+    }
+    
+    
+    /** Changes display drawings to the opposite and sends notification, that this property changed. */
+    public static func switchDisplayDrawingTools(sender: Any) {
+        setDisplayDrawingTools(!areDrawingToolsDisplayed, sender: sender)
+    }
+    
+    
+    /** Sends a notification, that the enable layout changes property was changed. */
+    public static func enableLayoutChanges(_ isEnabled: Bool, sender: Any) {
+        areLayoutChangesEnabled = isEnabled
+        NotificationCenter.default.post(name: .didChangeLayoutChangesEnabled, object: sender)
     }
     
     
@@ -287,6 +324,19 @@ class DisplayController {
     }
     
     
+    /** Subscribes a target to all `.didChangeDisplayDrawingTools` notifications sent by `DisplayController`. */
+    public static func subscribeDisplayDrawingTools(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeDisplayDrawingTools, object: nil)
+    }
+    
+    
+    public static func subscribeLayoutChangesEnabled(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeLayoutChangesEnabled, object: nil)
+    }
+    
+    
+    
+    
     // MARK: - Unsubscribe
     
     /** Unsubscribes a target from all notifications sent by `DisplayController`. */
@@ -301,6 +351,8 @@ class DisplayController {
         NotificationCenter.default.removeObserver(target, name: .didChangePointerAppearance, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayNextSlidePreview, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeNotesMode, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeDisplayDrawingTools, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeLayoutChangesEnabled, object: nil)
     }
 }
 
@@ -318,4 +370,77 @@ extension Notification.Name {
     static let didChangeDisplayPointer = Notification.Name("didChangeDisplayPointer")
     static let didChangePointerAppearance = Notification.Name("didChangePointerAppearance")
     static let didChangeNotesMode = Notification.Name("didChangeNotesMode")
+    static let didChangeDisplayDrawingTools = Notification.Name("didChangeDisplayDrawingTools")
+    static let didChangeLayoutChangesEnabled = Notification.Name("didChangeLayoutChangesEnabled")
+}
+
+
+
+
+extension DisplayController {
+    public struct Configuration: Codable {
+        var notesPosition: DisplayController.NotesPosition
+        var notesMode: DisplayController.NotesMode
+        var areNotesDisplayed: Bool
+        var isNavigatorDisplayed: Bool
+        var isNextSlidePreviewDisplayed: Bool
+        var isPointerDisplayed: Bool
+        var pointerAppearance: PointerView.PointerType
+        
+        var lastUpdated: Date
+    }
+    
+    
+    /**
+     Creates a snapshot of the current options in `DisplayController` and returns them as `Configuration` object.
+     */
+    public static func getCurrentConfiguration() -> Configuration {
+        return Configuration(
+            notesPosition: notesPosition,
+            notesMode: notesMode,
+            areNotesDisplayed: areNotesDisplayed,
+            isNavigatorDisplayed: isNavigatorDisplayed,
+            isNextSlidePreviewDisplayed: isNextSlidePreviewDisplayed,
+            isPointerDisplayed: isPointerDisplayed,
+            pointerAppearance: pointerAppearance,
+            lastUpdated: Date())
+    }
+    
+    
+    /**
+     Calls the correct method to set everything in `DisplayController` according to the given `Configuration`.
+     */
+    public static func load(configuration: Configuration) {
+        setNotesPosition(configuration.notesPosition, sender: self)
+        setNotesMode(configuration.notesMode, sender: self)
+        setDisplayNotes(configuration.areNotesDisplayed, sender: self)
+        setDisplayNavigator(configuration.isNavigatorDisplayed, sender: self)
+        setDisplayNextSlidePreview(configuration.isNextSlidePreviewDisplayed, sender: self)
+        setDisplayPointer(configuration.isPointerDisplayed, sender: self)
+        setPointerAppearance(configuration.pointerAppearance, sender: self)
+    }
+    
+    
+    /**
+     Convenience method which saves the `DisplayController`'s configuration and saves them directly with `ConfigurationController`. Takes the filepath directly from `DocumentController` as the key.
+     */
+    public static func saveConfiguration() {
+        if let documentURL = DocumentController.document?.documentURL {
+            ConfigurationController.save(configuration: getCurrentConfiguration(), for: documentURL.absoluteString)
+        }
+    }
+    
+    
+    /**
+     Convenience method which gets directly from the `ConfigurationController` and loads them into `DisplayController`. Takes the filepath directly from `DocumentController` as the key.
+     */
+    public static func loadConfiguration() {
+        if let documentURL = DocumentController.document?.documentURL,
+            let configuration = ConfigurationController.getDocumentConfiguration(for: documentURL.absoluteString) {
+            load(configuration: configuration)
+        }
+    }
+    
+    
+    
 }

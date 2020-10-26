@@ -8,6 +8,7 @@
 
 import Cocoa
 import PDFKit
+import Preferences
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -18,6 +19,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     // MARK: - Menu Outlets
+    @IBOutlet weak var previousSlideItem: NSMenuItem!
+    @IBOutlet weak var nextSlideItem: NSMenuItem!
+    
     @IBOutlet weak var showNavigatorItem: NSMenuItem!
     @IBOutlet weak var previewNextSlideItem: NSMenuItem!
     @IBOutlet weak var displayBlackCurtainItem: NSMenuItem!
@@ -31,6 +35,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var pointerAppearanceCircleItem: NSMenuItem!
     @IBOutlet weak var pointerAppearanceTargetItem: NSMenuItem!
     @IBOutlet weak var pointerAppearanceTargetColorItem: NSMenuItem!
+    
+    @IBOutlet weak var notesMenu: NSMenu!
     
     @IBOutlet weak var notesModeMenu: NSMenu!
     @IBOutlet weak var notesModeTextItem: NSMenuItem!
@@ -48,10 +54,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var timerModeItem: NSMenuItem!
     @IBOutlet weak var setTimerItem: NSMenuItem!
     
+    @IBOutlet weak var drawItem: NSMenuItem!
+    @IBOutlet weak var clearCanvasItem: NSMenuItem!
+    @IBOutlet weak var blankCanvasItem: NSMenuItem!
+    
     
     // MARK: - Identifiers
     private let presenterWindowIdentifier = NSUserInterfaceItemIdentifier("PresenterWindowID")
     private let presentationWindowIdentifier = NSUserInterfaceItemIdentifier("PresentationWindowID")
+    
+
+    lazy var preferencesWindowController = PreferencesWindowController(
+        preferencePanes: [
+            GeneralPreferencesViewController()
+        ],
+        hidesToolbarForSingleItem: false
+    )
     
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -78,9 +96,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
         DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
         DisplayController.subscribeNotesMode(target: self, action: #selector(notesModeDidChange(_:)))
+        DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
+        DisplayController.subscribeLayoutChangesEnabled(target: self, action: #selector(didChangeLayoutChangesEnabled(_:)))
         
         // Set default display options
         DisplayController.setPointerAppearance(.cursor, sender: self)
+        
+        // Subscribe to page controller changes
+        PageController.subscribePageSwitchingEnabled(target: self, action: #selector(didChangePageSwitchingEnabled(_:)))
         
         // Subscribe to notes file changes
         DocumentController.subscribeRequestOpenNotes(target: self, action: #selector(didRequestOpenNotes(_:)))
@@ -96,6 +119,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Set default time options
         TimeController.setTimeMode(mode: .stopwatch, sender: self)
         
+        // Subscribe to canvas changes
+        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(didChangeCanvasBackground(_:)))
+        
+        // Clean document preferences
+        ConfigurationController.cleanUpDocumentConfigurations()
+        
+        // Apply default preferences
+        PreferencesController.applyDefaults()
+        
         startup()
     }
     
@@ -107,6 +139,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         return .terminateLater
+    }
+    
+    
+    func applicationWillTerminate(_ notification: Notification) {
+        DisplayController.saveConfiguration()
     }
     
     
@@ -151,13 +188,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         
         guard let presenterWindowCtrl = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresenterWindow")) as? PresenterWindowController else { return }
-        guard let presenterWindow = presenterWindowCtrl.window else { return }
+        guard let presenterWindow = presenterWindowCtrl.window as? PresenterWindow else { return }
         guard let presenterDisplay = presenterWindowCtrl.contentViewController as? PresenterViewController else { return }
         
         guard let presentationWindowCtrl = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresentationWindow")) as?
             PresentationWindowController else { return }
-        guard let presentationWindow = presentationWindowCtrl.window else { return }
+        guard let presentationWindow = presentationWindowCtrl.window as? PresentationWindow else { return }
         guard let presentationView = presentationWindowCtrl.contentViewController as? PresentationViewController else { return }
+        
+        // Temporarily disable canBecomeKey so that presentationWindow opens on second screen
+        presentationWindow.setCanBecomeKey(false)
         
         // Set window identifiers
         presenterWindow.identifier = presenterWindowIdentifier
@@ -181,6 +221,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Open Presenter Display
         presenterWindow.makeKeyAndOrderFront(nil)
+        
+        presentationWindow.setCanBecomeKey(true)
         
         // Set properties
         self.presenterWindowCtrl = presenterWindowCtrl
@@ -237,6 +279,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     /** Opens the PDF document at the given `URL` in both presenter and presentation window. */
     func openFile(url: URL) {
+        // Save preferences for current document
+        DisplayController.saveConfiguration()
+        
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
         guard let pdfDocument = PDFDocument(url: url) else { return }
         
@@ -247,10 +292,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         PageController.selectPage(at: 0, sender: self)
         
         // Reset display options
+        DisplayController.setDisplayDrawingTools(false, sender: self)
+        DisplayController.enableLayoutChanges(true, sender: self)
+        PageController.enablePageSwitching(true, sender: self)
+        
         DisplayController.setDisplayNextSlidePreview(true, sender: self)
         DisplayController.setNotesPosition(.none, sender: self)
         DisplayController.setDisplayNotes(false, sender: self)
         DisplayController.setNotesMode(.text, sender: self)
+        
+        // Get notes position from document meta data
+        if let metaNotesPosition = pdfDocument.notesPosition() {
+            DisplayController.setNotesPosition(metaNotesPosition, sender: self)
+        }
         
         // Reset stopwatch/timer
         TimeController.resetTime(sender: self)
@@ -268,6 +322,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         else {
             DocumentController.createNewNotesDocument(sender: self)
         }
+        
+        // Load display options from preferences. This may override the reset behavior done before
+        DisplayController.loadConfiguration()
     }
     
     
@@ -365,6 +422,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     // MARK: - Menu Item Actions
+    
+    @IBAction
+    func showPreferences(_ sender: NSMenuItem) {
+        preferencesWindowController.show()
+    }
+    
     
     @IBAction func increaseFontSize(_ sender: NSMenuItem) {
         TextFormatController.increaseFontSize(sender: sender)
@@ -539,6 +602,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func resetTime(_ sender: NSMenuItem) {
         TimeController.resetTime(sender: self)
+    }
+    
+    
+    @IBAction func showDrawTools(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayDrawingTools(sender: sender)
+    }
+    
+    
+    @IBAction func clearCanvas(_ sender: NSMenuItem) {
+        CanvasController.clearCanvas(sender: sender)
+    }
+    
+    
+    @IBAction func blankCanvas(_ sender: NSMenuItem) {
+        CanvasController.switchTransparentCanvas(sender: sender)
     }
     
     
@@ -760,5 +838,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         TimeController.resetTime(sender: self)
+    }
+    
+    
+    @objc func displayDrawingToolsDidChange(_ notification: Notification) {
+        drawItem.state = DisplayController.areDrawingToolsDisplayed ? .on : .off
+        
+        // Enable/Disable corresponding menu items
+        clearCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
+        blankCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
+    }
+    
+    
+    @objc func didChangeCanvasBackground(_ notification: Notification) {
+        blankCanvasItem.state = CanvasController.isCanvasBackgroundTransparent ? .off : .on
+    }
+    
+    
+    @objc func didChangeLayoutChangesEnabled(_ notification: Notification) {
+        // Enable/Disable menu items
+        notesMenu.items.forEach({ $0.isEnabled = DisplayController.areLayoutChangesEnabled })
+        previewNextSlideItem.isEnabled = DisplayController.areLayoutChangesEnabled
+        showNavigatorItem.isEnabled = DisplayController.areLayoutChangesEnabled
+    }
+    
+    
+    @objc func didChangePageSwitchingEnabled(_ notification: Notification) {
+        // Enable/Disable menu items
+        previousSlideItem.isEnabled = PageController.isPageSwitchingEnabled
+        nextSlideItem.isEnabled = PageController.isPageSwitchingEnabled
     }
 }

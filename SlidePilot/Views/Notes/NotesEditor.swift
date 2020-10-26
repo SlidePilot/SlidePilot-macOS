@@ -27,6 +27,14 @@ class NotesEditor: NSView {
     }
     
     
+    override func removeFromSuperview() {
+        if !DisplayController.areNotesDisplayed || DisplayController.areDrawingToolsDisplayed {
+            self.undoManager?.removeAllActions()
+        }
+        super.removeFromSuperview()
+    }
+    
+    
     
     // MARK: - UI Setup/Update
     

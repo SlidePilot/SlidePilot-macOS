@@ -12,6 +12,16 @@ class PageController {
     
     public private(set) static var currentPage = 0
     
+    public private(set) static var isPageSwitchingEnabled = true
+    
+    
+    /** Enables/disables being able to switch pages. */
+    public static func enablePageSwitching(_ isEnabled: Bool, sender: Any?) {
+        isPageSwitchingEnabled = isEnabled
+        NotificationCenter.default.post(name: .didChangePageSwitchingEnabled, object: sender)
+    }
+    
+    
     
     /** Sends a notification, that the next page was selected. */
     public static func nextPage(sender: Any?) {
@@ -27,6 +37,9 @@ class PageController {
     
     /** Sends a notification, that the page was changed. With the corresponding page as user info. */
     public static func selectPage(at index: Int, sender: Any?) {
+        // Only continue if page switching is enabled
+        guard isPageSwitchingEnabled else { return }
+        
         if isValidIndex(index) {
             currentPage = index
             NotificationCenter.default.post(name: .didSelectPage, object: sender)
@@ -39,15 +52,22 @@ class PageController {
     }
     
     
-    /** Subscribes a target to all notifications sent by `PageController`. */
+    /** Subscribes a target to all `.didSelectPage` notifications sent by `PageController`. */
     public static func subscribe(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .didSelectPage, object: nil)
+    }
+    
+    
+    /** Subscribes a target to all `.didChangePageSwitchingEnabled` notification sent by `PageController`. */
+    public static func subscribePageSwitchingEnabled(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangePageSwitchingEnabled, object: nil)
     }
     
     
     /** Unsubscribes a target from all notifications sent by `PageController`. */
     public static func unsubscribe(target: Any) {
         NotificationCenter.default.removeObserver(target, name: .didSelectPage, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangePageSwitchingEnabled, object: nil)
     }
 }
 
@@ -56,4 +76,5 @@ class PageController {
 
 extension Notification.Name {
     static let didSelectPage = Notification.Name("didSelectPage")
+    static let didChangePageSwitchingEnabled = Notification.Name("didChangePageSwitchingEnabled")
 }

@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/pascal/Documents/XCode/Projekte/Slidejar/Slidejar/SlidePilot.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

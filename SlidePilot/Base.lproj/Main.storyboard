@@ -24,7 +24,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                            <connections>
+                                                <action selector="showPreferences:" target="Ady-hI-5gd" id="hbR-rN-bF7"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Check for Updates…" id="VVU-xh-TkN">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -288,6 +292,24 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="A3e-R8-0Hj"/>
+                                        <menuItem title="Draw" keyEquivalent="d" id="bOy-zp-CYT">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showDrawTools:" target="Ady-hI-5gd" id="aCh-f4-rl2"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Clear Drawings" keyEquivalent="c" id="b9e-Ma-o1Q">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                            <connections>
+                                                <action selector="clearCanvas:" target="Ady-hI-5gd" id="Hbu-uv-YDF"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Canvas Mode" keyEquivalent="k" id="O1m-6g-Uld">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                            <connections>
+                                                <action selector="blankCanvas:" target="Ady-hI-5gd" id="2BS-iZ-iM8"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -496,8 +518,13 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SlidePilot" customModuleProvider="target">
                     <connections>
+                        <outlet property="blankCanvasItem" destination="O1m-6g-Uld" id="kXt-jo-QRC"/>
+                        <outlet property="clearCanvasItem" destination="b9e-Ma-o1Q" id="ESW-Iq-TDI"/>
                         <outlet property="displayBlackCurtainItem" destination="Wsl-Lh-Rzy" id="7mA-Hq-uva"/>
                         <outlet property="displayWhiteCurtainItem" destination="E0b-Yv-pqH" id="SEd-Ly-9Bk"/>
+                        <outlet property="drawItem" destination="bOy-zp-CYT" id="cDe-gx-WG5"/>
+                        <outlet property="nextSlideItem" destination="s0G-5Y-hRb" id="p7X-83-KEz"/>
+                        <outlet property="notesMenu" destination="eeB-A4-p01" id="w26-AJ-ska"/>
                         <outlet property="notesModeMenu" destination="hqc-Um-UGA" id="ynB-4W-PuA"/>
                         <outlet property="notesModeSplitItem" destination="OMC-wK-B8t" id="1Vn-Pl-SVb"/>
                         <outlet property="notesModeTextItem" destination="hxO-Rn-nAO" id="nfD-ji-Pvs"/>
@@ -514,6 +541,7 @@
                         <outlet property="pointerAppearanceTargetColorItem" destination="UYT-sb-cqr" id="I6y-rg-13D"/>
                         <outlet property="pointerAppearanceTargetItem" destination="YH8-Ja-Yo4" id="MIO-hN-XUi"/>
                         <outlet property="previewNextSlideItem" destination="Atm-A9-uUk" id="nUt-4P-7zY"/>
+                        <outlet property="previousSlideItem" destination="gcL-Jw-1Oj" id="WCe-nO-wii"/>
                         <outlet property="setTimerItem" destination="GyA-9h-Aoe" id="4aw-Cy-cL1"/>
                         <outlet property="showNavigatorItem" destination="zx2-Yz-Rxn" id="h3m-To-UaI"/>
                         <outlet property="showNotesItem" destination="fS9-YP-QfR" id="eB2-IZ-Yjq"/>
@@ -578,22 +606,7 @@
                     <view key="view" id="fPV-BC-LaP">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0gX-s2-K8M" customClass="PDFPageView" customModule="SlidePilot" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="BQ7-Gf-9ME"/>
-                            </imageView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="0gX-s2-K8M" secondAttribute="trailing" id="J6x-Oc-gZm"/>
-                            <constraint firstAttribute="bottom" secondItem="0gX-s2-K8M" secondAttribute="bottom" id="Lr0-W0-05i"/>
-                            <constraint firstItem="0gX-s2-K8M" firstAttribute="leading" secondItem="fPV-BC-LaP" secondAttribute="leading" id="RPW-kF-9iq"/>
-                            <constraint firstItem="0gX-s2-K8M" firstAttribute="top" secondItem="fPV-BC-LaP" secondAttribute="top" id="pbH-F6-R5z"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="pageView" destination="0gX-s2-K8M" id="Nne-VL-UA8"/>
-                    </connections>
                 </viewController>
                 <customObject id="iSU-dO-f6F" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -608,13 +621,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="bi8-QE-Aey">
-                                <rect key="frame" x="0.0" y="720" width="1400" height="180"/>
+                                <rect key="frame" x="0.0" y="747" width="1400" height="153"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="tLk-sB-UgV">
-                                        <rect key="frame" x="0.0" y="0.0" width="700" height="180"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="700" height="153"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="TbN-u6-wpl" customClass="TimingControl" customModule="SlidePilot" customModuleProvider="target">
-                                                <rect key="frame" x="267" y="47" width="166" height="85"/>
+                                                <rect key="frame" x="267" y="34" width="166" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="85" id="vnc-Hp-eJ9"/>
                                                 </constraints>
@@ -635,10 +648,10 @@
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="IVP-vn-KwH">
-                                        <rect key="frame" x="700" y="0.0" width="700" height="180"/>
+                                        <rect key="frame" x="700" y="0.0" width="700" height="153"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-Pb-ePI" customClass="ClockLabel" customModule="SlidePilot" customModuleProvider="target">
-                                                <rect key="frame" x="267" y="47" width="166" height="85"/>
+                                                <rect key="frame" x="267" y="34" width="166" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="85" id="dOp-qt-xnl"/>
                                                 </constraints>
@@ -671,12 +684,12 @@
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="KBY-3V-F6W" customClass="SlideArrangementView" customModule="SlidePilot" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1400" height="720"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1400" height="747"/>
                             </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="bi8-QE-Aey" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="AVf-8K-UmF"/>
-                            <constraint firstItem="bi8-QE-Aey" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" multiplier="0.2" id="BhJ-4S-oma"/>
+                            <constraint firstItem="bi8-QE-Aey" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" multiplier="0.17" id="BhJ-4S-oma"/>
                             <constraint firstAttribute="trailing" secondItem="KBY-3V-F6W" secondAttribute="trailing" id="E7w-Dh-wfq"/>
                             <constraint firstAttribute="trailing" secondItem="bi8-QE-Aey" secondAttribute="trailing" id="GaA-bD-Q22"/>
                             <constraint firstItem="KBY-3V-F6W" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="arV-JW-CVI"/>

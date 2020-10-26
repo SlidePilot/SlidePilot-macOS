@@ -28,6 +28,14 @@ class SlideView: NSView {
     
     var heightConstraint: NSLayoutConstraint?
     
+    // Pointer
+    var pointer: PointerDisplayView!
+    var isPointerDisplayed: Bool = false {
+        didSet {
+            pointer.isHidden = !isPointerDisplayed
+        }
+    }
+    
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -80,6 +88,16 @@ class SlideView: NSView {
         page?.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .horizontal)
         page?.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .vertical)
         
+        pointer = PointerDisplayView()
+        pointer.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(pointer)
+        container.addConstraints([
+            NSLayoutConstraint(item: pointer!, attribute: .left, relatedBy: .equal, toItem: page!, attribute: .left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: pointer!, attribute: .right, relatedBy: .equal, toItem: page!, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: pointer!, attribute: .top, relatedBy: .equal, toItem: page!, attribute: .top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: pointer!, attribute: .bottom, relatedBy: .equal, toItem: page!, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+        pointer.isHidden = true
+        
         
         // Setup info label for slide
         label = SlideInfoLabel(frame: .zero)
@@ -129,6 +147,19 @@ class SlideView: NSView {
     
     
     override func mouseMoved(with event: NSEvent) {
+        super.mouseMoved(with: event)
+        delegate?.mouseMoved(to: event.locationInWindow, in: page)
+    }
+    
+    
+    override func mouseDragged(with event: NSEvent) {
+        super.mouseDragged(with: event)
+        delegate?.mouseMoved(to: event.locationInWindow, in: page)
+    }
+    
+    
+    override func mouseExited(with event: NSEvent) {
+        super.mouseExited(with: event)
         delegate?.mouseMoved(to: event.locationInWindow, in: page)
     }
 }
