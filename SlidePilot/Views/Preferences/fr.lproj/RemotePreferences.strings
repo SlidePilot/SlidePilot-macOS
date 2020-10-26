@@ -1,0 +1,24 @@
+
+/* Class = "NSButtonCell"; title = "Disconnect"; ObjectID = "6yf-F4-GYN"; */
+"6yf-F4-GYN.title" = "Dissocier";
+
+/* Class = "NSTextFieldCell"; title = "Use the SlidePilot Remote app to connect an iPhone to your Mac and remote control your presentation.\n\nMake sure both Mac and iPhone are in the same WiFi."; ObjectID = "95e-oD-2wu"; */
+"95e-oD-2wu.title" = "Utilisez l'application SlidePilot Remote pour connecter un iPhone à votre Mac et télécommander votre présentation. \n\nAssurez-vous que Mac et iPhone sont sur le même réseau sans fil.";
+
+/* Class = "NSButtonCell"; title = "Connect"; ObjectID = "HG5-Mt-AwH"; */
+"HG5-Mt-AwH.title" = "Jumeler";
+
+/* Class = "NSTextFieldCell"; title = "Device Name"; ObjectID = "ZtW-AN-dJ7"; */
+"ZtW-AN-dJ7.title" = "Nom de l'appareil";
+
+/* Class = "NSButtonCell"; title = "Trusted Devices"; ObjectID = "amI-QT-I9W"; */
+"amI-QT-I9W.title" = "Appareils fiables";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "l5k-jc-zx0"; */
+"l5k-jc-zx0.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Device Name"; ObjectID = "lLO-zl-rBY"; */
+"lLO-zl-rBY.title" = "Nom de l'appareil";
+
+/* Class = "NSTextFieldCell"; title = "Device Name"; ObjectID = "umg-Ap-MsL"; */
+"umg-Ap-MsL.title" = "Nom de l'appareil";

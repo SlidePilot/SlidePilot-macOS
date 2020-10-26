@@ -7,6 +7,9 @@
 /* Class = "NSMenuItem"; title = "Bottom"; ObjectID = "3BI-JZ-e7T"; */
 "3BI-JZ-e7T.title" = "Unten";
 
+/* Class = "NSTextFieldCell"; title = "Border:"; ObjectID = "3WV-gB-6Cg"; */
+"3WV-gB-6Cg.title" = "Rand:";
+
 /* Class = "NSMenu"; title = "Format"; ObjectID = "42S-Y1-0zg"; */
 "42S-Y1-0zg.title" = "Format";
 
@@ -16,7 +19,7 @@
 /* Class = "NSMenuItem"; title = "Quit SlidePilot"; ObjectID = "4sb-4s-VLi"; */
 "4sb-4s-VLi.title" = "SlidePilot beenden";
 
-/* Class = "NSMenuItem"; title = "Spacing"; ObjectID = "50S-x6-AAW"; */
+/* Class = "NSMenuItem"; title = "Spacing…"; ObjectID = "50S-x6-AAW"; */
 "50S-x6-AAW.title" = "Zeilenabstand …";
 
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
@@ -34,6 +37,9 @@
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "Hauptmenü";
 
+/* Class = "NSTextFieldCell"; title = "Shape:"; ObjectID = "AsJ-oq-Swq"; */
+"AsJ-oq-Swq.title" = "Form:";
+
 /* Class = "NSMenuItem"; title = "Preview Next Slide"; ObjectID = "Atm-A9-uUk"; */
 "Atm-A9-uUk.title" = "Vorschau nächste Folie";
 
@@ -43,7 +49,7 @@
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
 "BOF-NM-1cW.title" = "Einstellungen …";
 
-/* Class = "NSMenuItem"; title = "List"; ObjectID = "CBj-Fu-sHU"; */
+/* Class = "NSMenuItem"; title = "List…"; ObjectID = "CBj-Fu-sHU"; */
 "CBj-Fu-sHU.title" = "Liste …";
 
 /* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
@@ -55,11 +61,17 @@
 /* Class = "NSMenuItem"; title = "Display White Screen"; ObjectID = "E0b-Yv-pqH"; */
 "E0b-Yv-pqH.title" = "Weißen Bildschirm zeigen";
 
+/* Class = "NSTextFieldCell"; title = "Border Color:"; ObjectID = "EmW-da-fd7"; */
+"EmW-da-fd7.title" = "Randfarbe:";
+
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
 "F2S-fz-NVQ.title" = "Hilfe";
 
 /* Class = "NSMenuItem"; title = "SlidePilot Help"; ObjectID = "FKE-Sm-Kum"; */
 "FKE-Sm-Kum.title" = "SlidePilot Hilfe";
+
+/* Class = "NSMenu"; title = "Pointer Appearance"; ObjectID = "Fg3-Dc-rDB"; */
+"Fg3-Dc-rDB.title" = "Zeiger Aussehen";
 
 /* Class = "NSMenuItem"; title = "Set Timer"; ObjectID = "GyA-9h-Aoe"; */
 "GyA-9h-Aoe.title" = "Timer setzen";
@@ -67,8 +79,8 @@
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "H8h-7b-M4v"; */
 "H8h-7b-M4v.title" = "Darstellung";
 
-/* Class = "NSMenuItem"; title = "Cursor Appearance"; ObjectID = "HNs-Tl-r53"; */
-"HNs-Tl-r53.title" = "Cursor Aussehen";
+/* Class = "NSMenuItem"; title = "Pointer Appearance"; ObjectID = "HNs-Tl-r53"; */
+"HNs-Tl-r53.title" = "Zeiger Aussehen";
 
 /* Class = "NSMenu"; title = "View"; ObjectID = "HyV-fh-RgO"; */
 "HyV-fh-RgO.title" = "Darstellung";
@@ -100,7 +112,10 @@
 /* Class = "NSMenuItem"; title = "Save Notes"; ObjectID = "Nrq-4X-0EL"; */
 "Nrq-4X-0EL.title" = "Notizen speichern";
 
-/* Class = "NSMenuItem"; title = "Blank Canvas"; ObjectID = "O1m-6g-Uld"; */
+/* Class = "NSTextFieldCell"; title = "Color:"; ObjectID = "Nxa-D0-Znh"; */
+"Nxa-D0-Znh.title" = "Farbe:";
+
+/* Class = "NSMenuItem"; title = "Canvas Mode"; ObjectID = "O1m-6g-Uld"; */
 "O1m-6g-Uld.title" = "Leinwand Modus";
 
 /* Class = "NSMenu"; title = "Moderator"; ObjectID = "O4y-2K-zDw"; */
@@ -118,11 +133,23 @@
 /* Class = "NSMenuItem"; title = "Reset Time"; ObjectID = "PX1-Gg-U0w"; */
 "PX1-Gg-U0w.title" = "Zeit zurücksetzen";
 
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "Q1z-hE-ZVl"; */
+"Q1z-hE-ZVl.title" = "Abbrechen";
+
+/* Class = "NSMenuItem"; title = "Next Slide"; ObjectID = "QHz-hK-x1G"; */
+"QHz-hK-x1G.title" = "Nächste Folie";
+
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
 "R4o-n2-Eq4.title" = "Zoom";
 
+/* Class = "NSTextFieldCell"; title = "Size:"; ObjectID = "RLJ-7C-mDU"; */
+"RLJ-7C-mDU.title" = "Größe:";
+
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
 "Ruw-6m-B2m.title" = "Alles auswählen";
+
+/* Class = "NSButtonCell"; title = "Finish"; ObjectID = "Sdh-B4-AdM"; */
+"Sdh-B4-AdM.title" = "Fertig";
 
 /* Class = "NSMenuItem"; title = "Align Right"; ObjectID = "TWd-Px-sJm"; */
 "TWd-Px-sJm.title" = "Rechtsbündig";
@@ -133,8 +160,11 @@
 /* Class = "NSMenuItem"; title = "Top"; ObjectID = "Tzc-zb-uAo"; */
 "Tzc-zb-uAo.title" = "Oben";
 
-/* Class = "NSMenuItem"; title = "Target Color"; ObjectID = "UYT-sb-cqr"; */
+/* Class = "NSMenuItem"; title = "Target Red"; ObjectID = "UYT-sb-cqr"; */
 "UYT-sb-cqr.title" = "Target rot";
+
+/* Class = "NSMenuItem"; title = "Edit Pointer"; ObjectID = "VRs-AV-sKD"; */
+"VRs-AV-sKD.title" = "Zeiger bearbeien";
 
 /* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "VVU-xh-TkN"; */
 "VVU-xh-TkN.title" = "Nach Updates suchen …";
@@ -157,7 +187,7 @@
 /* Class = "NSMenuItem"; title = "Split Position"; ObjectID = "WtB-Ny-SAM"; */
 "WtB-Ny-SAM.title" = "Trennposition";
 
-/* Class = "NSMenuItem"; title = "Target"; ObjectID = "YH8-Ja-Yo4"; */
+/* Class = "NSMenuItem"; title = "Target Black"; ObjectID = "YH8-Ja-Yo4"; */
 "YH8-Ja-Yo4.title" = "Target schwarz";
 
 /* Class = "NSMenuItem"; title = "Align Left"; ObjectID = "Zi0-Hd-gZC"; */
@@ -172,7 +202,10 @@
 /* Class = "NSMenuItem"; title = "Dot"; ObjectID = "akh-gx-hr7"; */
 "akh-gx-hr7.title" = "Punkt";
 
-/* Class = "NSMenuItem"; title = "Clear Canvas"; ObjectID = "b9e-Ma-o1Q"; */
+/* Class = "NSWindow"; title = "Pointer Editor"; ObjectID = "b03-II-4kw"; */
+"b03-II-4kw.title" = "Zeigereditor";
+
+/* Class = "NSMenuItem"; title = "Clear Drawings"; ObjectID = "b9e-Ma-o1Q"; */
 "b9e-Ma-o1Q.title" = "Zeichnung löschen";
 
 /* Class = "NSMenuItem"; title = "Start/Stop Time"; ObjectID = "bL3-yv-j1V"; */
@@ -214,14 +247,23 @@
 /* Class = "NSMenuItem"; title = "Previous Slide"; ObjectID = "gcL-Jw-1Oj"; */
 "gcL-Jw-1Oj.title" = "Vorherige Folie";
 
+/* Class = "NSMenuItem"; title = "Hand"; ObjectID = "gqd-uQ-vYn"; */
+"gqd-uQ-vYn.title" = "Hand";
+
 /* Class = "NSMenuItem"; title = "Text"; ObjectID = "hxO-Rn-nAO"; */
 "hxO-Rn-nAO.title" = "Text";
 
-/* Class = "NSMenuItem"; title = "Show Cursor"; ObjectID = "iHL-eH-XtE"; */
-"iHL-eH-XtE.title" = "Cursor anzeigen";
+/* Class = "NSMenuItem"; title = "Show Pointer"; ObjectID = "iHL-eH-XtE"; */
+"iHL-eH-XtE.title" = "Zeiger anzeigen";
 
 /* Class = "NSMenuItem"; title = "Bigger"; ObjectID = "imS-PA-oW0"; */
 "imS-PA-oW0.title" = "Größer";
+
+/* Class = "NSTextFieldCell"; title = "Thickness:"; ObjectID = "ivp-8p-UGA"; */
+"ivp-8p-UGA.title" = "Stärke:";
+
+/* Class = "NSMenuItem"; title = "Previous Slide"; ObjectID = "j2s-KC-OdN"; */
+"j2s-KC-OdN.title" = "Vorherige Folie";
 
 /* Class = "NSMenuItem"; title = "Italic"; ObjectID = "j9w-kc-N3h"; */
 "j9w-kc-N3h.title" = "Kursiv";
@@ -244,6 +286,9 @@
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
 "pa3-QI-u2k.title" = "Löschen";
 
+/* Class = "NSMenuItem"; title = "Individual"; ObjectID = "rTi-ec-8YY"; */
+"rTi-ec-8YY.title" = "Individuell";
+
 /* Class = "NSMenuItem"; title = "Next Slide"; ObjectID = "s0G-5Y-hRb"; */
 "s0G-5Y-hRb.title" = "Nächste Folie";
 
@@ -261,6 +306,9 @@
 
 /* Class = "NSMenu"; title = "Presentation"; ObjectID = "uzH-JS-q45"; */
 "uzH-JS-q45.title" = "Präsentation";
+
+/* Class = "NSTextFieldCell"; title = "Shadow:"; ObjectID = "vDr-ck-eYg"; */
+"vDr-ck-eYg.title" = "Schatten:";
 
 /* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "vNY-rz-j42"; */
 "vNY-rz-j42.title" = "Einträge löschen";
