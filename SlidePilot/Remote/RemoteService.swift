@@ -98,29 +98,29 @@ class RemoteService: NSObject {
     }
     
     
-    public func send(currentSlide slideImage: NSImage) {
+    public func send(currentSlide slide: RenderCache.Configuration) {
         guard hasConnections() else { return }
         DispatchQueue.global().async {
-            guard let imageData = slideImage.compressed() else { return }
-            self.send(message: Message(command: .currentSlide, payload: imageData))
+            guard let data = try? PropertyListEncoder().encode(slide) else { return }
+            self.send(message: Message(command: .currentSlide, payload: data))
         }
     }
     
     
-    public func send(nextSlide slideImage: NSImage) {
+    public func send(nextSlide slide: RenderCache.Configuration) {
         guard hasConnections() else { return }
         DispatchQueue.global().async {
-            guard let imageData = slideImage.compressed() else { return }
-            self.send(message: Message(command: .nextSlide, payload: imageData))
+            guard let data = try? PropertyListEncoder().encode(slide) else { return }
+            self.send(message: Message(command: .nextSlide, payload: data))
         }
     }
     
     
-    public func send(notesSlide slideImage: NSImage) {
+    public func send(notesSlide slide: RenderCache.Configuration) {
         guard hasConnections() else { return }
         DispatchQueue.global().async {
-            guard let imageData = slideImage.compressed() else { return }
-            self.send(message: Message(command: .noteSlide, payload: imageData))
+            guard let data = try? PropertyListEncoder().encode(slide) else { return }
+            self.send(message: Message(command: .noteSlide, payload: data))
         }
     }
     

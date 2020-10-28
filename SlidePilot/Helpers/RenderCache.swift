@@ -11,6 +11,12 @@ import PDFKit
 
 class RenderCache {
     
+    struct Configuration: Codable {
+        var pageData: Data
+        var pageRect: CGRect
+        var drawRect: CGRect
+    }
+    
     static var shared = RenderCache()
     
     class CacheKey: NSObject {
@@ -230,5 +236,23 @@ class RenderCache {
             
             return true
         })
+    }
+    
+    
+    public func getRenderConfiguration(pageIndex: Int, document: PDFDocument, mode: PDFPageView.DisplayMode) -> Configuration? {
+        if document != self.document {
+            self.document = document
+        }
+        
+        guard let page = self.document?.page(at: pageIndex) else { return nil }
+        guard let pageData = page.dataRepresentation else { return nil }
+        let pageRect = mode.getBounds(for: page)
+        
+        var drawRect = pageRect
+        if page.rotation == 270 || page.rotation == 90 {
+            drawRect = CGRect(x: pageRect.minX, y: pageRect.minY, width: pageRect.height, height: pageRect.width)
+        }
+        
+        return Configuration(pageData: pageData, pageRect: pageRect, drawRect: drawRect)
     }
 }

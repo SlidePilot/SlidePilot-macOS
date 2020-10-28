@@ -37,34 +37,38 @@ class RemoteController {
         guard let document = DocumentController.document else { return }
         let pageIndex: Int = PageController.currentPage
         
-        guard let currentSlide = RenderCache.shared.getPage(
-                at: pageIndex,
-                for: document,
-                mode: DisplayController.notesPosition.displayModeForPresentation(),
-                priority: .fast) else { return }
+//        guard let currentSlide = RenderCache.shared.getPage(
+//                at: pageIndex,
+//                for: document,
+//                mode: DisplayController.notesPosition.displayModeForPresentation(),
+//                priority: .fast) else { return }
+//
+//        guard let notesSlide = RenderCache.shared.getPage(
+//                at: pageIndex,
+//                for: document,
+//                mode: DisplayController.notesPosition.displayModeForNotes(),
+//                priority: .fast) else { return }
+//
+//        // Special handling of next slide (send black slide when at the end of presentation)
+//        var nextSlide: NSImage!
+//        if pageIndex+1 < DocumentController.pageCount {
+//            guard let nextSlideImage = RenderCache.shared.getPage(
+//                    at: pageIndex+1,
+//                    for: document,
+//                    mode: DisplayController.notesPosition.displayModeForPresentation(),
+//                    priority: .fast) else { return }
+//            nextSlide = nextSlideImage
+//        } else {
+//            nextSlide = NSColor.black.image(of: (document.page(at: 0)?.bounds(for: .cropBox).size ?? NSSize(width: 1.0, height: 1.0)))
+//        }
         
-        guard let notesSlide = RenderCache.shared.getPage(
-                at: pageIndex,
-                for: document,
-                mode: DisplayController.notesPosition.displayModeForNotes(),
-                priority: .fast) else { return }
+        guard let currentSlideConfiguration = RenderCache.shared.getRenderConfiguration(pageIndex: pageIndex, document: document, mode: DisplayController.notesPosition.displayModeForPresentation()) else { return }
+        guard let notesSlideConfiguration = RenderCache.shared.getRenderConfiguration(pageIndex: pageIndex, document: document, mode: DisplayController.notesPosition.displayModeForPresentation()) else { return }
+        let nextSlideConfiguration = currentSlideConfiguration
         
-        // Special handling of next slide (send black slide when at the end of presentation)
-        var nextSlide: NSImage!
-        if pageIndex+1 < DocumentController.pageCount {
-            guard let nextSlideImage = RenderCache.shared.getPage(
-                    at: pageIndex+1,
-                    for: document,
-                    mode: DisplayController.notesPosition.displayModeForPresentation(),
-                    priority: .fast) else { return }
-            nextSlide = nextSlideImage
-        } else {
-            nextSlide = NSColor.black.image(of: (document.page(at: 0)?.bounds(for: .cropBox).size ?? NSSize(width: 1.0, height: 1.0)))
-        }
-        
-        service.send(currentSlide: currentSlide)
-        service.send(nextSlide: nextSlide)
-        service.send(notesSlide: notesSlide)
+        service.send(currentSlide: currentSlideConfiguration)
+        service.send(nextSlide: nextSlideConfiguration)
+        service.send(notesSlide: notesSlideConfiguration)
         
         sendMetaUpdates()
         sendNotesUpdates()
