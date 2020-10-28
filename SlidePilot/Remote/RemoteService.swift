@@ -99,33 +99,48 @@ class RemoteService: NSObject {
     
     
     public func send(currentSlide slideImage: NSImage) {
-        guard let imageData = slideImage.compressed() else { return }
-        send(message: Message(command: .currentSlide, payload: imageData))
+        guard hasConnections() else { return }
+        DispatchQueue.global().async {
+            guard let imageData = slideImage.compressed() else { return }
+            self.send(message: Message(command: .currentSlide, payload: imageData))
+        }
     }
     
     
     public func send(nextSlide slideImage: NSImage) {
-        guard let imageData = slideImage.compressed() else { return }
-        send(message: Message(command: .nextSlide, payload: imageData))
+        guard hasConnections() else { return }
+        DispatchQueue.global().async {
+            guard let imageData = slideImage.compressed() else { return }
+            self.send(message: Message(command: .nextSlide, payload: imageData))
+        }
     }
     
     
     public func send(notesSlide slideImage: NSImage) {
-        guard let imageData = slideImage.compressed() else { return }
-        send(message: Message(command: .noteSlide, payload: imageData))
+        guard hasConnections() else { return }
+        DispatchQueue.global().async {
+            guard let imageData = slideImage.compressed() else { return }
+            self.send(message: Message(command: .noteSlide, payload: imageData))
+        }
     }
     
     
     public func send(meta: [String: Any]) {
-        guard let metaData = try? JSONSerialization.data(withJSONObject: meta, options: []) else { return }
-        send(message: Message(command: .meta, payload: metaData))
+        guard hasConnections() else { return }
+        DispatchQueue.global().async {
+            guard let metaData = try? JSONSerialization.data(withJSONObject: meta, options: []) else { return }
+            self.send(message: Message(command: .meta, payload: metaData))
+        }
     }
     
     
     public func send(notesText: NSAttributedString) {
-        guard let textData = try? notesText.data(from: NSRange(location: 0, length: notesText.length),
-                                                 documentAttributes: [.documentType: NSAttributedString.DocumentType.rtf]) else { return }
-        send(message: Message(command: .notesText, payload: textData))
+        guard hasConnections() else { return }
+        DispatchQueue.global().async {
+            guard let textData = try? notesText.data(from: NSRange(location: 0, length: notesText.length),
+                                                     documentAttributes: [.documentType: NSAttributedString.DocumentType.rtf]) else { return }
+            self.send(message: Message(command: .notesText, payload: textData))
+        }
     }
     
     
@@ -201,6 +216,11 @@ class RemoteService: NSObject {
     func generateVerificationCode() -> String {
         let letters = "0123456789"
         return String((0..<verificationCodeLength).map{ _ in letters.randomElement()! })
+    }
+    
+    
+    private func hasConnections() -> Bool {
+        return self.session.connectedPeers.count > 0
     }
     
     
