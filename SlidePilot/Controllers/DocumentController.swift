@@ -195,7 +195,6 @@ class DocumentController {
         DispatchQueue.global().async(execute: loadDocumentTask!)
     }
 }
-}
 
 
 
