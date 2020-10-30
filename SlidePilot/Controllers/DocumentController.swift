@@ -169,12 +169,32 @@ class DocumentController {
     
     // MARK: Helpers
     
+    private static var loadDocumentTask: DispatchWorkItem?
+    
     private static func reloadDocument() {
+        loadDocumentTask?.cancel()
+        
         guard let documentURL = document?.documentURL else { return }
-        guard let pdfDocument = PDFDocument(url: documentURL) else { return }
-        setDocument(pdfDocument, sender: self)
-        PageController.selectPage(at: PageController.currentPage, sender: self)
+        
+        let loadCompletion = { (pdfDocument: PDFDocument) in
+            DispatchQueue.main.async {
+                setDocument(pdfDocument, sender: self)
+                PageController.selectPage(at: PageController.currentPage, sender: self)
+            }
+        }
+        
+        loadDocumentTask = DispatchWorkItem {
+            guard let pdfDocument = PDFDocument(url: documentURL) else { return }
+            
+            // Only continue if task wasn't cancelled
+            if !(loadDocumentTask?.isCancelled ?? true) {
+                loadCompletion(pdfDocument)
+            }
+        }
+        
+        DispatchQueue.global().async(execute: loadDocumentTask!)
     }
+}
 }
 
 
