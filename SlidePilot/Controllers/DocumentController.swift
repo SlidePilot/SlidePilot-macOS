@@ -185,11 +185,7 @@ class DocumentController {
         
         loadDocumentTask = DispatchWorkItem {
             guard let pdfDocument = PDFDocument(url: documentURL) else { return }
-            
-            // Only continue if task wasn't cancelled
-            if !(loadDocumentTask?.isCancelled ?? true) {
-                loadCompletion(pdfDocument)
-            }
+            loadCompletion(pdfDocument)
         }
         
         DispatchQueue.global().async(execute: loadDocumentTask!)
