@@ -321,6 +321,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Get notes position from document meta data
         if let metaNotesPosition = pdfDocument.notesPosition() {
             DisplayController.setNotesPosition(metaNotesPosition, sender: self)
+            DisplayController.setNotesMode(.split, sender: self)
         }
         
         // Reset stopwatch/timer
@@ -334,6 +335,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let notesDocument = NotesDocument(contentsOf: notesURL, pageCount: DocumentController.document?.pageCount ?? 0)
             DocumentController.didOpenNotes(document: notesDocument, sender: self)
             DisplayController.setDisplayNotes(true, sender: self)
+            DisplayController.setNotesMode(.text, sender: self)
         }
         // Create new document otherwise
         else {
