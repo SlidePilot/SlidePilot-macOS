@@ -177,7 +177,7 @@ class PointerView: NSView {
         self.frame.size = CGSize(width: size+thickness+borderWidth+shadowPadding, height: size+thickness+borderWidth+shadowPadding)
         self.layer?.frame = self.frame
         hotspot = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
-        hotspotShift = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+        hotspotShift = hotspot
         
         let centerCircle = CAShapeLayer()
         let centerCircleSize = thickness*1.4
@@ -395,14 +395,14 @@ class PointerView: NSView {
     private func drawCursor() {
         draw(with: NSCursor.arrow.image)
         hotspot = NSCursor.arrow.hotSpot
-        hotspotShift = NSPoint(x: 4, y: NSCursor.arrow.image.size.height-4)
+        hotspotShift = NSPoint(x: hotspot.x, y: NSCursor.arrow.image.size.height-hotspot.y)
     }
     
     
     private func drawHand() {
         draw(with: NSCursor.pointingHand.image)
         hotspot = NSCursor.pointingHand.hotSpot
-        hotspotShift = NSPoint(x: 4, y: NSCursor.pointingHand.image.size.height-4)
+        hotspotShift = NSPoint(x: hotspot.x, y: NSCursor.pointingHand.image.size.height-hotspot.y)
     }
     
     
@@ -422,8 +422,8 @@ class PointerView: NSView {
     // MARK: - Misc
     
     public func setPosition(_ position: NSPoint) {
-        self.frame.origin = NSPoint(x: position.x-self.hotspot.x,
-                                    y: position.y-self.hotspot.y)
+        self.frame.origin = NSPoint(x: position.x-self.hotspotShift.x,
+                                    y: position.y-self.hotspotShift.y)
     }
     
     
