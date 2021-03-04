@@ -153,7 +153,7 @@ class ThumbnailNavigation: NSView {
         cleanHighlight()
         
         // Save previous selection index
-        let previousSelection = currentSelection
+        let previousSelection = currentSelection > pageCount-1 ? -1 : currentSelection
         
         // Update previous (remove selection) and current (add selection) thumbnail cells
         currentSelection = safeIndex
