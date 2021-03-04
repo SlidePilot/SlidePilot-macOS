@@ -255,7 +255,7 @@ class ThumbnailNavigation: NSView {
     
     @objc func documentDidChange(_ notification: Notification) {
         tableView.reloadData()
-        selectThumbnail(at: currentSelection, scrollVisible: true)
+        selectThumbnail(at: 0, scrollVisible: true)
     }
     
     
