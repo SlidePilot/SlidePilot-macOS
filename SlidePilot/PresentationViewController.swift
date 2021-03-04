@@ -118,7 +118,7 @@ class PresentationViewController: NSViewController {
     
     
     @objc func documentDidChange(_ notification: Notification) {
-        pageView.setDocument(DocumentController.document)
+        pageView.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
     }
     
     
