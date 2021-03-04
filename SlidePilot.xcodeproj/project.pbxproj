@@ -19,10 +19,10 @@
 		5028D31D245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */; };
 		5033EBB824913A0800B05094 /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5033EBB724913A0800B05094 /* CanvasController.swift */; };
 		5036BD8A2435F8CD0007AF6F /* AppStartTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5036BD892435F8CD0007AF6F /* AppStartTracker.swift */; };
-		503834552434721600E73E43 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503834542434721600E73E43 /* Sparkle.framework */; };
-		503834572434723A00E73E43 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 503834542434721600E73E43 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5038345A24349E8F00E73E43 /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5038345924349E8F00E73E43 /* PDFKit.framework */; };
 		5038345C24349F4B00E73E43 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5038345B24349F4B00E73E43 /* Colors.swift */; };
+		5039AE3825F14C5F00C6F232 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5039AE3625F14C5C00C6F232 /* Sparkle.framework */; };
+		5039AE3925F14C5F00C6F232 /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5039AE3625F14C5C00C6F232 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		503FFDFA242A098900B6F438 /* NSDatePicker+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */; };
 		503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDFB242A180000B6F438 /* PresenterWindowController.swift */; };
 		503FFDFF242A193500B6F438 /* PresentationWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503FFDFD242A193500B6F438 /* PresentationWindowController.swift */; };
@@ -102,14 +102,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		503834562434722B00E73E43 /* CopyFiles */ = {
+		5039AE3A25F14C5F00C6F232 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				503834572434723A00E73E43 /* Sparkle.framework in CopyFiles */,
+				5039AE3925F14C5F00C6F232 /* Sparkle.framework in Embed Frameworks */,
 			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -127,9 +128,10 @@
 		5028D31B245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SlideArrangementView+ViewSetup.swift"; sourceTree = "<group>"; };
 		5033EBB724913A0800B05094 /* CanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasController.swift; sourceTree = "<group>"; };
 		5036BD892435F8CD0007AF6F /* AppStartTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStartTracker.swift; sourceTree = "<group>"; };
-		503834542434721600E73E43 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		5038345924349E8F00E73E43 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
 		5038345B24349F4B00E73E43 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		5039AE2F25F14C1800C6F232 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = "../../../../../Desktop/Sparkle-1.26.0/Sparkle.framework"; sourceTree = "<group>"; };
+		5039AE3625F14C5C00C6F232 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		503FFDF9242A098900B6F438 /* NSDatePicker+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDatePicker+Extension.swift"; sourceTree = "<group>"; };
 		503FFDFB242A180000B6F438 /* PresenterWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterWindowController.swift; sourceTree = "<group>"; };
 		503FFDFD242A193500B6F438 /* PresentationWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationWindowController.swift; sourceTree = "<group>"; };
@@ -220,8 +222,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5038345A24349E8F00E73E43 /* PDFKit.framework in Frameworks */,
+				5039AE3825F14C5F00C6F232 /* Sparkle.framework in Frameworks */,
 				50F925D924A25A2F00F8C10B /* Preferences in Frameworks */,
-				503834552434721600E73E43 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +271,7 @@
 		5038345824349E8F00E73E43 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5039AE2F25F14C1800C6F232 /* Sparkle.framework */,
 				5038345924349E8F00E73E43 /* PDFKit.framework */,
 			);
 			name = Frameworks;
@@ -326,7 +329,7 @@
 		509B96F52428A3AC0076B8B4 /* SlidePilot */ = {
 			isa = PBXGroup;
 			children = (
-				503834542434721600E73E43 /* Sparkle.framework */,
+				5039AE3625F14C5C00C6F232 /* Sparkle.framework */,
 				509B96F62428A3AC0076B8B4 /* AppDelegate.swift */,
 				50440BB824339CEA000C0C9E /* README.md */,
 				5077493A247A8C4000316F0B /* NavigationWindow.swift */,
@@ -464,7 +467,7 @@
 				509B96EF2428A3AC0076B8B4 /* Sources */,
 				509B96F02428A3AC0076B8B4 /* Frameworks */,
 				509B96F12428A3AC0076B8B4 /* Resources */,
-				503834562434722B00E73E43 /* CopyFiles */,
+				5039AE3A25F14C5F00C6F232 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
