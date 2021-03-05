@@ -91,7 +91,7 @@ class PresentationViewController: NSViewController {
             canvas = CanvasView(frame: .zero)
             canvas!.translatesAutoresizingMaskIntoConstraints = false
             canvas!.allowsDrawing = false
-            self.view.addSubview(canvas!)
+            self.view.addSubview(canvas!, positioned: .below, relativeTo: pointer!)
             self.view.addConstraints([
                 NSLayoutConstraint(item: canvas!, attribute: .left, relatedBy: .equal, toItem: pageView, attribute: .left, multiplier: 1.0, constant: 0.0),
                 NSLayoutConstraint(item: canvas!, attribute: .right, relatedBy: .equal, toItem: pageView, attribute: .right, multiplier: 1.0, constant: 0.0),
@@ -118,7 +118,7 @@ class PresentationViewController: NSViewController {
     
     
     @objc func documentDidChange(_ notification: Notification) {
-        pageView.setDocument(DocumentController.document)
+        pageView.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
     }
     
     
