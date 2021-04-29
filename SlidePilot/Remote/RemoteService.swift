@@ -174,7 +174,7 @@ class RemoteService: NSObject {
             guard let messageData = message.payload else { return }
             guard let positionString = String(data: messageData, encoding: .utf8) else { return }
             let position = NSPointFromString(positionString)
-            print(position)
+            DispatchQueue.main.async { self.delegate?.shouldMovePointer(to: position) }
             
         default:
             return
@@ -396,4 +396,5 @@ protocol RemoteServiceDelegate {
     func shouldShowBlackScreen()
     func shouldShowWhiteScreen()
     func shouldHideCutrain()
+    func shouldMovePointer(to position: NSPoint)
 }
