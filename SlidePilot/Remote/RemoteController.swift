@@ -198,6 +198,12 @@ extension RemoteController: RemoteServiceDelegate {
             presenterVC.pointerDelegate?.pointerMoved(to: relativePosition)
         }
     }
+    
+    func shouldFinishPointer() {
+        if let presenterVC = (NSApp.delegate as? AppDelegate)?.presenterWindow?.contentViewController as? PresenterViewController {
+            presenterVC.pointerDelegate?.hidePointer()
+        }
+    }
 }
 
 

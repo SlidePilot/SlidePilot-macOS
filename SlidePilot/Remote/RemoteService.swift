@@ -176,6 +176,9 @@ class RemoteService: NSObject {
             let position = NSPointFromString(positionString)
             DispatchQueue.main.async { self.delegate?.shouldMovePointer(to: position) }
             
+        case .pointerFinish:
+            DispatchQueue.main.async { self.delegate?.shouldFinishPointer() }
+            
         default:
             return
         }
@@ -397,4 +400,5 @@ protocol RemoteServiceDelegate {
     func shouldShowWhiteScreen()
     func shouldHideCutrain()
     func shouldMovePointer(to position: NSPoint)
+    func shouldFinishPointer()
 }
