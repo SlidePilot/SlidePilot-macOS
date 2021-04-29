@@ -170,6 +170,12 @@ class RemoteService: NSObject {
         case .hideCurtain:
             DispatchQueue.main.async { self.delegate?.shouldHideCutrain() }
             
+        case .pointerPosition:
+            guard let messageData = message.payload else { return }
+            guard let positionString = String(data: messageData, encoding: .utf8) else { return }
+            let position = NSPointFromString(positionString)
+            print(position)
+            
         default:
             return
         }
