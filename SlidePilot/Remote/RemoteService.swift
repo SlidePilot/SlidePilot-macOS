@@ -170,6 +170,15 @@ class RemoteService: NSObject {
         case .hideCurtain:
             DispatchQueue.main.async { self.delegate?.shouldHideCutrain() }
             
+        case .pointerPosition:
+            guard let messageData = message.payload else { return }
+            guard let positionString = String(data: messageData, encoding: .utf8) else { return }
+            let position = NSPointFromString(positionString)
+            DispatchQueue.main.async { self.delegate?.shouldMovePointer(to: position) }
+            
+        case .pointerFinish:
+            DispatchQueue.main.async { self.delegate?.shouldFinishPointer() }
+            
         default:
             return
         }
@@ -390,4 +399,6 @@ protocol RemoteServiceDelegate {
     func shouldShowBlackScreen()
     func shouldShowWhiteScreen()
     func shouldHideCutrain()
+    func shouldMovePointer(to position: NSPoint)
+    func shouldFinishPointer()
 }
