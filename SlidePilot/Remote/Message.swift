@@ -29,6 +29,12 @@
     - command: hideCurtain
       payload: nil
  
+    - command: pointerPosition
+      payload: A relative CGPoint between (0, 0) and (1, 1)
+ 
+    - command: pointerFinish
+      payload: nil
+ 
     - command: currentSlide
       payload: Image of the related slide
  
@@ -55,7 +61,7 @@ struct Message {
     
     enum Command: Int, Codable {
         case disconnect, code, connectionAccepted,
-             showNextSlide, showPreviousSlide, showBlackScreen, showWhiteScreen, hideCurtain,
+             showNextSlide, showPreviousSlide, showBlackScreen, showWhiteScreen, hideCurtain, pointerPosition, pointerFinish,
              currentSlide, nextSlide, noteSlide, notesText, meta
     }
     

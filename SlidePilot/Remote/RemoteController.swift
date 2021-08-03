@@ -190,6 +190,20 @@ extension RemoteController: RemoteServiceDelegate {
         DisplayController.setDisplayCurtain(.none, sender: self)
         NotificationCenter.default.post(name: .remoteHideCurtain, object: nil)
     }
+    
+    func shouldMovePointer(to position: NSPoint) {
+        if let presenterVC = (NSApp.delegate as? AppDelegate)?.presenterWindow?.contentViewController as? PresenterViewController {
+            let relativePosition = CGPoint(x: (position.x + 1) / 2, y: (position.y + 1) / 2)
+            presenterVC.pointerDelegate?.showPointer()
+            presenterVC.pointerDelegate?.pointerMoved(to: relativePosition)
+        }
+    }
+    
+    func shouldFinishPointer() {
+        if let presenterVC = (NSApp.delegate as? AppDelegate)?.presenterWindow?.contentViewController as? PresenterViewController {
+            presenterVC.pointerDelegate?.hidePointer()
+        }
+    }
 }
 
 
