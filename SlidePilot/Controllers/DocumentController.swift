@@ -178,7 +178,13 @@ class DocumentController {
         
         let loadCompletion = { (pdfDocument: PDFDocument) in
             DispatchQueue.main.async {
+                // Set global document
                 setDocument(pdfDocument, sender: self)
+                
+                // Update notes document to fill (new) empty pages
+                self.notesDocument?.fillContents(to: pdfDocument.pageCount)
+                
+                // Select the old current page
                 PageController.selectPage(at: PageController.currentPage, sender: self)
             }
         }
