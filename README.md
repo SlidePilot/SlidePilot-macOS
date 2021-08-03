@@ -1,7 +1,7 @@
 # SlidePilot for macOS
 
 <p align="center">
-  <img width=120 src="images/appicon.png"/>
+  <img width=120 src="https://slidepilotapp.com/img/appicon.svg"/>
 </p>
 <p align="center">
   <strong>PDF Presentation Tool for macOS, perfect for LaTex Beamer presentations 🖥</strong>
