@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var nextSlideItem: NSMenuItem!
     
     @IBOutlet weak var showNavigatorItem: NSMenuItem!
+    @IBOutlet weak var showCurrentSlideItem: NSMenuItem!
     @IBOutlet weak var previewNextSlideItem: NSMenuItem!
     @IBOutlet weak var displayBlackCurtainItem: NSMenuItem!
     @IBOutlet weak var displayWhiteCurtainItem: NSMenuItem!
@@ -95,6 +96,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
+        DisplayController.subscribeDisplayCurrentSlide(target: self, action: #selector(displayCurrentSlideDidChange(_:)))
         DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
         DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
@@ -313,6 +315,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.enableLayoutChanges(true, sender: self)
         PageController.enablePageSwitching(true, sender: self)
         
+        DisplayController.setDisplayCurrentSlide(true, sender: self)
         DisplayController.setDisplayNextSlidePreview(true, sender: self)
         DisplayController.setNotesPosition(.none, sender: self)
         DisplayController.setDisplayNotes(false, sender: self)
@@ -560,6 +563,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func showNavigator(_ sender: NSMenuItem) {
         DisplayController.switchDisplayNavigator(sender: sender)
+    }
+    
+    @IBAction func showCurrentSlide(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayCurrentSlide(sender: sender)
     }
     
     @IBAction func previewNextSlide(_ sender: NSMenuItem) {
@@ -831,6 +838,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func displayNavigatorDidChange(_ notification: Notification) {
         // Set correct state for menu item
         showNavigatorItem.state = DisplayController.isNavigatorDisplayed ? .on : .off
+    }
+    
+    
+    @objc func displayCurrentSlideDidChange(_ notification: Notification) {
+        // Set correct state for menu item
+        showCurrentSlideItem.state = DisplayController.isCurrentSlideDisplayed ? .on : .off
     }
     
     

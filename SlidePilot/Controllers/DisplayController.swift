@@ -71,6 +71,7 @@ class DisplayController {
     public private(set) static var isWhiteCurtainDisplayed: Bool = false
     public private(set) static var isNavigatorDisplayed: Bool = false
     public private(set) static var isPointerDisplayed: Bool = false
+    public private(set) static var isCurrentSlideDisplayed: Bool = false
     public private(set) static var isNextSlidePreviewDisplayed: Bool = false
     public private(set) static var areDrawingToolsDisplayed: Bool = false
     
@@ -125,6 +126,13 @@ class DisplayController {
         
         areNotesDisplayed = shouldDisplay
         NotificationCenter.default.post(name: .didChangeDisplayNotes, object: sender)
+        
+        // If neither current, next nor notes slide is displayed, display next slide
+        if (!DisplayController.isCurrentSlideDisplayed &&
+                !DisplayController.isNextSlidePreviewDisplayed &&
+                !DisplayController.areNotesDisplayed) {
+            setDisplayCurrentSlide(true, sender: sender)
+        }
     }
     
     
@@ -215,12 +223,41 @@ class DisplayController {
     }
     
     
+    /** Sends a notification, that the display current slide property was changed. */
+    public static func setDisplayCurrentSlide(_ shouldDisplay: Bool, sender: Any) {
+        guard areLayoutChangesEnabled else { return }
+        
+        isCurrentSlideDisplayed = shouldDisplay
+        NotificationCenter.default.post(name: .didChangeDisplayCurrentSlide, object: sender);
+        
+        // If neither current, next nor notes slide is displayed, display next slide
+        if (!DisplayController.isCurrentSlideDisplayed &&
+                !DisplayController.isNextSlidePreviewDisplayed &&
+                !DisplayController.areNotesDisplayed) {
+            setDisplayNextSlidePreview(true, sender: sender)
+        }
+    }
+    
+    
     /** Sends a notification, that the preview next slide property was changed. */
     public static func setDisplayNextSlidePreview(_ shouldDisplay: Bool, sender: Any) {
         guard areLayoutChangesEnabled else { return }
         
         isNextSlidePreviewDisplayed = shouldDisplay
         NotificationCenter.default.post(name: .didChangeDisplayNextSlidePreview, object: sender)
+        
+        // If neither current, next nor notes slide is displayed, display next slide
+        if (!DisplayController.isCurrentSlideDisplayed &&
+                !DisplayController.isNextSlidePreviewDisplayed &&
+                !DisplayController.areNotesDisplayed) {
+            setDisplayCurrentSlide(true, sender: sender)
+        }
+    }
+    
+    
+    /** Changes display current slide to the opposite and sends notification, that this property changed. */
+    public static func switchDisplayCurrentSlide(sender: Any) {
+        setDisplayCurrentSlide(!isCurrentSlideDisplayed, sender: sender)
     }
     
     
@@ -335,6 +372,12 @@ class DisplayController {
     }
     
     
+    /** Subscribes a target to all `.didChangeDisplayCurrentSlide` notifications sent by `DisplayController`. */
+    public static func subscribeDisplayCurrentSlide(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeDisplayCurrentSlide, object: nil)
+    }
+    
+    
     /** Subscribes a target to all `.didChangeDisplayNextSlidePreview` notifications sent by `DisplayController`. */
     public static func subscribePreviewNextSlide(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .didChangeDisplayNextSlidePreview, object: nil)
@@ -384,6 +427,7 @@ class DisplayController {
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayNavigator, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayPointer, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangePointerAppearance, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeDisplayCurrentSlide, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayNextSlidePreview, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeNotesMode, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeDisplayDrawingTools, object: nil)
@@ -401,6 +445,7 @@ extension Notification.Name {
     static let didChangeDisplayWhiteCurtain = Notification.Name("didChangeDisplayWhiteCurtain")
     static let didChangeDisplayCurtain = Notification.Name("didChangeDisplayCurtain")
     static let didChangeDisplayNavigator = Notification.Name("didChangeDisplayNavigator")
+    static let didChangeDisplayCurrentSlide = Notification.Name("didChangeDisplayCurrentSlide")
     static let didChangeDisplayNextSlidePreview = Notification.Name("didChangeDisplayNextSlidePreview")
     static let didChangeDisplayPointer = Notification.Name("didChangeDisplayPointer")
     static let didChangePointerAppearance = Notification.Name("didChangePointerAppearance")
@@ -418,6 +463,7 @@ extension DisplayController {
         var notesMode: DisplayController.NotesMode
         var areNotesDisplayed: Bool
         var isNavigatorDisplayed: Bool
+        var isCurrentSlideDisplayed: Bool
         var isNextSlidePreviewDisplayed: Bool
         var isPointerDisplayed: Bool
         var pointerAppearance: PointerAppearance
@@ -436,6 +482,7 @@ extension DisplayController {
             notesMode: notesMode,
             areNotesDisplayed: areNotesDisplayed,
             isNavigatorDisplayed: isNavigatorDisplayed,
+            isCurrentSlideDisplayed: isCurrentSlideDisplayed,
             isNextSlidePreviewDisplayed: isNextSlidePreviewDisplayed,
             isPointerDisplayed: isPointerDisplayed,
             pointerAppearance: pointerAppearance,
@@ -452,6 +499,7 @@ extension DisplayController {
         setNotesMode(configuration.notesMode, sender: self)
         setDisplayNotes(configuration.areNotesDisplayed, sender: self)
         setDisplayNavigator(configuration.isNavigatorDisplayed, sender: self)
+        setDisplayCurrentSlide(configuration.isCurrentSlideDisplayed, sender: self)
         setDisplayNextSlidePreview(configuration.isNextSlidePreviewDisplayed, sender: self)
         setDisplayPointer(configuration.isPointerDisplayed, sender: self)
         setPointerAppearance(configuration.pointerAppearance, configuration: configuration.pointerAppearanceConfiguration, sender: self)

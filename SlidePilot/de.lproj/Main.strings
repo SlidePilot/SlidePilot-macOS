@@ -250,6 +250,9 @@
 /* Class = "NSMenuItem"; title = "Hand"; ObjectID = "gqd-uQ-vYn"; */
 "gqd-uQ-vYn.title" = "Hand";
 
+/* Class = "NSMenuItem"; title = "Show Current Slide"; ObjectID = "hrX-za-TrV"; */
+"hrX-za-TrV.title" = "Aktuelle Folie anzeigen";
+
 /* Class = "NSMenuItem"; title = "Text"; ObjectID = "hxO-Rn-nAO"; */
 "hxO-Rn-nAO.title" = "Text";
 
