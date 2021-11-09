@@ -11,31 +11,71 @@ import Cocoa
 // This extension contains all the UI code for the different view setups
 extension SlideArrangementView {
     
-    func setupLayout(displayNext: Bool, displayNotes: Bool, notesMode: DisplayController.NotesMode) {
+    func setupLayout(displayCurrent: Bool, displayNext: Bool, displayNotes: Bool, displayDrawing: Bool, notesMode: DisplayController.NotesMode) {
         willSwitchLayout()
-        
-        let displayDrawing = DisplayController.areDrawingToolsDisplayed
-        let displayNext = DisplayController.isNextSlidePreviewDisplayed
-        let displayNotes = DisplayController.areNotesDisplayed
-        let notesMode = DisplayController.notesMode
         
         clearView()
         
         if displayDrawing == true {
             setupSlidesLayoutCurrentDrawing()
-        } else if displayNext == false, displayNotes == false {
+        } else if displayCurrent == true, displayNext == false, displayNotes == false {
             setupSlidesLayoutCurrent()
-        } else if displayNext == true, displayNotes == false {
+        } else if displayCurrent == true, displayNext == true, displayNotes == false {
             setupSlidesLayoutCurrentNext()
-        } else if displayNext == true, displayNotes == true, notesMode == .split {
-            setupSlidesLayoutCurrentNextNotes()
-        } else if displayNext == false, displayNotes == true, notesMode == .split {
+        } else if displayCurrent == true, displayNext == false, displayNotes == true, notesMode == .split {
             setupSlidesLayoutCurrentNotes()
-        } else if displayNext == true, displayNotes == true, notesMode == .text {
-            setupSlidesLayoutCurrentNextNotesText()
-        } else if displayNext == false, displayNotes == true, notesMode == .text {
+        } else if displayCurrent == true, displayNext == false, displayNotes == true, notesMode == .text {
             setupSlidesLayoutCurrentNotesText()
+        } else if displayCurrent == true, displayNext == true, displayNotes == true, notesMode == .split {
+            setupSlidesLayoutCurrentNextNotes()
+        } else if displayCurrent == true, displayNext == true, displayNotes == true, notesMode == .text {
+            setupSlidesLayoutCurrentNextNotesText()
+        } else if displayCurrent == false, displayNext == true, displayNotes == false {
+            setupSlidesLayoutNext()
+        } else if displayCurrent == false, displayNext == true, displayNotes == true, notesMode == .split {
+            setupSlidesLayoutNextNotes()
+        } else if displayCurrent == false, displayNext == true, displayNotes == true, notesMode == .text {
+            setupSlidesLayoutNextNotesText()
+        } else if displayCurrent == false, displayNext == false, displayNotes == true, notesMode == .split {
+            setupSlidesNotes()
+        } else if displayCurrent == false, displayNext == false, displayNotes == true, notesMode == .text {
+            setupSlidesNotesText()
         }
+        
+        // Alternative condition selection
+        /*if displayDrawing == true {
+            setupSlidesLayoutCurrentDrawing()
+        } else if displayCurrent == true {
+            if displayNext == true, displayNotes == false {
+                setupSlidesLayoutCurrentNext()
+            } else if displayNext == false, displayNotes == true {
+                switch notesMode {
+                case .split: setupSlidesLayoutCurrentNotes()
+                case .text: setupSlidesLayoutCurrentNotesText()
+                }
+            } else if displayNext == true, displayNotes == true {
+                switch notesMode {
+                case .split: setupSlidesLayoutCurrentNextNotes()
+                case .text: setupSlidesLayoutCurrentNextNotesText()
+                }
+            } else {
+                setupSlidesLayoutCurrent()
+            }
+        } else if displayNext == true {
+            if displayNotes == true {
+                switch notesMode {
+                case .split: setupSlidesLayoutNextNotes()
+                case .text: setupSlidesLayoutNextNotesText()
+                }
+            } else {
+                setupSlidesLayoutNext()
+            }
+        } else if displayNotes == true {
+            switch notesMode {
+            case .split: setupSlidesNotes()
+            case .text: setupSlidesNotesText()
+            }
+        }*/
     }
     
     
@@ -113,6 +153,27 @@ extension SlideArrangementView {
     }
     
     
+    private func setupSlidesLayoutNext() {
+        splitView?.isHidden = true
+        
+        nextSlideView = setupSlideView(in: self, isPointerDelegate: true, topPadding: 10)
+    }
+    
+    
+    private func setupSlidesNotes() {
+        splitView?.isHidden = true
+        
+        notesSlideView = setupSlideView(in: self, isPointerDelegate: true, topPadding: 10)
+    }
+    
+    
+    private func setupSlidesNotesText() {
+        splitView?.isHidden = true
+        
+        setupNotesTextView(in: self)
+    }
+    
+    
     private func setupSlidesLayoutCurrentNext() {
         guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
         splitView?.isHidden = false
@@ -135,7 +196,6 @@ extension SlideArrangementView {
         // Left container: Setup notes
         notesSlideView = setupSlideView(in: leftContainer!)
         
-        
         // Right container: Setup current
         currentSlideView = setupSlideView(in: rightContainer!, isPointerDelegate: true)
         
@@ -153,6 +213,36 @@ extension SlideArrangementView {
         
         // Right container: Setup current
         currentSlideView = setupSlideView(in: rightContainer!, isPointerDelegate: true)
+        
+        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
+        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
+    }
+    
+    
+    private func setupSlidesLayoutNextNotes() {
+        guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
+        splitView?.isHidden = false
+        
+        // Left container: Setup notes
+        notesSlideView = setupSlideView(in: leftContainer!)
+        
+        // Right container: Setup next
+        nextSlideView = setupSlideView(in: rightContainer!, isPointerDelegate: true)
+        
+        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
+        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
+    }
+    
+    
+    private func setupSlidesLayoutNextNotesText() {
+        guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
+        splitView?.isHidden = false
+        
+        // Left container: Setup notes
+        setupNotesTextView(in: leftContainer!)
+        
+        // Right container: Setup current
+        nextSlideView = setupSlideView(in: rightContainer!, isPointerDelegate: true)
         
         splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
         splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
