@@ -41,41 +41,6 @@ extension SlideArrangementView {
         } else if displayCurrent == false, displayNext == false, displayNotes == true, notesMode == .text {
             setupSlidesNotesText()
         }
-        
-        // Alternative condition selection
-        /*if displayDrawing == true {
-            setupSlidesLayoutCurrentDrawing()
-        } else if displayCurrent == true {
-            if displayNext == true, displayNotes == false {
-                setupSlidesLayoutCurrentNext()
-            } else if displayNext == false, displayNotes == true {
-                switch notesMode {
-                case .split: setupSlidesLayoutCurrentNotes()
-                case .text: setupSlidesLayoutCurrentNotesText()
-                }
-            } else if displayNext == true, displayNotes == true {
-                switch notesMode {
-                case .split: setupSlidesLayoutCurrentNextNotes()
-                case .text: setupSlidesLayoutCurrentNextNotesText()
-                }
-            } else {
-                setupSlidesLayoutCurrent()
-            }
-        } else if displayNext == true {
-            if displayNotes == true {
-                switch notesMode {
-                case .split: setupSlidesLayoutNextNotes()
-                case .text: setupSlidesLayoutNextNotesText()
-                }
-            } else {
-                setupSlidesLayoutNext()
-            }
-        } else if displayNotes == true {
-            switch notesMode {
-            case .split: setupSlidesNotes()
-            case .text: setupSlidesNotesText()
-            }
-        }*/
     }
     
     
