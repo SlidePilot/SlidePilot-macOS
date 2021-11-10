@@ -51,9 +51,7 @@ class SlideArrangementView: NSView {
         
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
-        DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChange(_:)))
-        DisplayController.subscribeDisplayCurrentSlide(target: self, action: #selector(displayCurrentSlideDidChange(_:)))
-        DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
+        DisplayController.subscribeLayoutConfiguration(target: self, action: #selector(layoutConfigurationDidChange(_:)))
         DisplayController.subscribeNotesMode(target: self, action: #selector(notesModeDidChange(_:)))
         DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
         
@@ -145,17 +143,7 @@ class SlideArrangementView: NSView {
     }
     
     
-    @objc func displayNotesDidChange(_ notification: Notification) {
-        updateView()
-    }
-    
-    
-    @objc func displayCurrentSlideDidChange(_ notification: Notification) {
-        updateView()
-    }
-    
-    
-    @objc func displayNextSlidePreviewDidChange(_ notification: Notification) {
+    @objc func layoutConfigurationDidChange(_ notification: Notification) {
         updateView()
     }
     

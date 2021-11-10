@@ -16,30 +16,23 @@ extension SlideArrangementView {
         
         clearView()
         
-        if displayDrawing == true {
+        // Setup drawing
+        if DisplayController.areDrawingToolsDisplayed {
             setupSlidesLayoutCurrentDrawing()
-        } else if displayCurrent == true, displayNext == false, displayNotes == false {
-            setupSlidesLayoutCurrent()
-        } else if displayCurrent == true, displayNext == true, displayNotes == false {
-            setupSlidesLayoutCurrentNext()
-        } else if displayCurrent == true, displayNext == false, displayNotes == true, notesMode == .split {
-            setupSlidesLayoutCurrentNotes()
-        } else if displayCurrent == true, displayNext == false, displayNotes == true, notesMode == .text {
-            setupSlidesLayoutCurrentNotesText()
-        } else if displayCurrent == true, displayNext == true, displayNotes == true, notesMode == .split {
-            setupSlidesLayoutCurrentNextNotes()
-        } else if displayCurrent == true, displayNext == true, displayNotes == true, notesMode == .text {
-            setupSlidesLayoutCurrentNextNotesText()
-        } else if displayCurrent == false, displayNext == true, displayNotes == false {
-            setupSlidesLayoutNext()
-        } else if displayCurrent == false, displayNext == true, displayNotes == true, notesMode == .split {
-            setupSlidesLayoutNextNotes()
-        } else if displayCurrent == false, displayNext == true, displayNotes == true, notesMode == .text {
-            setupSlidesLayoutNextNotesText()
-        } else if displayCurrent == false, displayNext == false, displayNotes == true, notesMode == .split {
-            setupSlidesNotes()
-        } else if displayCurrent == false, displayNext == false, displayNotes == true, notesMode == .text {
-            setupSlidesNotesText()
+        }
+        
+        // Rendering based on DisplayController.layoutConfiguration
+        switch (DisplayController.layoutConfiguration.type) {
+        case .single:
+            setupSingleArrangement()
+        case .double:
+            setupDoubleArrangement()
+        case .tripleLeft:
+            setupTripleLeftArrangement()
+        case .tripleRight:
+            setupTripleRightArrangement()
+        default:
+            break
         }
     }
     
@@ -111,134 +104,53 @@ extension SlideArrangementView {
     }
     
     
-    private func setupSlidesLayoutCurrent() {
+    private func setupSingleArrangement() {
         splitView?.isHidden = true
         
-        currentSlideView = setupSlideView(in: self, isPointerDelegate: true, topPadding: 10)
+        // Setup slide in container
+        let slide = DisplayController.layoutConfiguration.slides[0]
+        setupSlideView(for: slide, container: self, isPointerDelegate: (slide == .current))
     }
     
     
-    private func setupSlidesLayoutNext() {
-        splitView?.isHidden = true
-        
-        nextSlideView = setupSlideView(in: self, isPointerDelegate: true, topPadding: 10)
-    }
-    
-    
-    private func setupSlidesNotes() {
-        splitView?.isHidden = true
-        
-        notesSlideView = setupSlideView(in: self, isPointerDelegate: true, topPadding: 10)
-    }
-    
-    
-    private func setupSlidesNotesText() {
-        splitView?.isHidden = true
-        
-        setupNotesTextView(in: self)
-    }
-    
-    
-    private func setupSlidesLayoutCurrentNext() {
+    private func setupDoubleArrangement() {
         guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
         splitView?.isHidden = false
         
-        // Left container: Setup current
-        currentSlideView = setupSlideView(in: leftContainer!, isPointerDelegate: true)
-        
-        // Right container: Setup next
-        nextSlideView = setupSlideView(in: rightContainer!)
+        // Setup slides in containers
+        let slide1 = DisplayController.layoutConfiguration.slides[0]
+        let slide2 = DisplayController.layoutConfiguration.slides[1]
+        setupSlideView(for: slide1, container: leftContainer!, isPointerDelegate: (slide1 == .current))
+        setupSlideView(for: slide2, container: rightContainer!, isPointerDelegate: (slide2 == .current))
         
         splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
         splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
     }
     
     
-    private func setupSlidesLayoutCurrentNotes() {
-        guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
-        splitView?.isHidden = false
-        
-        // Left container: Setup notes
-        notesSlideView = setupSlideView(in: leftContainer!)
-        
-        // Right container: Setup current
-        currentSlideView = setupSlideView(in: rightContainer!, isPointerDelegate: true)
-        
-        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
-        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
+    private func setupTripleLeftArrangement() {
+        setupTripleArrangement(fullContainer: leftContainer!, stackContainer: rightContainer!)
     }
     
     
-    private func setupSlidesLayoutCurrentNotesText() {
-        guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
-        splitView?.isHidden = false
-        
-        // Left container: Setup notes
-        setupNotesTextView(in: leftContainer!)
-        
-        // Right container: Setup current
-        currentSlideView = setupSlideView(in: rightContainer!, isPointerDelegate: true)
-        
-        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
-        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
+    private func setupTripleRightArrangement() {
+        setupTripleArrangement(fullContainer: rightContainer!, stackContainer: leftContainer!)
     }
     
     
-    private func setupSlidesLayoutNextNotes() {
+    private func setupTripleArrangement(fullContainer: NSView, stackContainer: NSView) {
         guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
         splitView?.isHidden = false
         
-        // Left container: Setup notes
-        notesSlideView = setupSlideView(in: leftContainer!)
+        // Setup slides in containers
+        let slide1 = DisplayController.layoutConfiguration.slides[0]
+        let slide2 = DisplayController.layoutConfiguration.slides[1]
+        let slide3 = DisplayController.layoutConfiguration.slides[2]
         
-        // Right container: Setup next
-        nextSlideView = setupSlideView(in: rightContainer!, isPointerDelegate: true)
-        
-        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
-        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
-    }
-    
-    
-    private func setupSlidesLayoutNextNotesText() {
-        guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
-        splitView?.isHidden = false
-        
-        // Left container: Setup notes
-        setupNotesTextView(in: leftContainer!)
-        
-        // Right container: Setup current
-        nextSlideView = setupSlideView(in: rightContainer!, isPointerDelegate: true)
-        
-        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
-        splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
-    }
-    
-    
-    private func setupSlidesLayoutCurrentNextNotes() {
-        guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
-        splitView?.isHidden = false
-        
-        // Left container: Setup notes
-        notesSlideView = setupSlideView(in: leftContainer!)
-        
-        // Right container: Setup current and next
-        let (topContainer, bottomContainer) = createVerticallyStackedViews(in: rightContainer!)
-        currentSlideView = setupSlideView(in: topContainer, isPointerDelegate: true, bottomPadding: padding/2)
-        nextSlideView = setupSlideView(in: bottomContainer, topPadding: padding/2)
-    }
-    
-    
-    func setupSlidesLayoutCurrentNextNotesText() {
-        guard splitView != nil, leftContainer != nil, rightContainer != nil else { return }
-        splitView?.isHidden = false
-        
-        // Left container: Setup notes
-        setupNotesTextView(in: leftContainer!)
-        
-        // Right container: Setup current and next
-        let (topContainer, bottomContainer) = createVerticallyStackedViews(in: rightContainer!)
-        currentSlideView = setupSlideView(in: topContainer, isPointerDelegate: true, bottomPadding: padding/2)
-        nextSlideView = setupSlideView(in: bottomContainer, topPadding: padding/2)
+        let (topContainer, bottomContainer) = createVerticallyStackedViews(in: stackContainer)
+        setupSlideView(for: slide1, container: topContainer, isPointerDelegate: (slide1 == .current), bottomPadding: padding/2)
+        setupSlideView(for: slide2, container: bottomContainer, isPointerDelegate: (slide2 == .current), topPadding: padding/2)
+        setupSlideView(for: slide3, container: fullContainer, isPointerDelegate: (slide3 == .current))
     }
     
     
@@ -308,6 +220,30 @@ extension SlideArrangementView {
     }
     
     
+    /**
+     Add a `SlideView` or `NotesEditor` in a given container for a specified slide type.
+     */
+    private func setupSlideView(for slide: SlideType, container: NSView, isPointerDelegate: Bool = false, padding: CGFloat? = nil, verticalPadding: CGFloat? = nil, horizontalPadding: CGFloat? = nil, topPadding: CGFloat? = nil, bottomPadding: CGFloat? = nil, leftPadding: CGFloat? = nil, rightPadding: CGFloat? = nil) {
+        
+        switch slide {
+        case .current:
+            currentSlideView = setupSlideView(in: container, isPointerDelegate: isPointerDelegate)
+        case .next:
+            nextSlideView = setupSlideView(in: container, isPointerDelegate: isPointerDelegate)
+        case .notes:
+            switch DisplayController.notesMode {
+            case .split:
+                notesSlideView = setupSlideView(in: container, isPointerDelegate: isPointerDelegate)
+            case .text:
+                setupNotesTextView(in: container)
+            }
+        }
+    }
+    
+    
+    /**
+     Add notes text view in a given container.
+     */
     func setupNotesTextView(in container: NSView) {
         // Notes Editor setup
         if notesEditor == nil {
