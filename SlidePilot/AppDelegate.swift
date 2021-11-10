@@ -561,6 +561,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func openLayoutEditor(_ sender: NSMenuItem) {
+        // First check if layout editor is not already opened
+        if let layoutEditorWindow = NSApp.windows.first(where: { $0.contentViewController is LayoutEditorViewController }) {
+            // Order existing layout editor to front
+            layoutEditorWindow.makeKeyAndOrderFront(nil)
+        } else {
+            // Otherwise create and open new layout editor
+            guard let layoutEditorCtrl = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: .init(stringLiteral: "LayoutEditorWindow")) as?
+                NSWindowController else { return }
+            guard let layoutEditorWindow = layoutEditorCtrl.window else { return }
+            layoutEditorWindow.makeKeyAndOrderFront(nil)
+            layoutEditorWindow.center()
+        }
+    }
+    
+    
     @IBAction func showNavigator(_ sender: NSMenuItem) {
         DisplayController.switchDisplayNavigator(sender: sender)
     }
@@ -625,6 +641,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 NSWindowController else { return }
             guard let pointerEditorWindow = pointerEditorCtrl.window else { return }
             pointerEditorWindow.makeKeyAndOrderFront(nil)
+            pointerEditorWindow.center()
         }
     }
     
