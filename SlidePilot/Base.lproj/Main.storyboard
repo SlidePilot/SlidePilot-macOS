@@ -1181,24 +1181,24 @@ DQ
         <scene sceneID="TGi-nx-jN2">
             <objects>
                 <viewController id="UET-tf-2ab" customClass="LayoutEditorViewController" customModule="SlidePilot" customModuleProvider="target" sceneMemberID="viewController">
-                    <customView key="view" id="2xj-l8-iyj">
-                        <rect key="frame" x="0.0" y="0.0" width="560" height="441"/>
+                    <customView key="view" misplaced="YES" id="2xj-l8-iyj">
+                        <rect key="frame" x="0.0" y="0.0" width="615" height="474"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQs-Iy-VhC">
-                                <rect key="frame" x="20" y="20" width="520" height="401"/>
+                                <rect key="frame" x="20" y="20" width="580" height="437"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="WNh-hT-RGo">
-                                        <rect key="frame" x="0.0" y="306" width="520" height="95"/>
+                                        <rect key="frame" x="0.0" y="342" width="580" height="95"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kP2-Dr-tUT">
-                                                <rect key="frame" x="120" y="0.0" width="400" height="95"/>
+                                                <rect key="frame" x="120" y="0.0" width="460" height="95"/>
                                                 <subviews>
                                                     <button identifier="ArrangementSingle" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pyf-MK-dL3">
-                                                        <rect key="frame" x="0.0" y="0.0" width="85" height="95"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="95"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="95" id="ZFM-wq-YR7"/>
-                                                            <constraint firstAttribute="width" constant="85" id="die-lo-XxG"/>
+                                                            <constraint firstAttribute="width" constant="100" id="die-lo-XxG"/>
                                                         </constraints>
                                                         <buttonCell key="cell" type="bevel" title="Single" bezelStyle="regularSquare" image="LayoutSingleOff" imagePosition="above" alignment="center" alternateImage="LayoutSingleOn" imageScaling="proportionallyDown" inset="2" id="sjM-uE-Akw">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1209,10 +1209,10 @@ DQ
                                                         </connections>
                                                     </button>
                                                     <button identifier="ArrangementDouble" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="egD-DW-7Vg">
-                                                        <rect key="frame" x="105" y="0.0" width="85" height="95"/>
+                                                        <rect key="frame" x="120" y="0.0" width="100" height="95"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="95" id="srb-tv-Hbs"/>
-                                                            <constraint firstAttribute="width" constant="85" id="u0p-wV-Ss2"/>
+                                                            <constraint firstAttribute="width" constant="100" id="u0p-wV-Ss2"/>
                                                         </constraints>
                                                         <buttonCell key="cell" type="bevel" title="Double" bezelStyle="regularSquare" image="LayoutDoubleOff" imagePosition="above" alignment="center" alternateImage="LayoutDoubleOn" imageScaling="proportionallyDown" inset="2" id="Byl-yw-wee">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1223,10 +1223,10 @@ DQ
                                                         </connections>
                                                     </button>
                                                     <button identifier="ArrangementTripleLeft" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XoD-IV-g7h">
-                                                        <rect key="frame" x="210" y="0.0" width="85" height="95"/>
+                                                        <rect key="frame" x="240" y="0.0" width="100" height="95"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="95" id="gYi-hW-fJg"/>
-                                                            <constraint firstAttribute="width" constant="85" id="k1P-bJ-nKa"/>
+                                                            <constraint firstAttribute="width" constant="100" id="k1P-bJ-nKa"/>
                                                         </constraints>
                                                         <buttonCell key="cell" type="bevel" title="Triple Left" bezelStyle="regularSquare" image="LayoutTripleLeftOff" imagePosition="above" alignment="center" alternateImage="LayoutTripleLeftOn" imageScaling="proportionallyDown" inset="2" id="dCi-v0-1SH">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1237,10 +1237,10 @@ DQ
                                                         </connections>
                                                     </button>
                                                     <button identifier="ArrangementTripleRight" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="czb-XD-kjj">
-                                                        <rect key="frame" x="315" y="0.0" width="85" height="95"/>
+                                                        <rect key="frame" x="360" y="0.0" width="100" height="95"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="95" id="SNn-gq-TDJ"/>
-                                                            <constraint firstAttribute="width" constant="85" id="YUK-h9-a5B"/>
+                                                            <constraint firstAttribute="width" constant="100" id="YUK-h9-a5B"/>
                                                         </constraints>
                                                         <buttonCell key="cell" type="bevel" title="Triple Right" bezelStyle="regularSquare" image="LayoutTripleRightOff" imagePosition="above" alignment="center" alternateImage="LayoutTripleRightOn" imageScaling="proportionallyDown" inset="2" id="H5o-8D-YnX">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1303,15 +1303,19 @@ DQ
                                             <constraint firstAttribute="bottom" secondItem="kP2-Dr-tUT" secondAttribute="bottom" id="hCq-xa-wag"/>
                                             <constraint firstItem="kP2-Dr-tUT" firstAttribute="leading" secondItem="iql-1E-XhW" secondAttribute="trailing" constant="20" id="pbb-7c-7aj"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="I8P-bH-fTH">
-                                        <rect key="frame" x="0.0" y="116" width="520" height="180"/>
+                                        <rect key="frame" x="0.0" y="125" width="580" height="207"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Yll-gE-UqX">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="180"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="207"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vQP-Vq-dKh">
-                                                        <rect key="frame" x="-2" y="82" width="104" height="16"/>
+                                                        <rect key="frame" x="-2" y="96" width="104" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Configure:" id="ZTi-eP-Bvb">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1327,10 +1331,10 @@ DQ
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="ve8-Nr-ry3">
-                                                <rect key="frame" x="120" y="0.0" width="400" height="180"/>
+                                                <rect key="frame" x="120" y="0.0" width="460" height="207"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="zDL-ZW-PyO" customClass="LayoutConfigurationView" customModule="SlidePilot" customModuleProvider="target">
-                                                        <rect key="frame" x="80" y="0.0" width="240" height="180"/>
+                                                        <rect key="frame" x="92" y="0.0" width="276" height="207"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="zDL-ZW-PyO" secondAttribute="height" multiplier="4:3" id="Ngi-d0-3dp"/>
                                                         </constraints>
@@ -1355,13 +1359,13 @@ DQ
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="pbb-Al-tuh">
-                                        <rect key="frame" x="0.0" y="0.0" width="520" height="106"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="580" height="115"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lid-Wu-c0t">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="106"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="115"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mbg-Wj-O8X">
-                                                        <rect key="frame" x="-2" y="58" width="104" height="16"/>
+                                                        <rect key="frame" x="-2" y="64" width="104" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Slides:" id="0yR-Ho-r7Q">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1377,10 +1381,10 @@ DQ
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="v1z-OI-BSg">
-                                                <rect key="frame" x="120" y="0.0" width="400" height="96"/>
+                                                <rect key="frame" x="120" y="0.0" width="460" height="105"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cJe-9N-PBo">
-                                                        <rect key="frame" x="-2" y="10" width="84" height="16"/>
+                                                        <rect key="frame" x="4" y="10" width="84" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Current Slide" id="d74-6Q-Nyf">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1388,19 +1392,19 @@ DQ
                                                         </textFieldCell>
                                                     </textField>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="FJ6-NU-Ppp" customClass="SlideSymbolView" customModule="SlidePilot" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="36" width="80" height="60"/>
+                                                        <rect key="frame" x="0.0" y="36" width="92" height="69"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="FJ6-NU-Ppp" secondAttribute="height" multiplier="4:3" id="h0r-ke-sVl"/>
                                                         </constraints>
                                                     </customView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="sL0-Q8-CeH" customClass="SlideSymbolView" customModule="SlidePilot" customModuleProvider="target">
-                                                        <rect key="frame" x="160" y="36" width="80" height="60"/>
+                                                        <rect key="frame" x="184" y="36" width="92" height="69"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="sL0-Q8-CeH" secondAttribute="height" multiplier="4:3" id="bgi-vr-faq"/>
                                                         </constraints>
                                                     </customView>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VNO-h6-dJy">
-                                                        <rect key="frame" x="167" y="10" width="66" height="16"/>
+                                                        <rect key="frame" x="197" y="10" width="66" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Next Slide" id="v4s-rl-Qhq">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1408,13 +1412,13 @@ DQ
                                                         </textFieldCell>
                                                     </textField>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="YHu-HT-x2t" customClass="SlideSymbolView" customModule="SlidePilot" customModuleProvider="target">
-                                                        <rect key="frame" x="320" y="36" width="80" height="60"/>
+                                                        <rect key="frame" x="368" y="36" width="92" height="69"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="YHu-HT-x2t" secondAttribute="height" multiplier="4:3" id="ghe-FP-Gnm"/>
                                                         </constraints>
                                                     </customView>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FG1-x4-6f5">
-                                                        <rect key="frame" x="323" y="10" width="74" height="16"/>
+                                                        <rect key="frame" x="377" y="10" width="74" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Notes Slide" id="ocH-eN-9I2">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1474,6 +1478,10 @@ DQ
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="wantsLayer" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="NO"/>
+                                </userDefinedRuntimeAttributes>
                             </stackView>
                         </subviews>
                         <constraints>
@@ -1484,6 +1492,7 @@ DQ
                         </constraints>
                     </customView>
                     <connections>
+                        <outlet property="arragementButtonStackView" destination="kP2-Dr-tUT" id="lkJ-tn-xlg"/>
                         <outlet property="arrangementDoubleButton" destination="egD-DW-7Vg" id="GJf-nG-Uvv"/>
                         <outlet property="arrangementSingleButton" destination="pyf-MK-dL3" id="ASf-eb-4Nl"/>
                         <outlet property="arrangementTripleLeftButton" destination="XoD-IV-g7h" id="AmB-BP-G8l"/>
