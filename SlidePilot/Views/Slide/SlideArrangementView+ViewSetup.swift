@@ -225,19 +225,23 @@ extension SlideArrangementView {
      */
     private func setupSlideView(for slide: SlideType, container: NSView, isPointerDelegate: Bool = false, padding: CGFloat? = nil, verticalPadding: CGFloat? = nil, horizontalPadding: CGFloat? = nil, topPadding: CGFloat? = nil, bottomPadding: CGFloat? = nil, leftPadding: CGFloat? = nil, rightPadding: CGFloat? = nil) {
         
-        switch slide {
-        case .current:
-            currentSlideView = setupSlideView(in: container, isPointerDelegate: isPointerDelegate)
-        case .next:
-            nextSlideView = setupSlideView(in: container, isPointerDelegate: isPointerDelegate)
-        case .notes:
-            switch DisplayController.notesMode {
-            case .split:
-                notesSlideView = setupSlideView(in: container, isPointerDelegate: isPointerDelegate)
-            case .text:
-                setupNotesTextView(in: container)
+        if DisplayController.notesMode == .text,
+           slide == .notes {
+            setupNotesTextView(in: container)
+        } else {
+            let slideView = setupSlideView(in: container, isPointerDelegate: isPointerDelegate, padding: padding, verticalPadding: verticalPadding, horizontalPadding: horizontalPadding, topPadding: topPadding, bottomPadding: bottomPadding, leftPadding: leftPadding, rightPadding: rightPadding)
+            
+            switch slide {
+            case .current:
+                currentSlideView = slideView
+            case .next:
+                nextSlideView = slideView
+            case .notes:
+                notesSlideView = slideView
             }
         }
+        
+        
     }
     
     
