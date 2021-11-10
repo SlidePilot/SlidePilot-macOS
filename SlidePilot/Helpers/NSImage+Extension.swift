@@ -32,4 +32,29 @@ extension NSImage {
         newImage.size = size
         return newImage
     }
+    
+    
+    /**
+     Creates a tinted version of the image with the specified color. Image needs to be a template image.
+     
+     - returns: Tinted image
+     */
+    func tint(with tintColor: NSColor) -> NSImage {
+        if self.isTemplate == false {
+            return self
+        }
+        
+        let image = self.copy() as! NSImage
+        image.lockFocus()
+        
+        tintColor.set()
+        
+        let imageRect = NSRect(origin: .zero, size: image.size)
+        imageRect.fill(using: .sourceIn)
+        
+        image.unlockFocus()
+        image.isTemplate = false
+        
+        return image
+    }
 }

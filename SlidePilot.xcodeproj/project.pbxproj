@@ -68,7 +68,7 @@
 		50BA4EB724A37C1D00E91DFA /* PDFDocument+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BA4EB624A37C1D00E91DFA /* PDFDocument+Extension.swift */; };
 		50C46F79247E76AD001602EA /* CompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C46F78247E76AD001602EA /* CompletionStatus.swift */; };
 		50C77F39242CD32500066752 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50C77F3B242CD32500066752 /* Localizable.strings */; };
-		50C7E664273BB0F400E1A63F /* LayoutSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7E663273BB0F400E1A63F /* LayoutSymbolView.swift */; };
+		50C7E664273BB0F400E1A63F /* LayoutConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7E663273BB0F400E1A63F /* LayoutConfigurationView.swift */; };
 		50C7E66E273BCBE000E1A63F /* LayoutSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7E66D273BCBE000E1A63F /* LayoutSlideView.swift */; };
 		50C7E671273BCFD200E1A63F /* NSView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7E670273BCFD200E1A63F /* NSView+Extension.swift */; };
 		50CCF321273AFDA800F39178 /* SlideSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CCF320273AFDA800F39178 /* SlideSymbolView.swift */; };
@@ -195,7 +195,7 @@
 		50C77F2F242CCCC800066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		50C77F3A242CD32500066752 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		50C77F3C242CD32600066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		50C7E663273BB0F400E1A63F /* LayoutSymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSymbolView.swift; sourceTree = "<group>"; };
+		50C7E663273BB0F400E1A63F /* LayoutConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutConfigurationView.swift; sourceTree = "<group>"; };
 		50C7E66D273BCBE000E1A63F /* LayoutSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSlideView.swift; sourceTree = "<group>"; };
 		50C7E670273BCFD200E1A63F /* NSView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Extension.swift"; sourceTree = "<group>"; };
 		50CCF320273AFDA800F39178 /* SlideSymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideSymbolView.swift; sourceTree = "<group>"; };
@@ -442,7 +442,7 @@
 				50F90A8D273AF07100E66581 /* LayoutEditorViewController.swift */,
 				50F90A90273AF36D00E66581 /* LayoutConfiguration.swift */,
 				50CCF320273AFDA800F39178 /* SlideSymbolView.swift */,
-				50C7E663273BB0F400E1A63F /* LayoutSymbolView.swift */,
+				50C7E663273BB0F400E1A63F /* LayoutConfigurationView.swift */,
 				50C7E66D273BCBE000E1A63F /* LayoutSlideView.swift */,
 			);
 			path = LayoutEditor;
@@ -616,7 +616,7 @@
 				50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */,
 				503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */,
 				50CCF321273AFDA800F39178 /* SlideSymbolView.swift in Sources */,
-				50C7E664273BB0F400E1A63F /* LayoutSymbolView.swift in Sources */,
+				50C7E664273BB0F400E1A63F /* LayoutConfigurationView.swift in Sources */,
 				5077493C247A8C4000316F0B /* NavigationWindow.swift in Sources */,
 				50026AA22430AC0B0049387E /* SplitView.swift in Sources */,
 				507E697A253CBF5D00C00215 /* TrustedDevicesViewController.swift in Sources */,

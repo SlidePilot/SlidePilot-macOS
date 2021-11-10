@@ -34,6 +34,7 @@ class LayoutSlideView: NSView {
         
         // Add SlideSymbolView
         slideSymbol = SlideSymbolView(type: nil)
+        slideSymbol.isDraggable = true
         slideSymbol.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(slideSymbol)
         self.addConstraints([

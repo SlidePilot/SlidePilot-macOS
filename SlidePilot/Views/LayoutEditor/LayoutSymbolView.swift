@@ -1,5 +1,5 @@
 //
-//  LayoutSymbolView.swift
+//  LayoutConfigurationView.swift
 //  SlidePilot
 //
 //  Created by Pascal Braband on 10.11.21.
@@ -8,6 +8,33 @@
 
 import Cocoa
 
-class LayoutSymbolView: NSView {
+class LayoutConfigurationView: NSView {
     
+    var type: LayoutType.Arrangement? = nil {
+        didSet {
+            self.needsDisplay = true
+        }
+    }
+    
+    init(type: LayoutType.Arrangement?) {
+        super.init(frame: .zero)
+        self.type = type
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+    
+    func setup() {
+        self.wantsLayer = true
+    }
+    
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+        
+        
+    }
+
 }
