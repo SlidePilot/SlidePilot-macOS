@@ -24,9 +24,23 @@ class LayoutEditorViewController: NSViewController {
     
     override func viewDidLoad() {
         arrangementButtonGroup = [arrangementSingleButton, arrangementDoubleButton, arrangementTripleLeftButton, arrangementTripleRightButton]
-        layoutConfigurationView.type = .single
-        arrangementSingleButton.state = .on
         
+        // Set correct arrangement type for layoutConfigurationView
+        layoutConfigurationView.type = DisplayController.layoutConfiguration.type.arrangement
+        
+        // Select correct arrangement type button, based on current layout configuration
+        switch DisplayController.layoutConfiguration.type.arrangement {
+        case .single:
+            arrangementSingleButton.state = .on
+        case .double:
+            arrangementDoubleButton.state = .on
+        case .tripleLeft:
+            arrangementTripleLeftButton.state = .on
+        case .tripleRight:
+            arrangementTripleRightButton.state = .on
+        }
+        
+        // Setup SlideSymbolView's
         currentSlideSymbolView.isDraggable = true
         nextSlideSymbolView.isDraggable = true
         notesSlideSymbolView.isDraggable = true
@@ -48,13 +62,13 @@ class LayoutEditorViewController: NSViewController {
         // Setup layout configurator
         switch sender {
         case arrangementSingleButton:
-            layoutConfigurationView.type = .single
+            DisplayController.setLayoutConfigurationType(.single, sender: self)
         case arrangementDoubleButton:
-            layoutConfigurationView.type = .double
+            DisplayController.setLayoutConfigurationType(.double, sender: self)
         case arrangementTripleLeftButton:
-            layoutConfigurationView.type = .tripleLeft
+            DisplayController.setLayoutConfigurationType(.tripleLeft, sender: self)
         case arrangementTripleRightButton:
-            layoutConfigurationView.type = .tripleRight
+            DisplayController.setLayoutConfigurationType(.tripleRight, sender: self)
         default:
             break
         }

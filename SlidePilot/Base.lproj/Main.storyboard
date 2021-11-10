@@ -1492,7 +1492,6 @@ DQ
                         </constraints>
                     </customView>
                     <connections>
-                        <outlet property="arragementButtonStackView" destination="kP2-Dr-tUT" id="lkJ-tn-xlg"/>
                         <outlet property="arrangementDoubleButton" destination="egD-DW-7Vg" id="GJf-nG-Uvv"/>
                         <outlet property="arrangementSingleButton" destination="pyf-MK-dL3" id="ASf-eb-4Nl"/>
                         <outlet property="arrangementTripleLeftButton" destination="XoD-IV-g7h" id="AmB-BP-G8l"/>

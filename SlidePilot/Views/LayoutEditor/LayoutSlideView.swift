@@ -16,7 +16,9 @@ class LayoutSlideView: NSView {
         }
     }
     
-    private var slideSymbol: SlideSymbolView!
+    var delegate: LayoutSlideViewDelegate?
+    
+    var slideSymbol: SlideSymbolView!
     private var highlightView: LayoutSlideHighlightView!
     
     override init(frame frameRect: NSRect) {
@@ -101,7 +103,11 @@ class LayoutSlideView: NSView {
         // Get slide type from pasteboard and display corresponding type in SlideSymbolView
         if let slideTypeRaw = sender.draggingPasteboard.string(forType: .slideType),
            let slideType = SlideType(rawValue: slideTypeRaw) {
-            slideSymbol.type = slideType
+            //slideSymbol.type = slideType
+            
+            // Notify delegate, that slide type has changed
+            delegate?.slideTypeDidChange(to: slideType, sender: self)
+            
             return true
         } else {
             return false
@@ -145,4 +151,11 @@ class LayoutSlideHighlightView: NSView {
             path.stroke()
         }
     }
+}
+
+
+
+
+protocol LayoutSlideViewDelegate {
+    func slideTypeDidChange(to slideType: SlideType, sender: LayoutSlideView)
 }

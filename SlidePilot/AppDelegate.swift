@@ -315,11 +315,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.enableLayoutChanges(true, sender: self)
         PageController.enablePageSwitching(true, sender: self)
         
-        DisplayController.setDisplayCurrentSlide(true, sender: self)
-        DisplayController.setDisplayNextSlidePreview(true, sender: self)
+        DisplayController.setLayoutConfiguration(LayoutConfiguration(type: .double), sender: self)
         DisplayController.setNotesPosition(.none, sender: self)
-        DisplayController.setDisplayNotes(false, sender: self)
         DisplayController.setNotesMode(.text, sender: self)
+        
+        print(DisplayController.layoutConfiguration)
         
         // Get notes position from document meta data
         if let metaNotesPosition = pdfDocument.notesPosition() {

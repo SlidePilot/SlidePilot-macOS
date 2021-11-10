@@ -39,20 +39,26 @@ class LayoutConfigurationView: NSView {
         // Setup SlideSymbolView's
         layoutSlidePos1 = LayoutSlideView(frame: .zero)
         layoutSlidePos1.translatesAutoresizingMaskIntoConstraints = false
+        layoutSlidePos1.delegate = self
         self.addSubview(layoutSlidePos1)
         
         layoutSlidePos2 = LayoutSlideView(frame: .zero)
         layoutSlidePos2.translatesAutoresizingMaskIntoConstraints = false
+        layoutSlidePos2.delegate = self
         self.addSubview(layoutSlidePos2)
         
         layoutSlidePos3 = LayoutSlideView(frame: .zero)
         layoutSlidePos3.translatesAutoresizingMaskIntoConstraints = false
+        layoutSlidePos3.delegate = self
         self.addSubview(layoutSlidePos3)
         
         separatorView = NSView(frame: .zero)
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         separatorView.wantsLayer = true
         separatorView.layer?.backgroundColor = NSColor(white: 0.75, alpha: 1.0).cgColor
+        
+        // Subscribe to events on layout configuration changes
+        DisplayController.subscribeLayoutConfiguration(target: self, action: #selector(layoutConfigurationDidChange(_:)))
         
         updateViews()
     }
@@ -62,7 +68,7 @@ class LayoutConfigurationView: NSView {
         self.subviews.forEach({ $0.removeFromSuperview() })
         
         // Setup view based on arrangement type
-        switch type {
+        switch DisplayController.layoutConfiguration.type {
         case .single:
             setupSingleArrangement()
             
@@ -78,6 +84,11 @@ class LayoutConfigurationView: NSView {
         default:
             break
         }
+        
+        // Setup slide symbol of each LayoutSlideView
+        layoutSlidePos1.slideSymbol.type = DisplayController.layoutConfiguration.slides[0]
+        layoutSlidePos2.slideSymbol.type = DisplayController.layoutConfiguration.slides[1]
+        layoutSlidePos3.slideSymbol.type = DisplayController.layoutConfiguration.slides[2]
     }
     
     func setupSingleArrangement() {
@@ -187,5 +198,33 @@ class LayoutConfigurationView: NSView {
         
         return containerView
     }
+    
+    @objc
+    func layoutConfigurationDidChange(_ notifcation: Notification) {
+        updateViews()
+    }
+}
 
+
+
+
+extension LayoutConfigurationView: LayoutSlideViewDelegate {
+    
+    func slideTypeDidChange(to slideType: SlideType, sender: LayoutSlideView) {
+        // Updated layout configuration when slide type for a LayoutSlideView changed
+        var newLayoutConfiguration = DisplayController.layoutConfiguration
+        
+        switch sender {
+        case layoutSlidePos1:
+            newLayoutConfiguration.moveSlide(slideType, to: 0)
+        case layoutSlidePos2:
+            newLayoutConfiguration.moveSlide(slideType, to: 1)
+        case layoutSlidePos3:
+            newLayoutConfiguration.moveSlide(slideType, to: 2)
+        default:
+            break
+        }
+        
+        DisplayController.setLayoutConfiguration(newLayoutConfiguration, sender: sender)
+    }
 }
