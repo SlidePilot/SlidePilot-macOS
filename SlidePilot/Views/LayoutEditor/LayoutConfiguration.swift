@@ -37,19 +37,46 @@ struct LayoutConfiguration {
     // Stores the previous arrangement type of triple arrangements
     private var previousTriple: LayoutType?
     
+    // Stores the previous position of a slide. Should be stored only for the previously hidden slide.
+    private var previousPosition: [SlideType: Int] = [:]
+    
+    
     init(type: LayoutType) {
         self.type = type
     }
     
-    mutating func moveSlide(_ type: SlideType, to targetIndex: Int) {
+    
+    /**
+     Moves the slide with the specified type to a target index.
+     
+     - parameters:
+        - type: The `SlideType` to move.
+        - targetIndex: The index, where the slide should be moved.
+        - swap: If `swap` is `true`, the position's of the given slide and the one at target position are swapped. If `swap` is `false`, the given slide is extracted from it's current position and inserted at the new position. The other element then get shifted and the order amoung them is kept.
+     */
+    mutating func moveSlide(_ type: SlideType, to targetIndex: Int, swap: Bool = true) {
         if let originIndex = slides.firstIndex(of: type) {
-            slides.swapAt(originIndex, targetIndex)
+            if swap {
+                slides.swapAt(originIndex, targetIndex)
+            } else {
+                slides.insert(slides.remove(at: originIndex), at: targetIndex)
+            }
         }
     }
     
+    
+    /**
+     Hides the given slide.
+     
+     - parameters:
+        - type: The `SlideType` to hide.
+     */
     mutating func hideSlide(slide: SlideType) {
         // Move slide with given type to end of slides array and change arrangement to display one slide less
         if let originIndex = slides.firstIndex(of: slide) {
+            // Preserve position of given slide
+            previousPosition = [slide: originIndex]
+            
             switch self.type {
             case .tripleLeft, .tripleRight:
                 previousTriple = self.type
@@ -75,16 +102,39 @@ struct LayoutConfiguration {
         }
     }
     
+    
+    /**
+     Shows the given slide.
+     
+     - parameters:
+        - type: The `SlideType` to show.
+     */
     mutating func showSlide(slide: SlideType) {
         // Take last slide and increase arrangement to display one more slide
         switch self.type {
         case .single:
             self.type = .double
-            moveSlide(slide, to: 1)
+            // Move slide to previous position if possible
+            if let previousPosition = previousPosition[slide],
+               previousPosition <= 1 {
+                moveSlide(slide, to: previousPosition, swap: false)
+            }
+            // Otherwise move to the end
+            else {
+                moveSlide(slide, to: 1)
+            }
             
         case .double:
             self.type = previousTriple ?? .tripleLeft
-            moveSlide(slide, to: 2)
+            // Move slide to previous position if possible
+            if let previousPosition = previousPosition[slide],
+               previousPosition <= 2 {
+                moveSlide(slide, to: previousPosition, swap: false)
+            }
+            // Otherwise move to the end
+            else {
+                moveSlide(slide, to: 2)
+            }
             
         default:
             // Nothing happens in the case of .tripleLeft and .tripleRight, because all slides are already shown
