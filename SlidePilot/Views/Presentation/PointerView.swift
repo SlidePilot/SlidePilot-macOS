@@ -425,11 +425,4 @@ class PointerView: NSView {
         self.frame.origin = NSPoint(x: position.x-self.hotspotShift.x,
                                     y: position.y-self.hotspotShift.y)
     }
-    
-    
-    public func image() -> NSImage {
-        let imageRepresentation = bitmapImageRepForCachingDisplay(in: bounds)!
-        cacheDisplay(in: bounds, to: imageRepresentation)
-        return NSImage(cgImage: imageRepresentation.cgImage!, size: bounds.size)
-    }
 }
