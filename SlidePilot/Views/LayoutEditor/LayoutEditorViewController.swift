@@ -28,7 +28,25 @@ class LayoutEditorViewController: NSViewController {
         // Set correct arrangement type for layoutConfigurationView
         layoutConfigurationView.type = DisplayController.layoutConfiguration.type.arrangement
         
+        // Subscribe to updates of layout configuration
+        DisplayController.subscribeLayoutConfiguration(target: self, action: #selector(layoutConfigurationDidChange(_:)))
+        
         // Select correct arrangement type button, based on current layout configuration
+        updateArrangementSelectButtonState()
+        
+        // Setup SlideSymbolView's
+        currentSlideSymbolView.isDraggable = true
+        nextSlideSymbolView.isDraggable = true
+        notesSlideSymbolView.isDraggable = true
+        
+        currentSlideSymbolView.type = .current
+        nextSlideSymbolView.type = .next
+        notesSlideSymbolView.type = .notes
+    }
+    
+    
+    func updateArrangementSelectButtonState() {
+        arrangementButtonGroup.forEach({ $0.state = .off })
         switch DisplayController.layoutConfiguration.type.arrangement {
         case .single:
             arrangementSingleButton.state = .on
@@ -39,15 +57,11 @@ class LayoutEditorViewController: NSViewController {
         case .tripleRight:
             arrangementTripleRightButton.state = .on
         }
-        
-        // Setup SlideSymbolView's
-        currentSlideSymbolView.isDraggable = true
-        nextSlideSymbolView.isDraggable = true
-        notesSlideSymbolView.isDraggable = true
-        
-        currentSlideSymbolView.type = .current
-        nextSlideSymbolView.type = .next
-        notesSlideSymbolView.type = .notes
+    }
+    
+    
+    @objc func layoutConfigurationDidChange(_ notification: Notification) {
+        updateArrangementSelectButtonState()
     }
     
     

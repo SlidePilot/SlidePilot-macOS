@@ -199,8 +199,7 @@ class LayoutConfigurationView: NSView {
         return containerView
     }
     
-    @objc
-    func layoutConfigurationDidChange(_ notifcation: Notification) {
+    @objc func layoutConfigurationDidChange(_ notifcation: Notification) {
         updateViews()
     }
 }

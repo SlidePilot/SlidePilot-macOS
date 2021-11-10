@@ -319,8 +319,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.setNotesPosition(.none, sender: self)
         DisplayController.setNotesMode(.text, sender: self)
         
-        print(DisplayController.layoutConfiguration)
-        
         // Get notes position from document meta data
         if let metaNotesPosition = pdfDocument.notesPosition() {
             DisplayController.setNotesPosition(metaNotesPosition, sender: self)
