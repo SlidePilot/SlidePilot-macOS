@@ -12,6 +12,7 @@ class PreferencesController {
     
     private enum Keys: String {
         case isSleepDisabled = "isSleepDisabled"
+        case layoutPadding = "layoutPadding"
     }
     
     
@@ -60,5 +61,58 @@ class PreferencesController {
         guard awakeManager.enableScreenSleep() else { return }
         UserDefaults.standard.set(false, forKey: Keys.isSleepDisabled.rawValue)
     }
+    
+    
+    
+    
+    // MARK: - Layout
+    
+    enum LayoutPadding: Int, Codable {
+        case none = 0
+        case small = 15
+        case normal = 30
+    }
+    
+    public static var layoutPadding: LayoutPadding {
+        if let userDefaultsPadding = UserDefaults.standard.object(forKey: Keys.layoutPadding.rawValue) as? Int,
+           let layoutPadding = LayoutPadding(rawValue: userDefaultsPadding) {
+            return layoutPadding
+        } else {
+            return .normal
+        }
+    }
+    
+    
+    
+    
+    // MARK: - Subscribe
+    
+    /** Changes the layout padding and sends notification, that this property changed. */
+    public static func setLayoutPadding(_ padding: LayoutPadding, sender: Any) {
+        UserDefaults.standard.set(padding.rawValue, forKey: Keys.layoutPadding.rawValue)
+        NotificationCenter.default.post(name: .didChangeLayoutPadding, object: sender)
+    }
+    
+    /** Subscribes a target to all `.didChangeDisplayWhiteCurtain` notifications sent by `DisplayController`. */
+    public static func subscribeLayoutPadding(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeLayoutPadding, object: nil)
+    }
+    
+    
+    
+    
+    // MARK: - Unsubscribe
+    
+    /** Unsubscribes a target from all notifications sent by `PreferencesController`. */
+    public static func unsubscribe(target: Any) {
+        NotificationCenter.default.removeObserver(target, name: .didChangeLayoutPadding, object: nil)
+    }
 
+}
+
+
+
+
+extension Notification.Name {
+    static let didChangeLayoutPadding = Notification.Name("didChangeLayoutPadding")
 }

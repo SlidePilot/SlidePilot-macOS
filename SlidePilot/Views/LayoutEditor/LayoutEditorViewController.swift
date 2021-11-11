@@ -22,6 +22,11 @@ class LayoutEditorViewController: NSViewController {
     @IBOutlet weak var nextSlideSymbolView: SlideSymbolView!
     @IBOutlet weak var notesSlideSymbolView: SlideSymbolView!
     
+    @IBOutlet weak var layoutPaddingNoneButton: NSButton!
+    @IBOutlet weak var layoutPaddingSmallButton: NSButton!
+    @IBOutlet weak var layoutPaddingNormalButton: NSButton!
+    
+    
     override func viewDidLoad() {
         arrangementButtonGroup = [arrangementSingleButton, arrangementDoubleButton, arrangementTripleLeftButton, arrangementTripleRightButton]
         
@@ -33,6 +38,9 @@ class LayoutEditorViewController: NSViewController {
         
         // Select correct arrangement type button, based on current layout configuration
         updateArrangementSelectButtonState()
+        
+        // Select correct layout padding button
+        updateLayoutPaddingButtonState()
         
         // Setup SlideSymbolView's
         currentSlideSymbolView.isDraggable = true
@@ -60,6 +68,18 @@ class LayoutEditorViewController: NSViewController {
     }
     
     
+    func updateLayoutPaddingButtonState() {
+        switch PreferencesController.layoutPadding {
+        case .none:
+            layoutPaddingNoneButton.state = .on
+        case .small:
+            layoutPaddingSmallButton.state = .on
+        case .normal:
+            layoutPaddingNormalButton.state = .on
+        }
+    }
+    
+    
     @objc func layoutConfigurationDidChange(_ notification: Notification) {
         updateArrangementSelectButtonState()
     }
@@ -83,6 +103,19 @@ class LayoutEditorViewController: NSViewController {
             DisplayController.setLayoutConfigurationType(.tripleLeft, sender: self)
         case arrangementTripleRightButton:
             DisplayController.setLayoutConfigurationType(.tripleRight, sender: self)
+        default:
+            break
+        }
+    }
+    
+    @IBAction func selectLayoutPadding(_ sender: NSButton) {
+        switch sender {
+        case layoutPaddingNoneButton:
+            PreferencesController.setLayoutPadding(.none, sender: sender)
+        case layoutPaddingSmallButton:
+            PreferencesController.setLayoutPadding(.small, sender: sender)
+        case layoutPaddingNormalButton:
+            PreferencesController.setLayoutPadding(.normal, sender: sender)
         default:
             break
         }

@@ -23,7 +23,9 @@ class SlideArrangementView: NSView {
     var notesSlideView: SlideView?
     var notesEditor: NotesEditor?
     
-    let padding: CGFloat = 30.0
+    var padding: CGFloat {
+        return CGFloat(PreferencesController.layoutPadding.rawValue)
+    }
     let distributionRatio: CGFloat = 0.6
     
     
@@ -54,6 +56,7 @@ class SlideArrangementView: NSView {
         DisplayController.subscribeLayoutConfiguration(target: self, action: #selector(layoutConfigurationDidChange(_:)))
         DisplayController.subscribeNotesMode(target: self, action: #selector(notesModeDidChange(_:)))
         DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
+        PreferencesController.subscribeLayoutPadding(target: self, action: #selector(layoutPaddingDidChange(_:)))
         
         setupSplitView()
         
@@ -144,6 +147,10 @@ class SlideArrangementView: NSView {
     
     
     @objc func layoutConfigurationDidChange(_ notification: Notification) {
+        updateView()
+    }
+    
+    @objc func layoutPaddingDidChange(_ notification: Notification) {
         updateView()
     }
     
