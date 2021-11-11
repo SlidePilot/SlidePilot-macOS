@@ -107,8 +107,8 @@ class SlideView: NSView {
         container.addConstraints([
             NSLayoutConstraint(item: label!, attribute: .left, relatedBy: .equal, toItem: container!, attribute: .left, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: label!, attribute: .right, relatedBy: .equal, toItem: container!, attribute: .right, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: label!, attribute: .bottom, relatedBy: .equal, toItem: page!, attribute: .top, multiplier: 1.0, constant: -10.0),
-            NSLayoutConstraint(item: label!, attribute: .top, relatedBy: .equal, toItem: container!, attribute: .top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: label!, attribute: .bottom, relatedBy: .equal, toItem: page!, attribute: .top, multiplier: 1.0, constant: -5.0),
+            NSLayoutConstraint(item: label!, attribute: .top, relatedBy: .equal, toItem: container!, attribute: .top, multiplier: 1.0, constant: 5.0),
             NSLayoutConstraint(item: label!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25.0)])
     }
     
