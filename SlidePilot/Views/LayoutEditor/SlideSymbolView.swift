@@ -45,8 +45,10 @@ class SlideSymbolView: NSView {
         switch type {
         case .current:
             self.layer?.backgroundColor = NSColor(red: 108.0/255.0, green: 173.0/255.0, blue: 232.0/255.0, alpha: 1.0).cgColor
+            self.layer?.addSublayer(makeTextLayer(with: "A"))
         case .next:
             self.layer?.backgroundColor = NSColor(red: 189.0/255.0, green: 203.0/255.0, blue: 215.0/255.0, alpha: 1.0).cgColor
+            self.layer?.addSublayer(makeTextLayer(with: "B"))
         case .notes:
             self.layer?.backgroundColor = NSColor(red: 239.0/255.0, green: 203.0/255.0, blue: 75.0/255.0, alpha: 1.0).cgColor
             
@@ -76,6 +78,17 @@ class SlideSymbolView: NSView {
         default:
             break
         }
+    }
+    
+    private func makeTextLayer(with text: String) -> CATextLayer {
+        let fontSize: CGFloat = 20
+        let textLayer = CATextLayer()
+        textLayer.string = text
+        textLayer.foregroundColor = CGColor.white
+        textLayer.font = NSFont.systemFont(ofSize: fontSize, weight: .semibold)
+        textLayer.alignmentMode = .center
+        textLayer.frame = CGRect(x: 0, y: (self.frame.height-fontSize*2.2)/2, width: self.frame.width, height: fontSize*2.2)
+        return textLayer
     }
     
     override func mouseDown(with event: NSEvent) {
