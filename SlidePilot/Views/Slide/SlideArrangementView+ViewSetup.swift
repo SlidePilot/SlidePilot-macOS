@@ -19,20 +19,20 @@ extension SlideArrangementView {
         // Setup drawing
         if DisplayController.areDrawingToolsDisplayed {
             setupSlidesLayoutCurrentDrawing()
-        }
-        
-        // Rendering based on DisplayController.layoutConfiguration
-        switch (DisplayController.layoutConfiguration.type) {
-        case .single:
-            setupSingleArrangement()
-        case .double:
-            setupDoubleArrangement()
-        case .tripleLeft:
-            setupTripleLeftArrangement()
-        case .tripleRight:
-            setupTripleRightArrangement()
-        default:
-            break
+        } else {
+            // Rendering based on DisplayController.layoutConfiguration
+            switch (DisplayController.layoutConfiguration.type) {
+            case .single:
+                setupSingleArrangement()
+            case .double:
+                setupDoubleArrangement()
+            case .tripleLeft:
+                setupTripleLeftArrangement()
+            case .tripleRight:
+                setupTripleRightArrangement()
+            default:
+                break
+            }
         }
     }
     
