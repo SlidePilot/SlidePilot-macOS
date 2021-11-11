@@ -1834,9 +1834,18 @@ DQ
                     </view>
                     <connections>
                         <outlet property="clockLabel" destination="b2E-Pb-ePI" id="khv-hd-4dx"/>
+                        <outlet property="clockLabelBottomConstraint" destination="NW6-ZH-2oE" id="VE0-XU-3uy"/>
+                        <outlet property="clockLabelHeight" destination="dOp-qt-xnl" id="6Ry-6H-5su"/>
+                        <outlet property="clockLabelTopConstraint" destination="vuO-g9-Ihy" id="cbq-ss-LgU"/>
                         <outlet property="slideArrangement" destination="KBY-3V-F6W" id="lZU-Rv-clF"/>
+                        <outlet property="slideArrangementSharedTopConst" destination="oju-SC-Gn8" id="DwD-VK-qUq"/>
                         <outlet property="slidesLeftConst" destination="arV-JW-CVI" id="VRC-RQ-jS0"/>
+                        <outlet property="timeView" destination="bi8-QE-Aey" id="uLq-gM-F32"/>
+                        <outlet property="timeViewNormalHeightConstraint" destination="BhJ-4S-oma" id="MDz-yJ-JJo"/>
                         <outlet property="timingControl" destination="TbN-u6-wpl" id="Vfw-Pb-bgV"/>
+                        <outlet property="timingControlBottomConstraint" destination="Lk0-Xg-eDK" id="Yd4-JH-pXS"/>
+                        <outlet property="timingControlHeight" destination="vnc-Hp-eJ9" id="qre-s9-L8W"/>
+                        <outlet property="timingControlTopConstraint" destination="GfT-bA-ZOc" id="PjU-Vz-nQg"/>
                         <outlet property="timingLeftConst" destination="wMD-Bq-SMB" id="mW8-9U-Qy9"/>
                     </connections>
                 </viewController>

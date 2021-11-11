@@ -112,13 +112,18 @@ class PreferencesController {
     
     
     
+    
     // MARK: - Subscribe
-    
-    
     
     /** Subscribes a target to all `.didChangeDisplayWhiteCurtain` notifications sent by `DisplayController`. */
     public static func subscribeLayoutPadding(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .didChangeLayoutPadding, object: nil)
+    }
+    
+    
+    /** Subscribes a target to all `.didChangeTimeSize` notifications sent by `DisplayController`. */
+    public static func subscribeTimeSize(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeTimeSize, object: nil)
     }
     
     
