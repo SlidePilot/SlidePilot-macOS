@@ -1182,14 +1182,14 @@ DQ
             <objects>
                 <viewController id="UET-tf-2ab" customClass="LayoutEditorViewController" customModule="SlidePilot" customModuleProvider="target" sceneMemberID="viewController">
                     <customView key="view" id="2xj-l8-iyj">
-                        <rect key="frame" x="0.0" y="0.0" width="620" height="559"/>
+                        <rect key="frame" x="0.0" y="0.0" width="620" height="590"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQs-Iy-VhC">
-                                <rect key="frame" x="20" y="20" width="580" height="519"/>
+                                <rect key="frame" x="20" y="20" width="580" height="550"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="WNh-hT-RGo">
-                                        <rect key="frame" x="0.0" y="424" width="580" height="95"/>
+                                        <rect key="frame" x="0.0" y="455" width="580" height="95"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kP2-Dr-tUT">
                                                 <rect key="frame" x="120" y="0.0" width="460" height="95"/>
@@ -1309,7 +1309,7 @@ DQ
                                         </userDefinedRuntimeAttributes>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="I8P-bH-fTH">
-                                        <rect key="frame" x="0.0" y="207" width="580" height="207"/>
+                                        <rect key="frame" x="0.0" y="238" width="580" height="207"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Yll-gE-UqX">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="207"/>
@@ -1359,7 +1359,7 @@ DQ
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="pbb-Al-tuh">
-                                        <rect key="frame" x="0.0" y="82" width="580" height="115"/>
+                                        <rect key="frame" x="0.0" y="113" width="580" height="115"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lid-Wu-c0t">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="115"/>
@@ -1459,7 +1459,7 @@ DQ
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="NdQ-Nn-6nV">
-                                        <rect key="frame" x="0.0" y="56" width="580" height="16"/>
+                                        <rect key="frame" x="0.0" y="87" width="580" height="16"/>
                                         <subviews>
                                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="LAk-RH-Bgb">
                                                 <rect key="frame" x="0.0" y="-2" width="580" height="5"/>
@@ -1473,13 +1473,13 @@ DQ
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="edX-A8-iG0">
-                                        <rect key="frame" x="0.0" y="0.0" width="580" height="46"/>
+                                        <rect key="frame" x="0.0" y="41" width="580" height="36"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="1Qa-GN-eXZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="46"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="36"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="R9S-Ys-Rag">
-                                                        <rect key="frame" x="-2" y="15" width="104" height="16"/>
+                                                        <rect key="frame" x="-2" y="10" width="104" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Slide Padding:" id="axs-v0-12l">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1495,10 +1495,10 @@ DQ
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="iMR-bE-pK4">
-                                                <rect key="frame" x="120" y="0.0" width="460" height="46"/>
+                                                <rect key="frame" x="120" y="0.0" width="460" height="36"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="1oy-e9-uYF">
-                                                        <rect key="frame" x="0.0" y="15" width="460" height="16"/>
+                                                        <rect key="frame" x="0.0" y="5" width="460" height="16"/>
                                                         <subviews>
                                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oTP-zd-XJy">
                                                                 <rect key="frame" x="-1" y="-1" width="55" height="18"/>
@@ -1534,6 +1534,7 @@ DQ
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="oTP-zd-XJy" secondAttribute="bottom" id="8wa-8R-FxR"/>
                                                             <constraint firstAttribute="bottom" secondItem="Pfk-ex-Cj7" secondAttribute="bottom" id="9Gf-Xh-Kq9"/>
+                                                            <constraint firstItem="Pfk-ex-Cj7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oTP-zd-XJy" secondAttribute="trailing" id="9SY-HA-LJE"/>
                                                             <constraint firstAttribute="bottom" secondItem="ro1-dv-LYv" secondAttribute="bottom" id="Ahu-0t-uHj"/>
                                                             <constraint firstItem="Pfk-ex-Cj7" firstAttribute="top" secondItem="1oy-e9-uYF" secondAttribute="top" id="Mtp-16-BSK"/>
                                                             <constraint firstItem="oTP-zd-XJy" firstAttribute="leading" secondItem="1oy-e9-uYF" secondAttribute="leading" id="Nu2-ZU-vMo"/>
@@ -1541,13 +1542,14 @@ DQ
                                                             <constraint firstAttribute="trailing" secondItem="ro1-dv-LYv" secondAttribute="trailing" id="Xcx-sL-cpe"/>
                                                             <constraint firstItem="oTP-zd-XJy" firstAttribute="top" secondItem="1oy-e9-uYF" secondAttribute="top" id="hJ3-p0-zHu"/>
                                                             <constraint firstItem="Pfk-ex-Cj7" firstAttribute="centerX" secondItem="1oy-e9-uYF" secondAttribute="centerX" id="nRb-68-4Ae"/>
+                                                            <constraint firstItem="ro1-dv-LYv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Pfk-ex-Cj7" secondAttribute="trailing" id="yvl-2I-Bhb"/>
                                                         </constraints>
                                                     </customView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="1oy-e9-uYF" secondAttribute="trailing" id="J8L-Ra-u2N"/>
                                                     <constraint firstItem="1oy-e9-uYF" firstAttribute="top" secondItem="iMR-bE-pK4" secondAttribute="top" constant="15" id="XmH-hO-Hi9"/>
-                                                    <constraint firstAttribute="bottom" secondItem="1oy-e9-uYF" secondAttribute="bottom" constant="15" id="g38-Xr-dIy"/>
+                                                    <constraint firstAttribute="bottom" secondItem="1oy-e9-uYF" secondAttribute="bottom" constant="5" id="g38-Xr-dIy"/>
                                                     <constraint firstItem="1oy-e9-uYF" firstAttribute="leading" secondItem="iMR-bE-pK4" secondAttribute="leading" id="q0O-iZ-C5N"/>
                                                 </constraints>
                                             </customView>
@@ -1560,6 +1562,98 @@ DQ
                                             <constraint firstItem="1Qa-GN-eXZ" firstAttribute="leading" secondItem="edX-A8-iG0" secondAttribute="leading" id="SeA-Lw-CYT"/>
                                             <constraint firstItem="iMR-bE-pK4" firstAttribute="leading" secondItem="1Qa-GN-eXZ" secondAttribute="trailing" constant="20" id="Znw-EN-id9"/>
                                             <constraint firstItem="iMR-bE-pK4" firstAttribute="top" secondItem="edX-A8-iG0" secondAttribute="top" id="hKj-0t-3gJ"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="Wup-k7-OgQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="580" height="31"/>
+                                        <subviews>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="iRR-nD-vfg">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="31"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="M2H-d0-Geo">
+                                                        <rect key="frame" x="-2" y="8" width="104" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Time Controls:" id="ivI-O4-qTp">
+                                                            <font key="font" usesAppearanceFont="YES"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="100" id="6cF-av-7wh"/>
+                                                    <constraint firstItem="M2H-d0-Geo" firstAttribute="leading" secondItem="iRR-nD-vfg" secondAttribute="leading" id="7w6-hF-yFh"/>
+                                                    <constraint firstItem="M2H-d0-Geo" firstAttribute="centerY" secondItem="iRR-nD-vfg" secondAttribute="centerY" id="P5R-Ew-Oor"/>
+                                                    <constraint firstAttribute="trailing" secondItem="M2H-d0-Geo" secondAttribute="trailing" id="Sj3-ke-rrN"/>
+                                                </constraints>
+                                            </customView>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="IJD-HD-o34">
+                                                <rect key="frame" x="120" y="0.0" width="460" height="31"/>
+                                                <subviews>
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="7CP-cW-hpo">
+                                                        <rect key="frame" x="0.0" y="10" width="460" height="16"/>
+                                                        <subviews>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4GP-R2-av4">
+                                                                <rect key="frame" x="-1" y="-1" width="66" height="18"/>
+                                                                <buttonCell key="cell" type="radio" title="Hidden" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="8kH-2Q-huJ">
+                                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="selectTimeSize:" target="UET-tf-2ab" id="mz1-nH-S3m"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oeP-Dn-bE0">
+                                                                <rect key="frame" x="203" y="-1" width="55" height="18"/>
+                                                                <buttonCell key="cell" type="radio" title="Small" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="x5b-y4-6Hm">
+                                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="selectTimeSize:" target="UET-tf-2ab" id="6SY-rC-Kis"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Z9o-ct-nWJ">
+                                                                <rect key="frame" x="396" y="-1" width="66" height="18"/>
+                                                                <buttonCell key="cell" type="radio" title="Normal" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="8rT-Pp-c0F">
+                                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="selectTimeSize:" target="UET-tf-2ab" id="IHi-vf-Wgp"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="4GP-R2-av4" secondAttribute="bottom" id="0Ty-NB-qRO"/>
+                                                            <constraint firstAttribute="bottom" secondItem="oeP-Dn-bE0" secondAttribute="bottom" id="1ty-W4-yXW"/>
+                                                            <constraint firstItem="oeP-Dn-bE0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4GP-R2-av4" secondAttribute="trailing" id="44l-p3-TGE"/>
+                                                            <constraint firstItem="Z9o-ct-nWJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oeP-Dn-bE0" secondAttribute="trailing" id="84P-hg-GRw"/>
+                                                            <constraint firstItem="oeP-Dn-bE0" firstAttribute="top" secondItem="7CP-cW-hpo" secondAttribute="top" id="8aU-6D-6rh"/>
+                                                            <constraint firstItem="4GP-R2-av4" firstAttribute="leading" secondItem="7CP-cW-hpo" secondAttribute="leading" id="8pY-ba-O6w"/>
+                                                            <constraint firstItem="4GP-R2-av4" firstAttribute="top" secondItem="7CP-cW-hpo" secondAttribute="top" id="aHL-8w-rj3"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Z9o-ct-nWJ" secondAttribute="bottom" id="aMe-kZ-shx"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Z9o-ct-nWJ" secondAttribute="trailing" id="dZs-IG-jvc"/>
+                                                            <constraint firstItem="oeP-Dn-bE0" firstAttribute="centerX" secondItem="7CP-cW-hpo" secondAttribute="centerX" id="gbk-J8-2xN"/>
+                                                            <constraint firstItem="Z9o-ct-nWJ" firstAttribute="top" secondItem="7CP-cW-hpo" secondAttribute="top" id="rbl-rZ-FLm"/>
+                                                        </constraints>
+                                                    </customView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="7CP-cW-hpo" secondAttribute="trailing" id="6gS-aB-k4Z"/>
+                                                    <constraint firstItem="7CP-cW-hpo" firstAttribute="leading" secondItem="IJD-HD-o34" secondAttribute="leading" id="88a-Ma-SSe"/>
+                                                    <constraint firstAttribute="bottom" secondItem="7CP-cW-hpo" secondAttribute="bottom" constant="10" id="H7h-Ud-5Kc"/>
+                                                    <constraint firstItem="7CP-cW-hpo" firstAttribute="top" secondItem="IJD-HD-o34" secondAttribute="top" constant="5" id="xcW-KH-yA0"/>
+                                                </constraints>
+                                            </customView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="IJD-HD-o34" firstAttribute="leading" secondItem="iRR-nD-vfg" secondAttribute="trailing" constant="20" id="BBg-mf-0bI"/>
+                                            <constraint firstItem="IJD-HD-o34" firstAttribute="top" secondItem="Wup-k7-OgQ" secondAttribute="top" id="M50-Mh-Tje"/>
+                                            <constraint firstAttribute="trailing" secondItem="IJD-HD-o34" secondAttribute="trailing" id="Rd3-EK-JED"/>
+                                            <constraint firstAttribute="bottom" secondItem="IJD-HD-o34" secondAttribute="bottom" id="VvO-TK-vDr"/>
+                                            <constraint firstAttribute="bottom" secondItem="iRR-nD-vfg" secondAttribute="bottom" id="YJ5-S9-vMm"/>
+                                            <constraint firstItem="iRR-nD-vfg" firstAttribute="top" secondItem="Wup-k7-OgQ" secondAttribute="top" id="paW-RU-wb1"/>
+                                            <constraint firstItem="iRR-nD-vfg" firstAttribute="leading" secondItem="Wup-k7-OgQ" secondAttribute="leading" id="vWE-D9-tBU"/>
                                         </constraints>
                                     </customView>
                                 </subviews>
@@ -1582,8 +1676,10 @@ DQ
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -1615,6 +1711,9 @@ DQ
                         <outlet property="layoutPaddingSmallButton" destination="Pfk-ex-Cj7" id="q7B-k3-7UF"/>
                         <outlet property="nextSlideSymbolView" destination="sL0-Q8-CeH" id="aAv-H5-h1q"/>
                         <outlet property="notesSlideSymbolView" destination="YHu-HT-x2t" id="VDk-NY-xqn"/>
+                        <outlet property="timeSizeHiddenButton" destination="4GP-R2-av4" id="WHb-NM-Dgu"/>
+                        <outlet property="timeSizeNormalButton" destination="Z9o-ct-nWJ" id="hKv-gQ-y5z"/>
+                        <outlet property="timeSizeSmallButton" destination="oeP-Dn-bE0" id="wDh-wb-JaA"/>
                     </connections>
                 </viewController>
                 <customObject id="NGc-l7-4lM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

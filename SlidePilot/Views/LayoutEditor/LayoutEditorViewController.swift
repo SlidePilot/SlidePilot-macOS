@@ -26,6 +26,10 @@ class LayoutEditorViewController: NSViewController {
     @IBOutlet weak var layoutPaddingSmallButton: NSButton!
     @IBOutlet weak var layoutPaddingNormalButton: NSButton!
     
+    @IBOutlet weak var timeSizeHiddenButton: NSButton!
+    @IBOutlet weak var timeSizeSmallButton: NSButton!
+    @IBOutlet weak var timeSizeNormalButton: NSButton!
+    
     
     override func viewDidLoad() {
         arrangementButtonGroup = [arrangementSingleButton, arrangementDoubleButton, arrangementTripleLeftButton, arrangementTripleRightButton]
@@ -41,6 +45,9 @@ class LayoutEditorViewController: NSViewController {
         
         // Select correct layout padding button
         updateLayoutPaddingButtonState()
+        
+        // Select correct time size button
+        updateTimeSizeButtonState()
         
         // Setup SlideSymbolView's
         currentSlideSymbolView.isDraggable = true
@@ -76,6 +83,18 @@ class LayoutEditorViewController: NSViewController {
             layoutPaddingSmallButton.state = .on
         case .normal:
             layoutPaddingNormalButton.state = .on
+        }
+    }
+    
+    
+    func updateTimeSizeButtonState() {
+        switch PreferencesController.timeSize {
+        case .hidden:
+            timeSizeHiddenButton.state = .on
+        case .small:
+            timeSizeSmallButton.state = .on
+        case .normal:
+            timeSizeNormalButton.state = .on
         }
     }
     
@@ -116,6 +135,19 @@ class LayoutEditorViewController: NSViewController {
             PreferencesController.setLayoutPadding(.small, sender: sender)
         case layoutPaddingNormalButton:
             PreferencesController.setLayoutPadding(.normal, sender: sender)
+        default:
+            break
+        }
+    }
+    
+    @IBAction func selectTimeSize(_ sender: NSButton) {
+        switch sender {
+        case timeSizeHiddenButton:
+            PreferencesController.setTimeSize(.hidden, sender: sender)
+        case timeSizeSmallButton:
+            PreferencesController.setTimeSize(.small, sender: sender)
+        case timeSizeNormalButton:
+            PreferencesController.setTimeSize(.normal, sender: sender)
         default:
             break
         }

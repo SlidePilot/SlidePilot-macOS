@@ -13,6 +13,7 @@ class PreferencesController {
     private enum Keys: String {
         case isSleepDisabled = "isSleepDisabled"
         case layoutPadding = "layoutPadding"
+        case timeSize = "timeSize"
     }
     
     
@@ -82,16 +83,38 @@ class PreferencesController {
         }
     }
     
+    enum TimeSize: Int, Codable {
+        case hidden, small, normal
+    }
     
+    public static var timeSize: TimeSize {
+        if let userDefaultsSize = UserDefaults.standard.object(forKey: Keys.timeSize.rawValue) as? Int,
+           let timeSize = TimeSize(rawValue: userDefaultsSize) {
+            return timeSize
+        } else {
+            return .normal
+        }
+    }
     
-    
-    // MARK: - Subscribe
     
     /** Changes the layout padding and sends notification, that this property changed. */
     public static func setLayoutPadding(_ padding: LayoutPadding, sender: Any) {
         UserDefaults.standard.set(padding.rawValue, forKey: Keys.layoutPadding.rawValue)
         NotificationCenter.default.post(name: .didChangeLayoutPadding, object: sender)
     }
+    
+    
+    /** Changes the time size and sends notification, that this property changed. */
+    public static func setTimeSize(_ size: TimeSize, sender: Any) {
+        UserDefaults.standard.set(size.rawValue, forKey: Keys.timeSize.rawValue)
+        NotificationCenter.default.post(name: .didChangeTimeSize, object: sender)
+    }
+    
+    
+    
+    // MARK: - Subscribe
+    
+    
     
     /** Subscribes a target to all `.didChangeDisplayWhiteCurtain` notifications sent by `DisplayController`. */
     public static func subscribeLayoutPadding(target: Any, action: Selector) {
@@ -115,4 +138,5 @@ class PreferencesController {
 
 extension Notification.Name {
     static let didChangeLayoutPadding = Notification.Name("didChangeLayoutPadding")
+    static let didChangeTimeSize = Notification.Name("didChangeTimeSize")
 }
