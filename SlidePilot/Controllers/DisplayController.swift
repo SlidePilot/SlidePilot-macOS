@@ -497,10 +497,8 @@ extension DisplayController {
     public struct Configuration: Codable {
         var notesPosition: DisplayController.NotesPosition
         var notesMode: DisplayController.NotesMode
-        var areNotesDisplayed: Bool
         var isNavigatorDisplayed: Bool
-        var isCurrentSlideDisplayed: Bool
-        var isNextSlidePreviewDisplayed: Bool
+        var layoutConfiguration: LayoutConfiguration
         var isPointerDisplayed: Bool
         var pointerAppearance: PointerAppearance
         var pointerAppearanceConfiguration: PointerView.Configuration
@@ -516,10 +514,8 @@ extension DisplayController {
         return Configuration(
             notesPosition: notesPosition,
             notesMode: notesMode,
-            areNotesDisplayed: areNotesDisplayed,
             isNavigatorDisplayed: isNavigatorDisplayed,
-            isCurrentSlideDisplayed: isCurrentSlideDisplayed,
-            isNextSlidePreviewDisplayed: isNextSlidePreviewDisplayed,
+            layoutConfiguration: layoutConfiguration,
             isPointerDisplayed: isPointerDisplayed,
             pointerAppearance: pointerAppearance,
             pointerAppearanceConfiguration: pointerAppearanceConfiguration,
@@ -533,10 +529,8 @@ extension DisplayController {
     public static func load(configuration: Configuration) {
         setNotesPosition(configuration.notesPosition, sender: self)
         setNotesMode(configuration.notesMode, sender: self)
-        setDisplayNotes(configuration.areNotesDisplayed, sender: self)
         setDisplayNavigator(configuration.isNavigatorDisplayed, sender: self)
-        setDisplayCurrentSlide(configuration.isCurrentSlideDisplayed, sender: self)
-        setDisplayNextSlidePreview(configuration.isNextSlidePreviewDisplayed, sender: self)
+        setLayoutConfiguration(configuration.layoutConfiguration, sender: self)
         setDisplayPointer(configuration.isPointerDisplayed, sender: self)
         setPointerAppearance(configuration.pointerAppearance, configuration: configuration.pointerAppearanceConfiguration, sender: self)
     }

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-enum SlideType: String {
+enum SlideType: String, Codable {
     case current, next, notes
 }
 
@@ -16,8 +16,8 @@ extension NSPasteboard.PasteboardType {
     static let slideType = NSPasteboard.PasteboardType("de.pascalbraband.SlidePilot.pasteboardType.slideType")
 }
 
-struct LayoutType: Equatable {
-    enum Arrangement {
+struct LayoutType: Equatable, Codable {
+    enum Arrangement: Int, Codable {
         case single, double, tripleRight, tripleLeft
     }
     
@@ -30,7 +30,7 @@ struct LayoutType: Equatable {
     static let tripleLeft = LayoutType(slideCount: 3, arrangement: .tripleLeft)
 }
 
-struct LayoutConfiguration {
+struct LayoutConfiguration: Codable {
     var type: LayoutType
     private (set) var slides: [SlideType] = [.current, .next, .notes]
     
