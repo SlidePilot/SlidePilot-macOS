@@ -78,7 +78,14 @@ struct LayoutConfiguration {
             previousPosition = [slide: originIndex]
             
             switch self.type {
-            case .tripleLeft, .tripleRight:
+            case .tripleLeft:
+                previousTriple = self.type
+                self.type = .double
+                slides.moveToEnd(from: originIndex)
+                // Additional swap for tripleLeft
+                slides.swapAt(0, 1)
+                
+            case .tripleRight:
                 previousTriple = self.type
                 self.type = .double
                 slides.moveToEnd(from: originIndex)
@@ -125,7 +132,14 @@ struct LayoutConfiguration {
             }
             
         case .double:
+            // Maintain previous triple arrangement (left or right)
             self.type = previousTriple ?? .tripleLeft
+            
+            // Undo the additional swap, if changing to tripleLeft for tripleLeft
+            if self.type == .tripleLeft {
+                slides.swapAt(0, 1)
+            }
+            
             // Move slide to previous position if possible
             if let previousPosition = previousPosition[slide],
                previousPosition <= 2 {
@@ -133,7 +147,7 @@ struct LayoutConfiguration {
             }
             // Otherwise move to the end
             else {
-                moveSlide(slide, to: 2)
+                moveSlide(slide, to: 1)
             }
             
         default:
