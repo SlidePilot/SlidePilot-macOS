@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -241,10 +241,23 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Moderator" autoenablesItems="NO" id="O4y-2K-zDw">
                                     <items>
+                                        <menuItem title="Edit Layout" keyEquivalent="l" id="NQu-JE-Rp9">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" option="YES"/>
+                                            <connections>
+                                                <action selector="openLayoutEditor:" target="Ady-hI-5gd" id="UDf-X8-5mx"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="9lq-7e-EnB"/>
                                         <menuItem title="Show Navigator" keyEquivalent="o" id="zx2-Yz-Rxn">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showNavigator:" target="Ady-hI-5gd" id="fbU-Ll-dU4"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Show Current Slide" keyEquivalent="a" id="hrX-za-TrV">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showCurrentSlide:" target="Ady-hI-5gd" id="6NY-2y-rmB"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Preview Next Slide" keyEquivalent="p" id="Atm-A9-uUk">
@@ -562,6 +575,7 @@
                         <outlet property="previewNextSlideItem" destination="Atm-A9-uUk" id="nUt-4P-7zY"/>
                         <outlet property="previousSlideItem" destination="gcL-Jw-1Oj" id="WCe-nO-wii"/>
                         <outlet property="setTimerItem" destination="GyA-9h-Aoe" id="4aw-Cy-cL1"/>
+                        <outlet property="showCurrentSlideItem" destination="hrX-za-TrV" id="AjP-VJ-DrU"/>
                         <outlet property="showNavigatorItem" destination="zx2-Yz-Rxn" id="h3m-To-UaI"/>
                         <outlet property="showNotesItem" destination="fS9-YP-QfR" id="eB2-IZ-Yjq"/>
                         <outlet property="showPointerItem" destination="iHL-eH-XtE" id="h7j-l5-bM6"/>
@@ -623,7 +637,7 @@
             <objects>
                 <windowController storyboardIdentifier="PointerEditorWindow" id="2qi-vK-mGz" sceneMemberID="viewController">
                     <window key="window" title="Pointer Editor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="b03-II-4kw">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="425" y="470" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
@@ -1252,9 +1266,18 @@ DQ
                     </view>
                     <connections>
                         <outlet property="clockLabel" destination="b2E-Pb-ePI" id="khv-hd-4dx"/>
+                        <outlet property="clockLabelBottomConstraint" destination="NW6-ZH-2oE" id="VE0-XU-3uy"/>
+                        <outlet property="clockLabelHeight" destination="dOp-qt-xnl" id="6Ry-6H-5su"/>
+                        <outlet property="clockLabelTopConstraint" destination="vuO-g9-Ihy" id="cbq-ss-LgU"/>
                         <outlet property="slideArrangement" destination="KBY-3V-F6W" id="lZU-Rv-clF"/>
+                        <outlet property="slideArrangementSharedTopConst" destination="oju-SC-Gn8" id="DwD-VK-qUq"/>
                         <outlet property="slidesLeftConst" destination="arV-JW-CVI" id="VRC-RQ-jS0"/>
+                        <outlet property="timeView" destination="bi8-QE-Aey" id="uLq-gM-F32"/>
+                        <outlet property="timeViewNormalHeightConstraint" destination="BhJ-4S-oma" id="MDz-yJ-JJo"/>
                         <outlet property="timingControl" destination="TbN-u6-wpl" id="Vfw-Pb-bgV"/>
+                        <outlet property="timingControlBottomConstraint" destination="Lk0-Xg-eDK" id="Yd4-JH-pXS"/>
+                        <outlet property="timingControlHeight" destination="vnc-Hp-eJ9" id="qre-s9-L8W"/>
+                        <outlet property="timingControlTopConstraint" destination="GfT-bA-ZOc" id="PjU-Vz-nQg"/>
                         <outlet property="timingLeftConst" destination="wMD-Bq-SMB" id="mW8-9U-Qy9"/>
                     </connections>
                 </viewController>

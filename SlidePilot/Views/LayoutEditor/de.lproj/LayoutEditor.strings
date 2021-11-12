@@ -1,0 +1,54 @@
+
+/* Class = "NSTextFieldCell"; title = "Next Slide"; ObjectID = "3n3-7o-dTR"; */
+"3n3-7o-dTR.title" = "Nächste Folie";
+
+/* Class = "NSTextFieldCell"; title = "Slide Padding:"; ObjectID = "5tc-Zh-gRo"; */
+"5tc-Zh-gRo.title" = "Folien Abstand:";
+
+/* Class = "NSButtonCell"; title = "Single"; ObjectID = "Abl-iz-tBf"; */
+"Abl-iz-tBf.title" = "Einzel";
+
+/* Class = "NSButtonCell"; title = "Triple Right"; ObjectID = "Afq-10-6q7"; */
+"Afq-10-6q7.title" = "Dreifach rechts";
+
+/* Class = "NSButtonCell"; title = "Double"; ObjectID = "Bhy-gB-ICp"; */
+"Bhy-gB-ICp.title" = "Doppel";
+
+/* Class = "NSTextFieldCell"; title = "Slides:"; ObjectID = "JSg-VZ-DZm"; */
+"JSg-VZ-DZm.title" = "Folien:";
+
+/* Class = "NSButtonCell"; title = "Small"; ObjectID = "Y0x-vv-VTU"; */
+"Y0x-vv-VTU.title" = "Klein";
+
+/* Class = "NSTextFieldCell"; title = "Current Slide"; ObjectID = "YhI-Ij-elO"; */
+"YhI-Ij-elO.title" = "Aktuelle Folie";
+
+/* Class = "NSTextFieldCell"; title = "Notes Slide"; ObjectID = "Z23-wf-GT0"; */
+"Z23-wf-GT0.title" = "Notizen Folie";
+
+/* Class = "NSButtonCell"; title = "Hidden"; ObjectID = "Zm5-CK-qx3"; */
+"Zm5-CK-qx3.title" = "Verborgen";
+
+/* Class = "NSButtonCell"; title = "Triple Left"; ObjectID = "b3y-yF-OfP"; */
+"b3y-yF-OfP.title" = "Dreifach links";
+
+/* Class = "NSTextFieldCell"; title = "Arrangement:"; ObjectID = "dO1-1k-CyE"; */
+"dO1-1k-CyE.title" = "Arrangement:";
+
+/* Class = "NSButtonCell"; title = "Small"; ObjectID = "gKW-qz-qxy"; */
+"gKW-qz-qxy.title" = "Klein";
+
+/* Class = "NSButtonCell"; title = "None"; ObjectID = "nVZ-h3-u3H"; */
+"nVZ-h3-u3H.title" = "Keiner";
+
+/* Class = "NSTextFieldCell"; title = "Time Controls:"; ObjectID = "osH-1s-oI1"; */
+"osH-1s-oI1.title" = "Zeit:";
+
+/* Class = "NSTextFieldCell"; title = "Configure:"; ObjectID = "pcC-po-RVy"; */
+"pcC-po-RVy.title" = "Zuordnen:";
+
+/* Class = "NSButtonCell"; title = "Normal"; ObjectID = "xJI-Vx-Q3h"; */
+"xJI-Vx-Q3h.title" = "Normal";
+
+/* Class = "NSButtonCell"; title = "Normal"; ObjectID = "ya0-HB-1cz"; */
+"ya0-HB-1cz.title" = "Normal";

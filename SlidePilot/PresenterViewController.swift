@@ -29,9 +29,23 @@ class PresenterViewController: NSViewController {
     
     var pointerDelegate: MousePointerDelegate?
     
+    @IBOutlet weak var timeView: NSView!
     @IBOutlet weak var clockLabel: ClockLabel!
     @IBOutlet weak var timingControl: TimingControl!
     @IBOutlet weak var slideArrangement: SlideArrangementView!
+    
+    // Constraints
+    var slideArrangementFullTopConst: NSLayoutConstraint!
+    @IBOutlet var slideArrangementSharedTopConst: NSLayoutConstraint!
+    var timeViewSmallHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var timeViewNormalHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var clockLabelHeight: NSLayoutConstraint!
+    @IBOutlet weak var timingControlHeight: NSLayoutConstraint!
+    @IBOutlet weak var timingControlTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var timingControlBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var clockLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var clockLabelBottomConstraint: NSLayoutConstraint!
+    
     
     var navigation: ThumbnailNavigation?
     var navigationLeft: NSLayoutConstraint?
@@ -58,12 +72,67 @@ class PresenterViewController: NSViewController {
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
         DisplayController.subscribeDisplayCurtain(target: self, action: #selector(displayCurtainDidChange(_:)))
         DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
+        PreferencesController.subscribeTimeSize(target: self, action: #selector(timeSizeDidChange(_:)))
         
         // Subscribe to time changes
         TimeController.subscribeIsRunning(target: self, action: #selector(timeIsRunningDidChange(_:)))
         TimeController.subscribeTimeMode(target: self, action: #selector(timeModeDidChange(_:)))
         TimeController.subscribeReset(target: self, action: #selector(timeDidReset(_:)))
         TimeController.subscribeRequestTimerInterval(target: self, action: #selector(didRequestSetTimerInterval(_:)))
+        
+        // Setup additional auto layout constraint
+        slideArrangementFullTopConst = NSLayoutConstraint(item: slideArrangement!, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1.0, constant: 0.0)
+        self.view.addConstraint(slideArrangementFullTopConst)
+        slideArrangementFullTopConst.isActive = false
+        
+        timeViewSmallHeightConstraint = NSLayoutConstraint(item: timeView!, attribute: .height, relatedBy: .equal, toItem: self.view, attribute: .height, multiplier: 0.13, constant: 0.0)
+        self.view.addConstraint(timeViewSmallHeightConstraint)
+        timeViewSmallHeightConstraint.isActive = false
+        
+        updateLayout()
+    }
+    
+    
+    func updateLayout() {
+        // Update layout based on time control size preferences
+        switch PreferencesController.timeSize {
+        case .hidden:
+            timeView.isHidden = true
+            slideArrangementSharedTopConst.isActive = false
+            slideArrangementFullTopConst.isActive = true
+            
+        case .small:
+            timeView.isHidden = false
+            slideArrangementFullTopConst.isActive = false
+            slideArrangementSharedTopConst.isActive = true
+            
+            timeViewNormalHeightConstraint.isActive = false
+            timeViewSmallHeightConstraint.isActive = true
+            clockLabelHeight.constant = 70
+            timingControlHeight.constant = 70
+            clockLabel.font = NSFont.systemFont(ofSize: 55, weight: .light)
+            timingControl.font = NSFont.systemFont(ofSize: 55, weight: .light)
+            timingControlTopConstraint.constant = 5
+            timingControlBottomConstraint.constant = 5
+            clockLabelTopConstraint.constant = 5
+            clockLabelBottomConstraint.constant = 5
+            
+        case .normal:
+            timeView.isHidden = false
+            slideArrangementFullTopConst.isActive = false
+            slideArrangementSharedTopConst.isActive = true
+            
+            timeViewSmallHeightConstraint.isActive = false
+            timeViewNormalHeightConstraint.isActive = true
+            clockLabelHeight.constant = 85
+            timingControlHeight.constant = 85
+            clockLabel.font = NSFont.systemFont(ofSize: 70, weight: .light)
+            timingControl.font = NSFont.systemFont(ofSize: 70, weight: .light)
+            timingControlTopConstraint.constant = 20
+            timingControlBottomConstraint.constant = 20
+            clockLabelTopConstraint.constant = 20
+            clockLabelBottomConstraint.constant = 20
+        }
     }
     
     
@@ -171,6 +240,11 @@ class PresenterViewController: NSViewController {
         if #available(OSX 10.12.2, *) {
             self.view.window?.windowController?.touchBar = nil
         }
+    }
+    
+    
+    @objc func timeSizeDidChange(_ notification: Notification) {
+        updateLayout()
     }
     
     
@@ -327,6 +401,8 @@ class PresenterViewController: NSViewController {
             }
         } else {
             self.view.updateConstraints()
+            self.navigation?.removeFromSuperview()
+            self.navigation = nil
         }
     }
     

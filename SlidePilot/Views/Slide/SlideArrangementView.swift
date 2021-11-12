@@ -23,7 +23,9 @@ class SlideArrangementView: NSView {
     var notesSlideView: SlideView?
     var notesEditor: NotesEditor?
     
-    let padding: CGFloat = 30.0
+    var padding: CGFloat {
+        return CGFloat(PreferencesController.layoutPadding.rawValue)
+    }
     let distributionRatio: CGFloat = 0.6
     
     
@@ -51,10 +53,10 @@ class SlideArrangementView: NSView {
         
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
-        DisplayController.subscribeDisplayNotes(target: self, action: #selector(displayNotesDidChange(_:)))
-        DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
+        DisplayController.subscribeLayoutConfiguration(target: self, action: #selector(layoutConfigurationDidChange(_:)))
         DisplayController.subscribeNotesMode(target: self, action: #selector(notesModeDidChange(_:)))
         DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
+        PreferencesController.subscribeLayoutPadding(target: self, action: #selector(layoutPaddingDidChange(_:)))
         
         setupSplitView()
         
@@ -65,8 +67,10 @@ class SlideArrangementView: NSView {
     
     private func updateView() {
         // Setup layout with/without next slide and with/without notes slide
-        setupLayout(displayNext: DisplayController.isNextSlidePreviewDisplayed,
+        setupLayout(displayCurrent: DisplayController.isCurrentSlideDisplayed,
+                    displayNext: DisplayController.isNextSlidePreviewDisplayed,
                     displayNotes: DisplayController.areNotesDisplayed,
+                    displayDrawing: DisplayController.areDrawingToolsDisplayed,
                     notesMode: DisplayController.notesMode)
         
         // Setup notes position
@@ -142,12 +146,11 @@ class SlideArrangementView: NSView {
     }
     
     
-    @objc func displayNotesDidChange(_ notification: Notification) {
+    @objc func layoutConfigurationDidChange(_ notification: Notification) {
         updateView()
     }
     
-    
-    @objc func displayNextSlidePreviewDidChange(_ notification: Notification) {
+    @objc func layoutPaddingDidChange(_ notification: Notification) {
         updateView()
     }
     
