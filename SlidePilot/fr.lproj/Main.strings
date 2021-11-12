@@ -37,6 +37,12 @@
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
 "6dh-zS-Vam.title" = "Rétablir";
 
+/* Class = "NSButtonCell"; title = "Hidden"; ObjectID = "8kH-2Q-huJ"; */
+"8kH-2Q-huJ.title" = "Caché";
+
+/* Class = "NSButtonCell"; title = "Normal"; ObjectID = "8rT-Pp-c0F"; */
+"8rT-Pp-c0F.title" = "Normal";
+
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "Main Menu";
 
@@ -75,6 +81,9 @@
 
 /* Class = "NSMenuItem"; title = "SlidePilot Help"; ObjectID = "FKE-Sm-Kum"; */
 "FKE-Sm-Kum.title" = "Aide SlidePilot";
+
+/* Class = "NSButtonCell"; title = "Small"; ObjectID = "FKT-Nb-Trk"; */
+"FKT-Nb-Trk.title" = "Petit";
 
 /* Class = "NSMenu"; title = "Pointer Appearance"; ObjectID = "Fg3-Dc-rDB"; */
 "Fg3-Dc-rDB.title" = "Apparence du pointeur";
@@ -141,6 +150,9 @@
 
 /* Class = "NSMenuItem"; title = "Hide SlidePilot"; ObjectID = "Olw-nP-bQN"; */
 "Olw-nP-bQN.title" = "Masquer SlidePilot";
+
+/* Class = "NSButtonCell"; title = "Normal"; ObjectID = "PKP-r8-iYT"; */
+"PKP-r8-iYT.title" = "Normal";
 
 /* Class = "NSMenuItem"; title = "Reset Time"; ObjectID = "PX1-Gg-U0w"; */
 "PX1-Gg-U0w.title" = "Réinitialiser le temps";
@@ -220,6 +232,9 @@
 /* Class = "NSMenuItem"; title = "Dot"; ObjectID = "akh-gx-hr7"; */
 "akh-gx-hr7.title" = "Point";
 
+/* Class = "NSTextFieldCell"; title = "Slide Padding:"; ObjectID = "axs-v0-12l"; */
+"axs-v0-12l.title" = "Espacement:";
+
 /* Class = "NSWindow"; title = "Pointer Editor"; ObjectID = "b03-II-4kw"; */
 "b03-II-4kw.title" = "Éditeur de pointeur";
 
@@ -289,6 +304,9 @@
 /* Class = "NSMenuItem"; title = "Bigger"; ObjectID = "imS-PA-oW0"; */
 "imS-PA-oW0.title" = "Plus grande";
 
+/* Class = "NSTextFieldCell"; title = "Time Controls:"; ObjectID = "ivI-O4-qTp"; */
+"ivI-O4-qTp.title" = "Temps:";
+
 /* Class = "NSTextFieldCell"; title = "Thickness:"; ObjectID = "ivp-8p-UGA"; */
 "ivp-8p-UGA.title" = "Épaisseur:";
 
@@ -297,6 +315,9 @@
 
 /* Class = "NSMenuItem"; title = "Italic"; ObjectID = "j9w-kc-N3h"; */
 "j9w-kc-N3h.title" = "Italique";
+
+/* Class = "NSButtonCell"; title = "None"; ObjectID = "jpB-l4-xhd"; */
+"jpB-l4-xhd.title" = "Aucun";
 
 /* Class = "NSMenuItem"; title = "Notes"; ObjectID = "jvc-gB-nHf"; */
 "jvc-gB-nHf.title" = "Notes";
@@ -363,6 +384,9 @@
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
 "x3v-GG-iWU.title" = "Copier";
+
+/* Class = "NSButtonCell"; title = "Small"; ObjectID = "x5b-y4-6Hm"; */
+"x5b-y4-6Hm.title" = "Petit";
 
 /* Class = "NSMenuItem"; title = "Open Notes"; ObjectID = "ypU-UU-7oB"; */
 "ypU-UU-7oB.title" = "Ouvrir les notes";

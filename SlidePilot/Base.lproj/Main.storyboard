@@ -1182,14 +1182,14 @@ DQ
             <objects>
                 <viewController id="UET-tf-2ab" customClass="LayoutEditorViewController" customModule="SlidePilot" customModuleProvider="target" sceneMemberID="viewController">
                     <customView key="view" id="2xj-l8-iyj">
-                        <rect key="frame" x="0.0" y="0.0" width="620" height="590"/>
+                        <rect key="frame" x="0.0" y="0.0" width="620" height="585"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQs-Iy-VhC">
-                                <rect key="frame" x="20" y="20" width="580" height="550"/>
+                                <rect key="frame" x="20" y="20" width="580" height="545"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="WNh-hT-RGo">
-                                        <rect key="frame" x="0.0" y="455" width="580" height="95"/>
+                                        <rect key="frame" x="0.0" y="450" width="580" height="95"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kP2-Dr-tUT">
                                                 <rect key="frame" x="120" y="0.0" width="460" height="95"/>
@@ -1309,13 +1309,13 @@ DQ
                                         </userDefinedRuntimeAttributes>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="I8P-bH-fTH">
-                                        <rect key="frame" x="0.0" y="238" width="580" height="207"/>
+                                        <rect key="frame" x="0.0" y="233" width="580" height="207"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Yll-gE-UqX">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="207"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vQP-Vq-dKh">
-                                                        <rect key="frame" x="-2" y="96" width="104" height="16"/>
+                                                        <rect key="frame" x="-2" y="95" width="104" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Configure:" id="ZTi-eP-Bvb">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1359,7 +1359,7 @@ DQ
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="pbb-Al-tuh">
-                                        <rect key="frame" x="0.0" y="113" width="580" height="115"/>
+                                        <rect key="frame" x="0.0" y="108" width="580" height="115"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lid-Wu-c0t">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="115"/>
@@ -1459,27 +1459,27 @@ DQ
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="NdQ-Nn-6nV">
-                                        <rect key="frame" x="0.0" y="87" width="580" height="16"/>
+                                        <rect key="frame" x="0.0" y="72" width="580" height="26"/>
                                         <subviews>
                                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="LAk-RH-Bgb">
-                                                <rect key="frame" x="0.0" y="-2" width="580" height="5"/>
+                                                <rect key="frame" x="0.0" y="8" width="580" height="5"/>
                                             </box>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="LAk-RH-Bgb" secondAttribute="bottom" id="Ooq-2p-lIV"/>
+                                            <constraint firstAttribute="bottom" secondItem="LAk-RH-Bgb" secondAttribute="bottom" constant="10" id="Ooq-2p-lIV"/>
                                             <constraint firstItem="LAk-RH-Bgb" firstAttribute="leading" secondItem="NdQ-Nn-6nV" secondAttribute="leading" id="Qyy-CI-Fi6"/>
                                             <constraint firstItem="LAk-RH-Bgb" firstAttribute="top" secondItem="NdQ-Nn-6nV" secondAttribute="top" constant="15" id="ahi-8r-AEo"/>
                                             <constraint firstAttribute="trailing" secondItem="LAk-RH-Bgb" secondAttribute="trailing" id="i0w-vH-hzj"/>
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="edX-A8-iG0">
-                                        <rect key="frame" x="0.0" y="41" width="580" height="36"/>
+                                        <rect key="frame" x="0.0" y="36" width="580" height="26"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="1Qa-GN-eXZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="36"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="26"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="R9S-Ys-Rag">
-                                                        <rect key="frame" x="-2" y="10" width="104" height="16"/>
+                                                        <rect key="frame" x="-2" y="5" width="104" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Slide Padding:" id="axs-v0-12l">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1495,7 +1495,7 @@ DQ
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="iMR-bE-pK4">
-                                                <rect key="frame" x="120" y="0.0" width="460" height="36"/>
+                                                <rect key="frame" x="120" y="0.0" width="460" height="26"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="1oy-e9-uYF">
                                                         <rect key="frame" x="0.0" y="5" width="460" height="16"/>
@@ -1548,7 +1548,7 @@ DQ
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="1oy-e9-uYF" secondAttribute="trailing" id="J8L-Ra-u2N"/>
-                                                    <constraint firstItem="1oy-e9-uYF" firstAttribute="top" secondItem="iMR-bE-pK4" secondAttribute="top" constant="15" id="XmH-hO-Hi9"/>
+                                                    <constraint firstItem="1oy-e9-uYF" firstAttribute="top" secondItem="iMR-bE-pK4" secondAttribute="top" constant="5" id="XmH-hO-Hi9"/>
                                                     <constraint firstAttribute="bottom" secondItem="1oy-e9-uYF" secondAttribute="bottom" constant="5" id="g38-Xr-dIy"/>
                                                     <constraint firstItem="1oy-e9-uYF" firstAttribute="leading" secondItem="iMR-bE-pK4" secondAttribute="leading" id="q0O-iZ-C5N"/>
                                                 </constraints>
@@ -1565,13 +1565,13 @@ DQ
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Wup-k7-OgQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="580" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="580" height="26"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="iRR-nD-vfg">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="26"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="M2H-d0-Geo">
-                                                        <rect key="frame" x="-2" y="8" width="104" height="16"/>
+                                                        <rect key="frame" x="-2" y="5" width="104" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Time Controls:" id="ivI-O4-qTp">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1587,10 +1587,10 @@ DQ
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="IJD-HD-o34">
-                                                <rect key="frame" x="120" y="0.0" width="460" height="31"/>
+                                                <rect key="frame" x="120" y="0.0" width="460" height="26"/>
                                                 <subviews>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="7CP-cW-hpo">
-                                                        <rect key="frame" x="0.0" y="10" width="460" height="16"/>
+                                                        <rect key="frame" x="0.0" y="5" width="460" height="16"/>
                                                         <subviews>
                                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4GP-R2-av4">
                                                                 <rect key="frame" x="-1" y="-1" width="66" height="18"/>
@@ -1641,7 +1641,7 @@ DQ
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="7CP-cW-hpo" secondAttribute="trailing" id="6gS-aB-k4Z"/>
                                                     <constraint firstItem="7CP-cW-hpo" firstAttribute="leading" secondItem="IJD-HD-o34" secondAttribute="leading" id="88a-Ma-SSe"/>
-                                                    <constraint firstAttribute="bottom" secondItem="7CP-cW-hpo" secondAttribute="bottom" constant="10" id="H7h-Ud-5Kc"/>
+                                                    <constraint firstAttribute="bottom" secondItem="7CP-cW-hpo" secondAttribute="bottom" constant="5" id="H7h-Ud-5Kc"/>
                                                     <constraint firstItem="7CP-cW-hpo" firstAttribute="top" secondItem="IJD-HD-o34" secondAttribute="top" constant="5" id="xcW-KH-yA0"/>
                                                 </constraints>
                                             </customView>
