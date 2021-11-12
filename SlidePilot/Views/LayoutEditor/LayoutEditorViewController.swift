@@ -15,7 +15,7 @@ class LayoutEditorViewController: NSViewController, PreferencePane {
     let preferencePaneTitle = NSLocalizedString("Layout", comment: "Title for layout preferences.")
     let toolbarItemIcon = NSImage(named: "LayoutIcon")!
 
-    override var nibName: NSNib.Name? { "LayoutPreferences" }
+    override var nibName: NSNib.Name? { "LayoutEditor" }
     
     @IBOutlet weak var arrangementSingleButton: NSButton!
     @IBOutlet weak var arrangementDoubleButton: NSButton!
