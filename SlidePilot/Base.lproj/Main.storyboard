@@ -637,7 +637,7 @@
             <objects>
                 <windowController storyboardIdentifier="PointerEditorWindow" id="2qi-vK-mGz" sceneMemberID="viewController">
                     <window key="window" title="Pointer Editor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="b03-II-4kw">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="425" y="470" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
@@ -1157,7 +1157,7 @@ DQ
             <objects>
                 <windowController storyboardIdentifier="LayoutEditorWindow" id="ZiZ-WF-OUf" sceneMemberID="viewController">
                     <window key="window" title="Layout Editor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="aBn-0i-ldh">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="425" y="470" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
@@ -1315,7 +1315,7 @@ DQ
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="207"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vQP-Vq-dKh">
-                                                        <rect key="frame" x="-2" y="95" width="104" height="16"/>
+                                                        <rect key="frame" x="-2" y="96" width="104" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Configure:" id="ZTi-eP-Bvb">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
