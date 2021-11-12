@@ -7,8 +7,15 @@
 //
 
 import Cocoa
+import Preferences
 
-class LayoutEditorViewController: NSViewController {
+class LayoutEditorViewController: NSViewController, PreferencePane {
+    
+    let preferencePaneIdentifier = Preferences.PaneIdentifier.layout
+    let preferencePaneTitle = NSLocalizedString("Layout", comment: "Title for layout preferences.")
+    let toolbarItemIcon = NSImage(named: "LayoutIcon")!
+
+    override var nibName: NSNib.Name? { "LayoutPreferences" }
     
     @IBOutlet weak var arrangementSingleButton: NSButton!
     @IBOutlet weak var arrangementDoubleButton: NSButton!

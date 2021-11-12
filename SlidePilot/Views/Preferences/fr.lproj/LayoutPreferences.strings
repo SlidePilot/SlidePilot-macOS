@@ -1,0 +1,54 @@
+
+/* Class = "NSTextFieldCell"; title = "Next Slide"; ObjectID = "3n3-7o-dTR"; */
+"3n3-7o-dTR.title" = "Diapositive suivante";
+
+/* Class = "NSTextFieldCell"; title = "Slide Padding:"; ObjectID = "5tc-Zh-gRo"; */
+"5tc-Zh-gRo.title" = "Espacement:";
+
+/* Class = "NSButtonCell"; title = "Single"; ObjectID = "Abl-iz-tBf"; */
+"Abl-iz-tBf.title" = "Seul";
+
+/* Class = "NSButtonCell"; title = "Triple Right"; ObjectID = "Afq-10-6q7"; */
+"Afq-10-6q7.title" = "Triple droite";
+
+/* Class = "NSButtonCell"; title = "Double"; ObjectID = "Bhy-gB-ICp"; */
+"Bhy-gB-ICp.title" = "Double";
+
+/* Class = "NSTextFieldCell"; title = "Slides:"; ObjectID = "JSg-VZ-DZm"; */
+"JSg-VZ-DZm.title" = "Diapositives:";
+
+/* Class = "NSButtonCell"; title = "Small"; ObjectID = "Y0x-vv-VTU"; */
+"Y0x-vv-VTU.title" = "Petit";
+
+/* Class = "NSTextFieldCell"; title = "Current Slide"; ObjectID = "YhI-Ij-elO"; */
+"YhI-Ij-elO.title" = "Courante";
+
+/* Class = "NSTextFieldCell"; title = "Notes Slide"; ObjectID = "Z23-wf-GT0"; */
+"Z23-wf-GT0.title" = "Notes";
+
+/* Class = "NSButtonCell"; title = "Hidden"; ObjectID = "Zm5-CK-qx3"; */
+"Zm5-CK-qx3.title" = "Caché";
+
+/* Class = "NSButtonCell"; title = "Triple Left"; ObjectID = "b3y-yF-OfP"; */
+"b3y-yF-OfP.title" = "Triple gauche";
+
+/* Class = "NSTextFieldCell"; title = "Arrangement:"; ObjectID = "dO1-1k-CyE"; */
+"dO1-1k-CyE.title" = "Arrangement:";
+
+/* Class = "NSButtonCell"; title = "Small"; ObjectID = "gKW-qz-qxy"; */
+"gKW-qz-qxy.title" = "Petit";
+
+/* Class = "NSButtonCell"; title = "None"; ObjectID = "nVZ-h3-u3H"; */
+"nVZ-h3-u3H.title" = "Aucun";
+
+/* Class = "NSTextFieldCell"; title = "Time Controls:"; ObjectID = "osH-1s-oI1"; */
+"osH-1s-oI1.title" = "Temps:";
+
+/* Class = "NSTextFieldCell"; title = "Configure:"; ObjectID = "pcC-po-RVy"; */
+"pcC-po-RVy.title" = "Attribuer:";
+
+/* Class = "NSButtonCell"; title = "Normal"; ObjectID = "xJI-Vx-Q3h"; */
+"xJI-Vx-Q3h.title" = "Normal";
+
+/* Class = "NSButtonCell"; title = "Normal"; ObjectID = "ya0-HB-1cz"; */
+"ya0-HB-1cz.title" = "Normal";
