@@ -70,8 +70,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     lazy var preferencesWindowController = PreferencesWindowController(
         preferencePanes: [
             GeneralPreferencesViewController(),
+            LayoutEditorViewController(),
+            PointerEditorViewController(),
             RemotePreferencesViewController(),
-            LayoutEditorViewController()
         ],
         hidesToolbarForSingleItem: false
     )
@@ -618,18 +619,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func openPointerEditor(_ sender: NSMenuItem) {
-        // First check if pointer editor is not already opened
-        if let pointerEditorWindow = NSApp.windows.first(where: { $0.contentViewController is PointerEditorViewController }) {
-            // Order existing pointer editor to front
-            pointerEditorWindow.makeKeyAndOrderFront(nil)
-        } else {
-            // Otherwise create and open new pointer editor
-            guard let pointerEditorCtrl = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: .init(stringLiteral: "PointerEditorWindow")) as?
-                NSWindowController else { return }
-            guard let pointerEditorWindow = pointerEditorCtrl.window else { return }
-            pointerEditorWindow.makeKeyAndOrderFront(nil)
-            pointerEditorWindow.center()
-        }
+        preferencesWindowController.show(preferencePane: .pointer)
     }
     
     @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {

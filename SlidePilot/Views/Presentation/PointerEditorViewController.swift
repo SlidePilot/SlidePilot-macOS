@@ -7,8 +7,15 @@
 //
 
 import Cocoa
+import Preferences
 
-class PointerEditorViewController: NSViewController {
+class PointerEditorViewController: NSViewController, PreferencePane {
+    
+    let preferencePaneIdentifier = Preferences.PaneIdentifier.pointer
+    let preferencePaneTitle = NSLocalizedString("Pointer", comment: "Title for pointer preferences.")
+    let toolbarItemIcon = NSImage(named: "PointerIcon")!
+
+    override var nibName: NSNib.Name? { "PointerEditor" }
 
     @IBOutlet weak var stackView: NSStackView!
     
@@ -81,6 +88,9 @@ class PointerEditorViewController: NSViewController {
         // Setup convenience properties
         shapeMapShapes = shapeMap.map({ $0.0 })
         shapeMapStrings = shapeMap.map({ $0.1 })
+        
+        // Allow color panel to select alpha value
+        NSColorPanel.shared.showsAlpha = true
         
         stackView.setHuggingPriority(.windowSizeStayPut, for: .horizontal)
         
@@ -168,48 +178,42 @@ class PointerEditorViewController: NSViewController {
         pointerView.shape = selectedShape
         guard let configuration = editorConfigurations[selectedShape] else { return }
         setup(editorConfiguration: configuration)
+        DisplayController.setIndividualPointer(pointerView.configuration, sender: self)
     }
     
     
     @IBAction func sizeSliderChanged(_ sender: NSSlider) {
         pointerView.size = CGFloat(sender.floatValue)
+        DisplayController.setIndividualPointer(pointerView.configuration, sender: self)
     }
     
     
     @IBAction func thicknessSliderChanged(_ sender: NSSlider) {
         pointerView.thickness = CGFloat(sender.floatValue)
+        DisplayController.setIndividualPointer(pointerView.configuration, sender: self)
     }
     
     
     @IBAction func colorChanged(_ sender: NSColorWell) {
         pointerView.color = sender.color
+        DisplayController.setIndividualPointer(pointerView.configuration, sender: self)
     }
     
     
     @IBAction func borderSliderChanged(_ sender: NSSlider) {
         pointerView.borderWidth = CGFloat(sender.floatValue)
+        DisplayController.setIndividualPointer(pointerView.configuration, sender: self)
     }
     
     
     @IBAction func borderColorChanged(_ sender: NSColorWell) {
         pointerView.borderColor = sender.color
+        DisplayController.setIndividualPointer(pointerView.configuration, sender: self)
     }
     
     
     @IBAction func shadowSliderChanged(_ sender: NSSlider) {
         pointerView.shadowWidth = CGFloat(sender.floatValue)
-    }
-    
-    
-    @IBAction func finishPressed(_ sender: NSButton) {
-        // Store pointer and close window
         DisplayController.setIndividualPointer(pointerView.configuration, sender: self)
-        self.view.window?.close()
-    }
-    
-    
-    @IBAction func cancelPressed(_ sender: NSButton) {
-        // Close window
-        self.view.window?.close()
     }
 }
