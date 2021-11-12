@@ -401,6 +401,8 @@ class PresenterViewController: NSViewController {
             }
         } else {
             self.view.updateConstraints()
+            self.navigation?.removeFromSuperview()
+            self.navigation = nil
         }
     }
     
