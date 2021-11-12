@@ -72,7 +72,14 @@ class DisplayController {
     public private(set) static var isPointerDisplayed: Bool = false
     public private(set) static var areDrawingToolsDisplayed: Bool = false
     
-    public private(set) static var layoutConfiguration: LayoutConfiguration = LayoutConfiguration(type: .double)
+    public static var layoutConfiguration: LayoutConfiguration {
+        if let layoutConfigurationData = UserDefaults.standard.object(forKey: PreferencesController.Keys.layoutConfiguration.rawValue) as? Data,
+           let layoutConfiguration = try? PropertyListDecoder().decode(LayoutConfiguration.self, from: layoutConfigurationData) {
+            return layoutConfiguration
+        } else {
+            return LayoutConfiguration(type: .double)
+        }
+    }
     public static var isCurrentSlideDisplayed: Bool {
         return layoutConfiguration.slides[...(layoutConfiguration.type.slideCount-1)].contains(.current)
     }
@@ -277,13 +284,15 @@ class DisplayController {
     
     /** Changes the layout configuration and sends notification, that this property changed. */
     public static func setLayoutConfiguration(_ config: LayoutConfiguration, sender: Any) {
-        layoutConfiguration = config
-        NotificationCenter.default.post(name: .didChangeLayoutConfiguration, object: sender)
-        
-        // Also notify that the computes properties, depending on layoutConfiguration, changed
-        NotificationCenter.default.post(name: .didChangeDisplayCurrentSlide, object: sender)
-        NotificationCenter.default.post(name: .didChangeDisplayNextSlidePreview, object: sender)
-        NotificationCenter.default.post(name: .didChangeDisplayNotes, object: sender)
+        if let data = try? PropertyListEncoder().encode(config) {
+            UserDefaults.standard.set(data, forKey: PreferencesController.Keys.layoutConfiguration.rawValue)
+            NotificationCenter.default.post(name: .didChangeLayoutConfiguration, object: sender)
+            
+            // Also notify that the computes properties, depending on layoutConfiguration, changed
+            NotificationCenter.default.post(name: .didChangeDisplayCurrentSlide, object: sender)
+            NotificationCenter.default.post(name: .didChangeDisplayNextSlidePreview, object: sender)
+            NotificationCenter.default.post(name: .didChangeDisplayNotes, object: sender)
+        }
     }
     
     
@@ -498,7 +507,6 @@ extension DisplayController {
         var notesPosition: DisplayController.NotesPosition
         var notesMode: DisplayController.NotesMode
         var isNavigatorDisplayed: Bool
-        var layoutConfiguration: LayoutConfiguration
         var isPointerDisplayed: Bool
         var pointerAppearance: PointerAppearance
         var pointerAppearanceConfiguration: PointerView.Configuration
@@ -515,7 +523,6 @@ extension DisplayController {
             notesPosition: notesPosition,
             notesMode: notesMode,
             isNavigatorDisplayed: isNavigatorDisplayed,
-            layoutConfiguration: layoutConfiguration,
             isPointerDisplayed: isPointerDisplayed,
             pointerAppearance: pointerAppearance,
             pointerAppearanceConfiguration: pointerAppearanceConfiguration,
@@ -530,7 +537,6 @@ extension DisplayController {
         setNotesPosition(configuration.notesPosition, sender: self)
         setNotesMode(configuration.notesMode, sender: self)
         setDisplayNavigator(configuration.isNavigatorDisplayed, sender: self)
-        setLayoutConfiguration(configuration.layoutConfiguration, sender: self)
         setDisplayPointer(configuration.isPointerDisplayed, sender: self)
         setPointerAppearance(configuration.pointerAppearance, configuration: configuration.pointerAppearanceConfiguration, sender: self)
     }
@@ -555,7 +561,4 @@ extension DisplayController {
             load(configuration: configuration)
         }
     }
-    
-    
-    
 }

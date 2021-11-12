@@ -10,10 +10,11 @@ import Cocoa
 
 class PreferencesController {
     
-    private enum Keys: String {
+    enum Keys: String {
         case isSleepDisabled = "isSleepDisabled"
         case layoutPadding = "layoutPadding"
         case timeSize = "timeSize"
+        case layoutConfiguration = "layoutConfiguration"
     }
     
     
