@@ -89,6 +89,9 @@ class PointerEditorViewController: NSViewController, PreferencePane {
         shapeMapShapes = shapeMap.map({ $0.0 })
         shapeMapStrings = shapeMap.map({ $0.1 })
         
+        // Allow color panel to select alpha value
+        NSColorPanel.shared.showsAlpha = true
+        
         stackView.setHuggingPriority(.windowSizeStayPut, for: .horizontal)
         
         // Set default values
