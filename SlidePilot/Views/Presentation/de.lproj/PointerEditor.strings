@@ -1,0 +1,27 @@
+
+/* Class = "NSTextFieldCell"; title = "Shape:"; ObjectID = "0hF-xZ-wAL"; */
+"0hF-xZ-wAL.title" = "Form:";
+
+/* Class = "NSTextFieldCell"; title = "Color:"; ObjectID = "8H2-On-1uT"; */
+"8H2-On-1uT.title" = "Farbe:";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "8bO-TG-tuH"; */
+"8bO-TG-tuH.title" = "Abbrechen";
+
+/* Class = "NSTextFieldCell"; title = "Border:"; ObjectID = "KeY-hG-zNg"; */
+"KeY-hG-zNg.title" = "Rand:";
+
+/* Class = "NSTextFieldCell"; title = "Border Color:"; ObjectID = "N6o-RR-fRb"; */
+"N6o-RR-fRb.title" = "Randfarbe:";
+
+/* Class = "NSTextFieldCell"; title = "Thickness:"; ObjectID = "RlY-VI-wUy"; */
+"RlY-VI-wUy.title" = "Stärke:";
+
+/* Class = "NSButtonCell"; title = "Finish"; ObjectID = "kgl-PD-c8i"; */
+"kgl-PD-c8i.title" = "Fertig";
+
+/* Class = "NSTextFieldCell"; title = "Size:"; ObjectID = "oOE-BK-JBY"; */
+"oOE-BK-JBY.title" = "Größe:";
+
+/* Class = "NSTextFieldCell"; title = "Shadow:"; ObjectID = "ziP-7b-uNV"; */
+"ziP-7b-uNV.title" = "Schatten:";

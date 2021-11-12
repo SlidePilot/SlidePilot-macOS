@@ -34,6 +34,7 @@
 		505243B72445AF650050AB98 /* RenderCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505243B62445AF650050AB98 /* RenderCache.swift */; };
 		5052D605252F273300AB26EB /* Archiving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5052D604252F273300AB26EB /* Archiving.swift */; };
 		5055BFE6273E86C200F97658 /* LayoutEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5055BFE8273E86C200F97658 /* LayoutEditor.xib */; };
+		5055BFF5273ED3DE00F97658 /* PointerEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5055BFF7273ED3DE00F97658 /* PointerEditor.xib */; };
 		505E9C94252B1DDC00EAB106 /* FileObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505E9C93252B1DDC00EAB106 /* FileObserver.swift */; };
 		507098A4252F120F00938927 /* RemoteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507098A3252F120F00938927 /* RemoteController.swift */; };
 		507098A7252F134300938927 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507098A6252F134300938927 /* RemoteService.swift */; };
@@ -154,6 +155,9 @@
 		5055BFE7273E86C200F97658 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LayoutEditor.xib; sourceTree = "<group>"; };
 		5055BFEB273E86C800F97658 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LayoutEditor.strings; sourceTree = "<group>"; };
 		5055BFED273E86C800F97658 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LayoutEditor.strings; sourceTree = "<group>"; };
+		5055BFF6273ED3DE00F97658 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PointerEditor.xib; sourceTree = "<group>"; };
+		5055BFFA273ED3E200F97658 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/PointerEditor.strings; sourceTree = "<group>"; };
+		5055BFFC273ED3E300F97658 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PointerEditor.strings; sourceTree = "<group>"; };
 		505E9C93252B1DDC00EAB106 /* FileObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileObserver.swift; sourceTree = "<group>"; };
 		507098A3252F120F00938927 /* RemoteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteController.swift; sourceTree = "<group>"; };
 		507098A6252F134300938927 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
@@ -301,6 +305,7 @@
 				500ECC9D24A15C050053F2EC /* PointerDisplayView.swift */,
 				50EC564D25384961007D83D3 /* PointerView.swift */,
 				5040D0C125384260006C36E3 /* PointerEditorViewController.swift */,
+				5055BFF7273ED3DE00F97658 /* PointerEditor.xib */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -584,6 +589,7 @@
 				50C77F39242CD32500066752 /* Localizable.strings in Resources */,
 				507E697D253CC64700C00215 /* TrustedDevicesViewController.xib in Resources */,
 				509B96FE2428A3AE0076B8B4 /* Main.storyboard in Resources */,
+				5055BFF5273ED3DE00F97658 /* PointerEditor.xib in Resources */,
 				5055BFE6273E86C200F97658 /* LayoutEditor.xib in Resources */,
 				50F862E8252F456400699583 /* RemoteVerificationViewController.xib in Resources */,
 			);
@@ -709,6 +715,16 @@
 				5055BFED273E86C800F97658 /* de */,
 			);
 			name = LayoutEditor.xib;
+			sourceTree = "<group>";
+		};
+		5055BFF7273ED3DE00F97658 /* PointerEditor.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5055BFF6273ED3DE00F97658 /* Base */,
+				5055BFFA273ED3E200F97658 /* fr */,
+				5055BFFC273ED3E300F97658 /* de */,
+			);
+			name = PointerEditor.xib;
 			sourceTree = "<group>";
 		};
 		5074A88224A34FD5005CFDEF /* GeneralPreferences.xib */ = {
