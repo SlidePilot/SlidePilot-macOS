@@ -447,6 +447,12 @@
                                                 <action selector="nextSlide:" target="Ady-hI-5gd" id="tOG-m1-6cw"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Go Back" keyEquivalent="g" id="wm4-bF-phA">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                            <connections>
+                                                <action selector="goBack:" target="Ady-hI-5gd" id="PYr-6q-DwM"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="WxF-lf-SZG"/>
                                         <menuItem title="Display Black Screen" tag="201" keyEquivalent="b" identifier="DisplayBlackScreen" id="Wsl-Lh-Rzy">
                                             <modifierMask key="keyEquivalentModifierMask"/>

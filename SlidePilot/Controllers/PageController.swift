@@ -12,6 +12,9 @@ class PageController {
     
     public private(set) static var currentPage = 0
     
+    /** Stores the previously selected page. This is not necessarily the current page - 1, because jumps are possible. */
+    public private(set) static var previousPage = 0
+    
     public private(set) static var isPageSwitchingEnabled = true
     
     
@@ -41,9 +44,16 @@ class PageController {
         guard isPageSwitchingEnabled else { return }
         
         if isValidIndex(index) {
+            previousPage = currentPage
             currentPage = index
             NotificationCenter.default.post(name: .didSelectPage, object: sender)
         }
+    }
+    
+    
+    /** Selects the previous page and sends a notification, that the page was changed. */
+    public static func selectPreviousPage(sender: Any?) {
+        selectPage(at: previousPage, sender: sender)
     }
     
     

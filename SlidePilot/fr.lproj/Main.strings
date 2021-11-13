@@ -379,6 +379,9 @@
 /* Class = "NSMenuItem"; title = "Moderator"; ObjectID = "w7l-df-asi"; */
 "w7l-df-asi.title" = "Modérateur";
 
+/* Class = "NSMenuItem"; title = "Go Back"; ObjectID = "wm4-bF-phA"; */
+"wm4-bF-phA.title" = "Retourner";
+
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
 "wpr-3q-Mcd.title" = "Aide";
 
