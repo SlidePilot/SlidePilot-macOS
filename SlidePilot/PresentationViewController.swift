@@ -22,6 +22,7 @@ class PresentationViewController: NSViewController {
         
         // Setup pageView
         pageView = PDFPageView(frame: .zero)
+        pageView.crossfadeEnabled = PreferencesController.crossfadeSlides
         pageView.translatesAutoresizingMaskIntoConstraints = false
         pageView.isAutoAspectRatioConstraintEnabled = true
         self.view.addSubview(pageView)
@@ -77,6 +78,9 @@ class PresentationViewController: NSViewController {
         DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
         DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
+        
+        // Subscribe to preferences changes
+        PreferencesController.subscribeCrossfadeSlides(target: self, action: #selector(crossfadeSlidesDidChange(_:)))
     }
     
     
@@ -157,6 +161,11 @@ class PresentationViewController: NSViewController {
         } else {
             hideCanvas()
         }
+    }
+    
+    
+    @objc func crossfadeSlidesDidChange(_ notification: Notification) {
+        pageView.crossfadeEnabled = PreferencesController.crossfadeSlides
     }
 }
 

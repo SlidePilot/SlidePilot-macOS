@@ -15,6 +15,7 @@ class PreferencesController {
         case layoutPadding = "layoutPadding"
         case timeSize = "timeSize"
         case layoutConfiguration = "layoutConfiguration"
+        case crossfadeSlides = "crossfadeSlides"
     }
     
     
@@ -113,6 +114,20 @@ class PreferencesController {
     
     
     
+    // MARK: - Other
+    
+    public static var crossfadeSlides: Bool {
+        return UserDefaults.standard.bool(forKey: Keys.crossfadeSlides.rawValue)
+    }
+    
+    
+    public static func setCrossfadeSlides(_ enable: Bool, sender: Any) {
+        UserDefaults.standard.set(enable, forKey: Keys.crossfadeSlides.rawValue)
+        NotificationCenter.default.post(name: .didChangeCrossfadeSlides, object: sender)
+    }
+    
+    
+    
     
     // MARK: - Subscribe
     
@@ -128,6 +143,12 @@ class PreferencesController {
     }
     
     
+    /** Subscribes a target to all `.didChangeCrossfadeSlides` notifications sent by `DisplayController`. */
+    public static func subscribeCrossfadeSlides(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeCrossfadeSlides, object: nil)
+    }
+    
+    
     
     
     // MARK: - Unsubscribe
@@ -135,6 +156,8 @@ class PreferencesController {
     /** Unsubscribes a target from all notifications sent by `PreferencesController`. */
     public static func unsubscribe(target: Any) {
         NotificationCenter.default.removeObserver(target, name: .didChangeLayoutPadding, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeTimeSize, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeCrossfadeSlides, object: nil)
     }
 
 }
@@ -145,4 +168,5 @@ class PreferencesController {
 extension Notification.Name {
     static let didChangeLayoutPadding = Notification.Name("didChangeLayoutPadding")
     static let didChangeTimeSize = Notification.Name("didChangeTimeSize")
+    static let didChangeCrossfadeSlides = Notification.Name("didChangeCrossfadeSlides")
 }

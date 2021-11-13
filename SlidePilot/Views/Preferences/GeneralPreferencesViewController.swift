@@ -20,6 +20,7 @@ class GeneralPreferencesViewController: NSViewController, PreferencePane {
     
     // MARK: - UI Elements
     @IBOutlet weak var awakeCheckBox: NSButton!
+    @IBOutlet weak var crossfadeSlidesCheckBox: NSButton!
     
     
     override func viewDidLoad() {
@@ -27,6 +28,7 @@ class GeneralPreferencesViewController: NSViewController, PreferencePane {
 
         // UI Elements with preferences
         awakeCheckBox.state = PreferencesController.isSleepDisabled ? .on : .off
+        crossfadeSlidesCheckBox.state = PreferencesController.crossfadeSlides ? .on : .off
     }
     
     
@@ -36,6 +38,11 @@ class GeneralPreferencesViewController: NSViewController, PreferencePane {
         } else {
             PreferencesController.enableSleep()
         }
+    }
+    
+    
+    @IBAction func crossfadeSlidesCheckBoxPressed(_ sender: NSButton) {
+        PreferencesController.setCrossfadeSlides(sender.state == .on, sender: sender)
     }
     
     

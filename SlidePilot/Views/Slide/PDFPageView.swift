@@ -190,6 +190,7 @@ class PDFPageView: NSImageView {
         guard let pdfImage = RenderCache.shared.getPage(at: currentPage, for: pdfDocument!, mode: self.displayMode, priority: .fast) else { return }
         
         // Display image
+        crossfadeIfNeeded()
         self.imageScaling = .scaleProportionallyUpOrDown
         self.image = pdfImage
         
@@ -272,6 +273,22 @@ class PDFPageView: NSImageView {
            DisplayController.notesPosition.displayModeForPresentation() == self.displayMode,
            movieAnnoations.count > 0 {
             ConnectedPlayer.sharedPlayers = players
+        }
+    }
+    
+    
+    private let crossfadeDuration: CFTimeInterval = 0.6
+    private let crossfadeAnimationKey: String = "crossfade"
+    /** Setting this value to true will add a crossfade when changing the views image. */
+    var crossfadeEnabled: Bool = false
+    
+    func crossfadeIfNeeded() {
+        if crossfadeEnabled {
+            let crossfadeAnimation = CATransition()
+            crossfadeAnimation.duration = crossfadeDuration
+            crossfadeAnimation.type = .fade
+            crossfadeAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            self.layer?.add(crossfadeAnimation, forKey: crossfadeAnimationKey)
         }
     }
     
