@@ -124,7 +124,7 @@
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V3y-3a-9do">
                                             <rect key="frame" x="-2" y="54" width="104" height="16"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Arrangement:" id="dO1-1k-CyE">
+                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Arrangement:" id="dO1-1k-CyE">
                                                 <font key="font" usesAppearanceFont="YES"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -161,7 +161,7 @@
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eFP-kJ-ETg">
                                             <rect key="frame" x="-2" y="96" width="104" height="16"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Configure:" id="pcC-po-RVy">
+                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Configure:" id="pcC-po-RVy">
                                                 <font key="font" usesAppearanceFont="YES"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -211,7 +211,7 @@
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pul-1e-NGp">
                                             <rect key="frame" x="-2" y="64" width="104" height="16"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Slides:" id="JSg-VZ-DZm">
+                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Slides:" id="JSg-VZ-DZm">
                                                 <font key="font" usesAppearanceFont="YES"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -325,7 +325,7 @@
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bP4-zu-Mw1">
                                             <rect key="frame" x="-2" y="5" width="104" height="16"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Slide Padding:" id="5tc-Zh-gRo">
+                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Slide Padding:" id="5tc-Zh-gRo">
                                                 <font key="font" usesAppearanceFont="YES"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -417,7 +417,7 @@
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tRi-jK-ctG">
                                             <rect key="frame" x="-2" y="5" width="104" height="16"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Time Controls:" id="osH-1s-oI1">
+                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time Controls:" id="osH-1s-oI1">
                                                 <font key="font" usesAppearanceFont="YES"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
