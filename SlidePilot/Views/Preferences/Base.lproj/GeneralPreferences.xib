@@ -1,73 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GeneralPreferencesViewController" customModule="SlidePilot" customModuleProvider="target">
             <connections>
-                <outlet property="awakeCheckBox" destination="ffO-Gd-2Yx" id="9EU-Ca-AZW"/>
-                <outlet property="view" destination="c22-O7-iKe" id="JKc-LZ-d9C"/>
+                <outlet property="awakeCheckBox" destination="uLi-53-dJR" id="jvO-oV-DBI"/>
+                <outlet property="crossfadeSlidesCheckBox" destination="vXn-qR-A8p" id="h1j-fj-2dG"/>
+                <outlet property="view" destination="dMC-aW-lwd" id="POw-kq-yN6"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView misplaced="YES" id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="449" height="74"/>
+        <customView id="dMC-aW-lwd">
+            <rect key="frame" x="0.0" y="0.0" width="540" height="108"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="V9Z-82-k7Y">
-                    <rect key="frame" x="20" y="30" width="77" height="14"/>
+                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HIY-i7-zdp">
+                    <rect key="frame" x="20" y="30" width="500" height="48"/>
                     <subviews>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s49-OE-Af8">
-                            <rect key="frame" x="-2" y="0.0" width="81" height="16"/>
-                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Keep Awake:" id="hZZ-0c-y9B">
-                                <font key="font" usesAppearanceFont="YES"/>
-                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="fw9-4e-JJ6">
+                            <rect key="frame" x="0.0" y="34" width="500" height="14"/>
+                            <subviews>
+                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="bZS-L9-rfP">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="14"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Jdv-Pk-4SW">
+                                            <rect key="frame" x="-2" y="-1" width="104" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Keep Awake:" id="RRy-7Y-UEG">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Jdv-Pk-4SW" firstAttribute="leading" secondItem="bZS-L9-rfP" secondAttribute="leading" id="4Au-44-f5r"/>
+                                        <constraint firstItem="Jdv-Pk-4SW" firstAttribute="centerY" secondItem="bZS-L9-rfP" secondAttribute="centerY" id="AeX-Bh-gZI"/>
+                                        <constraint firstAttribute="trailing" secondItem="Jdv-Pk-4SW" secondAttribute="trailing" id="RsX-dG-L2X"/>
+                                        <constraint firstAttribute="width" constant="100" id="gbB-Zo-v2q"/>
+                                    </constraints>
+                                </customView>
+                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="BBY-D4-Zb5">
+                                    <rect key="frame" x="120" y="0.0" width="380" height="14"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uLi-53-dJR">
+                                            <rect key="frame" x="-2" y="-2" width="384" height="18"/>
+                                            <buttonCell key="cell" type="check" title="Prevent Mac from falling asleep while presenting" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="srf-tM-fS7">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="awakeCheckBoxPressed:" target="-2" id="RMy-IE-N9r"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="uLi-53-dJR" firstAttribute="top" secondItem="BBY-D4-Zb5" secondAttribute="top" id="4F5-LS-0ym"/>
+                                        <constraint firstAttribute="trailing" secondItem="uLi-53-dJR" secondAttribute="trailing" id="EOD-ws-Z49"/>
+                                        <constraint firstItem="uLi-53-dJR" firstAttribute="centerY" secondItem="BBY-D4-Zb5" secondAttribute="centerY" id="Z46-KV-8fB"/>
+                                        <constraint firstItem="uLi-53-dJR" firstAttribute="leading" secondItem="BBY-D4-Zb5" secondAttribute="leading" id="fzM-G1-9Mr"/>
+                                        <constraint firstAttribute="bottom" secondItem="uLi-53-dJR" secondAttribute="bottom" id="hpC-gG-qcT"/>
+                                    </constraints>
+                                </customView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="bZS-L9-rfP" firstAttribute="top" secondItem="fw9-4e-JJ6" secondAttribute="top" id="6e8-8r-hxO"/>
+                                <constraint firstAttribute="trailing" secondItem="BBY-D4-Zb5" secondAttribute="trailing" id="MtI-AU-nGd"/>
+                                <constraint firstItem="BBY-D4-Zb5" firstAttribute="leading" secondItem="bZS-L9-rfP" secondAttribute="trailing" constant="20" id="Oth-pV-deL"/>
+                                <constraint firstAttribute="bottom" secondItem="bZS-L9-rfP" secondAttribute="bottom" id="Tri-ud-oXT"/>
+                                <constraint firstAttribute="bottom" secondItem="BBY-D4-Zb5" secondAttribute="bottom" id="oFC-rg-ZjT"/>
+                                <constraint firstItem="BBY-D4-Zb5" firstAttribute="top" secondItem="fw9-4e-JJ6" secondAttribute="top" id="vZN-aD-Myf"/>
+                                <constraint firstItem="bZS-L9-rfP" firstAttribute="leading" secondItem="fw9-4e-JJ6" secondAttribute="leading" id="xQg-il-gPU"/>
+                            </constraints>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="6sW-tV-x9Y">
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="14"/>
+                            <subviews>
+                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="exu-fN-J3e">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="14"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f0p-vU-0Qk">
+                                            <rect key="frame" x="-2" y="-1" width="104" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Transition:" id="Uz0-ML-jeX">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="f0p-vU-0Qk" secondAttribute="trailing" id="7hh-G1-an1"/>
+                                        <constraint firstAttribute="width" constant="100" id="K3N-c3-PXq"/>
+                                        <constraint firstItem="f0p-vU-0Qk" firstAttribute="leading" secondItem="exu-fN-J3e" secondAttribute="leading" id="hi2-HB-srH"/>
+                                        <constraint firstItem="f0p-vU-0Qk" firstAttribute="centerY" secondItem="exu-fN-J3e" secondAttribute="centerY" id="jzk-Sb-ZrS"/>
+                                    </constraints>
+                                </customView>
+                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="nFp-c0-Nqx">
+                                    <rect key="frame" x="120" y="0.0" width="380" height="14"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vXn-qR-A8p">
+                                            <rect key="frame" x="-2" y="-2" width="384" height="18"/>
+                                            <buttonCell key="cell" type="check" title="Crossfade between slides" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="htK-yb-JXj">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="crossfadeSlidesCheckBoxPressed:" target="-2" id="GNe-HG-0cM"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="vXn-qR-A8p" secondAttribute="bottom" id="IoU-Rj-YJZ"/>
+                                        <constraint firstItem="vXn-qR-A8p" firstAttribute="top" secondItem="nFp-c0-Nqx" secondAttribute="top" id="dZj-f9-AVv"/>
+                                        <constraint firstItem="vXn-qR-A8p" firstAttribute="centerY" secondItem="nFp-c0-Nqx" secondAttribute="centerY" id="onB-pV-9Ll"/>
+                                        <constraint firstItem="vXn-qR-A8p" firstAttribute="leading" secondItem="nFp-c0-Nqx" secondAttribute="leading" id="ryl-16-iPe"/>
+                                        <constraint firstAttribute="trailing" secondItem="vXn-qR-A8p" secondAttribute="trailing" id="vlr-DI-lso"/>
+                                    </constraints>
+                                </customView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="exu-fN-J3e" secondAttribute="bottom" id="1jw-rc-fuP"/>
+                                <constraint firstItem="nFp-c0-Nqx" firstAttribute="top" secondItem="6sW-tV-x9Y" secondAttribute="top" id="6Ma-3e-gVB"/>
+                                <constraint firstItem="exu-fN-J3e" firstAttribute="top" secondItem="6sW-tV-x9Y" secondAttribute="top" id="KZH-uq-qce"/>
+                                <constraint firstItem="nFp-c0-Nqx" firstAttribute="leading" secondItem="exu-fN-J3e" secondAttribute="trailing" constant="20" id="Xcb-aX-NAO"/>
+                                <constraint firstItem="exu-fN-J3e" firstAttribute="leading" secondItem="6sW-tV-x9Y" secondAttribute="leading" id="dl0-eM-s97"/>
+                                <constraint firstAttribute="bottom" secondItem="nFp-c0-Nqx" secondAttribute="bottom" id="jW3-ID-jDS"/>
+                                <constraint firstAttribute="trailing" secondItem="nFp-c0-Nqx" secondAttribute="trailing" id="rXb-Qy-jdQ"/>
+                            </constraints>
+                        </customView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="s49-OE-Af8" firstAttribute="leading" secondItem="V9Z-82-k7Y" secondAttribute="leading" id="3UJ-Dx-iAI"/>
-                        <constraint firstAttribute="trailing" secondItem="s49-OE-Af8" secondAttribute="trailing" id="NzL-hJ-ill"/>
+                        <constraint firstAttribute="width" constant="500" id="67M-tP-34X"/>
+                        <constraint firstAttribute="trailing" secondItem="fw9-4e-JJ6" secondAttribute="trailing" id="Bjo-P9-HCd"/>
+                        <constraint firstItem="fw9-4e-JJ6" firstAttribute="leading" secondItem="HIY-i7-zdp" secondAttribute="leading" id="Fyw-xA-NeN"/>
                     </constraints>
-                </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="CLl-qd-KTt">
-                    <rect key="frame" x="117" y="30" width="312" height="14"/>
-                    <subviews>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ffO-Gd-2Yx">
-                            <rect key="frame" x="-2" y="-2" width="316" height="18"/>
-                            <buttonCell key="cell" type="check" title="Prevent Mac from falling asleep while presenting" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="6HU-O3-C8C">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="awakeCheckBoxPressed:" target="-2" id="uU6-my-2oe"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <constraints>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ffO-Gd-2Yx" secondAttribute="trailing" id="DjB-gd-A1P"/>
-                        <constraint firstAttribute="bottom" secondItem="ffO-Gd-2Yx" secondAttribute="bottom" id="Dzd-q5-0Mm"/>
-                        <constraint firstItem="ffO-Gd-2Yx" firstAttribute="top" secondItem="CLl-qd-KTt" secondAttribute="top" id="OoX-6e-9SK"/>
-                        <constraint firstItem="ffO-Gd-2Yx" firstAttribute="leading" secondItem="CLl-qd-KTt" secondAttribute="leading" id="SbD-jp-qWE"/>
-                    </constraints>
-                </customView>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
             </subviews>
             <constraints>
-                <constraint firstItem="V9Z-82-k7Y" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="7ds-MH-iOE"/>
-                <constraint firstAttribute="trailing" secondItem="CLl-qd-KTt" secondAttribute="trailing" constant="20" id="DMZ-Jd-yuW"/>
-                <constraint firstItem="CLl-qd-KTt" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="30" id="I59-py-3sA"/>
-                <constraint firstItem="s49-OE-Af8" firstAttribute="bottom" secondItem="ffO-Gd-2Yx" secondAttribute="bottom" id="PnZ-Ev-c0y"/>
-                <constraint firstItem="CLl-qd-KTt" firstAttribute="leading" secondItem="V9Z-82-k7Y" secondAttribute="trailing" constant="20" id="TOc-Gg-WL8"/>
-                <constraint firstAttribute="bottom" secondItem="CLl-qd-KTt" secondAttribute="bottom" constant="30" id="i01-Fp-wZ3"/>
-                <constraint firstItem="V9Z-82-k7Y" firstAttribute="bottom" secondItem="CLl-qd-KTt" secondAttribute="bottom" id="nz3-EX-iRO"/>
-                <constraint firstItem="V9Z-82-k7Y" firstAttribute="top" secondItem="CLl-qd-KTt" secondAttribute="top" id="tgT-uu-yCl"/>
+                <constraint firstItem="HIY-i7-zdp" firstAttribute="leading" secondItem="dMC-aW-lwd" secondAttribute="leading" constant="20" id="8vg-ow-AJb"/>
+                <constraint firstAttribute="trailing" secondItem="HIY-i7-zdp" secondAttribute="trailing" constant="20" id="fsH-0y-M7f"/>
+                <constraint firstAttribute="bottom" secondItem="HIY-i7-zdp" secondAttribute="bottom" constant="30" id="g0b-v7-Mtt"/>
+                <constraint firstItem="HIY-i7-zdp" firstAttribute="top" secondItem="dMC-aW-lwd" secondAttribute="top" constant="30" id="op5-PV-LtC"/>
             </constraints>
-            <point key="canvasLocation" x="238" y="324"/>
+            <point key="canvasLocation" x="666" y="36"/>
         </customView>
     </objects>
 </document>

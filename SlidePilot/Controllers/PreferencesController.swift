@@ -15,6 +15,7 @@ class PreferencesController {
         case layoutPadding = "layoutPadding"
         case timeSize = "timeSize"
         case layoutConfiguration = "layoutConfiguration"
+        case crossfadeSlides = "crossfadeSlides"
     }
     
     
@@ -109,6 +110,19 @@ class PreferencesController {
     public static func setTimeSize(_ size: TimeSize, sender: Any) {
         UserDefaults.standard.set(size.rawValue, forKey: Keys.timeSize.rawValue)
         NotificationCenter.default.post(name: .didChangeTimeSize, object: sender)
+    }
+    
+    
+    
+    // MARK: - Other
+    
+    public static var crossfadeSlides: Bool {
+        return UserDefaults.standard.bool(forKey: Keys.crossfadeSlides.rawValue)
+    }
+    
+    
+    public static func setCrossfadeSlides(_ enable: Bool, sender: Any) {
+        UserDefaults.standard.set(enable, forKey: Keys.crossfadeSlides.rawValue)
     }
     
     
