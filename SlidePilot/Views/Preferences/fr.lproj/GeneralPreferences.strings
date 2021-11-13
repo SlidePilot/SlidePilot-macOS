@@ -1,6 +1,11 @@
+/* Class = "NSTextFieldCell"; title = "Keep Awake:"; ObjectID = "RRy-7Y-UEG"; */
+"RRy-7Y-UEG.title" = "Reste éveillé:";
 
-/* Class = "NSButtonCell"; title = "Prevent Mac from falling asleep while presenting"; ObjectID = "6HU-O3-C8C"; */
-"6HU-O3-C8C.title" = "Empêcher le mac de s'endormir lors de la présentation";
+/* Class = "NSTextFieldCell"; title = "Transition:"; ObjectID = "Uz0-ML-jeX"; */
+"Uz0-ML-jeX.title" = "Transition:";
 
-/* Class = "NSTextFieldCell"; title = "Keep Awake:"; ObjectID = "hZZ-0c-y9B"; */
-"hZZ-0c-y9B.title" = "Reste éveillé:";
+/* Class = "NSButtonCell"; title = "Crossfade between slides"; ObjectID = "htK-yb-JXj"; */
+"htK-yb-JXj.title" = "Fondu enchaîné entre les diapositives";
+
+/* Class = "NSButtonCell"; title = "Prevent Mac from falling asleep while presenting"; ObjectID = "srf-tM-fS7"; */
+"srf-tM-fS7.title" = "Empêcher le mac de s'endormir lors de la présentation";
