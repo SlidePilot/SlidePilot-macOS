@@ -53,7 +53,7 @@ class PresentationViewController: NSViewController {
         pageView.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .vertical)
         
         // Video Player settings and connect to main player(s)
-        pageView.areVideoPlayerControlsEnabled = false
+        pageView.areVideoPlayerControlsEnabled = true
         pageView.connectToCurrentPlayer = true
         
         
