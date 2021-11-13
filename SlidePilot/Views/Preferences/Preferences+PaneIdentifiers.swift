@@ -11,5 +11,7 @@ import Preferences
 
 extension Preferences.PaneIdentifier {
     static let general = Self("general")
+    static let layout = Self("layout")
+    static let pointer = Self("pointer")
     static let remote = Self("remote")
 }

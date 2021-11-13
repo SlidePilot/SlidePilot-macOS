@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var nextSlideItem: NSMenuItem!
     
     @IBOutlet weak var showNavigatorItem: NSMenuItem!
+    @IBOutlet weak var showCurrentSlideItem: NSMenuItem!
     @IBOutlet weak var previewNextSlideItem: NSMenuItem!
     @IBOutlet weak var displayBlackCurtainItem: NSMenuItem!
     @IBOutlet weak var displayWhiteCurtainItem: NSMenuItem!
@@ -69,7 +70,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     lazy var preferencesWindowController = PreferencesWindowController(
         preferencePanes: [
             GeneralPreferencesViewController(),
-            RemotePreferencesViewController()
+            LayoutEditorViewController(),
+            PointerEditorViewController(),
+            RemotePreferencesViewController(),
         ],
         hidesToolbarForSingleItem: false
     )
@@ -95,6 +98,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
         DisplayController.subscribeDisplayNavigator(target: self, action: #selector(displayNavigatorDidChange(_:)))
+        DisplayController.subscribeDisplayCurrentSlide(target: self, action: #selector(displayCurrentSlideDidChange(_:)))
         DisplayController.subscribePreviewNextSlide(target: self, action: #selector(displayNextSlidePreviewDidChange(_:)))
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChange(_:)))
         DisplayController.subscribePointerAppearance(target: self, action: #selector(pointerAppearanceDidChange(_:)))
@@ -313,9 +317,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.enableLayoutChanges(true, sender: self)
         PageController.enablePageSwitching(true, sender: self)
         
-        DisplayController.setDisplayNextSlidePreview(true, sender: self)
         DisplayController.setNotesPosition(.none, sender: self)
-        DisplayController.setDisplayNotes(false, sender: self)
         DisplayController.setNotesMode(.text, sender: self)
         
         // Get notes position from document meta data
@@ -470,6 +472,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func goBack(_ sender: NSMenuItem) {
+        PageController.selectPreviousPage(sender: self)
+    }
+    
+    
     public func startTimerIfNeeded() {
         // If this is the first next slide call for this document, start time automatically
         if shouldStartTimerOnSlideChange {
@@ -558,8 +565,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func openLayoutEditor(_ sender: NSMenuItem) {
+        preferencesWindowController.show(preferencePane: .layout)
+    }
+    
+    
     @IBAction func showNavigator(_ sender: NSMenuItem) {
         DisplayController.switchDisplayNavigator(sender: sender)
+    }
+    
+    @IBAction func showCurrentSlide(_ sender: NSMenuItem) {
+        DisplayController.switchDisplayCurrentSlide(sender: sender)
     }
     
     @IBAction func previewNextSlide(_ sender: NSMenuItem) {
@@ -608,17 +624,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func openPointerEditor(_ sender: NSMenuItem) {
-        // First check if pointer editor is not already opened
-        if let pointerEditorWindow = NSApp.windows.first(where: { $0.contentViewController is PointerEditorViewController }) {
-            // Order existing pointer editor to front
-            pointerEditorWindow.makeKeyAndOrderFront(nil)
-        } else {
-            // Otherwise create and open new pointer editor
-            guard let pointerEditorCtrl = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: .init(stringLiteral: "PointerEditorWindow")) as?
-                NSWindowController else { return }
-            guard let pointerEditorWindow = pointerEditorCtrl.window else { return }
-            pointerEditorWindow.makeKeyAndOrderFront(nil)
-        }
+        preferencesWindowController.show(preferencePane: .pointer)
     }
     
     @IBAction func selectModeStopwatch(_ sender: NSMenuItem) {
@@ -831,6 +837,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func displayNavigatorDidChange(_ notification: Notification) {
         // Set correct state for menu item
         showNavigatorItem.state = DisplayController.isNavigatorDisplayed ? .on : .off
+    }
+    
+    
+    @objc func displayCurrentSlideDidChange(_ notification: Notification) {
+        // Set correct state for menu item
+        showCurrentSlideItem.state = DisplayController.isCurrentSlideDisplayed ? .on : .off
     }
     
     
