@@ -263,8 +263,8 @@
                                             </constraints>
                                         </customView>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="U5d-Cl-LTw">
-                                            <rect key="frame" x="377" y="10" width="74" height="16"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Notes Slide" id="Z23-wf-GT0">
+                                            <rect key="frame" x="394" y="10" width="40" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Notes" id="Z23-wf-GT0">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
