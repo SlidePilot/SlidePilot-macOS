@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PresentationWindowController: NSWindowController {
+class PresentationWindowController: NSWindowController, NSWindowDelegate {
     internal var trackingTag: NSView.TrackingRectTag?
 
     override func mouseEntered(with event: NSEvent) {
@@ -40,4 +40,10 @@ class PresentationWindowController: NSWindowController {
         trackingTag = view?.addTrackingRect(view!.bounds, owner: self, userData: nil, assumeInside: false)
     }
     
+    func windowDidResize(_ notification: Notification) {
+        if let view = self.window?.contentView {
+            if let trackingTag = trackingTag { view.removeTrackingRect(trackingTag) }
+            trackingTag = view.addTrackingRect(view.bounds, owner: self, userData: nil, assumeInside: false)
+        }
+    }
 }
