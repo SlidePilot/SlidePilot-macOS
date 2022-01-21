@@ -24,9 +24,13 @@ class PresentationWindowController: NSWindowController, NSWindowDelegate {
     override func mouseExited(with event: NSEvent) {
         if trackingTag == event.trackingNumber {
             // hide titlebar (i.e. superview of closebutton)
-            self.window?.standardWindowButton(.closeButton)?.superview?.animator().alphaValue = 0
-            if #available(OSX 11.0, *) {
-                self.window?.titlebarSeparatorStyle = .none
+            if let window = self.window {
+                if !window.styleMask.contains(.fullScreen) {
+                    window.standardWindowButton(.closeButton)?.superview?.animator().alphaValue = 0
+                }
+                if #available(OSX 11.0, *) {
+                    window.titlebarSeparatorStyle = .none
+                }
             }
         }
     }
