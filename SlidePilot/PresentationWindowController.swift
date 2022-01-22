@@ -13,23 +13,17 @@ class PresentationWindowController: NSWindowController, NSWindowDelegate {
 
     override func mouseEntered(with event: NSEvent) {
         if trackingTag == event.trackingNumber {
-            // show titlebar (i.e. superview of closebutton)
-            self.window?.standardWindowButton(.closeButton)?.superview?.animator().alphaValue = 1
-            if #available(OSX 11.0, *) {
-                self.window?.titlebarSeparatorStyle = .shadow
-            }
+            // show titlebar container (i.e. superview of superview of closebutton)
+            self.window?.standardWindowButton(.closeButton)?.superview?.superview?.animator().alphaValue = 1
         }
     }
     
     override func mouseExited(with event: NSEvent) {
         if trackingTag == event.trackingNumber {
-            // hide titlebar (i.e. superview of closebutton)
+            // hide titlebar container (i.e. superview of superview of closebutton)
             if let window = self.window {
                 if !window.styleMask.contains(.fullScreen) {
-                    window.standardWindowButton(.closeButton)?.superview?.animator().alphaValue = 0
-                }
-                if #available(OSX 11.0, *) {
-                    window.titlebarSeparatorStyle = .none
+                    window.standardWindowButton(.closeButton)?.superview?.superview?.animator().alphaValue = 0
                 }
             }
         }
