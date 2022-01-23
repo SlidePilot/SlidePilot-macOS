@@ -15,6 +15,9 @@ Feel free to contribute to this app. When contributing, please be aware that thi
 ## Download
 SlidePilot for macOS is available on [slidepilotapp.com](https://www.slidepilotapp.com/?utm_source=GitHub&utm_medium=Social&utm_campaign=Static)
 
+## Contribution
+Please read the [contribution guidlines](CONTRIBUTING.md) before contributing to the code.
+
 ## Links
 - [Documentation](https://slidepilot.gitbook.io/slidepilot/)
 - [Features & Changelog](https://slidepilot.gitbook.io/slidepilot/changelog)
