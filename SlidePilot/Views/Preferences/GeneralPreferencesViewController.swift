@@ -21,14 +21,18 @@ class GeneralPreferencesViewController: NSViewController, PreferencePane {
     // MARK: - UI Elements
     @IBOutlet weak var awakeCheckBox: NSButton!
     @IBOutlet weak var crossfadeSlidesCheckBox: NSButton!
+    @IBOutlet weak var saveDrawingsCheckBox: NSButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    }
+    
+    override func viewDidAppear() {
         // UI Elements with preferences
         awakeCheckBox.state = PreferencesController.isSleepDisabled ? .on : .off
         crossfadeSlidesCheckBox.state = PreferencesController.crossfadeSlides ? .on : .off
+        saveDrawingsCheckBox.state = PreferencesController.saveDrawings ? .on : .off
     }
     
     
@@ -46,5 +50,7 @@ class GeneralPreferencesViewController: NSViewController, PreferencePane {
     }
     
     
-    
+    @IBAction func saveDrawingsCheckBoxPressed(_ sender: NSButton) {
+        PreferencesController.setSaveDrawings(sender.state == .on, sender: sender)
+    }
 }

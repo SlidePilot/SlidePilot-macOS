@@ -10,20 +10,21 @@
             <connections>
                 <outlet property="awakeCheckBox" destination="uLi-53-dJR" id="jvO-oV-DBI"/>
                 <outlet property="crossfadeSlidesCheckBox" destination="vXn-qR-A8p" id="h1j-fj-2dG"/>
+                <outlet property="saveDrawingsCheckBox" destination="bua-G1-Nwd" id="ICW-VH-DIi"/>
                 <outlet property="view" destination="dMC-aW-lwd" id="POw-kq-yN6"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="dMC-aW-lwd">
-            <rect key="frame" x="0.0" y="0.0" width="540" height="108"/>
+            <rect key="frame" x="0.0" y="0.0" width="540" height="142"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HIY-i7-zdp">
-                    <rect key="frame" x="20" y="30" width="500" height="48"/>
+                    <rect key="frame" x="20" y="30" width="500" height="82"/>
                     <subviews>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="fw9-4e-JJ6">
-                            <rect key="frame" x="0.0" y="34" width="500" height="14"/>
+                            <rect key="frame" x="0.0" y="68" width="500" height="14"/>
                             <subviews>
                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="bZS-L9-rfP">
                                     <rect key="frame" x="0.0" y="0.0" width="100" height="14"/>
@@ -78,7 +79,7 @@
                             </constraints>
                         </customView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="6sW-tV-x9Y">
-                            <rect key="frame" x="0.0" y="0.0" width="500" height="14"/>
+                            <rect key="frame" x="0.0" y="34" width="500" height="14"/>
                             <subviews>
                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="exu-fN-J3e">
                                     <rect key="frame" x="0.0" y="0.0" width="100" height="14"/>
@@ -132,6 +133,61 @@
                                 <constraint firstAttribute="trailing" secondItem="nFp-c0-Nqx" secondAttribute="trailing" id="rXb-Qy-jdQ"/>
                             </constraints>
                         </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Tf8-CN-XYc">
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="14"/>
+                            <subviews>
+                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="msW-4U-LyP">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="14"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BT2-Ih-qq7">
+                                            <rect key="frame" x="-2" y="-1" width="104" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Drawings:" id="OMW-1i-kJD">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="BT2-Ih-qq7" secondAttribute="trailing" id="4EP-cn-Xn1"/>
+                                        <constraint firstItem="BT2-Ih-qq7" firstAttribute="leading" secondItem="msW-4U-LyP" secondAttribute="leading" id="7J4-sa-C1A"/>
+                                        <constraint firstAttribute="width" constant="100" id="jip-Hg-iZV"/>
+                                        <constraint firstItem="BT2-Ih-qq7" firstAttribute="centerY" secondItem="msW-4U-LyP" secondAttribute="centerY" id="pF6-FO-CrZ"/>
+                                    </constraints>
+                                </customView>
+                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Q0i-Vj-Llb">
+                                    <rect key="frame" x="120" y="0.0" width="380" height="14"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bua-G1-Nwd">
+                                            <rect key="frame" x="-2" y="-2" width="384" height="18"/>
+                                            <buttonCell key="cell" type="check" title="Save drawings on slides" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="173-to-T0s">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="saveDrawingsCheckBoxPressed:" target="-2" id="g9q-3F-HwV"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="bua-G1-Nwd" secondAttribute="trailing" id="PHG-nN-u2D"/>
+                                        <constraint firstItem="bua-G1-Nwd" firstAttribute="top" secondItem="Q0i-Vj-Llb" secondAttribute="top" id="XJh-hE-HCt"/>
+                                        <constraint firstAttribute="bottom" secondItem="bua-G1-Nwd" secondAttribute="bottom" id="bUx-0z-xHK"/>
+                                        <constraint firstItem="bua-G1-Nwd" firstAttribute="leading" secondItem="Q0i-Vj-Llb" secondAttribute="leading" id="dwI-5s-Aec"/>
+                                        <constraint firstItem="bua-G1-Nwd" firstAttribute="centerY" secondItem="Q0i-Vj-Llb" secondAttribute="centerY" id="ftJ-dY-dHy"/>
+                                    </constraints>
+                                </customView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="Q0i-Vj-Llb" secondAttribute="trailing" id="2SN-Y1-Nd9"/>
+                                <constraint firstAttribute="bottom" secondItem="Q0i-Vj-Llb" secondAttribute="bottom" id="CQ5-aI-S27"/>
+                                <constraint firstAttribute="bottom" secondItem="msW-4U-LyP" secondAttribute="bottom" id="Cii-kd-nfG"/>
+                                <constraint firstItem="Q0i-Vj-Llb" firstAttribute="top" secondItem="Tf8-CN-XYc" secondAttribute="top" id="GEl-1M-dmD"/>
+                                <constraint firstItem="msW-4U-LyP" firstAttribute="top" secondItem="Tf8-CN-XYc" secondAttribute="top" id="LQs-Nx-iXP"/>
+                                <constraint firstItem="msW-4U-LyP" firstAttribute="leading" secondItem="Tf8-CN-XYc" secondAttribute="leading" id="e07-F0-BTs"/>
+                                <constraint firstItem="Q0i-Vj-Llb" firstAttribute="leading" secondItem="msW-4U-LyP" secondAttribute="trailing" constant="20" id="xSm-fd-nN3"/>
+                            </constraints>
+                        </customView>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="width" constant="500" id="67M-tP-34X"/>
@@ -141,8 +197,10 @@
                     <visibilityPriorities>
                         <integer value="1000"/>
                         <integer value="1000"/>
+                        <integer value="1000"/>
                     </visibilityPriorities>
                     <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                     </customSpacing>

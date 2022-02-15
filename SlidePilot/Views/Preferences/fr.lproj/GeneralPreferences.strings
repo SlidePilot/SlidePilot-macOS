@@ -1,3 +1,9 @@
+/* Class = "NSButtonCell"; title = "Save drawings on slides"; ObjectID = "173-to-T0s"; */
+"173-to-T0s.title" = "Enregistrer les dessins sur les diapositives";
+
+/* Class = "NSTextFieldCell"; title = "Drawings:"; ObjectID = "OMW-1i-kJD"; */
+"OMW-1i-kJD.title" = "Dessins:";
+
 /* Class = "NSTextFieldCell"; title = "Keep Awake:"; ObjectID = "RRy-7Y-UEG"; */
 "RRy-7Y-UEG.title" = "Reste éveillé:";
 
