@@ -129,13 +129,16 @@ class PreferencesController {
     
     
     public static var saveDrawings: Bool {
-        print("Save Drawings: \(UserDefaults.standard.bool(forKey: Keys.saveDrawings.rawValue))")
         return UserDefaults.standard.bool(forKey: Keys.saveDrawings.rawValue)
     }
     
     
     public static func setSaveDrawings(_ enable: Bool, sender: Any) {
         UserDefaults.standard.set(enable, forKey: Keys.saveDrawings.rawValue)
+        // Delete all drawings, if should not save drawings
+        if !enable {
+            DocumentController.deleteDrawings(sender: sender)
+        }
         NotificationCenter.default.post(name: .didChangeSaveDrawings, object: sender)
     }
     

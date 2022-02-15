@@ -350,7 +350,12 @@ class DisplayController {
         enableLayoutChanges(!areDrawingToolsDisplayed, sender: self)
         PageController.enablePageSwitching(!areDrawingToolsDisplayed, sender: self)
         
-        CanvasController.clearCanvas(sender: self)
+        // Only clear canvas, if drawings should not be stored
+        if !PreferencesController.saveDrawings {
+            CanvasController.newDrawing(sender: self)
+        } else {
+            CanvasController.didChangeDrawing(to: DocumentController.drawings[PageController.currentPage] ?? Drawing(), sender: self)
+        }
         
         NotificationCenter.default.post(name: .didChangeDisplayDrawingTools, object: sender)
     }

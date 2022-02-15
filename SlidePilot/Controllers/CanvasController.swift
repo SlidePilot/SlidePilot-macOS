@@ -28,14 +28,26 @@ class CanvasController: NSObject {
     }
     
     
-    /** Sends a notification, that the canvas was cleared. */
+    /** Clears the canvas and sends a notification. */
     public static func clearCanvas(sender: Any?) {
         drawing.clear()
         NotificationCenter.default.post(name: .didClearCurrentCanvas, object: sender)
     }
     
     
+    /** Creates a new empty drawing and sends a notification. */
+    public static func newDrawing(sender: Any?) {
+        didChangeDrawing(to: Drawing(), sender: sender)
+    }
+    
+    
     public static func didChangeDrawing(to drawing: Drawing, sender: Any?) {
+        // Check if drawings should be stored
+        if (PreferencesController.saveDrawings) {
+            // Store drawing for the current page
+            DocumentController.saveDrawing(drawing, at: PageController.currentPage, sender: sender ?? self)
+        }
+        
         self.drawing = drawing
         NotificationCenter.default.post(name: .didChangeDrawing, object: sender)
     }

@@ -11,7 +11,7 @@ import Cocoa
 class CanvasView: NSView {
     
     var allowsDrawing = true
-    var drawing = Drawing() {
+    var drawing: Drawing! {
         didSet {
             self.needsDisplay = true
         }
@@ -37,6 +37,9 @@ class CanvasView: NSView {
         CanvasController.subscribeDrawingColorChanged(target: self, action: #selector(didChangeDrawingColor(_:)))
         CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(didChangeCanvasBackground(_:)))
         CanvasController.subscribeClearCanvas(target: self, action: #selector(didClearCanvas(_:)))
+        
+        // Either grab display the current drawing or start with a new one
+        self.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
     }
     
 
