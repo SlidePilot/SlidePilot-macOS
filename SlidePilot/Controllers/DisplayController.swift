@@ -344,7 +344,6 @@ class DisplayController {
     /** Sends a notification, that the display drawings property was changed. */
     public static func setDisplayDrawingTools(_ shouldDisplay: Bool, sender: Any) {
         areDrawingToolsDisplayed = shouldDisplay
-        CanvasController.setTransparentCanvasBackground(true, sender: sender)
         
         // Prevent layout changes and switching slides
         enableLayoutChanges(!areDrawingToolsDisplayed, sender: self)
