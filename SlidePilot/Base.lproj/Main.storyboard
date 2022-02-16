@@ -317,10 +317,16 @@
                                                 <action selector="clearCanvas:" target="Ady-hI-5gd" id="Hbu-uv-YDF"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Canvas Mode" keyEquivalent="k" id="O1m-6g-Uld">
+                                        <menuItem title="Clear Canvas" keyEquivalent="k" id="O1m-6g-Uld">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                             <connections>
-                                                <action selector="blankCanvas:" target="Ady-hI-5gd" id="2BS-iZ-iM8"/>
+                                                <action selector="blankClearCanvas:" target="Ady-hI-5gd" id="wM3-Ud-B4N"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="White Canvas" keyEquivalent="K" id="lNX-iJ-JaX">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                            <connections>
+                                                <action selector="blankWhiteCanvas:" target="Ady-hI-5gd" id="C0L-HT-6WP"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -554,7 +560,8 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SlidePilot" customModuleProvider="target">
                     <connections>
-                        <outlet property="blankCanvasItem" destination="O1m-6g-Uld" id="kXt-jo-QRC"/>
+                        <outlet property="blankClearCanvasItem" destination="O1m-6g-Uld" id="sy2-99-SaO"/>
+                        <outlet property="blankWhiteCanvasItem" destination="lNX-iJ-JaX" id="ATj-dv-ndX"/>
                         <outlet property="clearCanvasItem" destination="b9e-Ma-o1Q" id="ESW-Iq-TDI"/>
                         <outlet property="displayBlackCurtainItem" destination="Wsl-Lh-Rzy" id="7mA-Hq-uva"/>
                         <outlet property="displayWhiteCurtainItem" destination="E0b-Yv-pqH" id="SEd-Ly-9Bk"/>

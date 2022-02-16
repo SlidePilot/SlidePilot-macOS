@@ -136,8 +136,11 @@
 /* Class = "NSTextFieldCell"; title = "Color:"; ObjectID = "Nxa-D0-Znh"; */
 "Nxa-D0-Znh.title" = "Farbe:";
 
-/* Class = "NSMenuItem"; title = "Canvas Mode"; ObjectID = "O1m-6g-Uld"; */
-"O1m-6g-Uld.title" = "Leinwand Modus";
+/* Class = "NSMenuItem"; title = "Clear Canvas"; ObjectID = "O1m-6g-Uld"; */
+"O1m-6g-Uld.title" = "Transparente Leinwand";
+
+/* Class = "NSMenuItem"; title = "White Canvas"; ObjectID = "lNX-iJ-JaX"; */
+"lNX-iJ-JaX.title" = "Weiße Leinwand";
 
 /* Class = "NSMenu"; title = "Moderator"; ObjectID = "O4y-2K-zDw"; */
 "O4y-2K-zDw.title" = "Moderator";

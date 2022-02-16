@@ -21,7 +21,6 @@ extension PresenterWindowController: NSTouchBarDelegate {
         DisplayController.subscribeDisplayPointer(target: self, action: #selector(displayPointerDidChangeTouchBar(_:)))
         
         // Subscribe to canvas changes
-        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(canvasBackgroundDidChangeTouchBar(_:)))
         CanvasController.subscribeDrawingColorChanged(target: self, action: #selector(drawingColorDidChangeTouchBar(_:)))
     }
     
@@ -47,7 +46,7 @@ extension PresenterWindowController: NSTouchBarDelegate {
     
     
     func setupDrawingTouchBar(_ touchBar: inout NSTouchBar) {
-        touchBar.defaultItemIdentifiers = [.drawingColorItem, .eraserItem, .canvasItem, .fixedSpaceLarge, .closeItem]
+        touchBar.defaultItemIdentifiers = [.drawingColorItem, .eraserItem, .fixedSpaceLarge, .closeItem]
     }
     
     
@@ -163,17 +162,6 @@ extension PresenterWindowController: NSTouchBarDelegate {
             item.view = button
             return item
             
-        case .canvasItem:
-            let item = NSCustomTouchBarItem(identifier: identifier)
-            let button = NSSegmentedControl(
-                images: [NSImage(named: "CanvasTB")!],
-                trackingMode: .selectAny,
-                target: self,
-                action: #selector(touchBarCanvasPressed(_:)))
-            setSelected(button: button, !CanvasController.isCanvasBackgroundTransparent)
-            item.view = button
-            return item
-            
         case .closeItem:
             let item = NSCustomTouchBarItem(identifier: identifier)
             let button = NSButton(
@@ -230,11 +218,6 @@ extension PresenterWindowController: NSTouchBarDelegate {
     
     @objc func touchBarEraserPressed(_ sender: NSButton) {
         CanvasController.clearCanvas(sender: sender)
-    }
-    
-    
-    @objc func touchBarCanvasPressed(_ sender: NSSegmentedControl) {
-        CanvasController.switchTransparentCanvas(sender: sender)
     }
     
     
@@ -297,14 +280,6 @@ extension PresenterWindowController: NSTouchBarDelegate {
         guard let pointerButton = pointerItem.view as? NSSegmentedControl else { return }
         
         setSelected(button: pointerButton, DisplayController.isPointerDisplayed)
-    }
-    
-    
-    @objc func canvasBackgroundDidChangeTouchBar(_ notification: Notification) {
-        guard let canvasItem = self.touchBar?.item(forIdentifier: .canvasItem) else { return }
-        guard let canvasButton = canvasItem.view as? NSSegmentedControl else { return }
-        
-        setSelected(button: canvasButton, !CanvasController.isCanvasBackgroundTransparent)
     }
     
     

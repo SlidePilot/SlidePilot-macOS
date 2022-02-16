@@ -59,7 +59,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var drawItem: NSMenuItem!
     @IBOutlet weak var clearCanvasItem: NSMenuItem!
-    @IBOutlet weak var blankCanvasItem: NSMenuItem!
+    @IBOutlet weak var blankClearCanvasItem: NSMenuItem!
+    @IBOutlet weak var blankWhiteCanvasItem: NSMenuItem!
     
     
     // MARK: - Identifiers
@@ -125,9 +126,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Set default time options
         TimeController.setTimeMode(mode: .stopwatch, sender: self)
-        
-        // Subscribe to canvas changes
-        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(didChangeCanvasBackground(_:)))
         
         // Clean document preferences
         ConfigurationController.cleanUpDocumentConfigurations()
@@ -665,8 +663,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
-    @IBAction func blankCanvas(_ sender: NSMenuItem) {
-        CanvasController.switchTransparentCanvas(sender: sender)
+    @IBAction func blankClearCanvas(_ sender: NSMenuItem) {
+        CanvasController.setTransparentCanvasBackground(true, sender: sender)
+    }
+    
+    
+    @IBAction func blankWhiteCanvas(_ sender: NSMenuItem) {
+        CanvasController.setTransparentCanvasBackground(false, sender: sender)
     }
     
     
@@ -907,12 +910,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Enable/Disable corresponding menu items
         clearCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
-        blankCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
-    }
-    
-    
-    @objc func didChangeCanvasBackground(_ notification: Notification) {
-        blankCanvasItem.state = CanvasController.isCanvasBackgroundTransparent ? .off : .on
+        blankClearCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
+        blankWhiteCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
     }
     
     
