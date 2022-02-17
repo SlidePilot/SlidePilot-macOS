@@ -21,7 +21,10 @@ class SlideArrangementView: NSView {
     var currentSlideView: SlideView?
     var nextSlideView: SlideView?
     var notesSlideView: SlideView?
+    
     var notesEditor: NotesEditor?
+    
+    var currentCanvasView: CanvasView?
     
     var padding: CGFloat {
         return CGFloat(PreferencesController.layoutPadding.rawValue)
@@ -57,6 +60,10 @@ class SlideArrangementView: NSView {
         DisplayController.subscribeNotesMode(target: self, action: #selector(notesModeDidChange(_:)))
         DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
         PreferencesController.subscribeLayoutPadding(target: self, action: #selector(layoutPaddingDidChange(_:)))
+        
+        // Subscribe to canvas changes
+        CanvasController.subscribeClearCanvas(target: self, action: #selector(clearCanvas(_:)))
+        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(canvasBackgroundDidChange(_:)))
         
         setupSplitView()
         
@@ -114,6 +121,9 @@ class SlideArrangementView: NSView {
                 nextSlideView?.label?.stringValue = NSLocalizedString("Finished Presentation", comment: "Title for when no slide is left.")
             }
         }
+        
+        // Set canvas view for current page
+        currentCanvasView?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
     }
     
     
@@ -164,6 +174,16 @@ class SlideArrangementView: NSView {
         updateView()
     }
     
+    
+    @objc func clearCanvas(_ notification: Notification) {
+        currentCanvasView?.clearCanvas()
+    }
+    
+    
+    @objc func canvasBackgroundDidChange(_ notification: Notification) {
+        guard let color = notification.userInfo?["color"] as? NSColor else { return }
+        currentCanvasView?.setBackgroundColor(to: color)
+    }    
 }
 
 
@@ -172,5 +192,15 @@ extension SlideArrangementView: SlideTrackingDelegate {
     
     func mouseMoved(to position: NSPoint, in sender: PDFPageView?) {
         trackingDelegate?.mouseMoved(to: position, in: sender)
+    }
+}
+
+
+
+
+extension SlideArrangementView: CanvasViewDelegate {
+    
+    func drawingDidChange(_ drawing: Drawing) {
+        DocumentController.saveDrawing(drawing, at: PageController.currentPage, sender: self)
     }
 }

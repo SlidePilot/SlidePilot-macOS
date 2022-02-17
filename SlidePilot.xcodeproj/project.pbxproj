@@ -64,12 +64,12 @@
 		50B14415248037F700532A8B /* NotesEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B14414248037F700532A8B /* NotesEditor.swift */; };
 		50B1441724803E5C00532A8B /* SlideInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1441624803E5C00532A8B /* SlideInfoLabel.swift */; };
 		50B3C3032497F5DB006D5E48 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3C3022497F5DB006D5E48 /* Drawing.swift */; };
-		50B3C3052497F6D4006D5E48 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3C3042497F6D4006D5E48 /* CanvasView.swift */; };
 		50BA1747252E226F00397D8E /* RemotePreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BA1745252E226F00397D8E /* RemotePreferencesViewController.swift */; };
 		50BA174A252E228600397D8E /* RemotePreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50BA174C252E228600397D8E /* RemotePreferences.xib */; };
 		50BA4EB724A37C1D00E91DFA /* PDFDocument+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BA4EB624A37C1D00E91DFA /* PDFDocument+Extension.swift */; };
 		50C46F79247E76AD001602EA /* CompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C46F78247E76AD001602EA /* CompletionStatus.swift */; };
 		50C77F39242CD32500066752 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50C77F3B242CD32500066752 /* Localizable.strings */; };
+		50C7D08227BD1C4B00A5F191 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7D08127BD1C4B00A5F191 /* CanvasView.swift */; };
 		50C7E664273BB0F400E1A63F /* LayoutConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7E663273BB0F400E1A63F /* LayoutConfigurationView.swift */; };
 		50C7E66E273BCBE000E1A63F /* LayoutSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7E66D273BCBE000E1A63F /* LayoutSlideView.swift */; };
 		50C7E671273BCFD200E1A63F /* NSView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7E670273BCFD200E1A63F /* NSView+Extension.swift */; };
@@ -196,7 +196,6 @@
 		50B14414248037F700532A8B /* NotesEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesEditor.swift; sourceTree = "<group>"; };
 		50B1441624803E5C00532A8B /* SlideInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInfoLabel.swift; sourceTree = "<group>"; };
 		50B3C3022497F5DB006D5E48 /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
-		50B3C3042497F6D4006D5E48 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		50BA1745252E226F00397D8E /* RemotePreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePreferencesViewController.swift; sourceTree = "<group>"; };
 		50BA174B252E228600397D8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RemotePreferences.xib; sourceTree = "<group>"; };
 		50BA4EB624A37C1D00E91DFA /* PDFDocument+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFDocument+Extension.swift"; sourceTree = "<group>"; };
@@ -204,6 +203,7 @@
 		50C77F2F242CCCC800066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		50C77F3A242CD32500066752 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		50C77F3C242CD32600066752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		50C7D08127BD1C4B00A5F191 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		50C7E663273BB0F400E1A63F /* LayoutConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutConfigurationView.swift; sourceTree = "<group>"; };
 		50C7E66D273BCBE000E1A63F /* LayoutSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSlideView.swift; sourceTree = "<group>"; };
 		50C7E670273BCFD200E1A63F /* NSView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSView+Extension.swift"; sourceTree = "<group>"; };
@@ -284,7 +284,7 @@
 				5004C7FF248FEB110075E02D /* ColorSwatchButton.swift */,
 				5025C9AF2490EBA0001898D1 /* DrawingToolbar.swift */,
 				50B3C3022497F5DB006D5E48 /* Drawing.swift */,
-				50B3C3042497F6D4006D5E48 /* CanvasView.swift */,
+				50C7D08127BD1C4B00A5F191 /* CanvasView.swift */,
 				50FA9A772498B13E0046E2C0 /* IconButton.swift */,
 			);
 			path = Drawing;
@@ -611,7 +611,6 @@
 			files = (
 				50B14415248037F700532A8B /* NotesEditor.swift in Sources */,
 				50B3C3032497F5DB006D5E48 /* Drawing.swift in Sources */,
-				50B3C3052497F6D4006D5E48 /* CanvasView.swift in Sources */,
 				5028D31D245D835A00DD45F3 /* SlideArrangementView+ViewSetup.swift in Sources */,
 				50C46F79247E76AD001602EA /* CompletionStatus.swift in Sources */,
 				5015A6C424A2375F00BD4999 /* ConfigurationController.swift in Sources */,
@@ -631,6 +630,7 @@
 				500ECC9E24A15C050053F2EC /* PointerDisplayView.swift in Sources */,
 				50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */,
 				503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */,
+				50C7D08227BD1C4B00A5F191 /* CanvasView.swift in Sources */,
 				50CCF321273AFDA800F39178 /* SlideSymbolView.swift in Sources */,
 				50C7E664273BB0F400E1A63F /* LayoutConfigurationView.swift in Sources */,
 				5077493C247A8C4000316F0B /* NavigationWindow.swift in Sources */,

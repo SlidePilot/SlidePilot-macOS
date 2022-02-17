@@ -90,17 +90,18 @@ extension SlideArrangementView {
         currentSlideView = setupSlideView(in: self, isPointerDelegate: true, topPadding: 0, bottomPadding: padding + 60)
         
         // Setup Canvas
-        let canvas = CanvasView(frame: .zero)
-        canvas.translatesAutoresizingMaskIntoConstraints = false
+        currentCanvasView = CanvasView(drawing: Drawing())
+        currentCanvasView!.translatesAutoresizingMaskIntoConstraints = false
+        currentCanvasView?.delegate = self
         
-        self.addSubview(canvas)
+        self.addSubview(currentCanvasView!)
         self.addConstraints([
-            NSLayoutConstraint(item: canvas, attribute: .left, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .left, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: canvas, attribute: .right, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .right, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: canvas, attribute: .top, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .top, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: canvas, attribute: .bottom, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+            NSLayoutConstraint(item: currentCanvasView!, attribute: .left, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: currentCanvasView!, attribute: .right, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: currentCanvasView!, attribute: .top, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: currentCanvasView!, attribute: .bottom, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
         
-        self.window?.makeFirstResponder(canvas)
+        self.window?.makeFirstResponder(currentCanvasView)
     }
     
     

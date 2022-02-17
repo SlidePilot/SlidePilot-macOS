@@ -351,9 +351,8 @@ class DisplayController {
         
         // Only clear canvas, if drawings should not be stored
         if !PreferencesController.saveDrawings {
-            CanvasController.newDrawing(sender: self)
-        } else {
-            CanvasController.didChangeDrawing(to: DocumentController.drawings[PageController.currentPage] ?? Drawing(), sender: self)
+            // Clear canvas by storing an empty drawing for the page
+            DocumentController.saveDrawing(Drawing(), at: PageController.currentPage, sender: self)
         }
         
         NotificationCenter.default.post(name: .didChangeDisplayDrawingTools, object: sender)

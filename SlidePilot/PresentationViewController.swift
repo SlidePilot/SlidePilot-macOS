@@ -72,6 +72,7 @@ class PresentationViewController: NSViewController {
         
         // Subscribe to document changes
         DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeDidUpdateDrawings(target: self, action: #selector(drawingDidChange(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
@@ -91,10 +92,14 @@ class PresentationViewController: NSViewController {
     var canvas: CanvasView?
     
     func showCanvas() {
+        // Create CanvasView if needed
         if canvas == nil {
+            // Setup CanvasView
             canvas = CanvasView(frame: .zero)
             canvas!.translatesAutoresizingMaskIntoConstraints = false
             canvas!.allowsDrawing = false
+            
+            // Add CnavasView to view
             self.view.addSubview(canvas!, positioned: .below, relativeTo: pointer!)
             self.view.addConstraints([
                 NSLayoutConstraint(item: canvas!, attribute: .left, relatedBy: .equal, toItem: pageView, attribute: .left, multiplier: 1.0, constant: 0.0),
@@ -102,6 +107,9 @@ class PresentationViewController: NSViewController {
                 NSLayoutConstraint(item: canvas!, attribute: .top, relatedBy: .equal, toItem: pageView, attribute: .top, multiplier: 1.0, constant: 0.0),
                 NSLayoutConstraint(item: canvas!, attribute: .bottom, relatedBy: .equal, toItem: pageView, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
         }
+        
+        // Set canvas to display current drawing if possible
+        canvas?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
         
         canvas?.isHidden = false
     }
@@ -118,11 +126,20 @@ class PresentationViewController: NSViewController {
     
     @objc private func pageDidChange(_ notification: Notification) {
         pageView.setCurrentPage(PageController.currentPage)
+        
+        // Set canvas to display current drawing if possible
+        canvas?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
     }
     
     
     @objc func documentDidChange(_ notification: Notification) {
         pageView.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
+    }
+    
+    
+    @objc func drawingDidChange(_ notification: Notification) {
+        // Update drawing
+        canvas?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
     }
     
     

@@ -10,9 +10,8 @@ import Cocoa
 
 class CanvasController: NSObject {
     
-    public private(set) static var drawing: Drawing = Drawing()
     public private(set) static var drawingColor: NSColor = .black
-    public static var canvasBackgroundColor: NSColor { return drawing.backgroundColor }
+    public static var canvasBackgroundColor: NSColor { return DocumentController.drawings[PageController.currentPage]?.backgroundColor ?? .clear }
     
     public static var isCanvasBackgroundTransparent: Bool {
         return canvasBackgroundColor == .clear
@@ -30,40 +29,13 @@ class CanvasController: NSObject {
     
     /** Clears the canvas and sends a notification. */
     public static func clearCanvas(sender: Any?) {
-        drawing.clear()
         NotificationCenter.default.post(name: .didClearCurrentCanvas, object: sender)
-    }
-    
-    
-    /** Creates a new empty drawing and sends a notification. */
-    public static func newDrawing(sender: Any?) {
-        didChangeDrawing(to: Drawing(), sender: sender)
-    }
-    
-    
-    public static func didChangeDrawing(to drawing: Drawing, sender: Any?) {
-        // Check if drawings should be stored
-        if (PreferencesController.saveDrawings) {
-            // Store drawing for the current page
-            DocumentController.saveDrawing(drawing, at: PageController.currentPage, sender: sender ?? self)
-        }
-        
-        self.drawing = drawing
-        NotificationCenter.default.post(name: .didChangeDrawing, object: sender)
     }
     
     
     /** Changes the background color of the current drawing. */
     public static func setCanvasBackground(to color: NSColor, sender: Any?) {
-        // Only continue if background color changed
-        guard canvasBackgroundColor != color else { return }
-        
-        drawing.setBackgroundColor(to: color, shouldClearLines: true)
-    }
-    
-    
-    public static func didChangeCanvasBackground(sender: Any?) {
-        NotificationCenter.default.post(name: .didChangeCanvasBackground, object: sender)
+        NotificationCenter.default.post(name: .didChangeCanvasBackground, object: sender, userInfo: ["color": color])
     }
     
     
@@ -98,12 +70,6 @@ class CanvasController: NSObject {
     }
     
     
-    /** Subscribes a target to all `.didChangeDrawing` notifications sent by `CanvasController`. */
-    public static func subscribeDrawingChanged(target: Any, action: Selector) {
-        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeDrawing, object: nil)
-    }
-    
-    
     /** Subscribes a target to all `.didChangeCanvasBackground` notifications sent by `CanvasController`. */
     public static func subscribeCanvasBackgroundChanged(target: Any, action: Selector) {
         NotificationCenter.default.addObserver(target, selector: action, name: .didChangeCanvasBackground, object: nil)
@@ -114,7 +80,6 @@ class CanvasController: NSObject {
     public static func unsubscribe(target: Any) {
         NotificationCenter.default.removeObserver(target, name: .didChangeDrawingColor, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didClearCurrentCanvas, object: nil)
-        NotificationCenter.default.removeObserver(target, name: .didChangeDrawing, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeCanvasBackground, object: nil)
     }
 }
@@ -125,6 +90,5 @@ class CanvasController: NSObject {
 extension Notification.Name {
     static let didChangeDrawingColor = Notification.Name("didChangeDrawingColor")
     static let didClearCurrentCanvas = Notification.Name("didClearCurrentCanvas")
-    static let didChangeDrawing = Notification.Name("didChangeDrawing")
     static let didChangeCanvasBackground = Notification.Name("didChangeCanvasBackground")
 }

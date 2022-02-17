@@ -8,83 +8,60 @@
 
 import Cocoa
 
-class Drawing: NSObject {
+class Drawing: NSObject, NSCopying {
     private(set) var lines = [Line]()
     private(set) var backgroundColor: NSColor = .clear
     
-    private var undoManager: UndoManager? {
-        return NSApp.mainWindow?.undoManager
+    
+    override init() { }
+    
+    
+    init(lines: [Line], backgroundColor: NSColor) {
+        self.lines = lines
+        self.backgroundColor = backgroundColor
     }
     
     
     /**
-     Adds a new line to the line drawing. Registers change in UndoManager
+     Adds a new line to the line drawing.
      
      - parameters:
-        - line: The Line object to be added to the drawing.
+        - line: The `Line` object to be added to the drawing.
      */
     func add(line: Line) {
-        var newLines = lines
-        newLines.append(line)
-        setLines(to: newLines)
-    }
-    
-    
-    private var cachedLines: [Line]?
-    
-    /**
-     Updates lines array for this drawing. Registers change in UndoManager.
-     
-     - parameters:
-        - newLines: The new Line array.
-     */
-    @objc private func setLines(to newLines: [Line]) {
-        cachedLines = lines
-        lines = newLines
-        
-        undoManager?.registerUndo(withTarget: self, selector: #selector(setLines(to:)), object: cachedLines)
-        
-        CanvasController.didChangeDrawing(to: self, sender: self)
+        lines.append(line)
     }
     
     
     /**
-     Clears the drawing. This means all lines are deleted. Registers change in UndoManager
+     Clears the drawing. This means all lines are deleted.
      */
     @objc func clear() {
         // Only clear if not already empty
         guard lines.count > 0 else { return }
-        setLines(to: [Line]())
+        lines = [Line]()
     }
     
     
-    private var cachedBackgroundColor: NSColor?
-    
     /**
-     Sets the background color of the drawing. Registers change in UndoManager.
+     Sets the background color of the drawing.
      
      - parameters:
         - newColor: The new background color for the drawing.
-        - shouldClearLines: If this is set to true, the lines in the drawing will be cleared. Setting the background color and clearing the lines will be grouped into one undo operation.
+        - shouldClearLines: If this is set to `true`, the lines in the drawing will be cleared. Setting the background color and clearing the lines will be grouped into one undo operation.
      */
     func setBackgroundColor(to newColor: NSColor, shouldClearLines: Bool) {
-        undoManager?.beginUndoGrouping()
         if shouldClearLines {
             clear()
         }
         
-        setBackgroundColor(to: newColor)
-        
-        undoManager?.endUndoGrouping()
+        backgroundColor = newColor
     }
     
     
-    @objc private func setBackgroundColor(to newColor: NSColor) {
-        cachedBackgroundColor = backgroundColor
-        backgroundColor = newColor
-        undoManager?.registerUndo(withTarget: self, selector: #selector(setBackgroundColor(to:)), object: cachedBackgroundColor)
-        
-        CanvasController.didChangeCanvasBackground(sender: self)
+    func copy(with zone: NSZone? = nil) -> Any {
+        let backgroundColorCopy: NSColor = self.backgroundColor.copy() as? NSColor ?? .clear
+        return Drawing(lines: self.lines, backgroundColor: backgroundColorCopy)
     }
 }
 
