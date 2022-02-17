@@ -123,7 +123,7 @@ class SlideArrangementView: NSView {
         }
         
         // Set canvas view for current page
-        currentCanvasView?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
+        currentCanvasView?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing(frame: DocumentController.document?.page(at: PageController.currentPage)?.bounds(for: .mediaBox) ?? .zero)
     }
     
     

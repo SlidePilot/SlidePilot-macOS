@@ -27,6 +27,10 @@ class CanvasView: NSView {
     /// The line that is currently drawn, while mouse is dragged.
     private var currentLine: Line?
     
+    private var drawingSection: CGRect? {
+        return DocumentController.document?.page(at: PageController.currentPage)?.bounds(for: .cropBox)
+    }
+    
     
     init(drawing: Drawing) {
         super.init(frame: .zero)
@@ -57,7 +61,8 @@ class CanvasView: NSView {
         // Draw all lines from the drawing
         for line in drawing.lines {
             context.beginPath()
-            let linePoints = line.getAbsolutePoints(in: self.frame)
+            guard let drawingSection = self.drawingSection else { return }
+            guard let linePoints = line.getAbsolutePoints(in: self.frame, drawingSection: drawingSection) else { continue }
             guard linePoints.count > 0 else { continue }
             
             context.move(to: linePoints.first!)
@@ -74,16 +79,16 @@ class CanvasView: NSView {
     
     override func mouseDown(with event: NSEvent) {
         guard allowsDrawing else { super.mouseUp(with: event); return }
-        
-        // Add a new line
-        currentLine = Line(color: CanvasController.drawingColor, frame: self.frame)
-        guard let newPoint = self.window?.contentView?.convert(event.locationInWindow, to: self) else { return }
-        currentLine?.add(newPoint)
-        
-        // Update drawing with new line
+
+        // Add new line to drawing
         let newDrawing = drawing.copy() as! Drawing
-        newDrawing.add(line: currentLine!)
+        currentLine = newDrawing.addLine(color: CanvasController.drawingColor)
         setDrawing(to: newDrawing)
+        
+        // Add first point to line
+        guard let newPoint = self.window?.contentView?.convert(event.locationInWindow, to: self) else { return }
+        guard let drawingSection = self.drawingSection else { return }
+        currentLine?.add(newPoint, canvasFrame: self.frame, drawingSection: drawingSection)
         
         delegate?.drawingDidChange(drawing)
     }
@@ -96,7 +101,8 @@ class CanvasView: NSView {
         
         // Add new point to currentLine
         guard let newPoint = self.window?.contentView?.convert(event.locationInWindow, to: self) else { return }
-        currentLine?.add(newPoint)
+        guard let drawingSection = self.drawingSection else { return }
+        currentLine?.add(newPoint, canvasFrame: self.frame, drawingSection: drawingSection)
         
         self.needsDisplay = true
         

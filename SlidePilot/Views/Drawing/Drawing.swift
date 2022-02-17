@@ -9,33 +9,46 @@
 import Cocoa
 
 class Drawing: NSObject, NSCopying {
+    
+    /// The frame, that the drawing resides in.
+    private(set) var frame: CGRect!
+    
+    /// An array of lines, that make up the drawing.
     private(set) var lines = [Line]()
+    
+    // The background color of the drawing.
     private(set) var backgroundColor: NSColor = .clear
     
     
-    override init() { }
+    /// - Parameters:
+    ///     - frame: The frame, that the drawing resides in
+    init(frame: CGRect = .zero) {
+        self.frame = frame
+    }
     
     
-    init(lines: [Line], backgroundColor: NSColor) {
+    private init(frame: CGRect, lines: [Line], backgroundColor: NSColor) {
+        self.frame = frame
         self.lines = lines
         self.backgroundColor = backgroundColor
     }
     
     
-    /**
-     Adds a new line to the line drawing.
-     
-     - parameters:
-        - line: The `Line` object to be added to the drawing.
-     */
-    func add(line: Line) {
-        lines.append(line)
+    /// Adds a new line to the drawing.
+    ///
+    /// - Parameters:
+    ///     - color: The color that the line should have.
+    ///
+    /// - Returns: The `Line` object that was added to the drawing.
+    ///
+    func addLine(color: NSColor) -> Line {
+        let newLine = Line(drawing: self, color: color)
+        lines.append(newLine)
+        return newLine
     }
     
     
-    /**
-     Clears the drawing. This means all lines are deleted.
-     */
+    /// Clears the drawing. This means all lines are deleted.
     @objc func clear() {
         // Only clear if not already empty
         guard lines.count > 0 else { return }
@@ -43,13 +56,11 @@ class Drawing: NSObject, NSCopying {
     }
     
     
-    /**
-     Sets the background color of the drawing.
-     
-     - parameters:
-        - newColor: The new background color for the drawing.
-        - shouldClearLines: If this is set to `true`, the lines in the drawing will be cleared. Setting the background color and clearing the lines will be grouped into one undo operation.
-     */
+    /// Sets the background color of the drawing.
+    ///
+    /// - Parameters:
+    ///     - newColor: The new background color for the drawing.
+    ///     - shouldClearLines: If this is set to `true`, the lines in the drawing will be cleared. Setting the background color and clearing the lines will be grouped into one undo operation.
     func setBackgroundColor(to newColor: NSColor, shouldClearLines: Bool) {
         if shouldClearLines {
             clear()
@@ -60,36 +71,110 @@ class Drawing: NSObject, NSCopying {
     
     
     func copy(with zone: NSZone? = nil) -> Any {
+        // Copy the object
         let backgroundColorCopy: NSColor = self.backgroundColor.copy() as? NSColor ?? .clear
-        return Drawing(lines: self.lines, backgroundColor: backgroundColorCopy)
+        let newDrawing = Drawing(frame: self.frame, lines: [Line](), backgroundColor: backgroundColorCopy)
+        
+        // Copy every line and set the new drawing to be its parent
+        let lines = self.lines.map { (line) -> Line in Line(components: line.components, drawing: newDrawing, color: line.color) }
+        newDrawing.lines = lines
+        
+        return newDrawing
     }
 }
 
 
 
 
+/// Represents a line in a `Drawing`.
+///
+/// Terms:
+/// - drawingFrame: The frame, that the drawing resides in.
+/// - drawingSection: A section of the `drawingFrame`, that may be equal to the drawing.
+/// - canvasFrame: A projection of the `drawingSection` to a view in a window. This means the `canvasFrame` represents the same section of the drawing as `drawingSection` does, but it may be a different size as the `canvasFrame` is exactly the frame, that is displayed to the user in a view.
+///
 class Line: NSObject {
     var components = [CGPoint]()
     var color: NSColor = .black
-    var frame: CGRect
+    weak var drawing: Drawing?
     
-    init(color: NSColor, frame: CGRect) {
+    fileprivate init(drawing: Drawing, color: NSColor) {
+        self.drawing = drawing
         self.color = color
-        self.frame = frame
+    }
+    
+    fileprivate init(components: [CGPoint], drawing: Drawing, color: NSColor) {
+        self.components = components
+        self.drawing = drawing
+        self.color = color
     }
     
     
-    /**
-     Adds a point to the line with relative coordinates. Meaning the relative position of the `newPoint` in the `frame`.
-     */
-    func add(_ newPoint: CGPoint) {
-        components.append(CGPoint(x: newPoint.x / frame.width, y: newPoint.y / frame.height))
+    /// Adds a point to the line with relative coordinates.
+    ///
+    /// The relative coordinates are calculated, by using the `drawingFrame`, `drawingSection` and `canvasFrame`. First the point is translated from the `canvasFrame` (which is a projection of `drawingSection`) to the `drawingSection`. Then the relative coordinates in the `drawingFrame` are calculated.
+    ///
+    /// - Parameters:
+    ///     - newPoint: The point to be added. This point lives inside of `canvasFrame`.
+    ///     - canvasFrame: The frame of the view, that the `newPoint` lives in.
+    ///     - drawingSection: The section of the drawing, that the `canvasFrame` displays.
+    func add(_ newPoint: CGPoint, canvasFrame: CGRect, drawingSection: CGRect) {
+        guard let drawingFrame = drawing?.frame else { return }
+        
+        // First calculate relative point in canvasFrame. This equals to the relative coordinate in drawingSection
+        let relativePointInSection = CGPoint(x: newPoint.x / canvasFrame.width, y: newPoint.y / canvasFrame.height)
+        
+        // Then translate the relative point from drawingSection to drawingFrame
+        let translation = getTranslationRatio(parent: drawingFrame, section: drawingSection)
+        
+        // Calculate relative point with the following formula, with drawingFrame (df), drawingSection (ds), relativePoint (p), translation (tl)
+        // (ds / df) + (p / tl)
+        let relativePoint = CGPoint(
+            x: (drawingSection.minX / drawingFrame.width) + (relativePointInSection.x / translation.width),
+            y: (drawingSection.minY / drawingFrame.height) + (relativePointInSection.y / translation.height))
+        
+        components.append(relativePoint)
     }
     
     
-    func getAbsolutePoints(in targetFrame: CGRect) -> [CGPoint] {
+    /// Calculates the absolute coordinates for the line in a given frame.
+    ///
+    /// - Parameters:
+    ///     - canvasFrame: The projection of `drawingSection`, in which the line points should be translated
+    ///     - drawingSection: The section of the drawing, that the `canvasFrame` displays.
+    ///
+    func getAbsolutePoints(in canvasFrame: CGRect, drawingSection: CGRect) -> [CGPoint]? {
+        guard let drawingFrame = drawing?.frame else { return nil }
+        
+        let translation = getTranslationRatio(parent: drawingFrame, section: drawingSection)
+        
         return components.map { (p) -> CGPoint in
-            return CGPoint(x: p.x * targetFrame.width, y: p.y * targetFrame.height)
+            // Calculate relative point in section from relative point in drawing (p)
+            // (p - ds / df) * tl
+            let relativePointInSection = CGPoint(
+                x: (p.x - drawingSection.minX / drawingFrame.width) * translation.width,
+                y: (p.y - drawingSection.minY / drawingFrame.height) * translation.height)
+            
+            // Translate relative coordinate to absolute coordinate in target frame
+            return CGPoint(
+                x: relativePointInSection.x * canvasFrame.width,
+                y: relativePointInSection.y * canvasFrame.height)
         }
+    }
+    
+    
+    /// Calculates the translation ratio between a parent frame and a section of that frame.
+    ///
+    /// - Parameters:
+    ///     - parent: The parent frame.
+    ///     - section: A section of the parent frame.
+    ///
+    /// - Returns: The ratio between parent and section of the parent.
+    private func getTranslationRatio(parent: CGRect, section: CGRect) -> CGSize {
+        let translation = CGSize(
+            width: parent.width / section.width,
+            height: parent.height / section.height)
+        
+        return translation
     }
 }
