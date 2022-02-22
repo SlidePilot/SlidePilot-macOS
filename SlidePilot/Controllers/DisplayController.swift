@@ -345,9 +345,11 @@ class DisplayController {
     public static func setDisplayDrawingTools(_ shouldDisplay: Bool, sender: Any) {
         areDrawingToolsDisplayed = shouldDisplay
         
-        // Prevent layout changes and switching slides
+        // Prevent layout changes
         enableLayoutChanges(!areDrawingToolsDisplayed, sender: self)
-        PageController.enablePageSwitching(!areDrawingToolsDisplayed, sender: self)
+        
+        // Prevent switching slides when drawing tools are displayed and drawings are not stored between slide changes.
+        PageController.enablePageSwitching(!areDrawingToolsDisplayed || PreferencesController.saveDrawings, sender: self)
         
         // Only clear canvas, if drawings should not be stored
         if !PreferencesController.saveDrawings {
