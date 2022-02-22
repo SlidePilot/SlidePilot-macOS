@@ -37,6 +37,9 @@
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
 "6dh-zS-Vam.title" = "Rétablir";
 
+/* Class = "NSMenuItem"; title = "Export Drawings"; ObjectID = "9iu-Qu-69d"; */
+"9iu-Qu-69d.title" = "Exporter les dessins";
+
 /* Class = "NSButtonCell"; title = "Hidden"; ObjectID = "8kH-2Q-huJ"; */
 "8kH-2Q-huJ.title" = "Caché";
 

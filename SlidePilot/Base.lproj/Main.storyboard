@@ -80,6 +80,12 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
+                                        <menuItem title="Export Drawings" keyEquivalent="S" id="9iu-Qu-69d">
+                                            <connections>
+                                                <action selector="exportDrawings:" target="Ady-hI-5gd" id="m5w-iC-T75"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="eUm-dP-Hy9"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>

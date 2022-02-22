@@ -81,6 +81,8 @@
 		50E2E5E8247AA12800CE6FDA /* NotesTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E5E7247AA12800CE6FDA /* NotesTextView.swift */; };
 		50E2E5EC247AB84C00CE6FDA /* NotesDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E5EB247AB84C00CE6FDA /* NotesDocument.swift */; };
 		50E2E5EE247AC05500CE6FDA /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */; };
+		50E4054C27C4E95F001D3049 /* DrawingsExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4054B27C4E95F001D3049 /* DrawingsExporter.swift */; };
+		50E4054F27C4F385001D3049 /* NSAlert+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E4054E27C4F385001D3049 /* NSAlert+Extension.swift */; };
 		50EC564E25384961007D83D3 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EC564D25384961007D83D3 /* PointerView.swift */; };
 		50EF741224538F690028DB06 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741124538F690028DB06 /* DocumentController.swift */; };
 		50EF741424539A3E0028DB06 /* DisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF741324539A3E0028DB06 /* DisplayController.swift */; };
@@ -215,6 +217,8 @@
 		50E2E5E7247AA12800CE6FDA /* NotesTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTextView.swift; sourceTree = "<group>"; };
 		50E2E5EB247AB84C00CE6FDA /* NotesDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesDocument.swift; sourceTree = "<group>"; };
 		50E2E5ED247AC05500CE6FDA /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
+		50E4054B27C4E95F001D3049 /* DrawingsExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingsExporter.swift; sourceTree = "<group>"; };
+		50E4054E27C4F385001D3049 /* NSAlert+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAlert+Extension.swift"; sourceTree = "<group>"; };
 		50EC564D25384961007D83D3 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		50EF741124538F690028DB06 /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		50EF741324539A3E0028DB06 /* DisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayController.swift; sourceTree = "<group>"; };
@@ -262,10 +266,12 @@
 			children = (
 				50026ACF2430EED80049387E /* String+Extension.swift */,
 				505E9C93252B1DDC00EAB106 /* FileObserver.swift */,
+				50E4054B27C4E95F001D3049 /* DrawingsExporter.swift */,
 				50C7E670273BCFD200E1A63F /* NSView+Extension.swift */,
 				50F925E124A2A9F900F8C10B /* AwakeManager.swift */,
 				50026AD12430F02F0049387E /* PDFPage+Extension.swift */,
 				50C7E678273C397E00E1A63F /* Array+Extension.swift */,
+				50E4054E27C4F385001D3049 /* NSAlert+Extension.swift */,
 				5038345B24349F4B00E73E43 /* Colors.swift */,
 				5036BD892435F8CD0007AF6F /* AppStartTracker.swift */,
 				505243B62445AF650050AB98 /* RenderCache.swift */,
@@ -627,6 +633,7 @@
 				50E2E5EC247AB84C00CE6FDA /* NotesDocument.swift in Sources */,
 				50B1441724803E5C00532A8B /* SlideInfoLabel.swift in Sources */,
 				509B96F92428A3AC0076B8B4 /* PresenterViewController.swift in Sources */,
+				50E4054C27C4E95F001D3049 /* DrawingsExporter.swift in Sources */,
 				500ECC9E24A15C050053F2EC /* PointerDisplayView.swift in Sources */,
 				50DD8B2B245881C700E83784 /* TouchBarIdentifiers.swift in Sources */,
 				503FFDFC242A180000B6F438 /* PresenterWindowController.swift in Sources */,
@@ -679,6 +686,7 @@
 				50F925E424A2ABFE00F8C10B /* PreferencesController.swift in Sources */,
 				50026AD22430F02F0049387E /* PDFPage+Extension.swift in Sources */,
 				5004C800248FEB110075E02D /* ColorSwatchButton.swift in Sources */,
+				50E4054F27C4F385001D3049 /* NSAlert+Extension.swift in Sources */,
 				500A5A48242B52D100EFE246 /* NSImageView+Extension.swift in Sources */,
 				503FFE02242A195300B6F438 /* PresentationViewController.swift in Sources */,
 				5070AA5A24619C400025B8C5 /* TimeController.swift in Sources */,
