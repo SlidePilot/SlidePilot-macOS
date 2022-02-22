@@ -42,6 +42,9 @@ class DocumentController {
                 reloadDocument()
             }
         }
+        
+        // Reset all drawings
+        deleteDrawings(sender: sender)
     }
     
     
