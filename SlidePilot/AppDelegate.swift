@@ -195,14 +195,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func setupWindows() {
-        guard self.presenterWindowCtrl == nil,
-              self.presenterWindow == nil,
-              self.presenterDisplay == nil,
-              self.presentationWindowCtrl == nil,
-              self.presentationWindow == nil,
-              self.presentationView == nil else { return }
+        // Don't setup windows, if everything is already set up
+        // If one of the values is not nil, then do setup again
+        guard self.presenterWindowCtrl == nil ||
+              self.presenterWindow == nil ||
+              self.presenterDisplay == nil ||
+              self.presentationWindowCtrl == nil ||
+              self.presentationWindow == nil ||
+              self.presentationView == nil
+        else { return }
         
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        
+        // Close both windows to make sure, that none of the windows is displayed twice.
+        presenterWindow?.close()
+        presentationWindow?.close()
         
         guard let presenterWindowCtrl = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresenterWindow")) as? PresenterWindowController else { return }
         guard let presenterWindow = presenterWindowCtrl.window as? PresenterWindow else { return }
@@ -212,6 +219,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             PresentationWindowController else { return }
         guard let presentationWindow = presentationWindowCtrl.window as? PresentationWindow else { return }
         guard let presentationView = presentationWindowCtrl.contentViewController as? PresentationViewController else { return }
+        
+        // Observe when windows will close
+        NotificationCenter.default.addObserver(self, selector: #selector(windowWillClose(_:)), name: NSWindow.willCloseNotification, object: nil)
         
         // Temporarily disable canBecomeKey so that presentationWindow opens on second screen
         presentationWindow.setCanBecomeKey(false)
@@ -978,5 +988,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Enable/Disable menu items
         previousSlideItem.isEnabled = PageController.isPageSwitchingEnabled
         nextSlideItem.isEnabled = PageController.isPageSwitchingEnabled
+    }
+    
+    
+    @objc func windowWillClose( _ notification: Notification) {
+        guard let window = notification.object as? NSWindow else { return }
+        
+        // Remove references if window is closed
+        if window == presenterWindow {
+            presenterWindowCtrl = nil
+            presenterWindow = nil
+            presenterDisplay = nil
+        } else if window == presentationWindow {
+            presentationWindowCtrl = nil
+            presentationWindow = nil
+            presentationView = nil
+        }
     }
 }
