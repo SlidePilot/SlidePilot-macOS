@@ -270,7 +270,13 @@ extension SlideArrangementView {
     }
     
     
+    /// Sets up a `CanvasView` on top of a given `SlideView`.
     ///
+    /// - Parameters:
+    ///     - slideView: The `SlideView`, on top of which the `CanvasView` should be added.
+    ///     - allowsDrawing: Indicates, whether the `CanvasView` to be created should allow drawing on it.
+    ///
+    /// - Returns: The created `CanvasView` instance.
     func setupCanvasView(on slideView: SlideView, allowsDrawing: Bool) -> CanvasView {
         let canvasView = CanvasView(drawing: Drawing())
         canvasView.translatesAutoresizingMaskIntoConstraints = false
@@ -292,7 +298,11 @@ extension SlideArrangementView {
     }
     
     
+    /// Sets up a `CanvasView` on top of a `SlideView`, based on the given `SlideType`.
     ///
+    /// - Parameters:
+    ///     - slide: `SlideType` which determines, on top of which `SlideView` the `CanvasView` should be added.
+    ///     - allowsDrawing: Indicates, whether the `CanvasView` to be created should allow drawing on it.
     func setupCanvasView(for slide: SlideType, allowsDrawing: Bool) {
         switch slide {
         case .current:
