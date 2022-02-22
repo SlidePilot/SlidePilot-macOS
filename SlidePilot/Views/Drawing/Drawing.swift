@@ -177,4 +177,29 @@ class Line: NSObject {
         
         return translation
     }
+    
+    
+    /// Converts the `Line` object to an `NSBezierPath`
+    ///
+    /// - Parameters:
+    ///     - canvasFrame: The projection of `drawingSection`, in which the line points should be translated
+    ///     - drawingSection: The section of the drawing, that the `canvasFrame` displays.
+    ///
+    /// - Returns: An optional `NSBezierPath`, created from the `Line` object.
+    func getBezierPath(in canvasFrame: CGRect, drawingSection: CGRect) -> NSBezierPath? {
+        let path = NSBezierPath()
+        guard let coordinates = getAbsolutePoints(in: canvasFrame, drawingSection: drawingSection) else { return nil }
+        
+        // Check that there is at least one point for that line
+        guard coordinates.count > 0 else { return nil }
+        
+        // Create path by iterating over components
+        path.move(to: coordinates[0])
+        for point in coordinates {
+            path.line(to: point)
+        }
+        
+        return path
+    }
+
 }
