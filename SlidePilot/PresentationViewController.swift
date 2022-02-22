@@ -14,6 +14,8 @@ class PresentationViewController: NSViewController {
     var pointer: PointerDisplayView?
     var isPointerShown: Bool = false
     
+    var canvas: CanvasView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,45 +80,25 @@ class PresentationViewController: NSViewController {
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
         DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
-        DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
         
         // Subscribe to preferences changes
         PreferencesController.subscribeCrossfadeSlides(target: self, action: #selector(crossfadeSlidesDidChange(_:)))
-    }
-    
-    
-    
-    
-    // MARK: - Canvas
-    
-    var canvas: CanvasView?
-    
-    func showCanvas() {
-        // Create CanvasView if needed
-        if canvas == nil {
-            // Setup CanvasView
-            canvas = CanvasView(frame: .zero)
-            canvas!.translatesAutoresizingMaskIntoConstraints = false
-            canvas!.allowsDrawing = false
-            
-            // Add CnavasView to view
-            self.view.addSubview(canvas!, positioned: .below, relativeTo: pointer!)
-            self.view.addConstraints([
-                NSLayoutConstraint(item: canvas!, attribute: .left, relatedBy: .equal, toItem: pageView, attribute: .left, multiplier: 1.0, constant: 0.0),
-                NSLayoutConstraint(item: canvas!, attribute: .right, relatedBy: .equal, toItem: pageView, attribute: .right, multiplier: 1.0, constant: 0.0),
-                NSLayoutConstraint(item: canvas!, attribute: .top, relatedBy: .equal, toItem: pageView, attribute: .top, multiplier: 1.0, constant: 0.0),
-                NSLayoutConstraint(item: canvas!, attribute: .bottom, relatedBy: .equal, toItem: pageView, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
-        }
+        
+        // Setup CanvasView
+        canvas = CanvasView(frame: .zero)
+        canvas!.translatesAutoresizingMaskIntoConstraints = false
+        canvas!.allowsDrawing = false
+        
+        // Add CanvasView to view
+        self.view.addSubview(canvas!, positioned: .below, relativeTo: pointer!)
+        self.view.addConstraints([
+            NSLayoutConstraint(item: canvas!, attribute: .left, relatedBy: .equal, toItem: pageView, attribute: .left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas!, attribute: .right, relatedBy: .equal, toItem: pageView, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas!, attribute: .top, relatedBy: .equal, toItem: pageView, attribute: .top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas!, attribute: .bottom, relatedBy: .equal, toItem: pageView, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
         
         // Set canvas to display current drawing if possible
         canvas?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
-        
-        canvas?.isHidden = false
-    }
-    
-    
-    func hideCanvas() {
-        canvas?.isHidden = true
     }
     
     
@@ -152,10 +134,10 @@ class PresentationViewController: NSViewController {
         // Un-/Cover screen with black curtain, depending on isWhiteCurtainDisplay
         if DisplayController.isBlackCurtainDisplayed {
             pageView.coverBlack()
-            hideCanvas()
+            canvas.isHidden = true
         } else {
             pageView.uncover()
-            if DisplayController.areDrawingToolsDisplayed { showCanvas() }
+            canvas.isHidden = false
         }
     }
     
@@ -164,19 +146,10 @@ class PresentationViewController: NSViewController {
         // Un-/Cover screen with white curtain, depending on isWhiteCurtainDisplay
         if DisplayController.isWhiteCurtainDisplayed {
             pageView.coverWhite()
-            hideCanvas()
+            canvas.isHidden = true
         } else {
             pageView.uncover()
-            if DisplayController.areDrawingToolsDisplayed { showCanvas() }
-        }
-    }
-    
-    
-    @objc func displayDrawingToolsDidChange(_ notification: Notification) {
-        if DisplayController.areDrawingToolsDisplayed {
-            showCanvas()
-        } else {
-            hideCanvas()
+            canvas.isHidden = false
         }
     }
     
