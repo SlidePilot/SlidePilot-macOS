@@ -28,7 +28,8 @@ class CanvasView: NSView {
     private var currentLine: Line?
     
     private var drawingSection: CGRect? {
-        return DocumentController.document?.page(at: PageController.currentPage)?.bounds(for: .cropBox)
+        guard let currentPage = DocumentController.document?.page(at: PageController.currentPage) else { return nil }
+        return DisplayController.notesPosition.displayModeForPresentation().getBounds(for: currentPage)
     }
     
     
@@ -113,6 +114,7 @@ class CanvasView: NSView {
     private func updateCanvas() {
         self.needsDisplay = true
     }
+    
     
     @objc private func setDrawing(to newDrawing: Drawing) {
         cachedDrawing = drawing
