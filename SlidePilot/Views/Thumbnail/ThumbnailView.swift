@@ -13,6 +13,7 @@ import PDFKit
 class ThumbnailView: ClipfreeView {
     
     var page: PDFPageView!
+    var canvas: CanvasView!
     var label: NSTextField!
     
     override init(frame frameRect: NSRect) {
@@ -32,6 +33,10 @@ class ThumbnailView: ClipfreeView {
         page.areLinksEnabled = false
         page.translatesAutoresizingMaskIntoConstraints = false
         
+        canvas = CanvasView(drawing: Drawing())
+        canvas.translatesAutoresizingMaskIntoConstraints = false
+        canvas.allowsDrawing = false
+        
         label = NSTextField(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label!.font = NSFont.systemFont(ofSize: 10.0, weight: .regular)
@@ -48,6 +53,7 @@ class ThumbnailView: ClipfreeView {
         page.setContentCompressionResistancePriority(NSLayoutConstraint.Priority(rawValue: 250.0), for: .vertical)
         
         self.addSubview(page)
+        self.addSubview(canvas)
         self.addSubview(label)
         self.addConstraints([
             NSLayoutConstraint(item: label!, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0.0),
@@ -55,7 +61,13 @@ class ThumbnailView: ClipfreeView {
             NSLayoutConstraint(item: label!, attribute: .right, relatedBy: .equal, toItem: page, attribute: .left, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: page!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: page!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: page!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+            NSLayoutConstraint(item: page!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0),
+            
+            NSLayoutConstraint(item: canvas!, attribute: .left, relatedBy: .equal, toItem: page!, attribute: .left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas!, attribute: .right, relatedBy: .equal, toItem: page!, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas!, attribute: .top, relatedBy: .equal, toItem: page!, attribute: .top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas!, attribute: .bottom, relatedBy: .equal, toItem: page!, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        ])
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateBorder), name: NSView.frameDidChangeNotification, object: self)

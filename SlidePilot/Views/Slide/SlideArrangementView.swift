@@ -21,7 +21,11 @@ class SlideArrangementView: NSView {
     var currentSlideView: SlideView?
     var nextSlideView: SlideView?
     var notesSlideView: SlideView?
+    
     var notesEditor: NotesEditor?
+    
+    var currentCanvasView: CanvasView?
+    var nextCanvasView: CanvasView?
     
     var padding: CGFloat {
         return CGFloat(PreferencesController.layoutPadding.rawValue)
@@ -50,6 +54,7 @@ class SlideArrangementView: NSView {
         
         // Subscribe to document changes
         DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeDidUpdateDrawings(target: self, action: #selector(drawingsDidChange(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
@@ -57,6 +62,10 @@ class SlideArrangementView: NSView {
         DisplayController.subscribeNotesMode(target: self, action: #selector(notesModeDidChange(_:)))
         DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
         PreferencesController.subscribeLayoutPadding(target: self, action: #selector(layoutPaddingDidChange(_:)))
+        
+        // Subscribe to canvas changes
+        CanvasController.subscribeClearCanvas(target: self, action: #selector(clearCanvas(_:)))
+        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(canvasBackgroundDidChange(_:)))
         
         setupSplitView()
         
@@ -114,6 +123,8 @@ class SlideArrangementView: NSView {
                 nextSlideView?.label?.stringValue = NSLocalizedString("Finished Presentation", comment: "Title for when no slide is left.")
             }
         }
+        
+        updateCanvas()
     }
     
     
@@ -122,6 +133,13 @@ class SlideArrangementView: NSView {
         guard let page = currentSlideView?.page else { return }
         page.setCurrentPage(index)
         updateSlides(for: page.currentPage)
+    }
+    
+    
+    func updateCanvas() {
+        // Set canvas view for current and next page
+        currentCanvasView?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing(frame: DocumentController.document?.page(at: PageController.currentPage)?.bounds(for: .mediaBox) ?? .zero)
+        nextCanvasView?.drawing = DocumentController.drawings[PageController.currentPage+1] ?? Drawing(frame: DocumentController.document?.page(at: PageController.currentPage)?.bounds(for: .mediaBox) ?? .zero)
     }
     
     
@@ -138,6 +156,11 @@ class SlideArrangementView: NSView {
         currentSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
         nextSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
         notesSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForNotes())
+    }
+    
+    
+    @objc func drawingsDidChange(_ notification: Notification) {
+        updateCanvas()
     }
     
     
@@ -164,6 +187,16 @@ class SlideArrangementView: NSView {
         updateView()
     }
     
+    
+    @objc func clearCanvas(_ notification: Notification) {
+        currentCanvasView?.clearCanvas()
+    }
+    
+    
+    @objc func canvasBackgroundDidChange(_ notification: Notification) {
+        guard let color = notification.userInfo?["color"] as? NSColor else { return }
+        currentCanvasView?.setBackgroundColor(to: color)
+    }    
 }
 
 
@@ -172,5 +205,15 @@ extension SlideArrangementView: SlideTrackingDelegate {
     
     func mouseMoved(to position: NSPoint, in sender: PDFPageView?) {
         trackingDelegate?.mouseMoved(to: position, in: sender)
+    }
+}
+
+
+
+
+extension SlideArrangementView: CanvasViewDelegate {
+    
+    func drawingDidChange(_ drawing: Drawing) {
+        DocumentController.saveDrawing(drawing, at: PageController.currentPage, sender: self)
     }
 }

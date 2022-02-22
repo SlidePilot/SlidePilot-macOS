@@ -14,6 +14,8 @@ class PresentationViewController: NSViewController {
     var pointer: PointerDisplayView?
     var isPointerShown: Bool = false
     
+    var canvas: CanvasView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,43 +74,31 @@ class PresentationViewController: NSViewController {
         
         // Subscribe to document changes
         DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeDidUpdateDrawings(target: self, action: #selector(drawingDidChange(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
         DisplayController.subscribeDisplayBlackCurtain(target: self, action: #selector(displayBlackCurtainDidChange(_:)))
         DisplayController.subscribeDisplayWhiteCurtain(target: self, action: #selector(displayWhiteCurtainDidChange(_:)))
-        DisplayController.subscribeDisplayDrawingTools(target: self, action: #selector(displayDrawingToolsDidChange(_:)))
         
         // Subscribe to preferences changes
         PreferencesController.subscribeCrossfadeSlides(target: self, action: #selector(crossfadeSlidesDidChange(_:)))
-    }
-    
-    
-    
-    
-    // MARK: - Canvas
-    
-    var canvas: CanvasView?
-    
-    func showCanvas() {
-        if canvas == nil {
-            canvas = CanvasView(frame: .zero)
-            canvas!.translatesAutoresizingMaskIntoConstraints = false
-            canvas!.allowsDrawing = false
-            self.view.addSubview(canvas!, positioned: .below, relativeTo: pointer!)
-            self.view.addConstraints([
-                NSLayoutConstraint(item: canvas!, attribute: .left, relatedBy: .equal, toItem: pageView, attribute: .left, multiplier: 1.0, constant: 0.0),
-                NSLayoutConstraint(item: canvas!, attribute: .right, relatedBy: .equal, toItem: pageView, attribute: .right, multiplier: 1.0, constant: 0.0),
-                NSLayoutConstraint(item: canvas!, attribute: .top, relatedBy: .equal, toItem: pageView, attribute: .top, multiplier: 1.0, constant: 0.0),
-                NSLayoutConstraint(item: canvas!, attribute: .bottom, relatedBy: .equal, toItem: pageView, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
-        }
         
-        canvas?.isHidden = false
-    }
-    
-    
-    func hideCanvas() {
-        canvas?.isHidden = true
+        // Setup CanvasView
+        canvas = CanvasView(frame: .zero)
+        canvas!.translatesAutoresizingMaskIntoConstraints = false
+        canvas!.allowsDrawing = false
+        
+        // Add CanvasView to view
+        self.view.addSubview(canvas!, positioned: .below, relativeTo: pointer!)
+        self.view.addConstraints([
+            NSLayoutConstraint(item: canvas!, attribute: .left, relatedBy: .equal, toItem: pageView, attribute: .left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas!, attribute: .right, relatedBy: .equal, toItem: pageView, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas!, attribute: .top, relatedBy: .equal, toItem: pageView, attribute: .top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvas!, attribute: .bottom, relatedBy: .equal, toItem: pageView, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+        
+        // Set canvas to display current drawing if possible
+        canvas?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
     }
     
     
@@ -118,11 +108,20 @@ class PresentationViewController: NSViewController {
     
     @objc private func pageDidChange(_ notification: Notification) {
         pageView.setCurrentPage(PageController.currentPage)
+        
+        // Set canvas to display current drawing if possible
+        canvas?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
     }
     
     
     @objc func documentDidChange(_ notification: Notification) {
         pageView.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
+    }
+    
+    
+    @objc func drawingDidChange(_ notification: Notification) {
+        // Update drawing
+        canvas?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
     }
     
     
@@ -135,10 +134,10 @@ class PresentationViewController: NSViewController {
         // Un-/Cover screen with black curtain, depending on isWhiteCurtainDisplay
         if DisplayController.isBlackCurtainDisplayed {
             pageView.coverBlack()
-            hideCanvas()
+            canvas.isHidden = true
         } else {
             pageView.uncover()
-            if DisplayController.areDrawingToolsDisplayed { showCanvas() }
+            canvas.isHidden = false
         }
     }
     
@@ -147,19 +146,10 @@ class PresentationViewController: NSViewController {
         // Un-/Cover screen with white curtain, depending on isWhiteCurtainDisplay
         if DisplayController.isWhiteCurtainDisplayed {
             pageView.coverWhite()
-            hideCanvas()
+            canvas.isHidden = true
         } else {
             pageView.uncover()
-            if DisplayController.areDrawingToolsDisplayed { showCanvas() }
-        }
-    }
-    
-    
-    @objc func displayDrawingToolsDidChange(_ notification: Notification) {
-        if DisplayController.areDrawingToolsDisplayed {
-            showCanvas()
-        } else {
-            hideCanvas()
+            canvas.isHidden = false
         }
     }
     

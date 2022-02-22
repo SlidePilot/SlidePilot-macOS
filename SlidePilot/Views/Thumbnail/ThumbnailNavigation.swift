@@ -275,6 +275,7 @@ extension ThumbnailNavigation: NSTableViewDelegate {
         let thumbnail = ThumbnailView(frame: .zero)
         thumbnail.translatesAutoresizingMaskIntoConstraints = false
         thumbnail.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation(), at: row)
+        thumbnail.canvas.drawing = DocumentController.drawings[row] ?? Drawing()
         thumbnail.label.stringValue = "\(row+1)"
         
         let cell = NSTableCellView()

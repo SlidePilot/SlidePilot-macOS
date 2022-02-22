@@ -14,6 +14,9 @@ class DocumentController {
     public private(set) static var document: PDFDocument?
     public private(set) static var notesDocument: NotesDocument?
     
+    /** Dictionary for storing drawing to the associated pages. */
+    public private(set) static var drawings = [Int: Drawing]()
+    
     private static var didSaveNotesCompletions = [(CompletionStatus) -> ()]()
     
     /** Returns the number of pages in the current document */
@@ -39,6 +42,9 @@ class DocumentController {
                 reloadDocument()
             }
         }
+        
+        // Reset all drawings
+        deleteDrawings(sender: sender)
     }
     
     
@@ -108,6 +114,21 @@ class DocumentController {
     }
     
     
+    /** Saves a drawing for a given page (index). */
+    public static func saveDrawing(_ drawing: Drawing, at page: Int, sender: Any) {
+        drawings[page] = drawing
+        NotificationCenter.default.post(name: .didUpdateDrawings, object: sender)
+    }
+    
+    
+    /** Deletes all drawings. */
+    public static func deleteDrawings(sender: Any) {
+        drawings = [Int: Drawing]()
+        NotificationCenter.default.post(name: .didUpdateDrawings, object: sender)
+    }
+    
+    
+    
     
     // MARK: - Subscribe
     
@@ -153,6 +174,12 @@ class DocumentController {
     }
     
     
+    /** Subscribes a target to all `.didUpdateDrawings` notifications sent by `DocumentController`. */
+    public static func subscribeDidUpdateDrawings(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didUpdateDrawings, object: nil)
+    }
+    
+    
     /** Unsubscribes a target from all notifications sent by `DocumentController`. */
     public static func unsubscribe(target: Any) {
         NotificationCenter.default.removeObserver(target, name: .didOpenDocument, object: nil)
@@ -162,6 +189,7 @@ class DocumentController {
         NotificationCenter.default.removeObserver(target, name: .didSaveNotes, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didEditNotes, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didOpenNotes, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didUpdateDrawings, object: nil)
     }
     
     
@@ -209,4 +237,5 @@ extension Notification.Name {
     static let didSaveNotes = Notification.Name("didSaveNotes")
     static let didEditNotes = Notification.Name("didEditNotes")
     static let didOpenNotes = Notification.Name("didOpenNotes")
+    static let didUpdateDrawings = Notification.Name("didUpdateDrawings")
 }

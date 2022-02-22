@@ -59,7 +59,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var drawItem: NSMenuItem!
     @IBOutlet weak var clearCanvasItem: NSMenuItem!
-    @IBOutlet weak var blankCanvasItem: NSMenuItem!
+    @IBOutlet weak var blankClearCanvasItem: NSMenuItem!
+    @IBOutlet weak var blankWhiteCanvasItem: NSMenuItem!
     
     
     // MARK: - Identifiers
@@ -125,9 +126,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Set default time options
         TimeController.setTimeMode(mode: .stopwatch, sender: self)
-        
-        // Subscribe to canvas changes
-        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(didChangeCanvasBackground(_:)))
         
         // Clean document preferences
         ConfigurationController.cleanUpDocumentConfigurations()
@@ -444,6 +442,57 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Menu Item Actions
     
+    @IBAction func exportDrawings(_ sender: NSMenuItem) {
+        // This feature is only available for OSX > 10.13. Check that and show error
+        guard #available(OSX 10.13, *) else {
+            NSAlert.showWarning(
+                message: NSLocalizedString("Unsupported Platform", comment: "Message indicating, that the feature is not supported for the user's platform."),
+                text: String(format: NSLocalizedString("Unsupported Platform Text", comment: "Text indicating, that the feature is not supported for the user's platform."), "10.13"))
+            return
+        }
+        
+        let showFailureAlert = {
+            NSAlert.showWarning(
+                message: NSLocalizedString("Export Drawings Failure", comment: "Message for export drawings failure alert."),
+                text: NSLocalizedString("Export Drawings Failure Text", comment: "Text for export drawings failure alert."))
+            return
+        }
+        
+        guard let document = DocumentController.document else { return }
+        
+        // Compose predefined filename
+        var drawingsFilename = "Drawings.pdf"
+        if let pdfFilename = DocumentController.document?.documentURL?.deletingPathExtension().lastPathComponent {
+            let drawingsString = NSLocalizedString("Drawings", comment: "Drawings filename extension")
+            drawingsFilename = pdfFilename + "-" + drawingsString + ".pdf"
+            
+        }
+        
+        // Open save panel
+        let savePanel = NSSavePanel()
+        savePanel.allowedFileTypes = ["pdf"]
+        savePanel.canCreateDirectories = true
+        savePanel.showsTagField = false
+        savePanel.nameFieldStringValue = drawingsFilename
+        savePanel.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.modalPanelWindow)))
+        
+        savePanel.begin { (result) in
+            if result == .OK {
+                var success = false
+                if let saveURL = savePanel.url {
+                    // Write file to disk
+                    guard let drawingsExporter = DrawingsExporter.create(document: document, drawings: DocumentController.drawings) else { showFailureAlert(); return }
+                    success = drawingsExporter.write(to: saveURL, progressHandler: { (progress) in
+                        print(String(format: "Saving Progress: %.0f %", progress*100))
+                    })
+                }
+                if !success { showFailureAlert() }
+            } else {
+                showFailureAlert()
+            }
+        }
+    }
+    
     @IBAction
     func showPreferences(_ sender: NSMenuItem) {
         preferencesWindowController.show()
@@ -665,8 +714,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
-    @IBAction func blankCanvas(_ sender: NSMenuItem) {
-        CanvasController.switchTransparentCanvas(sender: sender)
+    @IBAction func blankClearCanvas(_ sender: NSMenuItem) {
+        CanvasController.setTransparentCanvasBackground(true, sender: sender)
+    }
+    
+    
+    @IBAction func blankWhiteCanvas(_ sender: NSMenuItem) {
+        CanvasController.setTransparentCanvasBackground(false, sender: sender)
     }
     
     
@@ -907,12 +961,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Enable/Disable corresponding menu items
         clearCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
-        blankCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
-    }
-    
-    
-    @objc func didChangeCanvasBackground(_ notification: Notification) {
-        blankCanvasItem.state = CanvasController.isCanvasBackgroundTransparent ? .off : .on
+        blankClearCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
+        blankWhiteCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
     }
     
     
