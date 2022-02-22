@@ -87,19 +87,11 @@ extension SlideArrangementView {
     private func setupSlidesLayoutCurrentDrawing() {
         splitView?.isHidden = true
         
+        // Setup slide view
         currentSlideView = setupSlideView(in: self, isPointerDelegate: true, topPadding: 0, bottomPadding: padding + 60)
         
         // Setup Canvas
-        currentCanvasView = CanvasView(drawing: Drawing())
-        currentCanvasView!.translatesAutoresizingMaskIntoConstraints = false
-        currentCanvasView?.delegate = self
-        
-        self.addSubview(currentCanvasView!)
-        self.addConstraints([
-            NSLayoutConstraint(item: currentCanvasView!, attribute: .left, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .left, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: currentCanvasView!, attribute: .right, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .right, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: currentCanvasView!, attribute: .top, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .top, multiplier: 1.0, constant: 0.0),
-            NSLayoutConstraint(item: currentCanvasView!, attribute: .bottom, relatedBy: .equal, toItem: currentSlideView!.page, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+        currentCanvasView = setupCanvasView(on: currentSlideView!, allowsDrawing: true)
         
         self.window?.makeFirstResponder(currentCanvasView)
     }
@@ -111,6 +103,9 @@ extension SlideArrangementView {
         // Setup slide in container
         let slide = DisplayController.layoutConfiguration.slides[0]
         setupSlideView(for: slide, container: self, isPointerDelegate: (slide == .current))
+        
+        // Setup canvas views
+        setupCanvasView(for: slide, allowsDrawing: false)
     }
     
     
@@ -123,6 +118,10 @@ extension SlideArrangementView {
         let slide2 = DisplayController.layoutConfiguration.slides[1]
         setupSlideView(for: slide1, container: leftContainer!, isPointerDelegate: (slide1 == .current))
         setupSlideView(for: slide2, container: rightContainer!, isPointerDelegate: (slide2 == .current))
+        
+        // Setup canvas views
+        setupCanvasView(for: slide1, allowsDrawing: false)
+        setupCanvasView(for: slide2, allowsDrawing: false)
         
         splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 0)
         splitView?.setHoldingPriority(NSLayoutConstraint.Priority(270.0), forSubviewAt: 1)
@@ -152,6 +151,11 @@ extension SlideArrangementView {
         setupSlideView(for: slide1, container: topContainer, isPointerDelegate: (slide1 == .current), bottomPadding: padding/2)
         setupSlideView(for: slide2, container: bottomContainer, isPointerDelegate: (slide2 == .current), topPadding: padding/2)
         setupSlideView(for: slide3, container: fullContainer, isPointerDelegate: (slide3 == .current))
+        
+        // Setup canvas views
+        setupCanvasView(for: slide1, allowsDrawing: false)
+        setupCanvasView(for: slide2, allowsDrawing: false)
+        setupCanvasView(for: slide3, allowsDrawing: false)
     }
     
     
@@ -263,5 +267,44 @@ extension SlideArrangementView {
             NSLayoutConstraint(item: notesEditor!, attribute: .width, relatedBy: .equal, toItem: container, attribute: .width, multiplier: 0.9, constant: 0.0),
             NSLayoutConstraint(item: notesEditor!, attribute: .height, relatedBy: .equal, toItem: container, attribute: .height, multiplier: 0.8, constant: 0.0)
             ])
+    }
+    
+    
+    ///
+    func setupCanvasView(on slideView: SlideView, allowsDrawing: Bool) -> CanvasView {
+        let canvasView = CanvasView(drawing: Drawing())
+        canvasView.translatesAutoresizingMaskIntoConstraints = false
+        canvasView.allowsDrawing = allowsDrawing
+        
+        // Only set delegate, if drawing is allowed.
+        if allowsDrawing {
+            canvasView.delegate = self
+        }
+        
+        self.addSubview(canvasView)
+        self.addConstraints([
+            NSLayoutConstraint(item: canvasView, attribute: .left, relatedBy: .equal, toItem: slideView.page, attribute: .left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvasView, attribute: .right, relatedBy: .equal, toItem: slideView.page, attribute: .right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvasView, attribute: .top, relatedBy: .equal, toItem: slideView.page, attribute: .top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: canvasView, attribute: .bottom, relatedBy: .equal, toItem: slideView.page, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+        
+        return canvasView
+    }
+    
+    
+    ///
+    func setupCanvasView(for slide: SlideType, allowsDrawing: Bool) {
+        switch slide {
+        case .current:
+            guard let currentSlideView = self.currentSlideView else { return }
+            let canvasView = setupCanvasView(on: currentSlideView, allowsDrawing: allowsDrawing)
+            currentCanvasView = canvasView
+        case .next:
+            guard let nextSlideView = self.nextSlideView else { return }
+            let canvasView = setupCanvasView(on: nextSlideView, allowsDrawing: allowsDrawing)
+            nextCanvasView = canvasView
+        default:
+            return
+        }
     }
 }

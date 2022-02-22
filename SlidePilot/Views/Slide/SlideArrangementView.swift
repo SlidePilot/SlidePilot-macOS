@@ -25,6 +25,7 @@ class SlideArrangementView: NSView {
     var notesEditor: NotesEditor?
     
     var currentCanvasView: CanvasView?
+    var nextCanvasView: CanvasView?
     
     var padding: CGFloat {
         return CGFloat(PreferencesController.layoutPadding.rawValue)
@@ -53,6 +54,7 @@ class SlideArrangementView: NSView {
         
         // Subscribe to document changes
         DocumentController.subscribeDidOpenDocument(target: self, action: #selector(documentDidChange(_:)))
+        DocumentController.subscribeDidUpdateDrawings(target: self, action: #selector(drawingsDidChange(_:)))
         
         // Subscribe to display changes
         DisplayController.subscribeNotesPosition(target: self, action: #selector(notesPositionDidChange(_:)))
@@ -122,8 +124,7 @@ class SlideArrangementView: NSView {
             }
         }
         
-        // Set canvas view for current page
-        currentCanvasView?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing(frame: DocumentController.document?.page(at: PageController.currentPage)?.bounds(for: .mediaBox) ?? .zero)
+        updateCanvas()
     }
     
     
@@ -132,6 +133,13 @@ class SlideArrangementView: NSView {
         guard let page = currentSlideView?.page else { return }
         page.setCurrentPage(index)
         updateSlides(for: page.currentPage)
+    }
+    
+    
+    func updateCanvas() {
+        // Set canvas view for current and next page
+        currentCanvasView?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing(frame: DocumentController.document?.page(at: PageController.currentPage)?.bounds(for: .mediaBox) ?? .zero)
+        nextCanvasView?.drawing = DocumentController.drawings[PageController.currentPage+1] ?? Drawing(frame: DocumentController.document?.page(at: PageController.currentPage)?.bounds(for: .mediaBox) ?? .zero)
     }
     
     
@@ -148,6 +156,11 @@ class SlideArrangementView: NSView {
         currentSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
         nextSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
         notesSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForNotes())
+    }
+    
+    
+    @objc func drawingsDidChange(_ notification: Notification) {
+        updateCanvas()
     }
     
     
