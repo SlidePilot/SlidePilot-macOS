@@ -102,6 +102,12 @@ class PresentationViewController: NSViewController {
     }
     
     
+    func updateCanvas() {
+        // Set canvas to display current drawing if possible
+        canvas?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
+    }
+    
+    
     
     
     // MARK: - Control Handlers
@@ -109,8 +115,7 @@ class PresentationViewController: NSViewController {
     @objc private func pageDidChange(_ notification: Notification) {
         pageView.setCurrentPage(PageController.currentPage)
         
-        // Set canvas to display current drawing if possible
-        canvas?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
+        updateCanvas()
     }
     
     
@@ -120,13 +125,13 @@ class PresentationViewController: NSViewController {
     
     
     @objc func drawingDidChange(_ notification: Notification) {
-        // Update drawing
-        canvas?.drawing = DocumentController.drawings[PageController.currentPage] ?? Drawing()
+        updateCanvas()
     }
     
     
     @objc func notesPositionDidChange(_ notification: Notification) {
         pageView.setDisplayMode(DisplayController.notesPosition.displayModeForPresentation())
+        updateCanvas()
     }
     
     
