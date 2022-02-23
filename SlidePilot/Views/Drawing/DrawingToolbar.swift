@@ -50,7 +50,8 @@ class DrawingToolbar: NSView {
     
     // Buttons
     var clearButton: IconButton!
-    var canvasButton: IconButton!
+    var canvasClearButton: IconButton!
+    var canvasWhiteButton: IconButton!
     var closeButton: IconButton!
     
     let verticalPadding: CGFloat = 20.0
@@ -99,17 +100,16 @@ class DrawingToolbar: NSView {
         
         // Create buttons
         clearButton = createButton(with: NSImage(named: "Eraser")!, action: #selector(clearPressed(_:)))
-        canvasButton = createButton(with: NSImage(named: "Canvas")!, action: #selector(canvasPressed(_:)))
-        canvasButton.isToggle = true
-        canvasButton.highlightColor = NSColor(white: 0.45, alpha: 1.0)
+        canvasClearButton = createButton(with: NSImage(named: "Canvas")!, action: #selector(canvasClearPressed(_:)))
+        canvasWhiteButton = createButton(with: NSImage(named: "CanvasWhite")!, action: #selector(canvasWhitePressed(_:)))
         closeButton = createButton(with: NSImage(named: "Close")!, action: #selector(closePressed(_:)))
         
         // Add buttons to container
-        let container = NSStackView(views: swatches + [clearButton, canvasButton, closeButton])
+        let container = NSStackView(views: swatches + [clearButton, canvasClearButton, canvasWhiteButton, closeButton])
         container.translatesAutoresizingMaskIntoConstraints = false
         container.orientation = .horizontal
         container.spacing = buttonPadding
-        container.setCustomSpacing(buttonPadding + 20.0, after: canvasButton)
+        container.setCustomSpacing(buttonPadding + 20.0, after: canvasWhiteButton)
         self.addSubview(container)
         self.addConstraints([
             NSLayoutConstraint(item: container, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: horizontalPadding),
@@ -117,7 +117,6 @@ class DrawingToolbar: NSView {
             NSLayoutConstraint(item: container, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: verticalPadding),
             NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: container, attribute: .bottom, multiplier: 1.0, constant: verticalPadding + (layer?.cornerRadius ?? 20.0) + 10.0)])
         
-        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(canvasBackgroundDidChange(_:)))
         CanvasController.subscribeDrawingColorChanged(target: self, action: #selector(drawingColorDidChange(_:)))
     }
     
@@ -152,8 +151,12 @@ class DrawingToolbar: NSView {
     }
     
     
-    @objc func canvasPressed(_ sender: IconButton) {
-        CanvasController.setTransparentCanvasBackground(sender.state == .off, sender: sender)
+    @objc func canvasClearPressed(_ sender: IconButton) {
+        CanvasController.setTransparentCanvasBackground(true, sender: sender)
+    }
+    
+    @objc func canvasWhitePressed(_ sender: IconButton) {
+        CanvasController.setTransparentCanvasBackground(false, sender: sender)
     }
     
     
@@ -257,11 +260,6 @@ class DrawingToolbar: NSView {
     
     
     // MARK: - Control Handlers
-    
-    @objc func canvasBackgroundDidChange(_ notification: Notification) {
-        canvasButton.state = CanvasController.isCanvasBackgroundTransparent ? .off : .on
-    }
-    
     
     @objc func drawingColorDidChange(_ notification: Notification) {
         // Find swatch for color

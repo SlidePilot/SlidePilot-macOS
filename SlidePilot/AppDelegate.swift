@@ -59,7 +59,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var drawItem: NSMenuItem!
     @IBOutlet weak var clearCanvasItem: NSMenuItem!
-    @IBOutlet weak var blankCanvasItem: NSMenuItem!
+    @IBOutlet weak var blankClearCanvasItem: NSMenuItem!
+    @IBOutlet weak var blankWhiteCanvasItem: NSMenuItem!
     
     
     // MARK: - Identifiers
@@ -125,9 +126,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Set default time options
         TimeController.setTimeMode(mode: .stopwatch, sender: self)
-        
-        // Subscribe to canvas changes
-        CanvasController.subscribeCanvasBackgroundChanged(target: self, action: #selector(didChangeCanvasBackground(_:)))
         
         // Clean document preferences
         ConfigurationController.cleanUpDocumentConfigurations()
@@ -197,14 +195,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func setupWindows() {
-        guard self.presenterWindowCtrl == nil,
-              self.presenterWindow == nil,
-              self.presenterDisplay == nil,
-              self.presentationWindowCtrl == nil,
-              self.presentationWindow == nil,
-              self.presentationView == nil else { return }
+        // Don't setup windows, if everything is already set up
+        // If one of the values is not nil, then do setup again
+        guard self.presenterWindowCtrl == nil ||
+              self.presenterWindow == nil ||
+              self.presenterDisplay == nil ||
+              self.presentationWindowCtrl == nil ||
+              self.presentationWindow == nil ||
+              self.presentationView == nil
+        else { return }
         
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        
+        // Close both windows to make sure, that none of the windows is displayed twice.
+        presenterWindow?.close()
+        presentationWindow?.close()
         
         guard let presenterWindowCtrl = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "PresenterWindow")) as? PresenterWindowController else { return }
         guard let presenterWindow = presenterWindowCtrl.window as? PresenterWindow else { return }
@@ -214,6 +219,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             PresentationWindowController else { return }
         guard let presentationWindow = presentationWindowCtrl.window as? PresentationWindow else { return }
         guard let presentationView = presentationWindowCtrl.contentViewController as? PresentationViewController else { return }
+        
+        // Observe when windows will close
+        NotificationCenter.default.addObserver(self, selector: #selector(windowWillClose(_:)), name: NSWindow.willCloseNotification, object: nil)
         
         // Temporarily disable canBecomeKey so that presentationWindow opens on second screen
         presentationWindow.setCanBecomeKey(false)
@@ -444,6 +452,57 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - Menu Item Actions
     
+    @IBAction func exportDrawings(_ sender: NSMenuItem) {
+        // This feature is only available for OSX > 10.13. Check that and show error
+        guard #available(OSX 10.13, *) else {
+            NSAlert.showWarning(
+                message: NSLocalizedString("Unsupported Platform", comment: "Message indicating, that the feature is not supported for the user's platform."),
+                text: String(format: NSLocalizedString("Unsupported Platform Text", comment: "Text indicating, that the feature is not supported for the user's platform."), "10.13"))
+            return
+        }
+        
+        let showFailureAlert = {
+            NSAlert.showWarning(
+                message: NSLocalizedString("Export Drawings Failure", comment: "Message for export drawings failure alert."),
+                text: NSLocalizedString("Export Drawings Failure Text", comment: "Text for export drawings failure alert."))
+            return
+        }
+        
+        guard let document = DocumentController.document else { return }
+        
+        // Compose predefined filename
+        var drawingsFilename = "Drawings.pdf"
+        if let pdfFilename = DocumentController.document?.documentURL?.deletingPathExtension().lastPathComponent {
+            let drawingsString = NSLocalizedString("Drawings", comment: "Drawings filename extension")
+            drawingsFilename = pdfFilename + "-" + drawingsString + ".pdf"
+            
+        }
+        
+        // Open save panel
+        let savePanel = NSSavePanel()
+        savePanel.allowedFileTypes = ["pdf"]
+        savePanel.canCreateDirectories = true
+        savePanel.showsTagField = false
+        savePanel.nameFieldStringValue = drawingsFilename
+        savePanel.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.modalPanelWindow)))
+        
+        savePanel.begin { (result) in
+            if result == .OK {
+                var success = false
+                if let saveURL = savePanel.url {
+                    // Write file to disk
+                    guard let drawingsExporter = DrawingsExporter.create(document: document, drawings: DocumentController.drawings) else { showFailureAlert(); return }
+                    success = drawingsExporter.write(to: saveURL, progressHandler: { (progress) in
+                        print(String(format: "Saving Progress: %.0f %", progress*100))
+                    })
+                }
+                if !success { showFailureAlert() }
+            } else {
+                showFailureAlert()
+            }
+        }
+    }
+    
     @IBAction
     func showPreferences(_ sender: NSMenuItem) {
         preferencesWindowController.show()
@@ -665,8 +724,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
-    @IBAction func blankCanvas(_ sender: NSMenuItem) {
-        CanvasController.switchTransparentCanvas(sender: sender)
+    @IBAction func blankClearCanvas(_ sender: NSMenuItem) {
+        CanvasController.setTransparentCanvasBackground(true, sender: sender)
+    }
+    
+    
+    @IBAction func blankWhiteCanvas(_ sender: NSMenuItem) {
+        CanvasController.setTransparentCanvasBackground(false, sender: sender)
     }
     
     
@@ -907,12 +971,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Enable/Disable corresponding menu items
         clearCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
-        blankCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
-    }
-    
-    
-    @objc func didChangeCanvasBackground(_ notification: Notification) {
-        blankCanvasItem.state = CanvasController.isCanvasBackgroundTransparent ? .off : .on
+        blankClearCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
+        blankWhiteCanvasItem.isEnabled = DisplayController.areDrawingToolsDisplayed
     }
     
     
@@ -928,5 +988,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Enable/Disable menu items
         previousSlideItem.isEnabled = PageController.isPageSwitchingEnabled
         nextSlideItem.isEnabled = PageController.isPageSwitchingEnabled
+    }
+    
+    
+    @objc func windowWillClose( _ notification: Notification) {
+        guard let window = notification.object as? NSWindow else { return }
+        
+        // Remove references if window is closed
+        if window == presenterWindow {
+            presenterWindowCtrl = nil
+            presenterWindow = nil
+            presenterDisplay = nil
+        } else if window == presentationWindow {
+            presentationWindowCtrl = nil
+            presentationWindow = nil
+            presentationView = nil
+        }
     }
 }

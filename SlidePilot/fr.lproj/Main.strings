@@ -37,6 +37,9 @@
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
 "6dh-zS-Vam.title" = "Rétablir";
 
+/* Class = "NSMenuItem"; title = "Export Drawings"; ObjectID = "9iu-Qu-69d"; */
+"9iu-Qu-69d.title" = "Exporter les dessins";
+
 /* Class = "NSButtonCell"; title = "Hidden"; ObjectID = "8kH-2Q-huJ"; */
 "8kH-2Q-huJ.title" = "Caché";
 
@@ -136,8 +139,11 @@
 /* Class = "NSTextFieldCell"; title = "Color:"; ObjectID = "Nxa-D0-Znh"; */
 "Nxa-D0-Znh.title" = "Couleur:";
 
-/* Class = "NSMenuItem"; title = "Canvas Mode"; ObjectID = "O1m-6g-Uld"; */
-"O1m-6g-Uld.title" = "Mode canevas";
+/* Class = "NSMenuItem"; title = "Clear Canvas"; ObjectID = "O1m-6g-Uld"; */
+"O1m-6g-Uld.title" = "Canevas clair";
+
+/* Class = "NSMenuItem"; title = "White Canvas"; ObjectID = "lNX-iJ-JaX"; */
+"lNX-iJ-JaX.title" = "Canevas blanc";
 
 /* Class = "NSMenu"; title = "Moderator"; ObjectID = "O4y-2K-zDw"; */
 "O4y-2K-zDw.title" = "Modérateur";

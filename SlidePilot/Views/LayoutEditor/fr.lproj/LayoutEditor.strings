@@ -23,7 +23,7 @@
 /* Class = "NSTextFieldCell"; title = "Current Slide"; ObjectID = "YhI-Ij-elO"; */
 "YhI-Ij-elO.title" = "Courante";
 
-/* Class = "NSTextFieldCell"; title = "Notes Slide"; ObjectID = "Z23-wf-GT0"; */
+/* Class = "NSTextFieldCell"; title = "Notes"; ObjectID = "Z23-wf-GT0"; */
 "Z23-wf-GT0.title" = "Notes";
 
 /* Class = "NSButtonCell"; title = "Hidden"; ObjectID = "Zm5-CK-qx3"; */

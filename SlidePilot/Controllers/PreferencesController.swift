@@ -16,6 +16,7 @@ class PreferencesController {
         case timeSize = "timeSize"
         case layoutConfiguration = "layoutConfiguration"
         case crossfadeSlides = "crossfadeSlides"
+        case saveDrawings = "saveDrawings"
     }
     
     
@@ -127,6 +128,21 @@ class PreferencesController {
     }
     
     
+    public static var saveDrawings: Bool {
+        return UserDefaults.standard.bool(forKey: Keys.saveDrawings.rawValue)
+    }
+    
+    
+    public static func setSaveDrawings(_ enable: Bool, sender: Any) {
+        UserDefaults.standard.set(enable, forKey: Keys.saveDrawings.rawValue)
+        // Delete all drawings, if should not save drawings
+        if !enable {
+            DocumentController.deleteDrawings(sender: sender)
+        }
+        NotificationCenter.default.post(name: .didChangeSaveDrawings, object: sender)
+    }
+    
+    
     
     
     // MARK: - Subscribe
@@ -149,6 +165,12 @@ class PreferencesController {
     }
     
     
+    /** Subscribes a target to all `.didChangeSaveDrawings` notifications sent by `DisplayController`. */
+    public static func subscribeSaveDrawings(target: Any, action: Selector) {
+        NotificationCenter.default.addObserver(target, selector: action, name: .didChangeSaveDrawings, object: nil)
+    }
+    
+    
     
     
     // MARK: - Unsubscribe
@@ -158,6 +180,7 @@ class PreferencesController {
         NotificationCenter.default.removeObserver(target, name: .didChangeLayoutPadding, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeTimeSize, object: nil)
         NotificationCenter.default.removeObserver(target, name: .didChangeCrossfadeSlides, object: nil)
+        NotificationCenter.default.removeObserver(target, name: .didChangeSaveDrawings, object: nil)
     }
 
 }
@@ -169,4 +192,5 @@ extension Notification.Name {
     static let didChangeLayoutPadding = Notification.Name("didChangeLayoutPadding")
     static let didChangeTimeSize = Notification.Name("didChangeTimeSize")
     static let didChangeCrossfadeSlides = Notification.Name("didChangeCrossfadeSlides")
+    static let didChangeSaveDrawings = Notification.Name("didChangeSaveDrawings")
 }

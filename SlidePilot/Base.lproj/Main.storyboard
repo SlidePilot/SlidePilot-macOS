@@ -80,6 +80,12 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
+                                        <menuItem title="Export Drawings" keyEquivalent="S" id="9iu-Qu-69d">
+                                            <connections>
+                                                <action selector="exportDrawings:" target="Ady-hI-5gd" id="m5w-iC-T75"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="eUm-dP-Hy9"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
@@ -317,10 +323,16 @@
                                                 <action selector="clearCanvas:" target="Ady-hI-5gd" id="Hbu-uv-YDF"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Canvas Mode" keyEquivalent="k" id="O1m-6g-Uld">
+                                        <menuItem title="Clear Canvas" keyEquivalent="k" id="O1m-6g-Uld">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                             <connections>
-                                                <action selector="blankCanvas:" target="Ady-hI-5gd" id="2BS-iZ-iM8"/>
+                                                <action selector="blankClearCanvas:" target="Ady-hI-5gd" id="wM3-Ud-B4N"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="White Canvas" keyEquivalent="K" id="lNX-iJ-JaX">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                            <connections>
+                                                <action selector="blankWhiteCanvas:" target="Ady-hI-5gd" id="C0L-HT-6WP"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -554,7 +566,8 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SlidePilot" customModuleProvider="target">
                     <connections>
-                        <outlet property="blankCanvasItem" destination="O1m-6g-Uld" id="kXt-jo-QRC"/>
+                        <outlet property="blankClearCanvasItem" destination="O1m-6g-Uld" id="sy2-99-SaO"/>
+                        <outlet property="blankWhiteCanvasItem" destination="lNX-iJ-JaX" id="ATj-dv-ndX"/>
                         <outlet property="clearCanvasItem" destination="b9e-Ma-o1Q" id="ESW-Iq-TDI"/>
                         <outlet property="displayBlackCurtainItem" destination="Wsl-Lh-Rzy" id="7mA-Hq-uva"/>
                         <outlet property="displayWhiteCurtainItem" destination="E0b-Yv-pqH" id="SEd-Ly-9Bk"/>
@@ -622,7 +635,7 @@
             <objects>
                 <windowController storyboardIdentifier="PresentationWindow" id="VPj-fN-aKM" customClass="PresentationWindowController" customModule="SlidePilot" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="zZP-Ud-eGP" customClass="PresentationWindow" customModule="SlidePilot" customModuleProvider="target">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="425" y="461" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
