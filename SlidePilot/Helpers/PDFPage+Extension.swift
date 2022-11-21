@@ -59,7 +59,7 @@ extension PDFPage {
         // Bounds of displayed section for PDF Page (regarding displayMode)
         let pageBoundsSection = displayMode.getBounds(for: self)
         
-        // Calculate the relative bounds on PDF page
+        // Calculate the relative bounds on PDF page from absolute bounds
         let relativeBounds = NSRect(x: (bounds.origin.x - pageBounds.origin.x) / pageBounds.width,
                                     y: (bounds.origin.y - pageBounds.origin.y) / pageBounds.height,
                                     width: bounds.width / pageBounds.width,
@@ -102,7 +102,7 @@ extension PDFPage {
         // Bounds of displayed section for PDF Page (regarding displayMode)
         let pageBoundsSection = displayMode.getBounds(for: self)
         
-        // Calculate the relative position on the full PDF page (from the section of the page)
+        // Calculate the relative bounds on the full PDF page, from the relative bounds from the section of the page
         let translation = getTranslationRatio(parent: pageBounds, section: pageBoundsSection)
         let relativeBoundsOnPage = NSRect(
             x: bounds.minX / translation.width + pageBoundsSection.minX / pageBounds.width,
@@ -134,9 +134,3 @@ extension PDFPage {
         return NSPoint(x: boundsOnPage.minX, y: boundsOnPage.minY)
     }
 }
-
-// TODO:
-//   - Document code
-//   - Document functions
-//   - Test functions
-//   - Drawing refactor
