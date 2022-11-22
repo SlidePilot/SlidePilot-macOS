@@ -33,7 +33,7 @@ class PDFPageView: NSImageView {
         }
         
         /**
-         Returns correct bounds for `DisplayMode`.
+         Returns the bounds of displayed section of a page, determined by `DisplayMode`.
          */
         func getBounds(for page: PDFPage) -> CGRect {
             let rotation = page.rotation
@@ -330,21 +330,19 @@ class PDFPageView: NSImageView {
             // Only add cursor rect for link annotations
             guard annotation.type == "Link" else { continue }
             
-            let annotationBounds = annotation.bounds
-            let pageBounds = page.bounds(for: .cropBox)
+            // Calculate relative bounds on PDF page in desired section (determined by displayMode)
+            let relativeBoundsInSection = page.relativeBoundsInSection(for: annotation.bounds, displayMode: self.displayMode)
             
-            // Calculate relative bounds on PDF page
-            let relativeBounds = NSRect(x: (annotationBounds.origin.x - pageBounds.origin.x) / pageBounds.width,
-                                        y: (annotationBounds.origin.y - pageBounds.origin.y) / pageBounds.height,
-                                        width: annotationBounds.width / pageBounds.width,
-                                        height: annotationBounds.height / pageBounds.height)
+            // Only continue, if annotation intersects with displayed page section
+            let isInDisplayBounds = (0...1).contains(relativeBoundsInSection.minX) && (0...1).contains(relativeBoundsInSection.minY)
+            guard isInDisplayBounds else { continue }
             
             // Translate relative annotations bounds to PDF image bounds
             let imageFrame = imageRect()
-            let annotationBoundsInImage = NSRect(x: relativeBounds.origin.x * imageFrame.width,
-                                                 y: relativeBounds.origin.y * imageFrame.height,
-                                                 width: relativeBounds.width * imageFrame.width,
-                                                 height: relativeBounds.height * imageFrame.height)
+            let annotationBoundsInImage = NSRect(x: relativeBoundsInSection.origin.x * imageFrame.width,
+                                                 y: relativeBoundsInSection.origin.y * imageFrame.height,
+                                                 width: relativeBoundsInSection.width * imageFrame.width,
+                                                 height: relativeBoundsInSection.height * imageFrame.height)
             
             // Translate the annotation bounds position to self view frame
             let annotationBoundsInView = NSRect(x: annotationBoundsInImage.origin.x + imageFrame.origin.x,
@@ -352,9 +350,7 @@ class PDFPageView: NSImageView {
                                                 width: annotationBoundsInImage.width,
                                                 height: annotationBoundsInImage.height)
             
-            // Only continue, when annotation is in image frame
-            guard imageFrame.intersects(annotationBoundsInView) else { continue }
-            
+            // TODO: Clip cursor rect to imageFrame, same with clicking
             addCursorRect(annotationBoundsInView, cursor: .pointingHand)
         }
     }
@@ -363,6 +359,9 @@ class PDFPageView: NSImageView {
     override func mouseDown(with event: NSEvent) {
         // Only continue if links are enabled
         guard areLinksEnabled else { super.mouseDown(with: event); return }
+        
+        // Get the corresponding PDF page
+        guard let page = pdfDocument?.page(at: currentPage) else { super.mouseDown(with: event); return }
         
         // Calculate the point in relativity to this views origin
         guard let pointInView = self.window?.contentView?.convert(event.locationInWindow, to: self) else { super.mouseDown(with: event); return }
@@ -374,16 +373,11 @@ class PDFPageView: NSImageView {
         // Calculate the absolute point on the displayed PDF image
         let pointInImage = NSPoint(x: pointInView.x - imageFrame.origin.x, y: pointInView.y - imageFrame.origin.y)
         
-        // Calculate the relative point on the displayed PDF image (relative to its size)
-        let relativePointInImage = NSPoint(x: pointInImage.x / imageFrame.width , y: pointInImage.y / imageFrame.height)
+        // Calculate the relative point on the displayed section of the PDF page
+        let relativePointInSection = NSPoint(x: pointInImage.x / imageFrame.width , y: pointInImage.y / imageFrame.height)
         
-        // Calculate click point relative to PDF page bounds
-        guard let page = pdfDocument?.page(at: currentPage) else { super.mouseDown(with: event); return }
-        let pageBounds = page.bounds(for: .cropBox)
-        let pointOnPage = NSPoint(x: relativePointInImage.x * pageBounds.width + pageBounds.origin.x,
-                                  y: relativePointInImage.y * pageBounds.height + pageBounds.origin.y)
-        // Add pageBounds.origin.x and y to fix when only top half or right half is displayed
-        // That means that the origin for the crop box is not at (0,0)
+        // Calculate the absolute point on the PDF page from the relative point in the section
+        let pointOnPage = page.pointFromRelativeInSection(for: relativePointInSection, displayMode: self.displayMode)
         
         // Get annotation for click position
         guard let annotation = pdfDocument?.page(at: currentPage)?.annotation(at: pointOnPage) else { super.mouseDown(with: event); return }
