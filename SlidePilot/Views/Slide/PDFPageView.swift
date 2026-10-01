@@ -11,7 +11,6 @@ import PDFKit
 import AVKit
 import AVFoundation
 
-var currentPlayer: AVPlayer?
 
 class PDFPageView: NSImageView {
     
@@ -183,8 +182,8 @@ class PDFPageView: NSImageView {
     
     private func reload() {
         // Get current page
-        guard pdfDocument != nil else { return }
-        guard currentPage >= 0, currentPage < (pdfDocument?.pageCount ?? -1) else { return }
+        guard pdfDocument != nil else { removeMovies(); image = nil; return }
+        guard currentPage >= 0, currentPage < (pdfDocument?.pageCount ?? -1) else { removeMovies(); image = nil; return }
         
         // Create NSImage from page
         guard let pdfImage = RenderCache.shared.getPage(at: currentPage, for: pdfDocument!, mode: self.displayMode, priority: .fast) else { return }
@@ -202,81 +201,79 @@ class PDFPageView: NSImageView {
     }
     
     
-    private func embedVideo() {
-        // Remove previous video if needed
-        players.forEach({ $0.pause() })
+    private var movieBounds = [CGRect]()
+
+    private func removeMovies() {
+        // A connected audience view must not pause the presenter's shared player.
+        if !connectToCurrentPlayer {
+            players.forEach { $0.pause() }
+            if ConnectedPlayer.sharedPlayers?.contains(where: { shared in
+                players.contains(where: { $0 === shared })
+            }) == true {
+                ConnectedPlayer.sharedPlayers = []
+            }
+        }
+        playerViews.forEach { $0.removeFromSuperview() }
         players.removeAll()
-        playerViews.forEach({ $0.removeFromSuperview() })
         playerViews.removeAll()
-        
-        // Search for video annotation
-        guard #available(macOS 10.13, *) else { return }
+        movieBounds.removeAll()
+    }
+
+    private func embedVideo() {
+        removeMovies()
         guard let page = pdfDocument?.page(at: currentPage) else { return }
-        let movieAnnoations = page.annotations.filter({ $0.type == "Movie" })
-        
-        for annotation in movieAnnoations {
-            guard let movieValues = annotation.annotationKeyValues["/Movie"] as? [AnyHashable: Any] else { return }
-            guard let fileName = movieValues.values.first as? String else { return }
-            
-            // Create URL
-            guard let movieURL = URL(string: fileName, relativeTo: pdfDocument?.documentURL) else { return }
-            
-            // Translate bounds according to display mode
-            let pageFrame = self.displayMode.getBounds(for: page)
-            let annotationFrame = NSRect(x: annotation.bounds.minX - pageFrame.minX,
-                                         y: annotation.bounds.minY - pageFrame.minY,
-                                         width: annotation.bounds.width,
-                                         height: annotation.bounds.height)
-            
-            // Check if player is in visible frame of page (regarding display mode)
-            guard annotationFrame.maxX > pageFrame.minX ||
-                  annotationFrame.minX < pageFrame.maxX ||
-                  annotationFrame.maxY > pageFrame.minY ||
-                  annotationFrame.minY < pageFrame.maxY else { return }
-                    
-            let player = AVPlayer(url: movieURL)
+        let visibleBounds = displayMode.getBounds(for: page)
+        for movie in page.movieResources() {
+            guard visibleBounds.intersects(movie.bounds),
+                  let url = PDFMovieFiles.shared.url(for: movie.file, document: pdfDocument) else { continue }
+            let player = AVPlayer(url: url)
             let playerView = ConnectedPlayer()
             playerView.player = player
-            playerView.translatesAutoresizingMaskIntoConstraints = false
             playerView.areControlsEnabled = areVideoPlayerControlsEnabled
-            self.addSubview(playerView)
-            
-            // TODO: TranslateBounds
-            guard let pageSize = self.image?.size else { return }
-            let relativeFrame = NSRect(x: annotationFrame.minX / pageSize.width,
-                                       y: annotationFrame.minY / pageSize.height,
-                                       width: annotationFrame.width / pageSize.width,
-                                       height: annotationFrame.height / pageSize.height)
-            
-            
-            
-            
-            self.addConstraints([
-                NSLayoutConstraint(item: playerView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .right, multiplier: relativeFrame.minX, constant: 0),
-                NSLayoutConstraint(item: playerView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0-relativeFrame.minY, constant: 0),
-                NSLayoutConstraint(item: playerView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: relativeFrame.width, constant: 0),
-                NSLayoutConstraint(item: playerView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: relativeFrame.height, constant: 0)
-            ])
-            
-            playerView.connectToSharedPlayer = self.connectToCurrentPlayer
-            
+            addSubview(playerView, positioned: .below, relativeTo: coverView)
+            playerView.connectToSharedPlayer = connectToCurrentPlayer
             players.append(player)
             playerViews.append(playerView)
+            movieBounds.append(movie.bounds)
         }
-        
-        // Check if this PDFPageView is showing the current page &
-        // if it's not a connected player (which means it should not connect to the shared players) &
-        // if this page view present the presentation part of the page &
-        // if there were any movie annotations found on the page
-        if self.currentPage == PageController.currentPage,
-           connectToCurrentPlayer == false,
-           DisplayController.notesPosition.displayModeForPresentation() == self.displayMode,
-           movieAnnoations.count > 0 {
+        layoutMovies()
+        if currentPage == PageController.currentPage,
+           !connectToCurrentPlayer,
+           DisplayController.notesPosition.displayModeForPresentation() == displayMode {
             ConnectedPlayer.sharedPlayers = players
         }
     }
-    
-    
+
+    override func layout() {
+        super.layout()
+        layoutMovies()
+    }
+
+    private func layoutMovies() {
+        guard let page = pdfDocument?.page(at: currentPage) else { return }
+        let pageBounds = displayMode.getBounds(for: page)
+        let imageFrame = imageRect()
+        let rotation = (page.rotation % 360 + 360) % 360
+        func rotated(_ point: CGPoint) -> CGPoint {
+            let x = (point.x - pageBounds.minX) / pageBounds.width
+            let y = (point.y - pageBounds.minY) / pageBounds.height
+            switch rotation {
+            case 90: return CGPoint(x: y, y: 1 - x)
+            case 180: return CGPoint(x: 1 - x, y: 1 - y)
+            case 270: return CGPoint(x: 1 - y, y: x)
+            default: return CGPoint(x: x, y: y)
+            }
+        }
+        for (view, rect) in zip(playerViews, movieBounds) {
+            let first = rotated(rect.origin)
+            let last = rotated(CGPoint(x: rect.maxX, y: rect.maxY))
+            view.frame = CGRect(x: imageFrame.minX + min(first.x, last.x) * imageFrame.width,
+                                y: imageFrame.minY + min(first.y, last.y) * imageFrame.height,
+                                width: abs(last.x - first.x) * imageFrame.width,
+                                height: abs(last.y - first.y) * imageFrame.height)
+        }
+    }
+
     private let crossfadeDuration: CFTimeInterval = 0.6
     private let crossfadeAnimationKey: String = "crossfade"
     /** Setting this value to true will add a crossfade when changing the views image. */
@@ -434,6 +431,7 @@ class PDFPageView: NSImageView {
     // MARK: - Alternative Display and Cover
     
     public func displayBlank() {
+        removeMovies()
         self.image = NSColor.black.image(of: (pdfDocument?.page(at: 0)?.bounds(for: .cropBox).size ?? NSSize(width: 1.0, height: 1.0)))
     }
     
