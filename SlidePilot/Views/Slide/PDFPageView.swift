@@ -202,8 +202,10 @@ class PDFPageView: NSImageView {
     
     
     private var movieBounds = [CGRect]()
+    private var movieGeneration = 0
 
     private func removeMovies() {
+        movieGeneration += 1
         // A connected audience view must not pause the presenter's shared player.
         if !connectToCurrentPlayer {
             players.forEach { $0.pause() }
@@ -213,7 +215,21 @@ class PDFPageView: NSImageView {
                 ConnectedPlayer.sharedPlayers = []
             }
         }
-        playerViews.forEach { $0.removeFromSuperview() }
+        let retiredPlayers = players
+        let retiredViews = playerViews
+        playerViews.forEach {
+            if let responder = window?.firstResponder as? NSView,
+               responder === $0 || responder.isDescendant(of: $0) {
+                window?.makeFirstResponder(window)
+            }
+            $0.removeFromSuperview()
+        }
+        // Let the page-change notification finish before AVKit tears down its
+        // media pipeline. Retain both views and players until the next turn.
+        DispatchQueue.main.async {
+            withExtendedLifetime(retiredPlayers) {}
+            withExtendedLifetime(retiredViews) {}
+        }
         players.removeAll()
         playerViews.removeAll()
         movieBounds.removeAll()
@@ -221,6 +237,20 @@ class PDFPageView: NSImageView {
 
     private func embedVideo() {
         removeMovies()
+        // Previews remain PDF posters; only the current slide gets live players.
+        guard currentPage == PageController.currentPage,
+              let document = pdfDocument else { return }
+        let generation = movieGeneration
+        DispatchQueue.main.async { [weak self, weak document] in
+            guard let self = self, let document = document,
+                  self.movieGeneration == generation,
+                  self.pdfDocument === document,
+                  self.currentPage == PageController.currentPage else { return }
+            self.installMovies()
+        }
+    }
+
+    private func installMovies() {
         guard let page = pdfDocument?.page(at: currentPage) else { return }
         let visibleBounds = displayMode.getBounds(for: page)
         for movie in page.movieResources() {
