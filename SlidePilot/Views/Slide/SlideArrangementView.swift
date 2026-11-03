@@ -153,9 +153,14 @@ class SlideArrangementView: NSView {
     
     
     @objc func documentDidChange(_ notification: Notification) {
-        currentSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
-        nextSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
-        notesSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForNotes())
+        // A reload stays on the current page, so the views never pass page 0 and running movies keep their players
+        let page = notification.isDocumentReload ? PageController.currentPage : 0
+        currentSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation(), at: page)
+        nextSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation(), at: page + 1)
+        notesSlideView?.page.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForNotes(), at: page)
+        if notification.isDocumentReload {
+            showSlide(at: page)
+        }
     }
     
     

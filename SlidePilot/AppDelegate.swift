@@ -312,10 +312,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DisplayController.saveConfiguration()
         
         NSDocumentController.shared.noteNewRecentDocumentURL(url)
-        guard let pdfDocument = PDFDocument(url: url) else { return }
+        guard let loaded = PDFLoader.openDocument(at: url) else { return }
+        let pdfDocument = loaded.document
         
         // Open document
-        DocumentController.setDocument(pdfDocument, sender: self)
+        DocumentController.setDocument(pdfDocument, url: url, data: loaded.data, sender: self)
         
         // Reset page
         PageController.selectPage(at: 0, sender: self)
@@ -359,7 +360,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     /** Checks if a notes file exists for the PDF and returns the URL of it. Returns `nil` if no notes file was found. */
     func searchNotesDocument() -> URL? {
-        guard let basePath = DocumentController.document?.documentURL?.deletingPathExtension().path else { return nil }
+        guard let basePath = DocumentController.documentURL?.deletingPathExtension().path else { return nil }
         
         let fileManager = FileManager.default
         let separators = ["-", "_", " "]
@@ -472,7 +473,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Compose predefined filename
         var drawingsFilename = "Drawings.pdf"
-        if let pdfFilename = DocumentController.document?.documentURL?.deletingPathExtension().lastPathComponent {
+        if let pdfFilename = DocumentController.documentURL?.deletingPathExtension().lastPathComponent {
             let drawingsString = NSLocalizedString("Drawings", comment: "Drawings filename extension")
             drawingsFilename = pdfFilename + "-" + drawingsString + ".pdf"
             
@@ -819,7 +820,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         else {
             // Compose predefined filename
             var notesFilename = "Notes.rtf"
-            if let pdfFilename = DocumentController.document?.documentURL?.deletingPathExtension().lastPathComponent {
+            if let pdfFilename = DocumentController.documentURL?.deletingPathExtension().lastPathComponent {
                 let notesString = NSLocalizedString("Notes", comment: "Notes filename extension")
                 notesFilename = pdfFilename + "-" + notesString + ".rtf"
                 

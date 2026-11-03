@@ -51,6 +51,26 @@ class PageController {
     }
     
     
+    /**
+     Clamps the current and previous page to a new page count, after the document was reloaded.
+     This bypasses `isPageSwitchingEnabled`, because the old page may no longer exist. Returns
+     `true` if the current page changed; the caller then sends `notifyPageChange`.
+     */
+    public static func clampPages(toPageCount pageCount: Int) -> Bool {
+        let lastPage = max(pageCount - 1, 0)
+        previousPage = min(previousPage, lastPage)
+        guard currentPage > lastPage else { return false }
+        currentPage = lastPage
+        return true
+    }
+    
+    
+    /** Sends a notification, that the page was changed, without changing it. */
+    public static func notifyPageChange(sender: Any?) {
+        NotificationCenter.default.post(name: .didSelectPage, object: sender)
+    }
+    
+    
     /** Selects the previous page and sends a notification, that the page was changed. */
     public static func selectPreviousPage(sender: Any?) {
         selectPage(at: previousPage, sender: sender)

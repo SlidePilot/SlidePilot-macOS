@@ -255,7 +255,12 @@ class ThumbnailNavigation: NSView {
     
     @objc func documentDidChange(_ notification: Notification) {
         tableView.reloadData()
-        selectThumbnail(at: 0, scrollVisible: true)
+        // A reload keeps the selection and the scroll position
+        if notification.isDocumentReload {
+            selectThumbnail(at: PageController.currentPage, scrollVisible: false)
+        } else {
+            selectThumbnail(at: 0, scrollVisible: true)
+        }
     }
     
     

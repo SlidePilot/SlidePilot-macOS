@@ -113,6 +113,8 @@ final class PDFMovieFiles {
     static let shared = PDFMovieFiles()
     private var document: PDFDocument?
     private var directory: URL?
+    /** File of the shown document, for documents loaded from memory (whose `documentURL` is `nil`). */
+    var documentURL: URL?
     private var extracted = [CGPDFObjectRef: URL]()
 
     deinit { clear() }
@@ -171,7 +173,7 @@ final class PDFMovieFiles {
         if let url = URL(string: path), let scheme = url.scheme,
            ["http", "https", "file"].contains(scheme.lowercased()) { return url }
         if (path as NSString).isAbsolutePath { return URL(fileURLWithPath: path) }
-        guard let base = document?.documentURL?.deletingLastPathComponent() else { return nil }
+        guard let base = (document?.documentURL ?? documentURL)?.deletingLastPathComponent() else { return nil }
         return base.appendingPathComponent(path)
     }
 }
