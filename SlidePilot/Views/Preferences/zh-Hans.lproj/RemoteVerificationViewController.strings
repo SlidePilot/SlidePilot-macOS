@@ -1,0 +1,15 @@
+
+/* Class = "NSTextFieldCell"; title = "Confirm that the following code is shown on the Device."; ObjectID = "4c1-jX-qTS"; */
+"4c1-jX-qTS.title" = "请确认设备上显示以下代码。";
+
+/* Class = "NSTextFieldCell"; title = "Connecting to Device"; ObjectID = "Re1-7X-QeT"; */
+"Re1-7X-QeT.title" = "正在连接到设备";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "g2x-ug-Nok"; */
+"g2x-ug-Nok.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "1234"; ObjectID = "h6B-US-Svr"; */
+"h6B-US-Svr.title" = "1234";
+
+/* Class = "NSButtonCell"; title = "Confirm"; ObjectID = "x5w-lV-JU1"; */
+"x5w-lV-JU1.title" = "确认";

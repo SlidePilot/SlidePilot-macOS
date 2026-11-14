@@ -1,0 +1,54 @@
+
+/* Class = "NSTextFieldCell"; title = "Next Slide"; ObjectID = "3n3-7o-dTR"; */
+"3n3-7o-dTR.title" = "下一张幻灯片";
+
+/* Class = "NSTextFieldCell"; title = "Slide Padding:"; ObjectID = "5tc-Zh-gRo"; */
+"5tc-Zh-gRo.title" = "幻灯片间距：";
+
+/* Class = "NSButtonCell"; title = "Single"; ObjectID = "Abl-iz-tBf"; */
+"Abl-iz-tBf.title" = "单页";
+
+/* Class = "NSButtonCell"; title = "Triple Right"; ObjectID = "Afq-10-6q7"; */
+"Afq-10-6q7.title" = "三页（右）";
+
+/* Class = "NSButtonCell"; title = "Double"; ObjectID = "Bhy-gB-ICp"; */
+"Bhy-gB-ICp.title" = "双页";
+
+/* Class = "NSTextFieldCell"; title = "Slides:"; ObjectID = "JSg-VZ-DZm"; */
+"JSg-VZ-DZm.title" = "幻灯片：";
+
+/* Class = "NSButtonCell"; title = "Small"; ObjectID = "Y0x-vv-VTU"; */
+"Y0x-vv-VTU.title" = "小";
+
+/* Class = "NSTextFieldCell"; title = "Current Slide"; ObjectID = "YhI-Ij-elO"; */
+"YhI-Ij-elO.title" = "当前幻灯片";
+
+/* Class = "NSTextFieldCell"; title = "Notes"; ObjectID = "Z23-wf-GT0"; */
+"Z23-wf-GT0.title" = "备注";
+
+/* Class = "NSButtonCell"; title = "Hidden"; ObjectID = "Zm5-CK-qx3"; */
+"Zm5-CK-qx3.title" = "隐藏";
+
+/* Class = "NSButtonCell"; title = "Triple Left"; ObjectID = "b3y-yF-OfP"; */
+"b3y-yF-OfP.title" = "三页（左）";
+
+/* Class = "NSTextFieldCell"; title = "Arrangement:"; ObjectID = "dO1-1k-CyE"; */
+"dO1-1k-CyE.title" = "排列：";
+
+/* Class = "NSButtonCell"; title = "Small"; ObjectID = "gKW-qz-qxy"; */
+"gKW-qz-qxy.title" = "小";
+
+/* Class = "NSButtonCell"; title = "None"; ObjectID = "nVZ-h3-u3H"; */
+"nVZ-h3-u3H.title" = "无";
+
+/* Class = "NSTextFieldCell"; title = "Time Controls:"; ObjectID = "osH-1s-oI1"; */
+"osH-1s-oI1.title" = "时间控制：";
+
+/* Class = "NSTextFieldCell"; title = "Configure:"; ObjectID = "pcC-po-RVy"; */
+"pcC-po-RVy.title" = "配置：";
+
+/* Class = "NSButtonCell"; title = "Normal"; ObjectID = "xJI-Vx-Q3h"; */
+"xJI-Vx-Q3h.title" = "标准";
+
+/* Class = "NSButtonCell"; title = "Normal"; ObjectID = "ya0-HB-1cz"; */
+"ya0-HB-1cz.title" = "标准";

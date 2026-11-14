@@ -238,6 +238,14 @@
 		50FA6B97245356F000EDEFC6 /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
 		50FA9A772498B13E0046E2C0 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		50FF8D9D242CC32C00B0389B /* PresentationWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationWindow.swift; sourceTree = "<group>"; };
+		A1A2A3A4A5A6A7A8A9AAAB01 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		A1A2A3A4A5A6A7A8A9AAAB02 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A1A2A3A4A5A6A7A8A9AAAB03 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/GeneralPreferences.strings"; sourceTree = "<group>"; };
+		A1A2A3A4A5A6A7A8A9AAAB04 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RemotePreferences.strings"; sourceTree = "<group>"; };
+		A1A2A3A4A5A6A7A8A9AAAB05 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TrustedDevicesViewController.strings"; sourceTree = "<group>"; };
+		A1A2A3A4A5A6A7A8A9AAAB06 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RemoteVerificationViewController.strings"; sourceTree = "<group>"; };
+		A1A2A3A4A5A6A7A8A9AAAB07 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LayoutEditor.strings"; sourceTree = "<group>"; };
+		A1A2A3A4A5A6A7A8A9AAAB08 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/PointerEditor.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -569,6 +577,7 @@
 				Base,
 				de,
 				fr,
+				"zh-Hans",
 			);
 			mainGroup = 509B96EA2428A3AC0076B8B4;
 			packageReferences = (
@@ -721,6 +730,7 @@
 				5055BFE7273E86C200F97658 /* Base */,
 				5055BFEB273E86C800F97658 /* fr */,
 				5055BFED273E86C800F97658 /* de */,
+				A1A2A3A4A5A6A7A8A9AAAB07 /* zh-Hans */,
 			);
 			name = LayoutEditor.xib;
 			sourceTree = "<group>";
@@ -731,6 +741,7 @@
 				5055BFF6273ED3DE00F97658 /* Base */,
 				5055BFFA273ED3E200F97658 /* fr */,
 				5055BFFC273ED3E300F97658 /* de */,
+				A1A2A3A4A5A6A7A8A9AAAB08 /* zh-Hans */,
 			);
 			name = PointerEditor.xib;
 			sourceTree = "<group>";
@@ -741,6 +752,7 @@
 				5074A88124A34FD5005CFDEF /* Base */,
 				5074A88424A34FDA005CFDEF /* fr */,
 				5074A88624A34FDA005CFDEF /* de */,
+				A1A2A3A4A5A6A7A8A9AAAB03 /* zh-Hans */,
 			);
 			name = GeneralPreferences.xib;
 			sourceTree = "<group>";
@@ -751,6 +763,7 @@
 				507E697E253CC64700C00215 /* Base */,
 				507E6982253CC64B00C00215 /* fr */,
 				507E6984253CC64C00C00215 /* de */,
+				A1A2A3A4A5A6A7A8A9AAAB05 /* zh-Hans */,
 			);
 			name = TrustedDevicesViewController.xib;
 			sourceTree = "<group>";
@@ -761,6 +774,7 @@
 				509B96FD2428A3AE0076B8B4 /* Base */,
 				50C77F2F242CCCC800066752 /* de */,
 				504450A0245ADFB900330984 /* fr */,
+				A1A2A3A4A5A6A7A8A9AAAB01 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -771,6 +785,7 @@
 				50BA174B252E228600397D8E /* Base */,
 				50F862F8252F4FA900699583 /* fr */,
 				50F862FA252F4FAD00699583 /* de */,
+				A1A2A3A4A5A6A7A8A9AAAB04 /* zh-Hans */,
 			);
 			name = RemotePreferences.xib;
 			sourceTree = "<group>";
@@ -781,6 +796,7 @@
 				50C77F3A242CD32500066752 /* en */,
 				50C77F3C242CD32600066752 /* de */,
 				504450A1245ADFB900330984 /* fr */,
+				A1A2A3A4A5A6A7A8A9AAAB02 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -791,6 +807,7 @@
 				50F862E9252F456400699583 /* Base */,
 				50F862ED252F456900699583 /* fr */,
 				50F862EF252F456D00699583 /* de */,
+				A1A2A3A4A5A6A7A8A9AAAB06 /* zh-Hans */,
 			);
 			name = RemoteVerificationViewController.xib;
 			sourceTree = "<group>";

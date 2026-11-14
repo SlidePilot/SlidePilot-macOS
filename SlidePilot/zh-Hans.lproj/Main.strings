@@ -1,0 +1,321 @@
+
+/* Class = "NSMenuItem"; title = "Format"; ObjectID = "0Gn-3s-ITh"; */
+"0Gn-3s-ITh.title" = "格式";
+
+/* Class = "NSMenuItem"; title = "SlidePilot"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "SlidePilot";
+
+/* Class = "NSMenuItem"; title = "Bottom"; ObjectID = "3BI-JZ-e7T"; */
+"3BI-JZ-e7T.title" = "底部";
+
+/* Class = "NSMenu"; title = "Format"; ObjectID = "42S-Y1-0zg"; */
+"42S-Y1-0zg.title" = "格式";
+
+/* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "4J7-dP-txa"; */
+"4J7-dP-txa.title" = "进入全屏";
+
+/* Class = "NSMenuItem"; title = "Quit SlidePilot"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "退出 SlidePilot";
+
+/* Class = "NSMenuItem"; title = "Spacing…"; ObjectID = "50S-x6-AAW"; */
+"50S-x6-AAW.title" = "行距…";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
+"5QF-Oa-p0T.title" = "编辑";
+
+/* Class = "NSMenuItem"; title = "About SlidePilot"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "关于 SlidePilot";
+
+/* Class = "NSMenuItem"; title = "Notes Mode"; ObjectID = "6b4-5J-R1q"; */
+"6b4-5J-R1q.title" = "备注模式";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
+"6dh-zS-Vam.title" = "重做";
+
+/* Class = "NSMenuItem"; title = "Export Drawings"; ObjectID = "9iu-Qu-69d"; */
+"9iu-Qu-69d.title" = "导出绘图";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "主菜单";
+
+/* Class = "NSMenuItem"; title = "Preview Next Slide"; ObjectID = "Atm-A9-uUk"; */
+"Atm-A9-uUk.title" = "预览下一张幻灯片";
+
+/* Class = "NSMenuItem"; title = "Cursor"; ObjectID = "Auy-Z6-pIV"; */
+"Auy-Z6-pIV.title" = "光标";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
+"BOF-NM-1cW.title" = "偏好设置…";
+
+/* Class = "NSMenuItem"; title = "List…"; ObjectID = "CBj-Fu-sHU"; */
+"CBj-Fu-sHU.title" = "列表…";
+
+/* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
+"DVo-aG-piG.title" = "关闭";
+
+/* Class = "NSTextFieldCell"; title = "Label"; ObjectID = "Dvc-Nd-8iL"; */
+"Dvc-Nd-8iL.title" = "标签";
+
+/* Class = "NSMenuItem"; title = "Display White Screen"; ObjectID = "E0b-Yv-pqH"; */
+"E0b-Yv-pqH.title" = "显示白屏";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
+"F2S-fz-NVQ.title" = "帮助";
+
+/* Class = "NSMenuItem"; title = "SlidePilot Help"; ObjectID = "FKE-Sm-Kum"; */
+"FKE-Sm-Kum.title" = "SlidePilot 帮助";
+
+/* Class = "NSMenu"; title = "Pointer Appearance"; ObjectID = "Fg3-Dc-rDB"; */
+"Fg3-Dc-rDB.title" = "指针外观";
+
+/* Class = "NSMenuItem"; title = "Set Timer"; ObjectID = "GyA-9h-Aoe"; */
+"GyA-9h-Aoe.title" = "设置计时器";
+
+/* Class = "NSMenuItem"; title = "View"; ObjectID = "H8h-7b-M4v"; */
+"H8h-7b-M4v.title" = "显示";
+
+/* Class = "NSMenuItem"; title = "Pointer Appearance"; ObjectID = "HNs-Tl-r53"; */
+"HNs-Tl-r53.title" = "指针外观";
+
+/* Class = "NSMenu"; title = "View"; ObjectID = "HyV-fh-RgO"; */
+"HyV-fh-RgO.title" = "显示";
+
+/* Class = "NSMenuItem"; title = "Open…"; ObjectID = "IAo-SY-fd9"; */
+"IAo-SY-fd9.title" = "打开…";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "IQv-IB-iLA"; */
+"IQv-IB-iLA.title" = "窗口";
+
+/* Class = "NSTextFieldCell"; title = "Label"; ObjectID = "KO4-ee-5js"; */
+"KO4-ee-5js.title" = "标签";
+
+/* Class = "NSMenuItem"; title = "Circle"; ObjectID = "KeP-a7-ltS"; */
+"KeP-a7-ltS.title" = "圆形";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "Kws-6x-VZZ"; */
+"Kws-6x-VZZ.title" = "无";
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
+"LE2-aR-0XJ.title" = "前置全部窗口";
+
+/* Class = "NSMenuItem"; title = "New Notes"; ObjectID = "Lc1-jS-yKf"; */
+"Lc1-jS-yKf.title" = "新建备注";
+
+/* Class = "NSMenuItem"; title = "Timer"; ObjectID = "Mhe-VV-WGl"; */
+"Mhe-VV-WGl.title" = "计时器";
+
+/* Class = "NSMenuItem"; title = "Edit Layout"; ObjectID = "NQu-JE-Rp9"; */
+"NQu-JE-Rp9.title" = "编辑布局";
+
+/* Class = "NSMenuItem"; title = "Save Notes"; ObjectID = "Nrq-4X-0EL"; */
+"Nrq-4X-0EL.title" = "保存备注";
+
+/* Class = "NSMenuItem"; title = "Clear Canvas"; ObjectID = "O1m-6g-Uld"; */
+"O1m-6g-Uld.title" = "清除画布";
+
+/* Class = "NSMenu"; title = "Moderator"; ObjectID = "O4y-2K-zDw"; */
+"O4y-2K-zDw.title" = "演讲者";
+
+/* Class = "NSMenuItem"; title = "Split"; ObjectID = "OMC-wK-B8t"; */
+"OMC-wK-B8t.title" = "拆分";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
+"OY7-WF-poV.title" = "最小化";
+
+/* Class = "NSMenuItem"; title = "Hide SlidePilot"; ObjectID = "Olw-nP-bQN"; */
+"Olw-nP-bQN.title" = "隐藏 SlidePilot";
+
+/* Class = "NSMenuItem"; title = "Reset Time"; ObjectID = "PX1-Gg-U0w"; */
+"PX1-Gg-U0w.title" = "重置时间";
+
+/* Class = "NSMenuItem"; title = "Next Slide"; ObjectID = "QHz-hK-x1G"; */
+"QHz-hK-x1G.title" = "下一张幻灯片";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
+"R4o-n2-Eq4.title" = "缩放";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
+"Ruw-6m-B2m.title" = "全选";
+
+/* Class = "NSMenuItem"; title = "Align Right"; ObjectID = "TWd-Px-sJm"; */
+"TWd-Px-sJm.title" = "右对齐";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
+"Td7-aD-5lo.title" = "窗口";
+
+/* Class = "NSMenuItem"; title = "Top"; ObjectID = "Tzc-zb-uAo"; */
+"Tzc-zb-uAo.title" = "顶部";
+
+/* Class = "NSMenuItem"; title = "Target Red"; ObjectID = "UYT-sb-cqr"; */
+"UYT-sb-cqr.title" = "红色靶心";
+
+/* Class = "NSMenuItem"; title = "Edit Pointer"; ObjectID = "VRs-AV-sKD"; */
+"VRs-AV-sKD.title" = "编辑指针";
+
+/* Class = "NSMenuItem"; title = "Check for Updates…"; ObjectID = "VVU-xh-TkN"; */
+"VVU-xh-TkN.title" = "检查更新…";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
+"Vdr-fp-XzO.title" = "隐藏其他";
+
+/* Class = "NSMenu"; title = "Split Position"; ObjectID = "Vm6-Hh-mT3"; */
+"Vm6-Hh-mT3.title" = "拆分位置";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
+"W48-6f-4Dl.title" = "编辑";
+
+/* Class = "NSMenuItem"; title = "Paste and Match Style"; ObjectID = "WeT-3V-zwk"; */
+"WeT-3V-zwk.title" = "粘贴并匹配样式";
+
+/* Class = "NSMenuItem"; title = "Display Black Screen"; ObjectID = "Wsl-Lh-Rzy"; */
+"Wsl-Lh-Rzy.title" = "显示黑屏";
+
+/* Class = "NSMenuItem"; title = "Split Position"; ObjectID = "WtB-Ny-SAM"; */
+"WtB-Ny-SAM.title" = "拆分位置";
+
+/* Class = "NSMenuItem"; title = "Target Black"; ObjectID = "YH8-Ja-Yo4"; */
+"YH8-Ja-Yo4.title" = "黑色靶心";
+
+/* Class = "NSMenuItem"; title = "Align Left"; ObjectID = "Zi0-Hd-gZC"; */
+"Zi0-Hd-gZC.title" = "左对齐";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
+"aUF-d1-5bR.title" = "窗口";
+
+/* Class = "NSMenuItem"; title = "Center"; ObjectID = "aW2-30-SOk"; */
+"aW2-30-SOk.title" = "居中";
+
+/* Class = "NSMenuItem"; title = "Dot"; ObjectID = "akh-gx-hr7"; */
+"akh-gx-hr7.title" = "圆点";
+
+/* Class = "NSMenuItem"; title = "Clear Drawings"; ObjectID = "b9e-Ma-o1Q"; */
+"b9e-Ma-o1Q.title" = "清除绘图";
+
+/* Class = "NSMenuItem"; title = "Start/Stop Time"; ObjectID = "bL3-yv-j1V"; */
+"bL3-yv-j1V.title" = "开始/停止计时";
+
+/* Class = "NSMenuItem"; title = "Draw"; ObjectID = "bOy-zp-CYT"; */
+"bOy-zp-CYT.title" = "绘图";
+
+/* Class = "NSMenuItem"; title = "Left"; ObjectID = "bSo-dU-i8i"; */
+"bSo-dU-i8i.title" = "左";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
+"bib-Uj-vzu.title" = "文件";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "dMs-cI-mzQ"; */
+"dMs-cI-mzQ.title" = "文件";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
+"dRJ-4n-Yzg.title" = "撤销";
+
+/* Class = "NSMenuItem"; title = "Underline"; ObjectID = "dTz-JK-ND4"; */
+"dTz-JK-ND4.title" = "下划线";
+
+/* Class = "NSMenu"; title = "Notes"; ObjectID = "eeB-A4-p01"; */
+"eeB-A4-p01.title" = "备注";
+
+/* Class = "NSMenuItem"; title = "Right"; ObjectID = "f9q-Hv-2g2"; */
+"f9q-Hv-2g2.title" = "右";
+
+/* Class = "NSMenuItem"; title = "Show Notes"; ObjectID = "fS9-YP-QfR"; */
+"fS9-YP-QfR.title" = "显示备注";
+
+/* Class = "NSMenuItem"; title = "Stopwatch"; ObjectID = "fd7-Nw-UnK"; */
+"fd7-Nw-UnK.title" = "秒表";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.title" = "粘贴";
+
+/* Class = "NSMenuItem"; title = "Previous Slide"; ObjectID = "gcL-Jw-1Oj"; */
+"gcL-Jw-1Oj.title" = "上一张幻灯片";
+
+/* Class = "NSMenuItem"; title = "Hand"; ObjectID = "gqd-uQ-vYn"; */
+"gqd-uQ-vYn.title" = "手形工具";
+
+/* Class = "NSMenuItem"; title = "Show Current Slide"; ObjectID = "hrX-za-TrV"; */
+"hrX-za-TrV.title" = "显示当前幻灯片";
+
+/* Class = "NSMenuItem"; title = "Text"; ObjectID = "hxO-Rn-nAO"; */
+"hxO-Rn-nAO.title" = "文本";
+
+/* Class = "NSMenuItem"; title = "Show Pointer"; ObjectID = "iHL-eH-XtE"; */
+"iHL-eH-XtE.title" = "显示指针";
+
+/* Class = "NSMenuItem"; title = "Bigger"; ObjectID = "imS-PA-oW0"; */
+"imS-PA-oW0.title" = "更大";
+
+/* Class = "NSMenuItem"; title = "Previous Slide"; ObjectID = "j2s-KC-OdN"; */
+"j2s-KC-OdN.title" = "上一张幻灯片";
+
+/* Class = "NSMenuItem"; title = "Italic"; ObjectID = "j9w-kc-N3h"; */
+"j9w-kc-N3h.title" = "斜体";
+
+/* Class = "NSMenuItem"; title = "Notes"; ObjectID = "jvc-gB-nHf"; */
+"jvc-gB-nHf.title" = "备注";
+
+/* Class = "NSMenuItem"; title = "Bold"; ObjectID = "k0O-Vd-fHq"; */
+"k0O-Vd-fHq.title" = "粗体";
+
+/* Class = "NSMenuItem"; title = "White Canvas"; ObjectID = "lNX-iJ-JaX"; */
+"lNX-iJ-JaX.title" = "白色画布";
+
+/* Class = "NSMenuItem"; title = "Smaller"; ObjectID = "nYX-Cm-qit"; */
+"nYX-Cm-qit.title" = "更小";
+
+/* Class = "NSMenuItem"; title = "Display Black Screen"; ObjectID = "nx9-eN-d1w"; */
+"nx9-eN-d1w.title" = "显示黑屏";
+
+/* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
+"oas-Oc-fiZ.title" = "打开最近使用";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
+"pa3-QI-u2k.title" = "删除";
+
+/* Class = "NSMenuItem"; title = "Individual"; ObjectID = "rTi-ec-8YY"; */
+"rTi-ec-8YY.title" = "自定义";
+
+/* Class = "NSMenuItem"; title = "Next Slide"; ObjectID = "s0G-5Y-hRb"; */
+"s0G-5Y-hRb.title" = "下一张幻灯片";
+
+/* Class = "NSMenuItem"; title = "Mode"; ObjectID = "sQh-A9-Icc"; */
+"sQh-A9-Icc.title" = "模式";
+
+/* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
+"tXI-mr-wws.title" = "打开最近使用";
+
+/* Class = "NSMenu"; title = "SlidePilot"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "SlidePilot";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
+"uRl-iY-unG.title" = "剪切";
+
+/* Class = "NSMenu"; title = "Presentation"; ObjectID = "uzH-JS-q45"; */
+"uzH-JS-q45.title" = "演示";
+
+/* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "vNY-rz-j42"; */
+"vNY-rz-j42.title" = "清除菜单";
+
+/* Class = "NSMenuItem"; title = "Presentation"; ObjectID = "w6Q-ep-WBl"; */
+"w6Q-ep-WBl.title" = "演示";
+
+/* Class = "NSMenuItem"; title = "Moderator"; ObjectID = "w7l-df-asi"; */
+"w7l-df-asi.title" = "演讲者";
+
+/* Class = "NSMenuItem"; title = "Go Back"; ObjectID = "wm4-bF-phA"; */
+"wm4-bF-phA.title" = "返回";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
+"wpr-3q-Mcd.title" = "帮助";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.title" = "复制";
+
+/* Class = "NSMenuItem"; title = "Open Notes"; ObjectID = "ypU-UU-7oB"; */
+"ypU-UU-7oB.title" = "打开备注";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "zZP-Ud-eGP"; */
+"zZP-Ud-eGP.title" = "窗口";
+
+/* Class = "NSMenuItem"; title = "Show Navigator"; ObjectID = "zx2-Yz-Rxn"; */
+"zx2-Yz-Rxn.title" = "显示导航器";
