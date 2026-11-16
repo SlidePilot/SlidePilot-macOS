@@ -1,0 +1,21 @@
+
+/* Class = "NSTextFieldCell"; title = "Shape:"; ObjectID = "0hF-xZ-wAL"; */
+"0hF-xZ-wAL.title" = "形状：";
+
+/* Class = "NSTextFieldCell"; title = "Color:"; ObjectID = "8H2-On-1uT"; */
+"8H2-On-1uT.title" = "颜色：";
+
+/* Class = "NSTextFieldCell"; title = "Border:"; ObjectID = "KeY-hG-zNg"; */
+"KeY-hG-zNg.title" = "边框：";
+
+/* Class = "NSTextFieldCell"; title = "Border Color:"; ObjectID = "N6o-RR-fRb"; */
+"N6o-RR-fRb.title" = "边框颜色：";
+
+/* Class = "NSTextFieldCell"; title = "Thickness:"; ObjectID = "RlY-VI-wUy"; */
+"RlY-VI-wUy.title" = "粗细：";
+
+/* Class = "NSTextFieldCell"; title = "Size:"; ObjectID = "oOE-BK-JBY"; */
+"oOE-BK-JBY.title" = "大小：";
+
+/* Class = "NSTextFieldCell"; title = "Shadow:"; ObjectID = "ziP-7b-uNV"; */
+"ziP-7b-uNV.title" = "阴影：";

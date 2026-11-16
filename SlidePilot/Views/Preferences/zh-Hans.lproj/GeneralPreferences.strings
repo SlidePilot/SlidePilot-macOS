@@ -1,0 +1,18 @@
+
+/* Class = "NSButtonCell"; title = "Save drawings on slides"; ObjectID = "173-to-T0s"; */
+"173-to-T0s.title" = "在幻灯片上保存绘图";
+
+/* Class = "NSTextFieldCell"; title = "Drawings:"; ObjectID = "OMW-1i-kJD"; */
+"OMW-1i-kJD.title" = "绘图：";
+
+/* Class = "NSTextFieldCell"; title = "Keep Awake:"; ObjectID = "RRy-7Y-UEG"; */
+"RRy-7Y-UEG.title" = "保持唤醒：";
+
+/* Class = "NSTextFieldCell"; title = "Transition:"; ObjectID = "Uz0-ML-jeX"; */
+"Uz0-ML-jeX.title" = "转场：";
+
+/* Class = "NSButtonCell"; title = "Crossfade between slides"; ObjectID = "htK-yb-JXj"; */
+"htK-yb-JXj.title" = "幻灯片之间淡入淡出";
+
+/* Class = "NSButtonCell"; title = "Prevent Mac from falling asleep while presenting"; ObjectID = "srf-tM-fS7"; */
+"srf-tM-fS7.title" = "演示时防止 Mac 进入睡眠";

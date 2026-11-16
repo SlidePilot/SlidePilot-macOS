@@ -1,0 +1,12 @@
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "0Hx-LJ-ard"; */
+"0Hx-LJ-ard.title" = "文本单元格";
+
+/* Class = "NSButtonCell"; title = "Remove"; ObjectID = "0af-eN-9mH"; */
+"0af-eN-9mH.title" = "移除";
+
+/* Class = "NSTextFieldCell"; title = "Device Name"; ObjectID = "XcK-YO-GmW"; */
+"XcK-YO-GmW.title" = "设备名称";
+
+/* Class = "NSButtonCell"; title = "Finish"; ObjectID = "ky6-YA-Rld"; */
+"ky6-YA-Rld.title" = "完成";
