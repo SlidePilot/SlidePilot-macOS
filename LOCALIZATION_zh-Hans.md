@@ -30,8 +30,11 @@
 | `SlidePilot/Views/Presentation/zh-Hans.lproj/PointerEditor.strings` | 指针外观编辑器 | 7 |
 
 说明：
-- `Localizable.strings` 沿用项目现有的 **UTF-16 / binary plist** 格式（与 en/de/fr 一致），
-  其余 `.strings` 为 UTF-8 纯文本（与 de/fr 一致）。
+- `Localizable.strings` 沿用项目现有的 **UTF-16LE + BOM 纯文本 `.strings`** 格式（与 en/de/fr 完全一致）。
+  注意：必须是纯文本而非 Apple binary plist（`bplist00`）——Xcode 的 `CopyStringsFile`
+  构建步骤无法自动识别二进制 plist 的编码，会报
+  `no --inputencoding specified and could not detect encoding from input file`。
+  其余界面 `.strings` 为 UTF-8 纯文本（与 de/fr 一致）。
 - 界面 `.strings` 的键是 Xcode 的 **ObjectID**（如 `"0Gn-3s-ITh.title"`），
   由 `ibtool --export-strings-file` 从当前 `Base` 导出后逐条翻译，
   保证与当前 storyboard/xib 一一对应。
@@ -77,8 +80,35 @@
   6 个 xib 的键数与 de/fr 参考完全一致；
 - `ibtool --import-strings-file`：把中文 `.strings` 反向导入 Base storyboard/xib 成功，
   产物中确实出现中文（主菜单、偏好设置、布局、指针编辑器），证明整条本地化链路可用；
-- 完整 `xcodebuild build` 未能在本环境完成：沙盒限制导致 SwiftPM 无法写入
-  `~/Library/Caches/org.swift.swiftpm`（`Preferences` 依赖解析失败），与本地化改动无关。
+- **完整 Release 构建 `BUILD SUCCEEDED`**（Xcode 27.2 / macOS 27.2 SDK / Apple Silicon arm64）：
+  8 个中文 `.strings` 全部被打包进 `SlidePilot.app/Contents/Resources/zh-Hans.lproj/`，
+  `CFBundleLocalizations` 含 `zh-Hans`，产物为 x86_64 + arm64 通用二进制；
+- **运行时验证**：通过 `NSBundle.localizedStringForKey:value:table:` 在强制 `zh-Hans` 时
+  解析到 `Cancel → 取消`、`Presenter Display → 演讲者显示`；
+  `preferredLocalizations` 返回 `zh-Hans`。App 已实际启动运行（无崩溃）。
+
+## 本地构建说明（Xcode 27 上的两个必需覆盖）
+
+本项目最后一次提交是 2022 年，用现代 Xcode 构建需要两个命令行覆盖，**无需改动仓库文件**：
+
+```
+xcodebuild -project SlidePilot.xcodeproj -scheme SlidePilot \
+  -configuration Release \
+  MACOSX_DEPLOYMENT_TARGET=12.0 \
+  CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
+  build
+```
+
+1. `MACOSX_DEPLOYMENT_TARGET=12.0`：工程里有一处配置写死 `10.11`，
+   而 Xcode 27 只支持 `12.0 ~ 27.2` 的 deployment target，不覆盖会直接报错。
+   （另两处 `10.15` 本身合法。）
+2. `CODE_SIGNING_ALLOWED=NO`：工程配置了原作者的 `DEVELOPMENT_TEAM`，
+   本机没有对应证书。禁用签名后可用 `codesign --force --deep --sign -` 做 ad-hoc 重签，
+   配合 `xattr -cr` 清除隔离属性即可在本机运行。
+3. 若在受限沙盒环境（如本会话）构建，SwiftPM 需要写 `~/Library/Caches/org.swift.swiftpm`
+   才能解析 `Preferences` 依赖；`HOME` 覆盖、`-clonedSourcePackagesDirPath` 等绕行均无效，
+   需放行该目录的写权限。
+4. 内置 `Sparkle.framework` 是 x86_64 + arm64 双架构，Apple Silicon 可直接使用。
 
 ## 已知情况（上游遗留，非本次引入）
 
@@ -99,10 +129,11 @@ ibtool --export-strings-file /tmp/Main.strings SlidePilot/Base.lproj/Main.storyb
 ```
 
 `Localizable.strings` 新增键时，从 `en.lproj/Localizable.strings` 取键并翻译，
-注意保持二进制 plist 格式（或统一改成 UTF-8，Xcode 两者都支持）。
+**注意保持 UTF-16LE + BOM 纯文本格式**（不要用二进制 plist，会导致构建失败）；
+若统一改成 UTF-8 也可以，但需同时把 en/de/fr 一起改，保持工程内一致。
 
-## 提交建议（遵循仓库 CONTRIBUTING.md 的 git flow）
+## 提交状态
 
-- 基于 `develop` 分支新建 `feature/zh-Hans-localization`；
-- 提交上述新增文件与两处改动；
-- 在 PR 里附上不同语言下的截图。
+- 分支 `feature/zh-Hans-localization` 已基于 `origin/develop`（遵循仓库 git flow）；
+- 已推送到 fork `zlizpro/SlidePilot-macOS`，并向上游 `develop` 提交
+  [PR #90](https://github.com/SlidePilot/SlidePilot-macOS/pull/90)（OPEN）。
