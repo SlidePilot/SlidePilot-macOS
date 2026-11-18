@@ -45,6 +45,28 @@ class ConnectedPlayer: AVPlayerView {
     
     
     
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        // Slide movies are not media playback. Publishing them as Now Playing
+        // makes macOS route audio to this Mac (e.g. AirPods switch from an iPhone),
+        // even for a movie without an audio track, and hands it the media keys.
+        keepOutOfNowPlaying()
+    }
+
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        keepOutOfNowPlaying()
+    }
+
+
+    private func keepOutOfNowPlaying() {
+        if #available(macOS 10.13, *) {
+            updatesNowPlayingInfoCenter = false
+        }
+    }
+
+
     override func keyDown(with event: NSEvent) {
         // Forward key events to window
         self.window?.keyDown(with: event)
