@@ -12,6 +12,12 @@ import Cocoa
 class PointerDisplayView: ClipfreeView {
     
     var pointer: PointerView?
+
+    override func hitTest(_ point: NSPoint) -> NSView? {
+        // This overlay only displays a pointer; underlying slide controls
+        // retain all mouse interaction, including movie timeline scrubbing.
+        return nil
+    }
     
     
     override init(frame frameRect: NSRect) {

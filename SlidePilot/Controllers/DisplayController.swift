@@ -551,7 +551,7 @@ extension DisplayController {
      Convenience method which saves the `DisplayController`'s configuration and saves them directly with `ConfigurationController`. Takes the filepath directly from `DocumentController` as the key.
      */
     public static func saveConfiguration() {
-        if let documentURL = DocumentController.document?.documentURL {
+        if let documentURL = DocumentController.documentURL {
             ConfigurationController.save(configuration: getCurrentConfiguration(), for: documentURL.absoluteString)
         }
     }
@@ -561,7 +561,7 @@ extension DisplayController {
      Convenience method which gets directly from the `ConfigurationController` and loads them into `DisplayController`. Takes the filepath directly from `DocumentController` as the key.
      */
     public static func loadConfiguration() {
-        if let documentURL = DocumentController.document?.documentURL,
+        if let documentURL = DocumentController.documentURL,
             let configuration = ConfigurationController.getDocumentConfiguration(for: documentURL.absoluteString) {
             load(configuration: configuration)
         }

@@ -120,7 +120,12 @@ class PresentationViewController: NSViewController {
     
     
     @objc func documentDidChange(_ notification: Notification) {
-        pageView.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation())
+        // A reload stays on the current page, so a running movie keeps playing
+        let page = notification.isDocumentReload ? PageController.currentPage : 0
+        pageView.setDocument(DocumentController.document, mode: DisplayController.notesPosition.displayModeForPresentation(), at: page)
+        if notification.isDocumentReload {
+            updateCanvas()
+        }
     }
     
     
