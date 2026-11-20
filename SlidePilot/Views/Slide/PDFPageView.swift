@@ -11,7 +11,6 @@ import PDFKit
 import AVKit
 import AVFoundation
 
-var currentPlayer: AVPlayer?
 
 class PDFPageView: NSImageView {
     
@@ -183,8 +182,8 @@ class PDFPageView: NSImageView {
     
     private func reload() {
         // Get current page
-        guard pdfDocument != nil else { return }
-        guard currentPage >= 0, currentPage < (pdfDocument?.pageCount ?? -1) else { return }
+        guard pdfDocument != nil else { removeMovies(); image = nil; return }
+        guard currentPage >= 0, currentPage < (pdfDocument?.pageCount ?? -1) else { removeMovies(); image = nil; return }
         
         // Create NSImage from page
         guard let pdfImage = RenderCache.shared.getPage(at: currentPage, for: pdfDocument!, mode: self.displayMode, priority: .fast) else { return }
@@ -202,81 +201,175 @@ class PDFPageView: NSImageView {
     }
     
     
-    private func embedVideo() {
-        // Remove previous video if needed
-        players.forEach({ $0.pause() })
-        players.removeAll()
-        playerViews.forEach({ $0.removeFromSuperview() })
-        playerViews.removeAll()
-        
-        // Search for video annotation
-        guard #available(macOS 10.13, *) else { return }
-        guard let page = pdfDocument?.page(at: currentPage) else { return }
-        let movieAnnoations = page.annotations.filter({ $0.type == "Movie" })
-        
-        for annotation in movieAnnoations {
-            guard let movieValues = annotation.annotationKeyValues["/Movie"] as? [AnyHashable: Any] else { return }
-            guard let fileName = movieValues.values.first as? String else { return }
-            
-            // Create URL
-            guard let movieURL = URL(string: fileName, relativeTo: pdfDocument?.documentURL) else { return }
-            
-            // Translate bounds according to display mode
-            let pageFrame = self.displayMode.getBounds(for: page)
-            let annotationFrame = NSRect(x: annotation.bounds.minX - pageFrame.minX,
-                                         y: annotation.bounds.minY - pageFrame.minY,
-                                         width: annotation.bounds.width,
-                                         height: annotation.bounds.height)
-            
-            // Check if player is in visible frame of page (regarding display mode)
-            guard annotationFrame.maxX > pageFrame.minX ||
-                  annotationFrame.minX < pageFrame.maxX ||
-                  annotationFrame.maxY > pageFrame.minY ||
-                  annotationFrame.minY < pageFrame.maxY else { return }
-                    
-            let player = AVPlayer(url: movieURL)
-            let playerView = ConnectedPlayer()
-            playerView.player = player
-            playerView.translatesAutoresizingMaskIntoConstraints = false
-            playerView.areControlsEnabled = areVideoPlayerControlsEnabled
-            self.addSubview(playerView)
-            
-            // TODO: TranslateBounds
-            guard let pageSize = self.image?.size else { return }
-            let relativeFrame = NSRect(x: annotationFrame.minX / pageSize.width,
-                                       y: annotationFrame.minY / pageSize.height,
-                                       width: annotationFrame.width / pageSize.width,
-                                       height: annotationFrame.height / pageSize.height)
-            
-            
-            
-            
-            self.addConstraints([
-                NSLayoutConstraint(item: playerView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .right, multiplier: relativeFrame.minX, constant: 0),
-                NSLayoutConstraint(item: playerView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0-relativeFrame.minY, constant: 0),
-                NSLayoutConstraint(item: playerView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: relativeFrame.width, constant: 0),
-                NSLayoutConstraint(item: playerView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: relativeFrame.height, constant: 0)
-            ])
-            
-            playerView.connectToSharedPlayer = self.connectToCurrentPlayer
-            
-            players.append(player)
-            playerViews.append(playerView)
+    private var movieBounds = [CGRect]()
+    /// Per entry of `players`: its file and whether its page autostarts it.
+    private var movieURLs = [URL]()
+    private var movieAutostart = [Bool]()
+    private var movieGeneration = 0
+    private var loopObservers = [NSObjectProtocol]()
+
+    private func removeMovies() {
+        movieGeneration += 1
+        // A connected audience view must not pause the presenter's shared player.
+        if !connectToCurrentPlayer {
+            players.forEach { $0.pause() }
+            if ConnectedPlayer.sharedPlayers?.contains(where: { shared in
+                players.contains(where: { $0 === shared })
+            }) == true {
+                ConnectedPlayer.sharedPlayers = []
+            }
         }
-        
-        // Check if this PDFPageView is showing the current page &
-        // if it's not a connected player (which means it should not connect to the shared players) &
-        // if this page view present the presentation part of the page &
-        // if there were any movie annotations found on the page
-        if self.currentPage == PageController.currentPage,
-           connectToCurrentPlayer == false,
-           DisplayController.notesPosition.displayModeForPresentation() == self.displayMode,
-           movieAnnoations.count > 0 {
-            ConnectedPlayer.sharedPlayers = players
+        let retiredPlayers = players
+        let retiredViews = playerViews
+        playerViews.forEach {
+            if let responder = window?.firstResponder as? NSView,
+               responder === $0 || responder.isDescendant(of: $0) {
+                window?.makeFirstResponder(window)
+            }
+            $0.removeFromSuperview()
+        }
+        // Let the page-change notification finish before AVKit tears down its
+        // media pipeline. Retain both views and players until the next turn.
+        DispatchQueue.main.async {
+            withExtendedLifetime(retiredPlayers) {}
+            withExtendedLifetime(retiredViews) {}
+        }
+        loopObservers.forEach { NotificationCenter.default.removeObserver($0) }
+        loopObservers.removeAll()
+        players.removeAll()
+        playerViews.removeAll()
+        movieBounds.removeAll()
+        movieURLs.removeAll()
+        movieAutostart.removeAll()
+    }
+
+    private func embedVideo() {
+        // Previews remain PDF posters; only the current slide gets live players.
+        guard currentPage == PageController.currentPage,
+              let document = pdfDocument,
+              let page = document.page(at: currentPage) else { removeMovies(); return }
+        // Overlay builds (e.g. beamer \pause) repeat the same movie at the same
+        // place on consecutive pages. Keep those players, so the movie neither
+        // restarts nor flashes black at every build step.
+        let movies = pageMovies(on: page)
+        if !players.isEmpty, movies.count == players.count,
+           zip(movies, zip(movieURLs, movieBounds)).allSatisfy({ movie, old in
+               movie.url == old.0 && Self.sameRect(movie.bounds, old.1)
+           }) {
+            let previousAutostart = movieAutostart
+            movieAutostart = movies.map { $0.autostart }
+            layoutMovies()
+            startAutostartMovies(previouslyStarted: previousAutostart)
+            return
+        }
+        removeMovies()
+        let generation = movieGeneration
+        DispatchQueue.main.async { [weak self, weak document] in
+            guard let self = self, let document = document,
+                  self.movieGeneration == generation,
+                  self.pdfDocument === document,
+                  self.currentPage == PageController.currentPage else { return }
+            self.installMovies()
         }
     }
-    
-    
+
+    private func pageMovies(on page: PDFPage) -> [(bounds: CGRect, url: URL, autostart: Bool, loop: Bool)] {
+        let visibleBounds = displayMode.getBounds(for: page)
+        return page.movieResources().compactMap { movie in
+            guard visibleBounds.intersects(movie.bounds),
+                  let url = PDFMovieFiles.shared.url(for: movie.file, document: pdfDocument) else { return nil }
+            return (movie.bounds, url, movie.autostart, movie.loop)
+        }
+    }
+
+    private static func sameRect(_ a: CGRect, _ b: CGRect) -> Bool {
+        return abs(a.minX - b.minX) < 0.5 && abs(a.minY - b.minY) < 0.5
+            && abs(a.width - b.width) < 0.5 && abs(a.height - b.height) < 0.5
+    }
+
+    /// This view owns playback; connected views mirror it.
+    private var isPlaybackOwner: Bool {
+        return currentPage == PageController.currentPage && !connectToCurrentPlayer
+            && DisplayController.notesPosition.displayModeForPresentation() == displayMode
+    }
+
+    /// Plays the movies whose page asks for it when opened (beamer `\movie[autostart]`),
+    /// unless the previous build step of the same movie already did. An autostart
+    /// on a later build step thus starts a paused movie on the next click.
+    private func startAutostartMovies(previouslyStarted: [Bool]) {
+        // Only the shared owner plays, so connected views never double the audio.
+        guard isPlaybackOwner else { return }
+        for (index, player) in players.enumerated()
+        where movieAutostart[index] && !(index < previouslyStarted.count && previouslyStarted[index]) {
+            if let item = player.currentItem, item.duration.isNumeric,
+               CMTimeCompare(item.currentTime(), item.duration) >= 0 {
+                player.seek(to: .zero)
+            }
+            player.play()
+        }
+    }
+
+    private func installMovies() {
+        guard let page = pdfDocument?.page(at: currentPage) else { return }
+        for movie in pageMovies(on: page) {
+            let player = AVPlayer(url: movie.url)
+            let playerView = ConnectedPlayer()
+            playerView.player = player
+            playerView.areControlsEnabled = areVideoPlayerControlsEnabled
+            addSubview(playerView, positioned: .below, relativeTo: coverView)
+            playerView.connectToSharedPlayer = connectToCurrentPlayer
+            players.append(player)
+            playerViews.append(playerView)
+            movieBounds.append(movie.bounds)
+            movieURLs.append(movie.url)
+            movieAutostart.append(movie.autostart)
+            if movie.loop {
+                // Rewind at the end; removeMovies drops the observer on slide change.
+                player.actionAtItemEnd = .none
+                loopObservers.append(NotificationCenter.default.addObserver(
+                    forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak player] _ in
+                        player?.seek(to: .zero)
+                        player?.play()
+                })
+            }
+        }
+        layoutMovies()
+        if isPlaybackOwner {
+            ConnectedPlayer.sharedPlayers = players
+        }
+        startAutostartMovies(previouslyStarted: [])
+    }
+
+    override func layout() {
+        super.layout()
+        layoutMovies()
+    }
+
+    private func layoutMovies() {
+        guard let page = pdfDocument?.page(at: currentPage) else { return }
+        let pageBounds = displayMode.getBounds(for: page)
+        let imageFrame = imageRect()
+        let rotation = (page.rotation % 360 + 360) % 360
+        func rotated(_ point: CGPoint) -> CGPoint {
+            let x = (point.x - pageBounds.minX) / pageBounds.width
+            let y = (point.y - pageBounds.minY) / pageBounds.height
+            switch rotation {
+            case 90: return CGPoint(x: y, y: 1 - x)
+            case 180: return CGPoint(x: 1 - x, y: 1 - y)
+            case 270: return CGPoint(x: 1 - y, y: x)
+            default: return CGPoint(x: x, y: y)
+            }
+        }
+        for (view, rect) in zip(playerViews, movieBounds) {
+            let first = rotated(rect.origin)
+            let last = rotated(CGPoint(x: rect.maxX, y: rect.maxY))
+            view.frame = CGRect(x: imageFrame.minX + min(first.x, last.x) * imageFrame.width,
+                                y: imageFrame.minY + min(first.y, last.y) * imageFrame.height,
+                                width: abs(last.x - first.x) * imageFrame.width,
+                                height: abs(last.y - first.y) * imageFrame.height)
+        }
+    }
+
     private let crossfadeDuration: CFTimeInterval = 0.6
     private let crossfadeAnimationKey: String = "crossfade"
     /** Setting this value to true will add a crossfade when changing the views image. */
@@ -434,6 +527,7 @@ class PDFPageView: NSImageView {
     // MARK: - Alternative Display and Cover
     
     public func displayBlank() {
+        removeMovies()
         self.image = NSColor.black.image(of: (pdfDocument?.page(at: 0)?.bounds(for: .cropBox).size ?? NSSize(width: 1.0, height: 1.0)))
     }
     
