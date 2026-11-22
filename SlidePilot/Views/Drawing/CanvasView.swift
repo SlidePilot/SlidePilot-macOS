@@ -23,6 +23,12 @@ class CanvasView: NSView {
     
     /// Controls whether the drawing may be modified using the mouse.
     var allowsDrawing = true
+
+    override func hitTest(_ point: NSPoint) -> NSView? {
+        // A display-only canvas must let PDF links and movie controls receive
+        // mouse clicks and drags. An editable canvas still owns drawing input.
+        return allowsDrawing ? super.hitTest(point) : nil
+    }
     
     /// The line that is currently drawn, while mouse is dragged.
     private var currentLine: Line?

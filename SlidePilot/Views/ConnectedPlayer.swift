@@ -45,6 +45,10 @@ class ConnectedPlayer: AVPlayerView {
     
     
     
+    deinit {
+        unsubscribeSharedPlayers()
+    }
+
     override func keyDown(with event: NSEvent) {
         // Forward key events to window
         self.window?.keyDown(with: event)
