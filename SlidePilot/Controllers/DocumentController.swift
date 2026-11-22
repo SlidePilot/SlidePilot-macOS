@@ -24,22 +24,37 @@ class DocumentController {
         return document?.pageCount ?? 0
     }
     
-    private static var documentObserver: FileObserver?
+    /** The file the current document was opened from. Documents are loaded from memory, so `document.documentURL` is `nil`. */
+    public private(set) static var documentURL: URL?
+    
+    /** Key in the `userInfo` of a `.didOpenDocument` notification, which is `true` when the open document was reloaded from disk. */
+    public static let isReloadKey = "isReload"
+    
+    private static var documentReloader: DocumentReloader?
     
     
     
     // MARK: - Setters
     
-    /** Sends a notification, that the document was changed. */
-    public static func setDocument(_ document: PDFDocument, sender: Any) {
+    /**
+     Sends a notification, that the document was changed.
+     
+     - parameters:
+        - url: The file the document was loaded from. When given, the document is reloaded whenever this file changes.
+        - data: The bytes the document was loaded from, used to skip reloads that change nothing.
+     */
+    public static func setDocument(_ document: PDFDocument, url: URL? = nil, data: Data? = nil, sender: Any) {
         self.document = document
+        self.documentURL = url ?? document.documentURL
+        PDFMovieFiles.shared.documentURL = documentURL
         NotificationCenter.default.post(name: .didOpenDocument, object: sender)
         
         // Track document changes and update if needed
-        guard let documentURL = document.documentURL else { return }
-        documentObserver = FileObserver.init(URL: documentURL) {
-            DispatchQueue.main.async {
-                reloadDocument()
+        documentReloader?.cancel()
+        documentReloader = nil
+        if let documentURL = documentURL {
+            documentReloader = DocumentReloader(url: documentURL, shownData: data) { newDocument in
+                reloadDocument(newDocument)
             }
         }
         
@@ -197,32 +212,44 @@ class DocumentController {
     
     // MARK: Helpers
     
-    private static var loadDocumentTask: DispatchWorkItem?
-    
-    private static func reloadDocument() {
-        loadDocumentTask?.cancel()
+    /**
+     Swaps in a new version of the open document, after its file was rebuilt. Unlike opening a
+     document, this keeps the current page (clamped if the document got shorter), the notes, the
+     drawings (if the page count did not change) and the watcher.
+     */
+    private static func reloadDocument(_ newDocument: PDFDocument) {
+        guard document != nil else { return }
+        let pageCountChanged = newDocument.pageCount != pageCount
         
-        guard let documentURL = document?.documentURL else { return }
+        document = newDocument
         
-        let loadCompletion = { (pdfDocument: PDFDocument) in
-            DispatchQueue.main.async {
-                // Set global document
-                setDocument(pdfDocument, sender: self)
-                
-                // Update notes document to fill (new) empty pages
-                self.notesDocument?.fillContents(to: pdfDocument.pageCount)
-                
-                // Select the old current page
-                PageController.selectPage(at: PageController.currentPage, sender: self)
-            }
+        // Update notes document to fill (new) empty pages
+        notesDocument?.fillContents(to: newDocument.pageCount)
+        
+        // Drawings belong to page numbers, which are no longer reliable when pages were added or removed
+        if pageCountChanged {
+            drawings = [Int: Drawing]()
         }
         
-        loadDocumentTask = DispatchWorkItem {
-            guard let pdfDocument = PDFDocument(url: documentURL) else { return }
-            loadCompletion(pdfDocument)
-        }
+        let pageChanged = PageController.clampPages(toPageCount: newDocument.pageCount)
         
-        DispatchQueue.global().async(execute: loadDocumentTask!)
+        NotificationCenter.default.post(name: .didOpenDocument, object: self, userInfo: [isReloadKey: true])
+        if pageCountChanged {
+            NotificationCenter.default.post(name: .didUpdateDrawings, object: self)
+        }
+        if pageChanged {
+            PageController.notifyPageChange(sender: self)
+        }
+    }
+}
+
+
+
+
+extension Notification {
+    /** `true` for a `.didOpenDocument` notification sent because the open document was reloaded from disk. */
+    var isDocumentReload: Bool {
+        return userInfo?[DocumentController.isReloadKey] as? Bool ?? false
     }
 }
 

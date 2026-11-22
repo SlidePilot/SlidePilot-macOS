@@ -168,6 +168,8 @@ class PresenterViewController: NSViewController {
     // MARK: - Control Handlers
     
     @objc func documentDidChange(_ notification: Notification) {
+        // Keep the navigator open when the same document was reloaded
+        guard !notification.isDocumentReload else { return }
         hideNavigation(animated: false)
         DisplayController.setDisplayNavigator(false, sender: self)
     }

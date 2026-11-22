@@ -16,21 +16,24 @@ class RenderCache {
     class CacheKey: NSObject {
         let pageNumber: Int
         let displayMode: PDFPageView.DisplayMode
+        /** The document the page was rendered from, so a render of a replaced (reloaded) document finishing late is never served. */
+        let document: ObjectIdentifier?
         
-        init(pageNumber: Int, displayMode: PDFPageView.DisplayMode) {
+        init(pageNumber: Int, displayMode: PDFPageView.DisplayMode, document: PDFDocument?) {
             self.pageNumber = pageNumber
             self.displayMode = displayMode
+            self.document = document.map { ObjectIdentifier($0) }
         }
         
         override func isEqual(_ object: Any?) -> Bool {
             guard let other = object as? CacheKey else {
                 return false
             }
-            return self.pageNumber == other.pageNumber && self.displayMode == other.displayMode
+            return self.pageNumber == other.pageNumber && self.displayMode == other.displayMode && self.document == other.document
         }
         
         override var hash: Int {
-            return pageNumber.hashValue ^ displayMode.hashValue
+            return pageNumber.hashValue ^ displayMode.hashValue ^ (document?.hashValue ?? 0)
         }
     }
     
@@ -108,13 +111,13 @@ class RenderCache {
         }
         
         // Check if page is cached
-        if let cachedPage = self.cache.object(forKey: CacheKey(pageNumber: index, displayMode: mode)) {
+        if let cachedPage = self.cache.object(forKey: CacheKey(pageNumber: index, displayMode: mode, document: document)) {
             // Return cached page
             return cachedPage
         } else {
             // Render page instantly, save in cache and return rendered page
             guard let pdfImage = createImage(from: page, mode: mode) else { return nil }
-            self.cache.setObject(pdfImage, forKey: CacheKey(pageNumber: index, displayMode: mode))
+            self.cache.setObject(pdfImage, forKey: CacheKey(pageNumber: index, displayMode: mode, document: document))
             return pdfImage
         }
     }
@@ -178,13 +181,13 @@ class RenderCache {
             DispatchQueue.global(qos: .background).async {
                 
                 // Only render if not already cached
-                if !self.isCached(page: index, displayMode: mode) {
-                    // Prerender page
-                    guard let page = self.document?.page(at: index) else { return }
+                if !self.isCached(page: index, displayMode: mode, document: document) {
+                    // Prerender page (of the document this render was started for)
+                    guard let page = document.page(at: index) else { return }
                     guard let pdfImage = self.createImage(from: page, mode: mode) else { return }
                     
                     // Save to cache
-                    self.cache.setObject(pdfImage, forKey: CacheKey(pageNumber: index, displayMode: mode))
+                    self.cache.setObject(pdfImage, forKey: CacheKey(pageNumber: index, displayMode: mode, document: document))
                 }
             }
         }
@@ -194,8 +197,8 @@ class RenderCache {
     /**
      Checks if a given page for a given display mode is cached.
      */
-    private func isCached(page index: Int, displayMode mode: PDFPageView.DisplayMode) -> Bool {
-        return self.cache.object(forKey: CacheKey(pageNumber: index, displayMode: mode)) != nil
+    private func isCached(page index: Int, displayMode mode: PDFPageView.DisplayMode, document: PDFDocument) -> Bool {
+        return self.cache.object(forKey: CacheKey(pageNumber: index, displayMode: mode, document: document)) != nil
     }
     
     
