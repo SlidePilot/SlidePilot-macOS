@@ -203,6 +203,7 @@ class PDFPageView: NSImageView {
     
     private var movieBounds = [CGRect]()
     private var movieGeneration = 0
+    private var loopObservers = [NSObjectProtocol]()
 
     private func removeMovies() {
         movieGeneration += 1
@@ -230,6 +231,8 @@ class PDFPageView: NSImageView {
             withExtendedLifetime(retiredPlayers) {}
             withExtendedLifetime(retiredViews) {}
         }
+        loopObservers.forEach { NotificationCenter.default.removeObserver($0) }
+        loopObservers.removeAll()
         players.removeAll()
         playerViews.removeAll()
         movieBounds.removeAll()
@@ -253,6 +256,7 @@ class PDFPageView: NSImageView {
     private func installMovies() {
         guard let page = pdfDocument?.page(at: currentPage) else { return }
         let visibleBounds = displayMode.getBounds(for: page)
+        var autostartPlayers = [AVPlayer]()
         for movie in page.movieResources() {
             guard visibleBounds.intersects(movie.bounds),
                   let url = PDFMovieFiles.shared.url(for: movie.file, document: pdfDocument) else { continue }
@@ -265,12 +269,24 @@ class PDFPageView: NSImageView {
             players.append(player)
             playerViews.append(playerView)
             movieBounds.append(movie.bounds)
+            if movie.autostart { autostartPlayers.append(player) }
+            if movie.loop {
+                // Rewind at the end; removeMovies drops the observer on slide change.
+                player.actionAtItemEnd = .none
+                loopObservers.append(NotificationCenter.default.addObserver(
+                    forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { [weak player] _ in
+                        player?.seek(to: .zero)
+                        player?.play()
+                })
+            }
         }
         layoutMovies()
         if currentPage == PageController.currentPage,
            !connectToCurrentPlayer,
            DisplayController.notesPosition.displayModeForPresentation() == displayMode {
             ConnectedPlayer.sharedPlayers = players
+            // Only the shared owner plays, so connected views never double the audio.
+            autostartPlayers.forEach { $0.play() }
         }
     }
 

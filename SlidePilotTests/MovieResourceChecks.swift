@@ -17,9 +17,14 @@ let first = PDFMovieFiles.shared.url(for: movie.file, document: embedded)!
 let second = PDFMovieFiles.shared.url(for: movie.file, document: embedded)!
 precondition(first == second)
 precondition(try! Data(contentsOf: first) == Data("movie-bytes".utf8))
+precondition(!resources.contains(where: { $0.autostart || $0.loop }))
+let beamer = PDFDocument(url: fixtureDirectory.appendingPathComponent("autostart-movie.pdf"))!
+let options = beamer.page(at: 0)!.movieResources()
+precondition(options.map { $0.autostart } == [true, false, false])
+precondition(options.map { $0.loop } == [true, true, false])
 _ = PDFMovieFiles.shared.url(for: resources[0].file, document: linked)
 precondition(!FileManager.default.fileExists(atPath: first.path))
-print("Passed: annotation discovery, bounds, linked filenames, embedded extraction, shared URLs, cleanup")
+print("Passed: annotation discovery, bounds, linked filenames, embedded extraction, shared URLs, cleanup, autostart, loop")
 
 }
 }

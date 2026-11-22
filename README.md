@@ -17,7 +17,7 @@ SlidePilot for macOS is available on [slidepilotapp.com](https://www.slidepilota
 
 ## Movies in PDF slides
 
-SlidePilot plays PDF `Movie` annotations directly on the slide using native playback controls. Movies may reference a file beside the PDF (including filenames with spaces), an absolute file path, an HTTP(S) URL, or an embedded file specification. Presenter and audience views share playback. Changing slides stops the previous movie.
+SlidePilot plays PDF `Movie` annotations directly on the slide using native playback controls. Movies may reference a file beside the PDF (including filenames with spaces), an absolute file path, an HTTP(S) URL, or an embedded file specification. Presenter and audience views share playback. Changing slides stops the previous movie. A movie inserted with Beamer's `\movie[autostart]{poster}{file}` (from the `multimedia` package) starts playing as soon as its slide is shown. Add `loop` (or `repeat`) to replay the movie until you leave the slide, e.g. `\movie[autostart,loop]{poster}{file}`.
 
 Use a movie format supported by macOS AVPlayer, such as H.264 video in an MP4 container. PDFs that use Flash or `RichMedia` annotations are not supported by this implementation.
 
