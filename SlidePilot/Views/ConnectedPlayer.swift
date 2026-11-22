@@ -49,6 +49,34 @@ class ConnectedPlayer: AVPlayerView {
         unsubscribeSharedPlayers()
     }
 
+    // Until its first frame is ready an AVPlayerView is black. Keep the view
+    // transparent until then, so the poster in the PDF page stays visible.
+    private var readyObservation: NSKeyValueObservation?
+
+    override var player: AVPlayer? {
+        didSet { revealWhenReady() }
+    }
+
+    private func revealWhenReady() {
+        readyObservation = nil
+        guard let item = player?.currentItem, item.status == .unknown else {
+            alphaValue = 1
+            return
+        }
+        alphaValue = 0
+        readyObservation = item.observe(\.status, options: [.new]) { [weak self] item, _ in
+            guard item.status != .unknown else { return }
+            DispatchQueue.main.async {
+                guard let self = self, self.player?.currentItem === item else { return }
+                self.readyObservation = nil
+                NSAnimationContext.runAnimationGroup { context in
+                    context.duration = 0.2
+                    self.animator().alphaValue = 1
+                }
+            }
+        }
+    }
+
     override func keyDown(with event: NSEvent) {
         // Forward key events to window
         self.window?.keyDown(with: event)
